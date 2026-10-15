@@ -6,22 +6,22 @@ import {
 	normalizeCanonicalNetworkEndpoint,
 } from '@fluxer/instance_bootstrap/src/NetworkOrigin';
 
-export const OFFICIAL_INSTANCE_NAME = 'Fluxer';
+export const OFFICIAL_INSTANCE_NAME = 'Pirichat';
 
-export const OFFICIAL_INSTANCE_DISPLAY_HOST = 'fluxer.app';
+export const OFFICIAL_INSTANCE_DISPLAY_HOST = 'pirichat.online';
 
 export const OFFICIAL_STABLE_MARKETING_ORIGIN = `https://${OFFICIAL_INSTANCE_DISPLAY_HOST}`;
 
 export const OFFICIAL_CLIENT_API_ENDPOINTS = Object.freeze({
-	stable: 'https://web.fluxer.app/api',
-	canary: 'https://web.canary.fluxer.app/api',
+	stable: 'https://pirichat.online/api',
+	canary: 'https://pirichat.online/api',
 } as const);
 
 export type OfficialReleaseChannel = keyof typeof OFFICIAL_CLIENT_API_ENDPOINTS;
 
 export const OFFICIAL_MARKETING_ORIGINS = Object.freeze({
 	stable: OFFICIAL_STABLE_MARKETING_ORIGIN,
-	canary: 'https://canary.fluxer.app',
+	canary: 'https://pirichat.online',
 } as const) satisfies Record<OfficialReleaseChannel, string>;
 
 export function officialMarketingOrigin(releaseChannel: string | null | undefined): string {

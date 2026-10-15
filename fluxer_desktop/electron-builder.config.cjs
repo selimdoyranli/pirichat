@@ -8,46 +8,46 @@ const {promisify} = require('node:util');
 const execFileAsync = promisify(execFile);
 const CHANNELS = {
 	stable: {
-		productName: 'Micup',
-		linuxOptDirName: 'Micup',
-		artifactProductName: 'Micup',
-		appId: 'gg.micup.desktop',
+		productName: 'Pirichat',
+		linuxOptDirName: 'Pirichat',
+		artifactProductName: 'Pirichat',
+		appId: 'online.pirichat.desktop',
 		iconDirectory: 'icons-stable',
-		packageName: 'micup_desktop',
-		linuxPackageName: 'micup',
-		linuxDesktopId: 'micup',
+		packageName: 'pirichat_desktop',
+		linuxPackageName: 'pirichat',
+		linuxDesktopId: 'pirichat',
 		linuxComment: 'Instant messaging and VoIP',
-		protocolScheme: 'micup',
+		protocolScheme: 'pirichat',
 		macEntitlements: 'build_resources/entitlements.mac.development.plist',
 		notarize: true,
 		provisioningProfile: null,
 	},
 	canary: {
-		productName: 'Micup Canary',
-		linuxOptDirName: 'micup-canary',
-		artifactProductName: 'Micup-Canary',
-		appId: 'gg.micup.desktop.canary',
+		productName: 'Pirichat Canary',
+		linuxOptDirName: 'pirichat-canary',
+		artifactProductName: 'Pirichat-Canary',
+		appId: 'online.pirichat.desktop.canary',
 		iconDirectory: 'icons-canary',
-		packageName: 'micup_desktop_canary',
-		linuxPackageName: 'micup-canary',
-		linuxDesktopId: 'micup-canary',
-		linuxComment: 'Canary build of Micup',
-		protocolScheme: 'micup',
+		packageName: 'pirichat_desktop_canary',
+		linuxPackageName: 'pirichat-canary',
+		linuxDesktopId: 'pirichat-canary',
+		linuxComment: 'Canary build of Pirichat',
+		protocolScheme: 'pirichat',
 		macEntitlements: 'build_resources/entitlements.mac.development.plist',
 		notarize: true,
 		provisioningProfile: null,
 	},
 	development: {
-		productName: 'Micup Development',
-		linuxOptDirName: 'micup-development',
-		artifactProductName: 'Micup-Development',
-		appId: 'gg.micup.desktop.development',
+		productName: 'Pirichat Development',
+		linuxOptDirName: 'pirichat-development',
+		artifactProductName: 'Pirichat-Development',
+		appId: 'online.pirichat.desktop.development',
 		iconDirectory: 'icons-development',
-		packageName: 'micup_desktop_development',
-		linuxPackageName: 'micup-development',
-		linuxDesktopId: 'micup-development',
-		linuxComment: 'Development build of Micup',
-		protocolScheme: 'micup-development',
+		packageName: 'pirichat_desktop_development',
+		linuxPackageName: 'pirichat-development',
+		linuxDesktopId: 'pirichat-development',
+		linuxComment: 'Development build of Pirichat',
+		protocolScheme: 'pirichat-development',
 		macEntitlements: 'build_resources/entitlements.mac.development.plist',
 		notarize: false,
 		provisioningProfile: null,
@@ -61,7 +61,7 @@ if (!channel) {
 }
 
 if (buildChannel === 'development' && process.argv.includes('msix')) {
-	throw new Error('Development builds cannot use the Micup Store package identity.');
+	throw new Error('Development builds cannot use the Pirichat Store package identity.');
 }
 
 const isLinuxBuild = process.argv.includes('--linux');
@@ -113,9 +113,10 @@ const targetArchs = electronArch && electronArch !== 'universal' ? [electronArch
 const macTargetArchs = targetNativeArch ? [targetNativeArch] : supportedTargetArchs;
 const winGameCaptureTargetArchs =
 	targetPlatform === 'win32' && targetNativeArch ? [targetNativeArch] : supportedTargetArchs;
+// PIRICHAT_WIN_TARGET=nsis builds a one-file installer for the unsigned self-built release.
 const winTargets = [
 	{
-		target: 'dir',
+		target: process.env.PIRICHAT_WIN_TARGET || 'dir',
 		arch: targetArchs,
 	},
 ];
@@ -1412,7 +1413,7 @@ const agplLicenseFile = [{from: 'LICENSE', to: 'LICENSE.txt'}];
 module.exports = {
 	appId,
 	productName: installedProductName,
-	copyright: 'Copyright © 2026 Fluxer Platform AB and Micup',
+	copyright: 'Copyright © 2026 Fluxer Platform AB and Pirichat',
 	artifactName: `${artifactProductName}-\${version}-\${os}-\${arch}.\${ext}`,
 	directories: {
 		buildResources: 'build_resources',
@@ -1432,9 +1433,9 @@ module.exports = {
 	extraMetadata: {
 		main: 'dist/main/index.js',
 		name: metadataName,
-		// Micup publishes this build: the author becomes the exe's CompanyName (Windows "Publisher").
-		author: {name: 'Micup', email: 'info@sanalyer.com'},
-		homepage: 'https://micup.gg',
+		// Pirichat publishes this build: the author becomes the exe's CompanyName (Windows "Publisher").
+		author: {name: 'Pirichat'},
+		homepage: 'https://pirichat.online',
 		...(process.env.VERSION ? {version: process.env.VERSION} : {}),
 		...(targetPlatform === 'linux' ? {desktopName: `${linuxDesktopId}.desktop`} : {}),
 	},
@@ -1552,6 +1553,8 @@ module.exports = {
 		extraResources: agplLicenseFile,
 		notarize: channel.notarize,
 		sign: {
+			// No Developer ID cert configured: ad-hoc sign so Apple Silicon still launches the app.
+			...(process.env.CSC_LINK || process.env.CSC_KEYCHAIN || process.env.CSC_NAME ? {} : {identity: '-'}),
 			hardenedRuntime: true,
 			...(channel.provisioningProfile ? {provisioningProfile: channel.provisioningProfile} : {}),
 			entitlements: channel.macEntitlements,
@@ -1568,13 +1571,13 @@ module.exports = {
 			},
 		],
 		extendInfo: {
-			NSMicrophoneUsageDescription: 'Micup needs access to your microphone to enable voice chat features.',
-			NSCameraUsageDescription: 'Micup needs access to your camera to enable video chat features.',
-			NSAppleEventsUsageDescription: 'Micup needs access to Apple Events for automation features.',
-			NSAudioCaptureUsageDescription: 'Micup captures audio from the screen or window you choose to share.',
-			NSScreenCaptureUsageDescription: 'Micup captures the screen or window you choose to share.',
+			NSMicrophoneUsageDescription: 'Pirichat needs access to your microphone to enable voice chat features.',
+			NSCameraUsageDescription: 'Pirichat needs access to your camera to enable video chat features.',
+			NSAppleEventsUsageDescription: 'Pirichat needs access to Apple Events for automation features.',
+			NSAudioCaptureUsageDescription: 'Pirichat captures audio from the screen or window you choose to share.',
+			NSScreenCaptureUsageDescription: 'Pirichat captures the screen or window you choose to share.',
 			NSLocalNetworkUsageDescription:
-				'Micup needs local network access to reach a Micup instance you host on your own network. It never scans your network or connects to devices you have not pointed it at.',
+				'Pirichat needs local network access to reach a Pirichat instance you host on your own network. It never scans your network or connects to devices you have not pointed it at.',
 		},
 	},
 	dmg: {
@@ -1597,11 +1600,11 @@ module.exports = {
 		extraFiles: agplLicenseFile,
 	},
 	msix: {
-		// Partner Center > Micup (9P1SNJ2H2W9H) > Product identity; applicationId as in the published 0.4.4.0 package (keeps pinned tiles).
-		identityName: 'Micup.Micup',
+		// Partner Center > Pirichat (9P1SNJ2H2W9H) > Product identity; applicationId as in the published 0.4.4.0 package (keeps pinned tiles).
+		identityName: 'Pirichat.Pirichat',
 		publisher: 'CN=6B905D36-79B1-4EA5-8E9B-F18A23784188',
-		publisherDisplayName: 'Micup',
-		applicationId: 'Micup',
+		publisherDisplayName: 'Pirichat',
+		applicationId: 'Pirichat',
 		backgroundColor: '#0b0b0c',
 		languages: ['tr-TR', 'en-US'],
 		setBuildNumber: false,

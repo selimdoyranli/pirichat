@@ -1,0 +1,208 @@
+name: pirichat desktop
+
+# Unsigned self-built shell with the renderer bundled in (FLUXER_OFFLINE), no module feed or updater backend.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  BUILD_CHANNEL: stable
+  RELEASE_CHANNEL: stable
+  PUBLIC_RELEASE_CHANNEL: stable
+  FLUXER_OFFLINE: "1"
+
+jobs:
+  renderer:
+    name: Build renderer
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - name: Checkout CI helpers
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          path: _ci
+
+      - name: Checkout source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          path: source
+
+      - name: Set up Rust toolchain
+        uses: dtolnay/rust-toolchain@02cb101ec7c40f2c49e1d9714d64511d8e1b74de
+        with:
+          toolchain: "1.98.1"
+          targets: wasm32-unknown-unknown
+
+      - name: Resolve version
+        id: version
+        # Fluxer CalVer: YYYY.MDD.HHMMSS (UTC, no leading zeroes)
+        run: echo "version=$(date -u +%Y).$(date -u +%-m%d).$(date -u +%-H%M%S)" >> "$GITHUB_OUTPUT"
+
+      - name: Set workdir
+        env:
+          SUBST_TARGET: ${{ github.workspace }}/source
+        run: cargo run --locked --quiet --manifest-path _ci/tools/ci/Cargo.toml -- build-desktop --step set_workdir_unix
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26
+
+      - name: Set up pnpm
+        run: cargo run --locked --quiet --manifest-path _ci/tools/ci/Cargo.toml -- build-desktop --step setup_pnpm
+
+      - name: Install dependencies
+        working-directory: source/fluxer_desktop
+        run: pnpm install --frozen-lockfile
+
+      - name: Build renderer
+        working-directory: source/fluxer_desktop
+        env:
+          NODE_ENV: production
+          FLUXER_DESKTOP_PRODUCTION: "true"
+          BUILD_VERSION: ${{ steps.version.outputs.version }}
+          PUBLIC_BUILD_VERSION: ${{ steps.version.outputs.version }}
+        run: pnpm exec node scripts/build.mjs --shared-assets
+
+      - name: Upload renderer
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: renderer
+          path: source/fluxer_desktop/dist/renderer
+          retention-days: 1
+
+  build:
+    name: Build ${{ matrix.platform }}
+    needs: renderer
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: macos
+            os: macos-15
+            electron_arch: universal
+          - platform: windows
+            os: windows-2025
+            electron_arch: x64
+    env:
+      VERSION: ${{ needs.renderer.outputs.version }}
+      BUILD_VERSION: ${{ needs.renderer.outputs.version }}
+      PUBLIC_BUILD_VERSION: ${{ needs.renderer.outputs.version }}
+      ARCH: ${{ matrix.electron_arch }}
+      ELECTRON_ARCH: ${{ matrix.electron_arch }}
+    steps:
+      - name: Checkout CI helpers
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          path: _ci
+
+      - name: Checkout source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          path: source
+
+      - name: Set up Rust toolchain (CI helpers)
+        uses: dtolnay/rust-toolchain@02cb101ec7c40f2c49e1d9714d64511d8e1b74de
+        with:
+          toolchain: "1.98.1"
+
+      - name: Set up Python (Windows)
+        if: runner.os == 'Windows'
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: "3.14"
+
+      - name: Ensure python3 command (Windows)
+        if: runner.os == 'Windows'
+        run: cargo run --locked --quiet --manifest-path ${{ github.workspace }}/_ci/tools/ci/Cargo.toml -- build-desktop --step ensure_python3_windows
+
+      - name: Shorten Windows paths
+        if: runner.os == 'Windows'
+        env:
+          SUBST_TARGET: ${{ github.workspace }}/source
+        run: cargo run --locked --quiet --manifest-path ${{ github.workspace }}/_ci/tools/ci/Cargo.toml -- build-desktop --step windows_paths
+
+      - name: Set workdir (Unix)
+        if: runner.os != 'Windows'
+        env:
+          SUBST_TARGET: ${{ github.workspace }}/source
+        run: cargo run --locked --quiet --manifest-path ${{ github.workspace }}/_ci/tools/ci/Cargo.toml -- build-desktop --step set_workdir_unix
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26
+
+      - name: Set up pnpm
+        run: cargo run --locked --quiet --manifest-path ${{ github.workspace }}/_ci/tools/ci/Cargo.toml -- build-desktop --step setup_pnpm
+
+      - name: Install Python setuptools (macOS)
+        if: runner.os == 'macOS'
+        run: cargo run --locked --quiet --manifest-path ${{ github.workspace }}/_ci/tools/ci/Cargo.toml -- build-desktop --step install_setuptools_macos
+
+      - name: Set up Rust toolchain (macOS)
+        if: runner.os == 'macOS'
+        uses: dtolnay/rust-toolchain@02cb101ec7c40f2c49e1d9714d64511d8e1b74de
+        with:
+          toolchain: "1.98.1"
+          targets: aarch64-apple-darwin,x86_64-apple-darwin
+
+      - name: Set up MSVC env (Windows)
+        if: runner.os == 'Windows'
+        uses: TheMrMilchmann/setup-msvc-dev@368ef7d1ee4d1171b31d4a7f67f4d954f903f5a9
+        with:
+          arch: amd64
+
+      - name: Set up Rust toolchain (Windows)
+        if: runner.os == 'Windows'
+        run: cargo run --locked --quiet --manifest-path ${{ github.workspace }}/_ci/tools/ci/Cargo.toml -- build-desktop --step install_rust_windows_targets
+
+      - name: Install dependencies
+        working-directory: ${{ env.WORKDIR }}/fluxer_desktop
+        run: pnpm install --frozen-lockfile
+
+      - name: Update version
+        working-directory: ${{ env.WORKDIR }}/fluxer_desktop
+        run: pnpm version ${{ env.VERSION }} --no-git-tag-version --allow-same-version
+
+      - name: Download renderer
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: renderer
+          path: ${{ env.WORKDIR }}/fluxer_desktop/dist/renderer
+
+      - name: Build Electron main process and native addons
+        working-directory: ${{ env.WORKDIR }}/fluxer_desktop
+        env:
+          NODE_ENV: production
+          FLUXER_DESKTOP_PRODUCTION: "true"
+        run: pnpm exec node scripts/build.mjs --use-shared-renderer
+
+      - name: Package (macOS dmg)
+        if: runner.os == 'macOS'
+        working-directory: ${{ env.WORKDIR }}/fluxer_desktop
+        run: pnpm exec electron-builder --config electron-builder.config.cjs --mac dmg --universal
+
+      - name: Package (Windows installer)
+        if: runner.os == 'Windows'
+        working-directory: ${{ env.WORKDIR }}/fluxer_desktop
+        env:
+          PIRICHAT_WIN_TARGET: nsis
+          TEMP: C:\t
+          TMP: C:\t
+        run: pnpm exec electron-builder --config electron-builder.config.cjs --win --x64
+
+      - name: Upload installer
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: pirichat-${{ matrix.platform }}
+          path: |
+            ${{ env.WORKDIR }}/fluxer_desktop/dist-electron/*.dmg
+            ${{ env.WORKDIR }}/fluxer_desktop/dist-electron/*.exe
+          if-no-files-found: error

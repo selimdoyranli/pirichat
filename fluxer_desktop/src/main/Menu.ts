@@ -201,20 +201,20 @@ function buildTemplate(): Array<MenuItemConstructorOptions> {
 			{
 				label: t('desktop.appMenu.website'),
 				click: async () => {
-					await openExternalDeduped('https://micup.gg');
+					await openExternalDeduped('https://pirichat.online');
 				},
 			},
 			{
 				label: t('desktop.appMenu.sourceCode'),
 				click: async () => {
-					await openExternalDeduped('https://micup.gg/yasal/kaynak');
+					await openExternalDeduped('https://github.com/selimdoyranli/pirichat');
 				},
 			},
 			{type: 'separator'},
 			{
 				label: t('desktop.appMenu.reportIssue'),
 				click: async () => {
-					await openExternalDeduped('mailto:info@sanalyer.com');
+					await openExternalDeduped('https://github.com/selimdoyranli/pirichat/issues');
 				},
 			},
 			{type: 'separator'},

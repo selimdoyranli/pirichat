@@ -65,7 +65,7 @@ export function InstancePickerRows({
 }: InstancePickerRowsProps) {
 	const {i18n} = useLingui();
 	const isDiscovering = discoveryStatus === InstanceDiscoveryStatus.DISCOVERING;
-	const showOfficialInstance = OFFICIAL_INSTANCE_DISPLAY_HOST.toLowerCase() === 'sanalyer.com';
+	const showOfficialInstance = OFFICIAL_INSTANCE_DISPLAY_HOST.toLowerCase() === 'pirichat.online';
 	const handleKnownInstanceContextMenu = useCallback(
 		(event: MouseEvent<HTMLButtonElement>, instance: InstanceInfo) => {
 			if (disabled || isDiscovering) {
