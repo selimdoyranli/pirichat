@@ -61,7 +61,31 @@ fn desktop_release_platform(platform: &str) -> Result<&'static DesktopReleasePla
         .ok_or_else(|| anyhow!("Unsupported desktop release platform {platform:?}"))
 }
 
+// sanalyer: FLUXER_DESKTOP_SKIP_TARGETS carries the workflow's skip_targets list (matrix tokens such as
+// "windows-arm64,linux-arm64" or a whole platform "macos") into the release steps, so a release ships the
+// coordinates that were built instead of demanding every platform and arch.
+fn skipped_release_coordinate(platform: &str, arch: &str, skipped: &[String]) -> bool {
+    let matrix_platform = match platform {
+        "win32" => "windows",
+        "darwin" => "macos",
+        other => other,
+    };
+    let matrix_arch = format!("{matrix_platform}-{arch}");
+    skipped
+        .iter()
+        .any(|token| token == matrix_platform || *token == matrix_arch)
+}
+
 pub(crate) fn desktop_release_coordinates() -> Vec<(&'static str, &'static str)> {
+    let skipped = std::env::var("FLUXER_DESKTOP_SKIP_TARGETS")
+        .ok()
+        .map(|raw| {
+            raw.split(',')
+                .map(|token| token.trim().to_ascii_lowercase())
+                .filter(|token| !token.is_empty())
+                .collect::<Vec<_>>()
+        })
+        .unwrap_or_default();
     DESKTOP_RELEASE_PLATFORMS
         .iter()
         .flat_map(|entry| {
@@ -69,6 +93,7 @@ pub(crate) fn desktop_release_coordinates() -> Vec<(&'static str, &'static str)>
                 .iter()
                 .map(move |arch| (entry.platform, *arch))
         })
+        .filter(|(platform, arch)| !skipped_release_coordinate(platform, arch, &skipped))
         .collect()
 }
 
@@ -92,16 +117,17 @@ fn desktop_release_coordinate_routes(entry: &DesktopReleasePlatform) -> usize {
         + usize::from(entry.update_payload_suffix.is_some())
 }
 
+// Both counts follow desktop_release_coordinates(), so a release built without some targets (sanalyer skips the
+// arm64 Windows and Linux builds) is measured against the coordinates it actually ships.
 fn desktop_release_route_inventory() -> BTreeMap<String, usize> {
-    DESKTOP_RELEASE_PLATFORMS
-        .iter()
-        .flat_map(|entry| {
-            DESKTOP_RELEASE_ARCHES.iter().map(move |arch| {
-                (
-                    format!("{}/{arch}", entry.platform),
-                    desktop_release_coordinate_routes(entry),
-                )
-            })
+    desktop_release_coordinates()
+        .into_iter()
+        .filter_map(|(platform, arch)| {
+            let entry = desktop_release_platform(platform).ok()?;
+            Some((
+                format!("{platform}/{arch}"),
+                desktop_release_coordinate_routes(entry),
+            ))
         })
         .collect()
 }
@@ -111,13 +137,21 @@ fn desktop_release_route_count() -> usize {
 }
 
 fn desktop_release_asset_count() -> usize {
+    let coordinates = desktop_release_coordinates();
     DESKTOP_RELEASE_PLATFORMS
         .iter()
         .map(|entry| {
+            let arches = coordinates
+                .iter()
+                .filter(|(platform, _)| *platform == entry.platform)
+                .count();
+            if arches == 0 {
+                return 0;
+            }
             let builds = if entry.one_build_serves_every_arch {
                 1
             } else {
-                DESKTOP_RELEASE_ARCHES.len()
+                arches
             };
             let feeds = entry
                 .updater_feeds
@@ -126,8 +160,7 @@ fn desktop_release_asset_count() -> usize {
                 .collect::<BTreeSet<_>>()
                 .len();
             entry.shipped_formats.len() * builds
-                + (feeds + usize::from(entry.update_payload_suffix.is_some()))
-                    * DESKTOP_RELEASE_ARCHES.len()
+                + (feeds + usize::from(entry.update_payload_suffix.is_some())) * arches
         })
         .sum()
 }
