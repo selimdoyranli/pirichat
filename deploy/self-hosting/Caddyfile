@@ -43,6 +43,12 @@
 		reverse_proxy admin:8080
 	}
 
+	# pirichat: landing, download and legal pages live in the static image (fluxer_static/landing).
+	@landing path / /marketing /indir /gizlilik /kullanim-kosullari /tanitim/*
+	handle @landing {
+		reverse_proxy static-proxy:8080
+	}
+
 	@staticAssets path /web/* /emoji/* /libs/* /avatars/* /badges/* /desktop/* /rooms/*
 	handle @staticAssets {
 		reverse_proxy static-proxy:8080

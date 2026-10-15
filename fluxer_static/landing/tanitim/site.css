@@ -1,0 +1,152 @@
+/* pirichat landing: dark, black / white / red from the logo. Shared by /, /indir and the legal pages. */
+:root {
+  --zemin: #08080e;
+  --yuzey: #111119;
+  --yuzey-2: #17171f;
+  --kenar: #26262f;
+  --metin: #f4f4f6;
+  --soluk: #a1a1ad;
+  --kirmizi: #fc012d;
+  --kirmizi-koyu: #c80024;
+  --beyaz: #ffffff;
+  --bosluk: 16px;
+  --en: 1200px;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--zemin);
+  color: var(--metin);
+  font-family: 'Rubik', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 18px;
+  line-height: 1.55;
+}
+a { color: inherit; }
+img { max-width: 100%; height: auto; display: block; }
+.kap { max-width: var(--en); margin: 0 auto; padding: 0 var(--bosluk); }
+@media (min-width: 720px) { :root { --bosluk: 32px; } }
+:focus-visible { outline: 3px solid var(--kirmizi); outline-offset: 3px; border-radius: 6px; }
+
+/* Header */
+.ust { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; gap: 16px; }
+.marka { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.marka img { width: 38px; height: 38px; border-radius: 10px; }
+.marka span { font-weight: 800; font-size: 24px; letter-spacing: -0.02em; color: var(--beyaz); }
+.ust nav { display: flex; align-items: center; gap: 22px; }
+.ust nav a.dip { text-decoration: none; font-weight: 500; color: var(--soluk); display: none; }
+.ust nav a.dip:hover { color: var(--beyaz); }
+@media (min-width: 720px) { .ust nav a.dip { display: inline; } }
+
+/* Buttons */
+.dugme {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 0 22px; border-radius: 14px;
+  font: 700 17px/1 'Rubik', system-ui, sans-serif; text-decoration: none;
+  border: 2px solid var(--beyaz); transition: transform .12s ease, background-color .12s ease, color .12s ease;
+}
+.dugme:hover { transform: translateY(-1px); }
+.dugme:active { transform: translateY(1px); }
+.dugme.dolu { background: var(--kirmizi); border-color: var(--kirmizi); color: var(--beyaz); }
+.dugme.dolu:hover { background: var(--kirmizi-koyu); border-color: var(--kirmizi-koyu); }
+.dugme.bos { background: transparent; color: var(--beyaz); border-color: var(--kenar); }
+.dugme.bos:hover { border-color: var(--beyaz); }
+.dugme.kucuk { min-height: 40px; padding: 0 16px; font-size: 15px; border-radius: 12px; }
+
+/* Headings */
+h1 {
+  font-weight: 800; letter-spacing: -0.045em; line-height: 0.95;
+  font-size: clamp(52px, 11vw, 124px); margin: 0 0 24px; color: var(--beyaz);
+}
+h1 .parca { display: inline-flex; align-items: flex-end; gap: 0.08em; }
+/* The red square with a slash from the logo. */
+h1 .kare {
+  display: inline-block; width: 0.38em; height: 0.38em; border-radius: 0.04em;
+  background: linear-gradient(135deg, var(--kirmizi) 0 44%, var(--zemin) 44% 56%, var(--kirmizi) 56%);
+  transform: translateY(-0.14em);
+}
+@media (prefers-reduced-motion: no-preference) {
+  h1 .kare { animation: otur 800ms cubic-bezier(.3,1.5,.5,1) 300ms both; }
+  @keyframes otur { from { transform: translateY(-1.4em); opacity: 0; } 60% { opacity: 1; } to { transform: translateY(-0.14em); } }
+}
+h2 {
+  font-weight: 800; letter-spacing: -0.035em; line-height: 1.02;
+  font-size: clamp(36px, 6vw, 64px); margin: 0 0 20px; max-width: 16ch; color: var(--beyaz);
+}
+.vurgu { color: var(--kirmizi); }
+
+/* Hero */
+.kahraman { display: grid; gap: 28px; padding: 24px 0 64px; align-items: center; }
+@media (min-width: 980px) { .kahraman { grid-template-columns: 5fr 6fr; gap: 40px; padding: 40px 0 96px; } }
+p.alt { font-size: clamp(19px, 2.2vw, 22px); max-width: 32ch; margin: 0 0 32px; color: var(--soluk); }
+.eylem { display: flex; flex-wrap: wrap; gap: 12px; }
+.not { margin-top: 18px; font-size: 15px; color: var(--soluk); }
+.kahraman figure { margin: 0; }
+.kahraman figure img { width: 100%; filter: drop-shadow(0 30px 40px rgba(252, 1, 45, .14)); }
+figcaption { font-size: 14px; text-align: right; margin-top: 4px; color: var(--soluk); }
+
+/* Sections */
+.bolum { padding: 80px 0; }
+@media (min-width: 980px) { .bolum { padding: 112px 0; } }
+.koyu { background: var(--yuzey); border-top: 1px solid var(--kenar); border-bottom: 1px solid var(--kenar); }
+.giris { color: var(--soluk); font-size: 20px; max-width: 46ch; margin: 0; }
+
+.oda { display: grid; gap: 24px; align-items: center; margin-top: 72px; }
+@media (min-width: 900px) { .oda { grid-template-columns: 1fr 1fr; gap: 56px; } .oda.ters figure { order: 2; } }
+.oda figure { margin: 0; }
+.oda h3 { font-weight: 700; font-size: clamp(28px, 3.4vw, 38px); letter-spacing: -0.025em; line-height: 1.1; margin: 0 0 12px; color: var(--beyaz); }
+.oda p { margin: 0 0 12px; max-width: 44ch; color: var(--soluk); }
+.liste { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; padding: 0; list-style: none; }
+.liste li { border: 1.5px solid var(--kenar); border-radius: 999px; padding: 4px 14px; font-size: 15px; }
+.masa img { border-radius: 20px; }
+
+/* Feature grid */
+.seritler { display: grid; gap: 1px; background: var(--kenar); border: 1px solid var(--kenar); border-radius: 24px; overflow: hidden; margin-top: 48px; }
+@media (min-width: 760px) { .seritler { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1080px) { .seritler { grid-template-columns: repeat(4, 1fr); } }
+.serit { background: var(--zemin); padding: 28px 24px 32px; }
+.serit h3 { font-weight: 700; font-size: 22px; letter-spacing: -0.015em; margin: 0 0 8px; color: var(--beyaz); }
+.serit p { margin: 0; font-size: 16.5px; color: var(--soluk); }
+code { font-family: inherit; font-weight: 700; background: var(--yuzey-2); color: var(--kirmizi); border: 1px solid var(--kenar); padding: 1px 7px; border-radius: 6px; font-size: .95em; }
+
+/* FAQ */
+.sss { max-width: 760px; }
+.sss details { border-top: 1px solid var(--kenar); padding: 18px 0; }
+.sss details:last-of-type { border-bottom: 1px solid var(--kenar); }
+.sss summary { cursor: pointer; font-weight: 700; font-size: 20px; list-style: none; display: flex; justify-content: space-between; gap: 16px; color: var(--beyaz); }
+.sss summary::-webkit-details-marker { display: none; }
+.sss summary::after { content: '+'; font-weight: 800; font-size: 26px; line-height: 1; color: var(--kirmizi); }
+.sss details[open] summary::after { content: '–'; }
+.sss details p { margin: 10px 0 0; max-width: 60ch; color: var(--soluk); }
+
+/* Download page */
+.one { background: var(--yuzey); border: 1px solid var(--kenar); border-radius: 24px; padding: 32px; margin: 8px 0 40px; }
+.one h2 { font-size: clamp(28px, 4vw, 40px); margin-bottom: 8px; max-width: none; }
+.one p { color: var(--soluk); margin: 0 0 24px; }
+.hepsi { display: grid; gap: 16px; }
+@media (min-width: 860px) { .hepsi { grid-template-columns: repeat(3, 1fr); } }
+.plat { background: var(--yuzey); border: 1px solid var(--kenar); border-radius: 20px; padding: 24px; }
+.plat h3 { margin: 0 0 4px; font-size: 22px; color: var(--beyaz); }
+.plat p { margin: 0 0 16px; color: var(--soluk); font-size: 15px; }
+.plat ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.plat li a { color: var(--beyaz); text-decoration: none; font-weight: 500; }
+.plat li a:hover { color: var(--kirmizi); }
+.plat li a::before { content: '↓ '; color: var(--kirmizi); }
+.plat.sen { border-color: var(--kirmizi); }
+
+/* Legal pages */
+.metin { max-width: 720px; padding: 24px 0 80px; }
+main.indir { padding-top: 24px; }
+.metin h1 { font-size: clamp(40px, 7vw, 64px); }
+.metin h2 { font-size: 26px; margin: 36px 0 10px; max-width: none; }
+.metin p, .metin li { color: var(--soluk); }
+.metin ul { padding-left: 22px; }
+
+/* Closing + footer */
+.kapanis .eylem { margin-top: 28px; }
+footer { border-top: 1px solid var(--kenar); padding: 28px 0 40px; font-size: 15px; color: var(--soluk); }
+footer .kap { display: flex; flex-wrap: wrap; gap: 12px 28px; justify-content: space-between; }
+footer nav { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+footer a { text-decoration: none; }
+footer a:hover { color: var(--beyaz); text-decoration: underline; text-underline-offset: 3px; }

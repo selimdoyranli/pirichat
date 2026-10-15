@@ -37,5 +37,18 @@
 		Cache-Control "public, max-age=31536000, immutable"
 	}
 
+	# pirichat landing (fluxer_static/landing): the edge sends /, /marketing, /indir, the legal pages and /tanitim/* here.
+	@landingHtml path / /marketing /indir /gizlilik /kullanim-kosullari
+	header @landingHtml {
+		defer
+		Cache-Control "no-cache"
+	}
+	@landingHome path / /marketing
+	rewrite @landingHome /landing/index.html
+	@landingPage path /indir /gizlilik /kullanim-kosullari
+	rewrite @landingPage /landing{path}/index.html
+	@landingAsset path /tanitim/*
+	rewrite @landingAsset /landing{path}
+
 	file_server
 }

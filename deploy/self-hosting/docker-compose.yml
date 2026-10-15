@@ -908,6 +908,22 @@ services:
     depends_on:
       api: {condition: service_healthy}
 
+  # pirichat music bot (fluxer_music_bot): joins voice channels as a normal bot account and plays audio over LiveKit.
+  # It waits idle until PIRICHAT_MUSIC_BOT_TOKEN holds the bot token of a pirichat bot application.
+  music-bot:
+    <<: *fluxer-service
+    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-music-bot:${FLUXER_IMAGE_TAG:-v1}
+    deploy:
+      resources:
+        limits:
+          memory: ${PIRICHAT_MUSIC_BOT_MEMORY_LIMIT:-384mb}
+    environment:
+      FLUXER_BOT_TOKEN: ${PIRICHAT_MUSIC_BOT_TOKEN:-}
+      FLUXER_INSTANCE: ${PIRICHAT_MUSIC_BOT_INSTANCE:-https://pirichat.online}
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m
+
 networks:
   fluxer:
     driver: bridge

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>pirichat'ı indir: Mac ve Windows</title>
+<meta name="description" content="pirichat masaüstü uygulaması: Mac ve Windows için indir.">
+<meta name="theme-color" content="#08080e">
+<link rel="icon" href="/tanitim/favicon.png" type="image/png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pirichat.online/indir">
+<meta property="og:title" content="pirichat'ı indir">
+<meta property="og:image" content="https://pirichat.online/tanitim/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tanitim/site.css">
+</head>
+<body>
+<div class="kap">
+  <header class="ust">
+    <a class="marka" href="/" aria-label="pirichat ana sayfa">
+      <img src="/tanitim/logo.png" width="38" height="38" alt="">
+      <span>pirichat</span>
+    </a>
+    <nav aria-label="Sayfa">
+      <a class="dugme bos kucuk" href="/channels/@me">Tarayıcıda aç</a>
+    </nav>
+  </header>
+
+  <main class="indir">
+    <h1>Masaüstünde <span class="parca">pirichat<span class="kare" aria-hidden="true"></span></span></h1>
+    <p class="alt">Sistem genelinde bas-konuş, oyun aktivitesi, tepsi ikonu ve bildirimler için masaüstü uygulaması. Tarayıcıdaki her şey burada da var.</p>
+
+    <section class="one" aria-labelledby="one-baslik">
+      <h2 id="one-baslik">Platformunu seç</h2>
+      <p id="one-aciklama">Aşağıdan işletim sistemine uygun paketi indir.</p>
+      <div class="eylem" id="one-eylem">
+        <a class="dugme bos" href="/channels/@me">Tarayıcıda aç</a>
+      </div>
+    </section>
+
+    <!-- Download links are placeholders until the release packages are published. -->
+    <section class="hepsi" aria-label="Tüm platformlar">
+      <div class="plat" id="plat-darwin">
+        <h3>Mac</h3>
+        <p>macOS 12 ve üzeri. Apple Silicon ve Intel.</p>
+        <ul><li><a href="#" data-ana="DMG indir">DMG indir</a></li></ul>
+      </div>
+      <div class="plat" id="plat-win32">
+        <h3>Windows</h3>
+        <p>Windows 10 ve 11, 64 bit.</p>
+        <ul><li><a href="#" data-ana="Kurulum (exe)">Kurulum (exe)</a></li></ul>
+      </div>
+      <div class="plat">
+        <h3>Tarayıcı</h3>
+        <p>Hiçbir şey kurmadan, her işletim sisteminde.</p>
+        <ul><li><a href="/channels/@me">Tarayıcıda aç</a></li></ul>
+      </div>
+    </section>
+
+    <p class="not">Uygulama henüz imzalı değil. Mac'te ilk açılışta uyarı görürsen uygulamaya sağ tıklayıp "Aç" de. Windows'ta "Bilinmeyen yayımcı" uyarısında "Daha fazla bilgi" ve "Yine de çalıştır" de.</p>
+  </main>
+
+  <footer>© 2026 pirichat · <a href="/">ana sayfa</a> · <a href="/kullanim-kosullari">kullanım koşulları</a> · <a href="/gizlilik">gizlilik</a></footer>
+</div>
+
+<script>
+(function () {
+  function algila() {
+    var ua = navigator.userAgent, p = navigator.platform || '';
+    if (/Windows/i.test(ua)) return {platform: 'win32', ad: 'Windows'};
+    if (/Mac/i.test(p) || /Macintosh/i.test(ua)) return {platform: 'darwin', ad: 'Mac'};
+    return null;
+  }
+  var sen = algila();
+  if (!sen) return;
+  var kart = document.getElementById('plat-' + sen.platform);
+  var link = kart && kart.querySelector('a[data-ana]');
+  if (!link) return;
+  kart.classList.add('sen');
+  document.getElementById('one-baslik').textContent = sen.ad + ' için indir';
+  document.getElementById('one-aciklama').textContent = 'Sistemin için uygun paket. Diğer platformlar aşağıda.';
+  var eylem = document.getElementById('one-eylem');
+  var a = document.createElement('a');
+  a.className = 'dugme dolu';
+  a.href = link.getAttribute('href');
+  a.textContent = link.getAttribute('data-ana');
+  eylem.insertBefore(a, eylem.firstChild);
+})();
+</script>
+</body>
+</html>

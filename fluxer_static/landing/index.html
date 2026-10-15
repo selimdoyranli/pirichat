@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>pirichat: arkadaşların, sesli odaların, okey masan</title>
+<meta name="description" content="pirichat; sesli odalar, kanallar ve 3D kahvehanesiyle arkadaşlarını bir araya getiren sohbet uygulaması. Tarayıcıda hemen açılır.">
+<meta name="theme-color" content="#08080e">
+<link rel="icon" href="/tanitim/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/web/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pirichat.online/">
+<meta property="og:title" content="pirichat">
+<meta property="og:description" content="Arkadaşların, sesli odaların, okey masan. Tarayıcıda hemen açılır.">
+<meta property="og:image" content="https://pirichat.online/tanitim/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<script>
+  // Served at / and /marketing. Links that carry a query or hash belong to the app,
+  // and a visitor with a stored session goes straight to the app.
+  (function () {
+    var params = new URLSearchParams(location.search);
+    if (params.has('tanitim')) return;
+    var go = function () { location.replace('/channels/@me' + location.search + location.hash); };
+    if (location.pathname === '/' && (location.search || location.hash)) { go(); return; }
+    try {
+      var t = localStorage.getItem('token');
+      if (t && t !== 'undefined' && t !== 'null') { go(); return; }
+    } catch (e) {}
+    // Newer clients keep accounts in the FluxerAccounts IndexedDB; only the record count is read.
+    if (!('indexedDB' in window) || typeof indexedDB.databases !== 'function') return;
+    indexedDB.databases().then(function (dbs) {
+      if (!dbs.some(function (d) { return d.name === 'FluxerAccounts'; })) return;
+      var req = indexedDB.open('FluxerAccounts');
+      req.onsuccess = function () {
+        var db = req.result;
+        if (!db.objectStoreNames.contains('accounts')) { db.close(); return; }
+        var count = db.transaction('accounts', 'readonly').objectStore('accounts').count();
+        count.onsuccess = function () { db.close(); if (count.result > 0) go(); };
+        count.onerror = function () { db.close(); };
+      };
+    }).catch(function () {});
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tanitim/site.css">
+</head>
+<body>
+
+<div class="kap">
+  <header class="ust">
+    <a class="marka" href="/" aria-label="pirichat ana sayfa">
+      <img src="/tanitim/logo.png" width="38" height="38" alt="">
+      <span>pirichat</span>
+    </a>
+    <nav aria-label="Sayfa">
+      <a class="dip" href="#odalar">Odalar</a>
+      <a class="dip" href="/indir">İndir</a>
+      <a class="dip" href="#sss">Sık sorulanlar</a>
+      <a class="dugme bos kucuk" href="/login">Giriş yap</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="kahraman" aria-labelledby="baslik">
+      <div>
+        <h1 id="baslik">Herkes yerini <span class="parca">bulur<span class="kare" aria-hidden="true"></span></span></h1>
+        <p class="alt">Arkadaşların, sesli odaların, okey masan. Hepsi tek bir yerde, tarayıcıda hemen açılır.</p>
+        <div class="eylem">
+          <a class="dugme dolu" href="/register">Hesap aç</a>
+          <a class="dugme bos" href="/channels/@me">Tarayıcıda aç</a>
+        </div>
+        <p class="not">Tarayıcıda çalışır; <a href="/indir">masaüstü uygulaması</a> da var.</p>
+      </div>
+      <figure>
+        <img src="/tanitim/kahvehane.webp" width="1600" height="1144" alt="pirichat'ın 3D kahvehanesi: yeşil çuhalı okey masaları, minderli sedirler, duvarda televizyon ve tezgâh.">
+        <figcaption>Sesli odadaki kahvehane.</figcaption>
+      </figure>
+    </section>
+  </main>
+</div>
+
+<section class="koyu bolum" id="odalar" aria-labelledby="odalar-baslik">
+  <div class="kap">
+    <h2 id="odalar-baslik">Sesli oda dediğin bir <span class="vurgu">mekân</span> olmalı.</h2>
+    <p class="giris">Ses kanalını bir odaya çevir. Herkes bir koltuğa oturur, masaya geçen oyuna başlar, ekranını paylaşan duvardaki televizyona düşer.</p>
+
+    <div class="oda">
+      <figure><img src="/tanitim/gece-lounge.webp" width="1600" height="1154" loading="lazy" alt="Mor ve turkuaz neon ışıklı gece lounge'ı: koltuk takımları, bar tezgâhı ve ortada oyun masası."></figure>
+      <div>
+        <h3>Üç oda, hepsi bizim.</h3>
+        <p>Kahvehane, gece lounge'ı ve oyun odası. Kanalı yöneten kişi odayı seçer, kanala giren herkes aynı odada buluşur.</p>
+        <ul class="liste" aria-label="Odalar">
+          <li>Kahvehane</li><li>Gece lounge'ı</li><li>Oyun odası</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="oda ters">
+      <figure class="masa"><img src="/tanitim/masa.webp" width="1200" height="544" loading="lazy" alt="Masadaki oyun takımları: okey ıstakası ve taşları, satranç taşları ve tavla tahtası."></figure>
+      <div>
+        <h3>Masaya otur, el aç.</h3>
+        <p>Odadaki masalarda sohbet ederken oyun oynanıyor. Taşlar herkesin gözü önünde.</p>
+        <ul class="liste" aria-label="Masa oyunları">
+          <li>Okey</li><li>101</li><li>Tavla</li><li>Satranç</li><li>Dama</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="oda">
+      <figure><img src="/tanitim/oyun-odasi.webp" width="1600" height="1156" loading="lazy" alt="Neon çizgili oyun odası: oyuncu masaları, armut koltuklar, büyük ekran ve iki atari makinesi."></figure>
+      <div>
+        <h3>Ekranını paylaş, herkes izlesin.</h3>
+        <p>Oyununu, filmini ya da üzerinde çalıştığın işi paylaş; odadaki televizyonda açılır. Kamerası açık olanın görüntüsü avatarının üstünde durur.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="kap">
+  <section class="bolum" aria-labelledby="dahasi-baslik">
+    <h2 id="dahasi-baslik">Bir de bunlar var.</h2>
+    <div class="seritler">
+      <div class="serit">
+        <h3>Müzik botu</h3>
+        <p>Sesli odadayken <code>!çal</code> yaz, şarkı adı ya da link ver. Listeye ekleyen ekler, bot sırayla çalar.</p>
+      </div>
+      <div class="serit">
+        <h3>Topluluk botu</h3>
+        <p>Yeni geleni karşılar, rol dağıtır, seviye tutar, küfürle spamı ayıklar. Topluluk ayarlarından açılır.</p>
+      </div>
+      <div class="serit">
+        <h3>Akış</h3>
+        <p>Sunucuların dışında da görün: gönderi paylaş, sevdiklerini takip et, rozetlerini profilinde taşı.</p>
+      </div>
+      <div class="serit">
+        <h3>Tanıdık düzen</h3>
+        <p>Sunucular, kanallar, özel mesajlar, emojiler. Discord'dan geldiysen yolunu kaybetmezsin.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bolum sss" id="sss" aria-labelledby="sss-baslik" style="padding-top:0">
+    <h2 id="sss-baslik">Sık sorulanlar</h2>
+    <details>
+      <summary>Bir şey indirmem gerekiyor mu?</summary>
+      <p>Hayır. pirichat tarayıcıda çalışıyor; Chrome, Edge, Firefox ya da Safari'nin güncel sürümü yeter. İstersen <a href="/indir">masaüstü uygulamasını</a> da kurabilirsin.</p>
+    </details>
+    <details>
+      <summary>Ücretli mi?</summary>
+      <p>Hayır, kullanmak ücretsiz. Mağazadaki kozmetikler isteğe bağlı.</p>
+    </details>
+    <details>
+      <summary>Kimler katılabilir?</summary>
+      <p>Kayıt herkese açık. Hesabını açtıktan sonra bir davet linkiyle topluluğa katılırsın ya da kendi topluluğunu kurarsın.</p>
+    </details>
+    <details>
+      <summary>3D oda bilgisayarımı yorar mı?</summary>
+      <p>Odalar hafif tutuldu. Telefonda ya da zayıf bir bilgisayarda pirichat kendiliğinden düz görünüme geçer, sohbet aynen sürer.</p>
+    </details>
+    <details>
+      <summary>Neyin üzerine kurulu?</summary>
+      <p>pirichat, AGPLv3 lisanslı açık kaynak Fluxer yazılımının üzerine kurulu.</p>
+    </details>
+  </section>
+</div>
+
+<section class="koyu" aria-labelledby="son-baslik">
+  <div class="bolum kapanis"><div class="kap">
+    <h2 id="son-baslik">Kahve demlendi, masa kuruldu.</h2>
+    <div class="eylem">
+      <a class="dugme dolu" href="/register">Hesap aç</a>
+      <a class="dugme bos" href="/login">Giriş yap</a>
+      <a class="dugme bos" href="/indir">Masaüstü uygulamasını indir</a>
+    </div>
+  </div></div>
+  <footer>
+    <div class="kap">
+      <span>© 2026 pirichat</span>
+      <nav aria-label="Alt bağlantılar">
+        <a href="/indir">İndir</a>
+        <a href="/kullanim-kosullari">Kullanım koşulları</a>
+        <a href="/gizlilik">Gizlilik</a>
+        <a href="mailto:selim.doyranli@albayrakmedya.com">selim.doyranli@albayrakmedya.com</a>
+        <a href="/login">Giriş yap</a>
+      </nav>
+    </div>
+  </footer>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "pirichat-muzik-bot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "pirichat (Fluxer) için müzik botu: YouTube/Spotify bağlantısını ses kanalında LiveKit üzerinden çalar.",
+  "type": "module",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=22.4"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test \"test/*.test.js\""
+  },
+  "dependencies": {
+    "@fluxerjs/core": "3.3.0",
+    "@livekit/rtc-node": "1.1.0"
+  }
+}
