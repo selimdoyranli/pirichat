@@ -18,6 +18,8 @@ const debug = config.debug ? log : () => {};
 if (!config.token) {
   // Runs in the main compose before a bot token exists; exiting would make Docker restart it forever.
   console.error('FLUXER_BOT_TOKEN tanımlı değil; bot bekliyor. Token Coolify ortam değişkeni PIRICHAT_MUSIC_BOT_TOKEN olarak girilince yeniden deploy et.');
+  // A pending top-level await alone exits with code 13; the timer keeps the event loop alive.
+  setInterval(() => {}, 1 << 30);
   await new Promise(() => {});
 }
 

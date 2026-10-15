@@ -910,9 +910,10 @@ services:
 
   # pirichat music bot (fluxer_music_bot): joins voice channels as a normal bot account and plays audio over LiveKit.
   # It waits idle until PIRICHAT_MUSIC_BOT_TOKEN holds the bot token of a pirichat bot application.
+  # PIRICHAT_MUSIC_BOT_TAG lets the bot image move without rebuilding every other image.
   music-bot:
     <<: *fluxer-service
-    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-music-bot:${FLUXER_IMAGE_TAG:-v1}
+    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-music-bot:${PIRICHAT_MUSIC_BOT_TAG:-${FLUXER_IMAGE_TAG:-v1}}
     deploy:
       resources:
         limits:

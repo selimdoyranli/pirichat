@@ -44,7 +44,7 @@ jobs:
         env:
           SECILEN: ${{ inputs.imajlar }}
         run: |
-          mapfile -t hepsi < <(grep -oE '/fluxer-[a-z0-9-]+:\$\{FLUXER_IMAGE_TAG' deploy/self-hosting/docker-compose.yml \
+          mapfile -t hepsi < <(grep -oE '/fluxer-[a-z0-9-]+:\$\{(FLUXER_IMAGE_TAG|PIRICHAT_MUSIC_BOT_TAG)' deploy/self-hosting/docker-compose.yml \
             | sed -E 's|^/||; s|:.*||' | sort -u)
           (( ${#hepsi[@]} > 0 )) || { echo "::error::compose'da çatal imajı bulunamadı"; exit 1; }
           read -ra secilen <<<"${SECILEN:-${hepsi[*]}}"
