@@ -409,7 +409,7 @@ impl Default for AppBrandingConfigResponse {
 }
 
 fn default_product_name() -> String {
-    "Fluxer".to_owned()
+    "Pirichat".to_owned()
 }
 
 fn default_premium_product_name() -> String {
@@ -483,7 +483,7 @@ pub struct GatewayRolloutConfigResponse {
     pub voice_e2ee_scope: VoiceE2eeScope,
     #[serde(default)]
     pub max_connections: u64,
-    // sanalyer: read so the admin can toggle game activity; older APIs omit it.
+    // pirichat: read so the admin can toggle game activity; older APIs omit it.
     #[serde(default)]
     pub game_activity_enabled: bool,
 }

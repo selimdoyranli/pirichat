@@ -25,12 +25,8 @@ use axum::{
 use serde::Deserialize;
 use serde_json::{Map, Value, json};
 
-const ITEM_TYPES: &[&str] = &[
-    "avatar_decoration",
-    "avatar_ultra",
-    "profile_effect",
-    "nameplate",
-];
+// pirichat: ultra decorations are not offered; the model keeps the type for rows that may exist.
+const ITEM_TYPES: &[&str] = &["avatar_decoration", "profile_effect", "nameplate"];
 const AVAILABILITIES: &[&str] = &["free", "premium", "owned"];
 // Micup (angel-wings): a full in-front set (closed + up to 30 frames + loop) reaches about 3.07 MB
 // once base64 and URL encoded. Only this route needs the larger body; the shared admin form reader
@@ -44,6 +40,8 @@ const ULTRA_NUMBER_ERROR: &str =
 struct CosmeticsQuery {
     edit: Option<String>,
     ultra: Option<String>,
+    // pirichat: catalog search over name, series and ID.
+    q: Option<String>,
 }
 
 pub fn router() -> Router<AppState> {
@@ -75,6 +73,7 @@ async fn cosmetics_page(
         items.as_deref(),
         query.edit.as_deref(),
         query.ultra.as_deref(),
+        query.q.as_deref().map(str::trim).filter(|q| !q.is_empty()),
     );
     Html(markup.into_string()).into_response()
 }
@@ -143,6 +142,7 @@ async fn create_item(client: &AdminApiClient, form: &MultiValueForm) -> FlashDat
         "type": item_type,
         "name": name,
         "description": form.clean("description"),
+        "series": form.clean("series"),
         "availability": availability,
         "asset": asset,
     });
@@ -157,7 +157,7 @@ async fn update_item(client: &AdminApiClient, form: &MultiValueForm) -> FlashDat
         return FlashData::error("A valid item ID is required");
     };
     let mut body = Map::new();
-    for key in ["name", "description", "asset"] {
+    for key in ["name", "description", "series", "asset"] {
         if let Some(value) = form.clean(key) {
             body.insert(key.to_owned(), Value::String(value));
         }

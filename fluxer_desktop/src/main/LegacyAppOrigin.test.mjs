@@ -85,32 +85,32 @@ function loadDesktop({channel = 'stable', settings} = {}) {
 
 describe('DesktopConfig legacy app origin', () => {
 	test('harvests the legacy web app origin when no app origin is stored', () => {
-		assert.equal(loadDesktop().getLegacyAppOrigin(), 'https://micup.gg');
-		assert.equal(loadDesktop({channel: 'canary'}).getLegacyAppOrigin(), 'https://canary.micup.gg');
+		assert.equal(loadDesktop().getLegacyAppOrigin(), 'https://pirichat.online');
+		assert.equal(loadDesktop({channel: 'canary'}).getLegacyAppOrigin(), 'https://pirichat.online');
 	});
 
 	test('drops origins belonging to the upstream product', () => {
 		for (const appOrigin of ['https://fluxer.com', 'https://web.fluxer.app', 'https://canary.fluxer.com']) {
-			assert.equal(loadDesktop({settings: {app_origin: appOrigin}}).getLegacyAppOrigin(), 'https://micup.gg');
+			assert.equal(loadDesktop({settings: {app_origin: appOrigin}}).getLegacyAppOrigin(), 'https://pirichat.online');
 		}
 	});
 
 	test('retains a stored origin allowed for the channel', () => {
-		const desktopConfig = loadDesktop({settings: {app_origin: 'https://micup.gg'}});
+		const desktopConfig = loadDesktop({settings: {app_origin: 'https://pirichat.online'}});
 
-		assert.equal(desktopConfig.getLegacyAppOrigin(), 'https://micup.gg');
+		assert.equal(desktopConfig.getLegacyAppOrigin(), 'https://pirichat.online');
 	});
 
 	test('drops stored origins outside the channel allowlist', () => {
 		for (const appOrigin of [
-			'https://canary.micup.gg',
-			'https://micup.gg/',
+			'https://pirichat.online',
+			'https://pirichat.online/',
 			'https://evil.example',
-			'http://micup.gg',
+			'http://pirichat.online',
 			42,
 		]) {
 			const desktopConfig = loadDesktop({settings: {app_origin: appOrigin}});
-			assert.equal(desktopConfig.getLegacyAppOrigin(), 'https://micup.gg');
+			assert.equal(desktopConfig.getLegacyAppOrigin(), 'https://pirichat.online');
 		}
 	});
 });

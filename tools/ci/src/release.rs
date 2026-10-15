@@ -17,8 +17,8 @@ use std::path::{Path, PathBuf};
 use std::thread;
 use std::time::Duration;
 
-pub(crate) const RELEASE_REPOSITORY: &str = "fluxerapp/fluxer";
-const RELEASE_COMPARE_URL: &str = "https://github.com/fluxerapp/fluxer/compare";
+pub(crate) const RELEASE_REPOSITORY: &str = "selimdoyranli/pirichat";
+const RELEASE_COMPARE_URL: &str = "https://github.com/selimdoyranli/pirichat/compare";
 pub(crate) const DESKTOP_RELEASE_DESCRIPTOR_SCHEMA_VERSION: u8 = 2;
 const DESKTOP_RELEASE_ARCHES: [&str; 2] = ["x64", "arm64"];
 
@@ -268,10 +268,17 @@ pub(crate) fn desktop_module_package_release_asset_name(
     ))
 }
 
-pub(crate) fn desktop_release_product(channel: &str) -> Result<&'static str> {
+// pirichat: the release product follows the Windows pack title (FLUXER_DESKTOP_PACK_TITLE), which is also the
+// electron-builder productName every artifact is named after; without it the upstream Fluxer names apply.
+pub(crate) fn desktop_release_product(channel: &str) -> Result<String> {
+    let base = std::env::var("FLUXER_DESKTOP_PACK_TITLE")
+        .ok()
+        .map(|title| title.trim().replace(' ', "-"))
+        .filter(|title| !title.is_empty())
+        .unwrap_or_else(|| "Fluxer".to_string());
     match channel {
-        "stable" => Ok("Fluxer"),
-        "canary" => Ok("Fluxer-Canary"),
+        "stable" => Ok(base),
+        "canary" => Ok(format!("{base}-Canary")),
         other => bail!("Unsupported desktop release channel {other:?}"),
     }
 }

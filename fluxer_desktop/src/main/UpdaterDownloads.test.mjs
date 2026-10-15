@@ -38,14 +38,14 @@ function loadUpdaterDownloads({channel = 'stable', platform = 'linux', arch = 'x
 		if (specifier === '@electron/common/Constants') {
 			return {
 				DOWNLOAD_PAGE_URLS: {
-					stable: 'https://micup.gg/indir',
-					canary: 'https://canary.micup.gg/indir',
+					stable: 'https://pirichat.online/indir',
+					canary: 'https://pirichat.online/indir',
 					development: 'http://localhost:8088/download',
 				},
 			};
 		}
 		if (specifier === '@electron/common/DesktopIdentity') {
-			const names = {stable: 'Micup', canary: 'Micup-Canary', development: 'Micup-Development'};
+			const names = {stable: 'Pirichat', canary: 'Pirichat-Canary', development: 'Pirichat-Development'};
 			return {DESKTOP_ARTIFACT_PRODUCT_NAME: names[channel]};
 		}
 		throw new Error(`Unexpected import: ${specifier}`);
@@ -79,9 +79,9 @@ describe('UpdaterDownloads platform feeds', () => {
 			['darwin', 'x64', 'zip'],
 			['linux', 'x64', 'appimage'],
 		]) {
-			test(`uses the Micup ${channel} feed for ${platform}/${arch}`, () => {
+			test(`uses the Pirichat ${channel} feed for ${platform}/${arch}`, () => {
 				const downloads = loadUpdaterDownloads({channel, platform, arch});
-				const baseUrl = `https://dl.micup.gg/desktop/${channel}/${platform}/${arch}`;
+				const baseUrl = `https://pirichat.online/desktop/${channel}/${platform}/${arch}`;
 				assert.equal(downloads.UPDATE_BASE_URL, baseUrl);
 				assert.equal(downloads.buildManualVersionDownloadUrl('1.0.1', format), `${baseUrl}/1.0.1/${format}`);
 			});
@@ -108,29 +108,29 @@ describe('UpdaterDownloads Linux manual update options', () => {
 			{
 				format: 'appimage',
 				label: 'AppImage',
-				url: 'https://dl.micup.gg/desktop/stable/linux/x64/2026.910.101500/appimage',
-				suggestedName: 'Micup-2026.910.101500-linux-x86_64.AppImage',
+				url: 'https://pirichat.online/desktop/stable/linux/x64/2026.910.101500/appimage',
+				suggestedName: 'pirichat-2026.910.101500-linux-x86_64.AppImage',
 				sha256: APPIMAGE_SHA256,
 			},
 			{
 				format: 'deb',
 				label: 'DEB package',
-				url: 'https://dl.micup.gg/desktop/stable/linux/x64/2026.910.101500/deb',
-				suggestedName: 'Micup-2026.910.101500-linux-amd64.deb',
+				url: 'https://pirichat.online/desktop/stable/linux/x64/2026.910.101500/deb',
+				suggestedName: 'pirichat-2026.910.101500-linux-amd64.deb',
 				sha256: DEB_SHA256,
 			},
 			{
 				format: 'rpm',
 				label: 'RPM package',
-				url: 'https://dl.micup.gg/desktop/stable/linux/x64/2026.910.101500/rpm',
-				suggestedName: 'Micup-2026.910.101500-linux-x86_64.rpm',
+				url: 'https://pirichat.online/desktop/stable/linux/x64/2026.910.101500/rpm',
+				suggestedName: 'pirichat-2026.910.101500-linux-x86_64.rpm',
 				sha256: null,
 			},
 			{
 				format: 'tar_gz',
 				label: 'tar.gz archive',
-				url: 'https://dl.micup.gg/desktop/stable/linux/x64/2026.910.101500/tar_gz',
-				suggestedName: 'Micup-2026.910.101500-linux-x64.tar.gz',
+				url: 'https://pirichat.online/desktop/stable/linux/x64/2026.910.101500/tar_gz',
+				suggestedName: 'pirichat-2026.910.101500-linux-x64.tar.gz',
 				sha256: TAR_GZ_SHA256,
 			},
 		]);
@@ -144,17 +144,17 @@ describe('UpdaterDownloads Linux manual update options', () => {
 			options.map((option) => [option.url, option.suggestedName]),
 			[
 				[
-					'https://dl.micup.gg/desktop/stable/linux/arm64/2026.910.101500/appimage',
-					'Micup-2026.910.101500-linux-arm64.AppImage',
+					'https://pirichat.online/desktop/stable/linux/arm64/2026.910.101500/appimage',
+					'pirichat-2026.910.101500-linux-arm64.AppImage',
 				],
-				['https://dl.micup.gg/desktop/stable/linux/arm64/2026.910.101500/deb', 'Micup-2026.910.101500-linux-arm64.deb'],
+				['https://pirichat.online/desktop/stable/linux/arm64/2026.910.101500/deb', 'pirichat-2026.910.101500-linux-arm64.deb'],
 				[
-					'https://dl.micup.gg/desktop/stable/linux/arm64/2026.910.101500/rpm',
-					'Micup-2026.910.101500-linux-aarch64.rpm',
+					'https://pirichat.online/desktop/stable/linux/arm64/2026.910.101500/rpm',
+					'pirichat-2026.910.101500-linux-aarch64.rpm',
 				],
 				[
-					'https://dl.micup.gg/desktop/stable/linux/arm64/2026.910.101500/tar_gz',
-					'Micup-2026.910.101500-linux-arm64.tar.gz',
+					'https://pirichat.online/desktop/stable/linux/arm64/2026.910.101500/tar_gz',
+					'pirichat-2026.910.101500-linux-arm64.tar.gz',
 				],
 			],
 		);
@@ -169,10 +169,10 @@ describe('UpdaterDownloads Linux manual update options', () => {
 			(option) => option.format === 'deb',
 		);
 
-		assert.equal(stableDeb.url, 'https://dl.micup.gg/desktop/stable/linux/x64/2026.910.101500/deb');
-		assert.equal(stableDeb.suggestedName, 'Micup-2026.910.101500-linux-amd64.deb');
-		assert.equal(canaryDeb.url, 'https://dl.micup.gg/desktop/canary/linux/x64/2026.910.101500/deb');
-		assert.equal(canaryDeb.suggestedName, 'Micup-Canary-2026.910.101500-linux-amd64.deb');
+		assert.equal(stableDeb.url, 'https://pirichat.online/desktop/stable/linux/x64/2026.910.101500/deb');
+		assert.equal(stableDeb.suggestedName, 'pirichat-2026.910.101500-linux-amd64.deb');
+		assert.equal(canaryDeb.url, 'https://pirichat.online/desktop/canary/linux/x64/2026.910.101500/deb');
+		assert.equal(canaryDeb.suggestedName, 'Pirichat-Canary-2026.910.101500-linux-amd64.deb');
 	});
 
 	test('only ever fetches 2026.908.173325 for a prompt built from that release', () => {
@@ -186,17 +186,17 @@ describe('UpdaterDownloads Linux manual update options', () => {
 		const options = structuredClone(getManualDownloadOptions(info));
 		const deb = options.find((option) => option.format === 'deb');
 
-		assert.equal(deb.suggestedName, 'Micup-Canary-2026.908.173325-linux-amd64.deb');
-		assert.equal(deb.url, 'https://dl.micup.gg/desktop/canary/linux/x64/2026.908.173325/deb');
+		assert.equal(deb.suggestedName, 'Pirichat-Canary-2026.908.173325-linux-amd64.deb');
+		assert.equal(deb.url, 'https://pirichat.online/desktop/canary/linux/x64/2026.908.173325/deb');
 		assert.equal(deb.sha256, DEB_SHA256);
 		assert.equal(options.length, 4);
 		for (const option of options) {
 			const [format, version] = new URL(option.url).pathname.split('/').reverse();
 			assert.equal(format, option.format);
 			assert.equal(version, '2026.908.173325');
-			assert.match(option.suggestedName, /^Micup-Canary-2026\.908\.173325-linux-/);
+			assert.match(option.suggestedName, /^Pirichat-Canary-2026\.908\.173325-linux-/);
 		}
-		assert.equal(getManualDownloadUrl(info), 'https://dl.micup.gg/desktop/canary/linux/x64/2026.908.173325/appimage');
+		assert.equal(getManualDownloadUrl(info), 'https://pirichat.online/desktop/canary/linux/x64/2026.908.173325/appimage');
 	});
 });
 
@@ -210,7 +210,7 @@ describe('UpdaterDownloads manual download url', () => {
 			},
 		});
 
-		assert.equal(getManualDownloadUrl(info), 'https://dl.micup.gg/desktop/stable/linux/x64/2026.910.101500/appimage');
+		assert.equal(getManualDownloadUrl(info), 'https://pirichat.online/desktop/stable/linux/x64/2026.910.101500/appimage');
 	});
 
 	test('falls back to the response file urls in format order on macOS', () => {
@@ -235,7 +235,7 @@ describe('UpdaterDownloads manual download url', () => {
 		const stable = loadUpdaterDownloads({channel: 'stable', platform: 'darwin'});
 		const canary = loadUpdaterDownloads({channel: 'canary', platform: 'win32'});
 
-		assert.equal(stable.getManualDownloadUrl(latestInfo('2026.910.101500')), 'https://micup.gg/indir');
-		assert.equal(canary.getManualDownloadUrl(latestInfo('2026.910.101500')), 'https://canary.micup.gg/indir');
+		assert.equal(stable.getManualDownloadUrl(latestInfo('2026.910.101500')), 'https://pirichat.online/indir');
+		assert.equal(canary.getManualDownloadUrl(latestInfo('2026.910.101500')), 'https://pirichat.online/indir');
 	});
 });

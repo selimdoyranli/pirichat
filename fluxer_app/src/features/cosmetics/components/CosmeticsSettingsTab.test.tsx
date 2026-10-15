@@ -160,20 +160,11 @@ describe('CosmeticsSettingsTab', () => {
 	it('offers "None" and every catalog item per type, with the worn frame pressed', () => {
 		expect(tile('Yaprak')?.getAttribute('aria-pressed')).toBe('true');
 		expect(tile('Alev')?.getAttribute('aria-pressed')).toBe('false');
-		expect(tile('Yitik Melek')).toBeDefined();
+		// pirichat: ultra decorations are not offered, so the catalog's ultra item has no tile and no section.
+		expect(tile('Yitik Melek')).toBeUndefined();
 		expect(tile('Gece')).toBeDefined();
 		expect(tile('Kar')).toBeDefined();
-		expect(container.querySelectorAll('button[aria-label="None"]').length).toBe(4);
-	});
-
-	it('previews an ultra decoration behind the still worn frame and saves only the ultra slot', async () => {
-		click(tile('Yitik Melek'));
-		expect(lastPreview().user.avatarUltra).toEqual({asset: 'hash41', item_id: '41'});
-		expect(lastPreview().user.avatarDecoration).toEqual({asset: 'hash11', item_id: '11'});
-		await act(async () => {
-			await lastTabData().onSave?.();
-		});
-		expect(CosmeticCommands.equip).toHaveBeenCalledWith({avatar_ultra_id: '41'});
+		expect(container.querySelectorAll('button[aria-label="None"]').length).toBe(3);
 	});
 
 	it('previews a picked effect and saves only the changed slot through the unsaved changes bar', async () => {
@@ -202,7 +193,7 @@ describe('CosmeticsSettingsTab', () => {
 		click(tile('Alev'));
 		expect(tile('Alev')?.getAttribute('aria-pressed')).toBe('false');
 		expect(UnsavedChangesCommands.setUnsavedChanges).not.toHaveBeenCalledWith('profile_cosmetics', true);
-		expect(container.textContent).toContain('Alev comes with sanalyer Plus.');
+		expect(container.textContent).toContain('Alev comes with Pirichat Plus.');
 
 		click(
 			container.querySelector<HTMLButtonElement>('[data-flx="cosmetics.cosmetics-settings-tab.button.get-premium"]'),
@@ -213,7 +204,7 @@ describe('CosmeticsSettingsTab', () => {
 	it('only explains the lock where the premium tab is not offered', () => {
 		vi.mocked(shouldShowPremiumFeatures).mockReturnValue(false);
 		click(tile('Alev'));
-		expect(container.textContent).toContain('Alev comes with sanalyer Plus.');
+		expect(container.textContent).toContain('Alev comes with Pirichat Plus.');
 		expect(container.querySelector('[data-flx="cosmetics.cosmetics-settings-tab.button.get-premium"]')).toBeNull();
 	});
 });

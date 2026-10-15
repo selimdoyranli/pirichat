@@ -185,10 +185,10 @@ export const MarkdownTab: React.FC = observer(() => {
 			{
 				title: i18n._(LINKS_DESCRIPTOR),
 				items: [
-					{label: '[text](url)', content: '[Masked link](https://fluxer.app)'},
-					{label: '<url>', content: '<https://fluxer.app>'},
-					{label: 'url', content: 'https://fluxer.app'},
-					{label: '<email>', content: '<contact@fluxer.app>'},
+					{label: '[text](url)', content: '[Masked link](https://pirichat.online)'},
+					{label: '<url>', content: '<https://pirichat.online>'},
+					{label: 'url', content: 'https://pirichat.online'},
+					{label: '<email>', content: '<info@sanalyer.com>'},
 				],
 			},
 			{

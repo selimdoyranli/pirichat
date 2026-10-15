@@ -38,7 +38,7 @@ use tempfile::TempDir;
 use walkdir::WalkDir;
 use zip::write::SimpleFileOptions;
 
-const PACKAGE_ORIGIN_BASE: &str = "https://pkgs.fluxer.com";
+const PACKAGE_ORIGIN_BASE: &str = "https://pirichat.online";
 const PACKAGE_ORIGIN_BASE_ENV: &str = "FLUXER_DESKTOP_PACKAGE_ORIGIN_BASE";
 const PACKAGE_DOWNLOAD_BASE_ENV: &str = "PKGS_DOWNLOAD_BASE_URL";
 const PNPM_VERSION: &str = "12.4.2";
@@ -188,7 +188,8 @@ const PLATFORMS: &[Platform] = &[
     Platform {
         platform: "macos",
         arch: MACOS_UNIVERSAL_ARCH,
-        os: "fluxer-desktop-macos-arm64",
+        // pirichat: GitHub-hosted Apple Silicon runner; the universal build is published as x64 + arm64.
+        os: "macos-15",
         electron_arch: MACOS_UNIVERSAL_ARCH,
     },
     Platform {
@@ -2699,11 +2700,14 @@ fn verify_bundle_id_step() -> Result<()> {
         info_plist.to_string_lossy().as_ref(),
     ]))?;
 
-    let expected = if build_channel == "canary" {
-        "app.fluxer.canary"
-    } else {
-        "app.fluxer"
-    };
+    // pirichat: FLUXER_DESKTOP_MAC_BUNDLE_ID names the fork's bundle id; unset keeps Fluxer's.
+    let expected = env_string("FLUXER_DESKTOP_MAC_BUNDLE_ID").unwrap_or_else(|| {
+        if build_channel == "canary" {
+            "app.fluxer.canary".to_string()
+        } else {
+            "app.fluxer".to_string()
+        }
+    });
     let expected_profile = if build_channel == "canary" {
         "3G5837T29K.app.fluxer.canary"
     } else {
@@ -2711,31 +2715,31 @@ fn verify_bundle_id_step() -> Result<()> {
     };
     println!("Bundle id in zip: {bid} (expected: {expected})");
     ensure!(bid == expected, "Unexpected bundle id: {bid}");
-    ensure!(
-        profile.exists(),
-        "Missing provisioning profile: {}",
-        profile.display()
-    );
-
-    let decoded_profile = temp.path().join("embedded.provisionprofile.plist");
-    let decoded = output_bytes(CommandSpec::new("security").args([
-        "cms",
-        "-D",
-        "-i",
-        profile.to_string_lossy().as_ref(),
-    ]))?;
-    fs::write(&decoded_profile, decoded)
-        .with_context(|| format!("Failed to write {}", decoded_profile.display()))?;
-    let profile_app_id = output_text(CommandSpec::new("/usr/libexec/PlistBuddy").args([
-        "-c",
-        "Print :Entitlements:com.apple.application-identifier",
-        decoded_profile.to_string_lossy().as_ref(),
-    ]))?;
-    println!("Provisioning profile app id: {profile_app_id} (expected: {expected_profile})");
-    ensure!(
-        profile_app_id == expected_profile,
-        "Unexpected provisioning profile app id: {profile_app_id}"
-    );
+    // pirichat: a Developer ID build outside the App Store embeds no provisioning profile; the profile check
+    // runs only when one is present.
+    if profile.exists() {
+        let decoded_profile = temp.path().join("embedded.provisionprofile.plist");
+        let decoded = output_bytes(CommandSpec::new("security").args([
+            "cms",
+            "-D",
+            "-i",
+            profile.to_string_lossy().as_ref(),
+        ]))?;
+        fs::write(&decoded_profile, decoded)
+            .with_context(|| format!("Failed to write {}", decoded_profile.display()))?;
+        let profile_app_id = output_text(CommandSpec::new("/usr/libexec/PlistBuddy").args([
+            "-c",
+            "Print :Entitlements:com.apple.application-identifier",
+            decoded_profile.to_string_lossy().as_ref(),
+        ]))?;
+        println!("Provisioning profile app id: {profile_app_id} (expected: {expected_profile})");
+        ensure!(
+            profile_app_id == expected_profile,
+            "Unexpected provisioning profile app id: {profile_app_id}"
+        );
+    } else {
+        println!("No embedded provisioning profile; Developer ID distribution ships without one.");
+    }
 
     for (rel, expected_macho_arch) in macos_native_runtime_targets(&electron_arch) {
         let native_file = app
@@ -2760,11 +2764,24 @@ fn verify_bundle_id_step() -> Result<()> {
         "--verbose=4",
         app.to_string_lossy().as_ref(),
     ]))?;
-    run_command(CommandSpec::new("xcrun").args([
-        "stapler",
-        "validate",
-        app.to_string_lossy().as_ref(),
-    ]))?;
+    // `stapler validate` asks Apple's ticket service over the network; the lookup drops the connection now and then
+    // on hosted runners, which says nothing about the build.
+    let mut stapler_attempt = 0;
+    loop {
+        stapler_attempt += 1;
+        match run_command(CommandSpec::new("xcrun").args([
+            "stapler",
+            "validate",
+            app.to_string_lossy().as_ref(),
+        ])) {
+            Ok(()) => break,
+            Err(error) if stapler_attempt < 4 => {
+                println!("stapler validate failed on attempt {stapler_attempt}; retrying: {error:#}");
+                thread::sleep(Duration::from_secs(20));
+            }
+            Err(error) => return Err(error),
+        }
+    }
     run_command(CommandSpec::new("spctl").args([
         "--assess",
         "--type",
@@ -4731,7 +4748,7 @@ fn prepare_release_assets_step() -> Result<()> {
     fs::create_dir_all(release_assets)?;
 
     let mut release_builder =
-        DesktopReleaseAssetBuilder::new(&channel, &version, product, release_assets);
+        DesktopReleaseAssetBuilder::new(&channel, &version, &product, release_assets);
     for (platform, arch) in desktop_release_coordinates() {
         let dir = payload_root.join(platform).join(arch);
         ensure!(
@@ -6865,7 +6882,7 @@ fn prepare_modules_release_assets_step() -> Result<()> {
     remove_dir_if_exists(release_assets)?;
     fs::create_dir_all(release_assets)?;
     let mut release_builder =
-        DesktopReleaseAssetBuilder::new(&channel, &version, product, release_assets);
+        DesktopReleaseAssetBuilder::new(&channel, &version, &product, release_assets);
     add_desktop_module_release_assets(&mut release_builder, &payload_root)?;
     let (descriptor_assets, mut descriptor_modules) = release_builder.finish();
     ensure!(

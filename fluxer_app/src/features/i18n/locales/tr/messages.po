@@ -14371,8 +14371,8 @@ msgid "Download {productName}"
 msgstr "{productName} uygulamasını indir"
 
 #: src/features/connection/components/modals/AddConnectionModal.tsx
-msgid "Download <0>fluxer-verification</0> and place it in your <1>.well-known</1> folder so we can validate the domain."
-msgstr "<0>fluxer-verification</0> dosyasını indirin ve alan adını doğrulayabilmemiz için <1>.well-known</1> klasörünüze yerleştirin."
+msgid "Download <0>pirichat-verification</0> and place it in your <1>.well-known</1> folder so we can validate the domain."
+msgstr "<0>pirichat-verification</0> dosyasını indirin ve alan adını doğrulayabilmemiz için <1>.well-known</1> klasörünüze yerleştirin."
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/AppearanceIndex.ts
@@ -14409,8 +14409,8 @@ msgid "Download file"
 msgstr "Dosyayı indir"
 
 #: src/features/connection/components/modals/AddConnectionModal.tsx
-msgid "Download fluxer-verification"
-msgstr "fluxer-verification dosyasını indir"
+msgid "Download pirichat-verification"
+msgstr "pirichat-verification dosyasını indir"
 
 #. Media context menu action that downloads a GIF attachment.
 #: src/features/ui/action_menu/items/MediaMenuData.tsx
@@ -44807,3 +44807,26 @@ msgstr "Yakınlaştır"
 #: src/features/user/components/settings_utils/search_index/KeybindsIndex.ts
 msgid "Zoom out"
 msgstr "Uzaklaştır"
+
+#. Profile decorations settings: the group of items the user wears or owns, shown first.
+#: src/features/cosmetics/utils/CosmeticLabels.ts
+msgid "Mine"
+msgstr "Benimkiler"
+
+#. Profile decorations settings: placeholder of the search box over the catalog.
+#: src/features/cosmetics/utils/CosmeticLabels.ts
+msgid "Search by name or series…"
+msgstr "Ada ya da seriye göre ara…"
+
+#. Accessible label of the colour preview on a Discovery theme card. {themeName} is the theme name.
+#: src/features/discovery/themes/DiscoveryThemesPage.tsx
+msgid "Preview of the {themeName} theme"
+msgstr "{themeName} temasının önizlemesi"
+
+#: src/features/discovery/themes/DiscoveryThemesPage.tsx
+msgid "Ready-made colour palettes for the app. Apply one here; it lands in your theme library under Appearance, where you can switch it off or edit it in Theme Studio."
+msgstr "Uygulama için hazır renk paletleri. Birini buradan uygula; Görünüm altındaki tema kitaplığına eklenir, orada kapatabilir ya da Tema Stüdyosu'nda düzenleyebilirsin."
+
+#: src/features/discovery/themes/DiscoveryThemesPage.tsx
+msgid "Remove from library"
+msgstr "Kitaplıktan kaldır"

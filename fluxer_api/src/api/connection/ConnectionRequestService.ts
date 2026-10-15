@@ -89,7 +89,7 @@ export class ConnectionRequestService {
 	private generateVerificationInstructions(connectionType: ConnectionType, identifier: string): string {
 		switch (connectionType) {
 			case ConnectionTypes.DOMAIN:
-				return `Add a DNS TXT record at _fluxer.${identifier} with the value fluxer-verification=<token>, or serve the token at https://${identifier}/.well-known/fluxer-verification`;
+				return `Add a DNS TXT record at _pirichat.${identifier} with the value pirichat-verification=<token>, or serve the token at https://${identifier}/.well-known/pirichat-verification`;
 			default:
 				return 'Follow the platform-specific verification instructions';
 		}

@@ -3,7 +3,8 @@
 import type {RuntimeConfigSnapshot} from '@app/features/app/state/RuntimeConfig';
 import {isDesktop} from '@app/features/ui/utils/NativeUtils';
 
-export const DESKTOP_PASSKEY_RELYING_PARTIES: ReadonlyArray<string> = Object.freeze(['fluxer.app']);
+// pirichat: the desktop shell signs in against pirichat.online; fluxer.app stays for the upstream instance.
+export const DESKTOP_PASSKEY_RELYING_PARTIES: ReadonlyArray<string> = Object.freeze(['pirichat.online', 'fluxer.app']);
 
 function hostFromEndpoint(endpoint: string | undefined): string | null {
 	if (endpoint == null || endpoint.length === 0) {

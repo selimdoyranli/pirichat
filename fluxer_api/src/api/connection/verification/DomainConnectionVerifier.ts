@@ -58,7 +58,7 @@ export class DomainConnectionVerifier implements IConnectionVerifier {
 		if (!isFqdnHostname(domain)) {
 			return false;
 		}
-		const recordDomain = `_fluxer.${domain}`;
+		const recordDomain = `_pirichat.${domain}`;
 		const results = await Promise.allSettled(
 			this.dnsServers.map(async (dnsServer) => {
 				const resolver = this.resolverFactory();
@@ -80,7 +80,7 @@ export class DomainConnectionVerifier implements IConnectionVerifier {
 	private recordsContainToken(records: Array<Array<string>>, token: string): boolean {
 		for (const record of records) {
 			const value = record.join('');
-			if (value === `fluxer-verification=${token}`) {
+			if (value === `pirichat-verification=${token}`) {
 				return true;
 			}
 		}
@@ -88,7 +88,7 @@ export class DomainConnectionVerifier implements IConnectionVerifier {
 	}
 
 	private async checkWellKnown(domain: string, token: string): Promise<boolean> {
-		const verificationPath = '/.well-known/fluxer-verification';
+		const verificationPath = '/.well-known/pirichat-verification';
 		let url: URL;
 		try {
 			url = new URL(verificationPath, `https://${domain}`);

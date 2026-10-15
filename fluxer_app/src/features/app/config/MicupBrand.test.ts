@@ -39,7 +39,7 @@ vi.mock('@app/features/app/state/RuntimeConfig', () => ({
 	default: {
 		isSelfHosted: () => false,
 		inviteUrlBase: '',
-		mediaEndpoint: 'https://sanalyer.com/media',
+		mediaEndpoint: 'https://pirichat.online/media',
 		staticCdnEndpoint: '',
 	},
 }));
@@ -62,16 +62,16 @@ vi.mock('@app/features/platform/transport/InstanceHTTP', () => ({}));
 vi.mock('@app/features/messaging/utils/MessagingUrlUtils', () => ({setPathQueryParams: vi.fn()}));
 vi.mock('@app/features/user/components/settings_utils/UserSettingsDeepLinks', () => ({}));
 
-describe('sanalyer brand hosts', () => {
-	it('recognizes sanalyer.com invite, gift and theme links and app links', () => {
-		expect(findInvite('https://sanalyer.com/invite/abcDEF12')).toBe('abcDEF12');
-		expect(findGifts('https://sanalyer.com/gift/abcDEF12')).toEqual(['abcDEF12']);
-		expect(findThemes('https://sanalyer.com/theme/abcDEF12')).toEqual(['abcDEF12']);
-		expect(isInternalChannelHost('sanalyer.com')).toBe(true);
+describe('Pirichat brand hosts', () => {
+	it('recognizes pirichat.online invite, gift and theme links and app links', () => {
+		expect(findInvite('https://pirichat.online/invite/abcDEF12')).toBe('abcDEF12');
+		expect(findGifts('https://pirichat.online/gift/abcDEF12')).toEqual(['abcDEF12']);
+		expect(findThemes('https://pirichat.online/theme/abcDEF12')).toEqual(['abcDEF12']);
+		expect(isInternalChannelHost('pirichat.online')).toBe(true);
 	});
 
 	// Micup is not Fluxer: a fluxer.gg/<code> link is another service's invite, and Fluxer's hosts are not ours.
-	it('treats no Fluxer link as a sanalyer invite, gift, theme or app link', () => {
+	it('treats no Fluxer link as a Pirichat invite, gift, theme or app link', () => {
 		expect(findInvite('https://fluxer.gg/abcDEF12')).toBeNull();
 		expect(findInvite('https://fluxer.app/invite/abcDEF12')).toBeNull();
 		expect(findGifts('https://fluxer.gift/abcDEF12')).toEqual([]);
@@ -81,8 +81,8 @@ describe('sanalyer brand hosts', () => {
 		}
 	});
 
-	it('trusts sanalyer.com and the configured media host', () => {
-		expect(TrustedDomain.isTrustedDomain('sanalyer.com')).toBe(true);
+	it('trusts pirichat.online and the configured media host', () => {
+		expect(TrustedDomain.isTrustedDomain('pirichat.online')).toBe(true);
 	});
 
 	it('warns before opening any Fluxer host', () => {
@@ -98,10 +98,10 @@ describe('sanalyer brand hosts', () => {
 		}
 	});
 
-	// No *.sanalyer.com wildcard: one dangling CNAME taken over by someone else would otherwise open phishing links
+	// No *.pirichat.online wildcard: one dangling CNAME taken over by someone else would otherwise open phishing links
 	// without a warning.
-	it('warns before opening any sanalyer.com subdomain and the old micup.gg hosts', () => {
-		expect(TrustedDomain.isTrustedDomain('evil.sanalyer.com')).toBe(false);
+	it('warns before opening any pirichat.online subdomain and the old micup.gg hosts', () => {
+		expect(TrustedDomain.isTrustedDomain('evil.pirichat.online')).toBe(false);
 		expect(TrustedDomain.isTrustedDomain('micup.gg')).toBe(false);
 		expect(TrustedDomain.isTrustedDomain('canary.micup.gg')).toBe(false);
 	});
@@ -113,7 +113,7 @@ describe('sanalyer brand hosts', () => {
 });
 
 // An upstream merge must not bring Fluxer's name, its premium name or its jokes back into what users read.
-describe('sanalyer brand text', () => {
+describe('Pirichat brand text', () => {
 	const localesDir = resolve(dirname(fileURLToPath(import.meta.url)), '../../i18n/locales');
 	const catalogs = readdirSync(localesDir, {withFileTypes: true})
 		.filter((entry) => entry.isDirectory())
@@ -146,7 +146,7 @@ describe('sanalyer brand text', () => {
 	const EXTERNAL_PUSH_RELAY_MSGID =
 		"The official Fluxer mobile apps receive notifications through Fluxer's push relay, which hands them to Apple and Google. Self-hosted UnifiedPush and ntfy endpoints never reach the relay and need no agreement.";
 
-	it('keeps sanalyer product branding in all 34 languages', () => {
+	it('keeps Pirichat product branding in all 34 languages', () => {
 		expect(catalogs).toHaveLength(34);
 		const leaks = catalogs.flatMap(({locale, entries}) =>
 			entries
@@ -171,10 +171,10 @@ describe('sanalyer brand text', () => {
 		expect(wizard).toContain('href={PUSH_RELAY_NOTICE_URL}');
 	});
 
-	// "sanalyer" ends in a front vowel and a voiced r, like upstream's "Fluxer": sanalyer'i, sanalyer'e, sanalyer'de,
-	// sanalyer'den, sanalyer'in. Micup's back-vowel suffixes (Micup'u, Micup'a, Micup'ta, Micup'tan, Micup'un) must not
+	// "Pirichat" ends in a front vowel and a voiced r, like upstream's "Fluxer": Pirichat'i, Pirichat'e, Pirichat'de,
+	// Pirichat'den, Pirichat'in. Micup's back-vowel suffixes (Micup'u, Micup'a, Micup'ta, Micup'tan, Micup'un) must not
 	// come back.
-	it('attaches Turkish suffixes that fit "sanalyer" to the product name', () => {
+	it('attaches Turkish suffixes that fit "Pirichat" to the product name', () => {
 		const suffixes = tr.flatMap(([, msgstr]) =>
 			[...msgstr.matchAll(/\{(?:productName|PRODUCT_NAME)\}['’](\p{L}+)/gu)].map((match) => match[1]),
 		);
@@ -183,10 +183,10 @@ describe('sanalyer brand text', () => {
 	});
 
 	// No window in the service worker, so its push notification titles use this fallback.
-	it('names the product sanalyer and its premium plan sanalyer Premium without a bootstrap', () => {
-		expect(PRODUCT_NAME).toBe('sanalyer');
-		expect(PREMIUM_PRODUCT_NAME).toBe('sanalyer Plus');
-		expect(PREMIUM_PRODUCT_FULL_NAME).toBe('sanalyer Plus');
+	it('names the product Pirichat and its premium plan Pirichat Premium without a bootstrap', () => {
+		expect(PRODUCT_NAME).toBe('Pirichat');
+		expect(PREMIUM_PRODUCT_NAME).toBe('Pirichat Plus');
+		expect(PREMIUM_PRODUCT_FULL_NAME).toBe('Pirichat Plus');
 	});
 
 	it('uses neutral example values in form placeholders', () => {
@@ -196,19 +196,12 @@ describe('sanalyer brand text', () => {
 
 	// Catalog text is checked above; these values are filled into it at runtime. Micup: Weblate and fluxer.dev links
 	// render only when the instance is not self-hosted, the Bluesky handle is unused.
-	it('keeps Fluxer addresses only in display constants sanalyer never shows', () => {
+	it('keeps Fluxer addresses only in display constants Pirichat never shows', () => {
 		const fluxerValued = Object.entries(constants)
 			.filter(([, value]) => typeof value === 'string' && /fluxer/i.test(value))
 			.map(([name]) => name)
 			.sort();
-		// DESKTOP_DOWNLOAD_URL: until sanalyer ships its own clients, members use the official Fluxer apps.
-		expect(fluxerValued).toEqual([
-			'DESKTOP_DOWNLOAD_URL',
-			'FLUXER_BLUESKY_HANDLE',
-			'FLUXER_DOCS_DOMAIN',
-			'FLUXER_DOCS_URL',
-			'I18N_WEBLATE_DOMAIN',
-			'I18N_WEBLATE_URL',
-		]);
+		// Downloads and developer docs moved to pirichat.online/indir and pirichat.online/docs on 2026-10-15.
+		expect(fluxerValued).toEqual(['FLUXER_BLUESKY_HANDLE', 'I18N_WEBLATE_DOMAIN', 'I18N_WEBLATE_URL']);
 	});
 });
