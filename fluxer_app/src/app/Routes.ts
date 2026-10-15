@@ -4,6 +4,8 @@ import RuntimeConfig from '@app/features/app/state/RuntimeConfig';
 import {marketingUrl} from '@app/features/messaging/utils/MessagingUrlUtils';
 
 function hostedMarketingUrl(path: string): string | null {
+	// Desktop renders UsernameSelectionGate before any instance runtime is active; reading features then throws.
+	if (RuntimeConfig.getSnapshotOrNull() === null) return null;
 	return RuntimeConfig.isSelfHosted() ? null : marketingUrl(path);
 }
 

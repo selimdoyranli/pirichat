@@ -1521,7 +1521,7 @@ msgstr "{displayName}'s screen"
 #. Instance selector error shown when the instance speaks a protocol generation this client does not know. Domain is interpolated.
 #: src/features/auth/flow/instance_selector/InstanceDiscoveryFailure.ts
 msgid "{domain} runs a newer version of Pirichat than this app. Update Pirichat, then try again."
-msgstr "A(z) {domain} a Micupnél újabb verziót futtat, mint ez az alkalmazás. Frissítse a Pirichatt, majd próbálkozzon újra."
+msgstr "A(z) {domain} a Pirichatnál újabb verziót futtat, mint ez az alkalmazás. Frissítse a Pirichatt, majd próbálkozzon újra."
 
 #. Profile timezone difference text. duration is a localized hours/minutes phrase for how far ahead the target user's local time is.
 #: src/features/user/components/popouts/UserProfileShared.tsx
