@@ -125,7 +125,7 @@ describe('shop order creation', () => {
 		expect(payriffCreates()[0]!.body).toMatchObject({
 			amount: 149.99,
 			currency: 'TRY',
-			description: `Pirichat Plus · 1 ay — ₺149,99. Sipariş #${created.id}`,
+			description: `pirichat Plus · 1 ay — ₺149,99. Sipariş #${created.id}`,
 		});
 	});
 

@@ -44,11 +44,11 @@ export const Routes = {
 	THEME_STUDIO: '/theme-studio',
 	FEED: '/feed',
 	FEED_POST: '/feed/posts/:postId',
-	// Pirichat: premium and the shop are pages beside the DM list, like bookmarks and mentions.
+	// pirichat: premium and the shop are pages beside the DM list, like bookmarks and mentions.
 	PREMIUM: '/premium',
 	SHOP: '/shop',
 	BOTS: '/bots',
-	// Pirichat: the same pages opened from the feed stay beside its sidebar (FeedSectionPages).
+	// pirichat: the same pages opened from the feed stay beside its sidebar (FeedSectionPages).
 	FEED_PREMIUM: '/feed/premium',
 	FEED_SHOP: '/feed/shop',
 	FEED_BOTS: '/feed/bots',

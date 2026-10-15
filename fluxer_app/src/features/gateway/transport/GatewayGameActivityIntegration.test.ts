@@ -70,7 +70,7 @@ vi.mock('@app/features/gateway/transport/GatewayCompression', () => ({
 	},
 }));
 vi.mock('@app/features/platform/utils/ClientInfo', () => ({
-	getGatewayClientProperties: () => Promise.resolve({os: 'windows', browser: 'Pirichat', device: 'desktop'}),
+	getGatewayClientProperties: () => Promise.resolve({os: 'windows', browser: 'pirichat', device: 'desktop'}),
 }));
 vi.mock('@app/features/platform/state/AuthSession', () => ({
 	default: {

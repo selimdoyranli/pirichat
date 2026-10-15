@@ -32,7 +32,7 @@ interface PremiumTrialOffer {
 	start: () => Promise<void>;
 }
 
-// Pirichat: the one-time card-free trial, for the premium page's "Try free" button; null when there is
+// pirichat: the one-time card-free trial, for the premium page's "Try free" button; null when there is
 // none to offer. It never writes premium state itself: the gateway's USER_UPDATE does, and the offer goes away.
 export function usePremiumTrial(): PremiumTrialOffer | null {
 	const {i18n} = useLingui();

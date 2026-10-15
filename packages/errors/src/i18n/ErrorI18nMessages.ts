@@ -450,9 +450,9 @@ export const ERROR_I18N_MESSAGES = {
 	'moderation_and_reports.user_is_not_banned': "This user isn't banned.",
 	'names_and_normalization.name_empty_after_normalization': "Name can't be empty after normalization.",
 	'permissions.global_ip_banned':
-		'Your IP address {ipAddress} has been permanently blocked from the Pirichat API by platform administrators. If you believe this is a mistake, contact info@sanalyer.com to appeal. Include this IP address in your appeal.',
+		'Your IP address {ipAddress} has been permanently blocked from the pirichat API by platform administrators. If you believe this is a mistake, contact selim.doyranli@albayrakmedya.com to appeal. Include this IP address in your appeal.',
 	'permissions.global_ip_temporarily_banned':
-		'Your IP address {ipAddress} has been temporarily blocked from the Pirichat API. The block lifts on its own when it expires. If you think this is a mistake, contact info@sanalyer.com and include this IP address.',
+		'Your IP address {ipAddress} has been temporarily blocked from the pirichat API. The block lifts on its own when it expires. If you think this is a mistake, contact selim.doyranli@albayrakmedya.com and include this IP address.',
 	'permissions.missing_access': "You don't have access to this resource or feature.",
 	'permissions.missing_permissions': "You don't have the permissions required to perform this action.",
 	'permissions.user_banned_from_guild': 'This user is banned from this community.',
@@ -462,7 +462,7 @@ export const ERROR_I18N_MESSAGES = {
 	'permissions.user_owns_guilds': 'This user owns communities.',
 	'phone.add_not_eligible': 'You are not eligible to add a phone number to your account.',
 	'phone.country_not_supported':
-		"We don't send verification texts to this country. Use a mobile number from another country, or email info@sanalyer.com and a person will review your account.",
+		"We don't send verification texts to this country. Use a mobile number from another country, or email selim.doyranli@albayrakmedya.com and a person will review your account.",
 	'phone.inbound_verification_required':
 		'This number is verified by texting us instead of us texting you. Start phone verification again to get the code and the number to text.',
 	'phone.invalid_number': 'Invalid phone number.',
@@ -471,12 +471,12 @@ export const ERROR_I18N_MESSAGES = {
 	'phone.number_already_used': 'Phone number is already in use.',
 	'phone.number_format_required': 'Phone number must be in E.164 format (for example, +1234567890).',
 	'phone.number_not_in_service':
-		"Your carrier says this number isn't in service. Check the number and try again, or email info@sanalyer.com if it's correct.",
+		"Your carrier says this number isn't in service. Check the number and try again, or email selim.doyranli@albayrakmedya.com if it's correct.",
 	'phone.number_not_mobile':
-		"This isn't a mobile number, so it can't receive our text. Use a mobile number, or email info@sanalyer.com if you think that's wrong.",
+		"This isn't a mobile number, so it can't receive our text. Use a mobile number, or email selim.doyranli@albayrakmedya.com if you think that's wrong.",
 	'phone.verification_code_invalid': 'Invalid phone verification code.',
 	'phone.verification_needs_review':
-		"We couldn't verify this number automatically. Email info@sanalyer.com and a person will review your account.",
+		"We couldn't verify this number automatically. Email selim.doyranli@albayrakmedya.com and a person will review your account.",
 	'phone.verification_required': 'Phone verification is required.',
 	'premium_and_plans.animated_avatars_require_premium': 'Animated avatars require Plus.',
 	'premium_and_plans.banners_require_premium': 'Banners require Plus.',
@@ -602,7 +602,7 @@ export const ERROR_I18N_MESSAGES = {
 	'usernames_and_tags.discriminator_out_of_range': 'Discriminator must be between {min} and {max}.',
 	'usernames_and_tags.discriminator_required': 'Discriminator is required.',
 	'usernames_and_tags.display_name_cannot_impersonate_micup':
-		"Display name can't pass for an official Pirichat account.",
+		"Display name can't pass for an official pirichat account.",
 	'usernames_and_tags.display_name_reserved_terms': 'Display name can\'t contain "system message".',
 	'usernames_and_tags.global_name_length_invalid': 'Global name must be between {min} and {max} characters.',
 	'usernames_and_tags.global_name_reserved_value': 'Global name can\'t be "everyone" or "here".',

@@ -18,7 +18,7 @@ export function getPremiumProductFullName(): string {
 	return `${productName} ${getPremiumProductName()}`;
 }
 
-// Pirichat: a self-hosted instance shows premium when it offers the free trial or keys.
+// pirichat: a self-hosted instance shows premium when it offers the free trial or keys.
 // Add `|| RuntimeConfig.payriffEnabled` when Payriff checkout lands.
 export function shouldShowPremiumFeatures(): boolean {
 	if (DeveloperOptions.selfHostedModeOverride) {
@@ -32,7 +32,7 @@ export function shouldShowPremiumFeatures(): boolean {
 	);
 }
 
-// Pirichat: on a direct page load the route guard runs before the instance snapshot is active. Reading
+// pirichat: on a direct page load the route guard runs before the instance snapshot is active. Reading
 // RuntimeConfig.features then throws inside a MobX computed; with disableErrorBoundaries (index.tsx) the computed
 // stays marked as computing and every later read crashes the app with "cycle detected". Without a snapshot the page
 // is let through; it decides again once the runtime is active.

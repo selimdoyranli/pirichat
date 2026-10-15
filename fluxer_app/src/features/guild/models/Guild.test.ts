@@ -12,7 +12,7 @@ const {Guild} = await import('@app/features/guild/models/Guild');
 function wireGuild(extra: Partial<WireGuild> = {}): WireGuild {
 	return {
 		id: '10',
-		name: 'Pirichat',
+		name: 'pirichat',
 		icon: null,
 		vanity_url_code: null,
 		owner_id: '1',
@@ -37,7 +37,7 @@ describe('Guild boost fields', () => {
 
 	it('keeps the boost state when rebuilt from itself and applies a new one', () => {
 		const guild = new Guild(wireGuild({premium_tier: 2, premium_subscription_count: 7}));
-		const renamed = new Guild({...guild.toJSON(), name: 'Pirichat TR'});
+		const renamed = new Guild({...guild.toJSON(), name: 'pirichat TR'});
 		expect([renamed.premiumTier, renamed.premiumSubscriptionCount]).toEqual([2, 7]);
 		const boosted = new Guild({...guild.toJSON(), premium_tier: 3, premium_subscription_count: 14});
 		expect([boosted.premiumTier, boosted.premiumSubscriptionCount]).toEqual([3, 14]);

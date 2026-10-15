@@ -369,7 +369,7 @@ export const ErrorCodeToI18nKey = {
 	[APIErrorCodes.SEARCH_INDEX_NOT_READY]: 'threads.search_index_not_ready',
 	[APIErrorCodes.UNKNOWN_THREAD_MEMBER]: 'unknown_entities.unknown_thread_member',
 	[APIErrorCodes.UPDATE_FAILED]: 'admin_and_system.update_failed',
-	// Pirichat: TEMPORARY: generic aliases; replace with dedicated messages when username routes and i18n are integrated.
+	// pirichat: TEMPORARY: generic aliases; replace with dedicated messages when username routes and i18n are integrated.
 	[APIErrorCodes.USERNAME_TAKEN]: 'usernames_and_tags.username_already_taken',
 	[APIErrorCodes.USERNAME_RESERVED]: 'usernames_and_tags.username_not_available',
 	[APIErrorCodes.USERNAME_BLOCKED]: 'usernames_and_tags.username_not_available',

@@ -54,7 +54,7 @@ describe('installed channels stay apart', () => {
 		for (const channel of ['stable', 'canary']) {
 			assert.deepEqual(
 				configs[channel].protocols.flatMap((protocol) => protocol.schemes),
-				['Pirichat'],
+				['pirichat'],
 			);
 		}
 	});

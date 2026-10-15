@@ -99,7 +99,7 @@ test('the blocked bootstrap loads persisted native strings before importing the 
 	const result = runBootstrap('blocked');
 	assert.equal(result.userData, result.savedUserData);
 	assert.equal(result.state.action.label, 'Open Microsoft Store');
-	assert.equal(result.state.message, 'Install the required security update from Microsoft Store before Pirichat starts.');
+	assert.equal(result.state.message, 'Install the required security update from Microsoft Store before pirichat starts.');
 	assert.equal(result.nativeStringReads, 1);
 });
 

@@ -22,7 +22,7 @@ const ALL_DESCRIPTOR = msg({
 	comment: 'Shop page type filter: every decoration type.',
 });
 
-// Pirichat: the shop beside the DM list (Routes.SHOP). The bar holds the type filter and "Redeem a code", which jumps to
+// pirichat: the shop beside the DM list (Routes.SHOP). The bar holds the type filter and "Redeem a code", which jumps to
 // the code bar at the bottom of the page; the body lays itself out so the hero spans the full width. ?set=<bundle ID>
 // opens that set's page; picking a filter there goes back to the whole shop.
 export const ShopPage = observer(function ShopPage() {

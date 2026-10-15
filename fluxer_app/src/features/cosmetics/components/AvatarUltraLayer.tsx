@@ -14,7 +14,7 @@ import {type CSSProperties, useState} from 'react';
 
 export type AvatarDecorationSurface = 'none' | 'compact' | 'voice' | 'profile';
 type UltraSurface = Exclude<AvatarDecorationSurface, 'none'>;
-// Pirichat: 'behind' is the underlay slot, 'front' the decoration slot over the avatar.
+// pirichat: 'behind' is the underlay slot, 'front' the decoration slot over the avatar.
 export type AvatarUltraPlacement = 'behind' | 'front';
 
 const MIN_ULTRA_AVATAR_SIZE = 32;

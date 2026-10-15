@@ -263,7 +263,7 @@ function applyStreamingModeDefaultMigrationV1(parsed: Record<string, unknown>): 
 	return true;
 }
 
-// Pirichat: screen shares start in the game mode, so a saved 'screenshare' mode moves to 'gaming' a single time.
+// pirichat: screen shares start in the game mode, so a saved 'screenshare' mode moves to 'gaming' a single time.
 function applyStreamingModeGamingDefaultMigrationV1(parsed: Record<string, unknown>): boolean {
 	if (parsed.streamingModeGamingDefaultMigratedV1 === true) {
 		return false;
@@ -297,7 +297,7 @@ function applyScreenShareContentHintDefaultMigrationV1(parsed: Record<string, un
 	return true;
 }
 
-// Pirichat: custom shares use the motion hint, so a saved 'text' hint moves to 'motion' a single time.
+// pirichat: custom shares use the motion hint, so a saved 'text' hint moves to 'motion' a single time.
 function applyScreenShareContentHintMotionDefaultMigrationV1(parsed: Record<string, unknown>): boolean {
 	if (parsed.screenShareContentHintMotionDefaultMigratedV1 === true) {
 		return false;
@@ -483,9 +483,9 @@ class VoiceSettings {
 	showMyOwnCamera = true;
 	showMyOwnScreenShare = true;
 	showNonVideoParticipants = true;
-	// Pirichat: the participant avatar stack is off by default; a new key so the `true` saved under the old default is not read back
+	// pirichat: the participant avatar stack is off by default; a new key so the `true` saved under the old default is not read back
 	showVoiceConnectionAvatarStackPrefV2 = false;
-	// Pirichat: the connection ID line is off by default; a new key so the `true` saved under the V2 default is not read back
+	// pirichat: the connection ID line is off by default; a new key so the `true` saved under the V2 default is not read back
 	showVoiceConnectionIdPrefV3 = false;
 	showConnectionVolumeControls = false;
 	pauseOwnScreenSharePreviewOnUnfocusPrefV2 = true;

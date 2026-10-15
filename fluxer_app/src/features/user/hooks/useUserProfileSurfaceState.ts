@@ -13,7 +13,7 @@ interface UseUserProfileSurfaceStateOptions {
 	enabled: boolean;
 	fallbackProfile: Profile;
 	onError?: (error: unknown) => void;
-	// Pirichat: the page asks without the mutual lists; a profile cached without them does not answer a
+	// pirichat: the page asks without the mutual lists; a profile cached without them does not answer a
 	// surface that shows them (the modal and the popup, by default), which shows it while asking again.
 	withMutuals?: boolean;
 }

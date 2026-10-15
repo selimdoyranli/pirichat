@@ -73,7 +73,7 @@ describe('UsernameType', () => {
 		const result = UsernameType.safeParse('EVERYONE');
 		expect(result.success).toBe(false);
 	});
-	it.each(['micupdestek', 'MiCuP', 'resmi_Micup'])('rejects the Pirichat brand in %s', (username) => {
+	it.each(['micupdestek', 'MiCuP', 'resmi_Micup'])('rejects the pirichat brand in %s', (username) => {
 		const result = UsernameType.safeParse(username);
 		expect(result.success).toBe(false);
 		if (!result.success) {
@@ -141,38 +141,38 @@ describe('GlobalNameType', () => {
 		}
 	});
 	it.each([
-		'Pirichat Destek',
-		'Pirichat Resmi',
+		'pirichat Destek',
+		'pirichat Resmi',
 		'micup_official',
 		'MİCUP DESTEK',
 		'M1cup Support',
 		'Rnicup Yönetim',
 		'Мicup Ekibi',
 		'ＭＩＣＵＰ Resmi',
-		'Pirichat Mod',
-		'Pirichat',
-		'Pirichat Yetkili',
-		'Pirichat Yardım',
-		'Pirichat Güvenlik',
-		'Pirichat Sistem',
-		'Pirichat Duyuru',
-		'Pirichat Moderasyon',
+		'pirichat Mod',
+		'pirichat',
+		'pirichat Yetkili',
+		'pirichat Yardım',
+		'pirichat Güvenlik',
+		'pirichat Sistem',
+		'pirichat Duyuru',
+		'pirichat Moderasyon',
 		'MICUP YETKİLİSİ',
 		'MicupDuyurular',
-		'Pirichat Güvenliği',
-		'Pirichat Desteği',
-		'Pirichat System',
-		'Pirichat Security',
-		'Pirichat Help',
-		'Pirichat Announcements',
-		'Pirichat Moderation',
-		'Pirichat Team',
-		'PIRICHAT Destek',
+		'pirichat Güvenliği',
+		'pirichat Desteği',
+		'pirichat System',
+		'pirichat Security',
+		'pirichat Help',
+		'pirichat Announcements',
+		'pirichat Moderation',
+		'pirichat Team',
+		'pirichat Destek',
 		'Sana1yer Destek',
 		'ᴍɪᴄᴜᴘ Destek',
 		'ᴍɪᴄᴜᴘ',
 		'ｍｉｃｕｐ Destek',
-	])('rejects %s, which passes for an official Pirichat account', (name) => {
+	])('rejects %s, which passes for an official pirichat account', (name) => {
 		const result = GlobalNameType.safeParse(name);
 		expect(result.success).toBe(false);
 		if (!result.success) {
@@ -183,9 +183,9 @@ describe('GlobalNameType', () => {
 		'Ekip Lideri',
 		'Destek',
 		'Resmi Ali',
-		'Pirichat sever Ali',
-		'Pirichat Badminton',
-		'Pirichat Modern',
+		'pirichat sever Ali',
+		'pirichat Badminton',
+		'pirichat Modern',
 		'Sunucu Yetkilisi',
 		'Duyurular',
 		'Sistem Botu',
@@ -227,8 +227,8 @@ describe('PasswordType', () => {
 });
 
 describe('WebhookNameType', () => {
-	it.each(['Pirichat', 'Pirichat Duyuru', 'ᴍɪᴄᴜᴘ Destek'])(
-		'rejects %s, which passes for an official Pirichat account',
+	it.each(['pirichat', 'pirichat Duyuru', 'ᴍɪᴄᴜᴘ Destek'])(
+		'rejects %s, which passes for an official pirichat account',
 		(name) => {
 			const result = WebhookNameType.safeParse(name);
 			expect(result.success).toBe(false);
@@ -238,11 +238,11 @@ describe('WebhookNameType', () => {
 		},
 	);
 	it('refuses the same name as a per-message override and on a Slack-compatible hook', () => {
-		expect(WebhookMessageRequest.safeParse({content: 'x', username: 'Pirichat Sistem'}).success).toBe(false);
-		expect(SlackWebhookRequest.safeParse({text: 'x', username: 'Pirichat Yetkili'}).success).toBe(false);
+		expect(WebhookMessageRequest.safeParse({content: 'x', username: 'pirichat Sistem'}).success).toBe(false);
+		expect(SlackWebhookRequest.safeParse({text: 'x', username: 'pirichat Yetkili'}).success).toBe(false);
 		expect(WebhookMessageRequest.safeParse({content: 'x', username: 'Sistem Botu'}).success).toBe(true);
 	});
-	it.each(['Duyurular', 'Sistem Botu', 'Pirichat Haberci'])('accepts %s', (name) => {
+	it.each(['Duyurular', 'Sistem Botu', 'pirichat Haberci'])('accepts %s', (name) => {
 		expect(WebhookNameType.safeParse(name).success).toBe(true);
 	});
 });

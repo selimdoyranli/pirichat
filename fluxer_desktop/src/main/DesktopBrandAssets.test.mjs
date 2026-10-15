@@ -63,7 +63,7 @@ for (const channel of ['stable', 'canary']) {
 		const wrapper = readFileSync(path.join(desktopRoot, 'packaging/linux', wrapperName), 'utf8');
 		assert.ok(wrapper.includes(`exec zypak-wrapper "/app/fluxer/${configFor(channel).extraMetadata.name}" "$@"`));
 	});
-	test(`${channel} Linux package, WM class, icon and protocol share Pirichat identity`, () => {
+	test(`${channel} Linux package, WM class, icon and protocol share pirichat identity`, () => {
 		const config = configFor(channel);
 		assert.equal(config.extraMetadata.name, id);
 		assert.equal(config.extraMetadata.desktopName, `${id}.desktop`);
@@ -81,7 +81,7 @@ for (const channel of ['stable', 'canary']) {
 		assert.ok(!icons.filter.some((file) => file.includes('Assets.car') || file.includes('.icon')));
 	});
 
-	test(`${channel} PNGs and complete ICNS use the approved Pirichat source`, () => {
+	test(`${channel} PNGs and complete ICNS use the approved pirichat source`, () => {
 		const source = readFileSync(path.join(iconRoot, '1024x1024.png'));
 		assert.equal(createHash('sha256').update(source).digest('hex'), sourceHash);
 		for (const size of sizes) {
@@ -106,7 +106,7 @@ for (const channel of ['stable', 'canary']) {
 				icns
 					.subarray(offset + 8, offset + length)
 					.equals(readFileSync(path.join(iconRoot, `${icnsSizes[type]}x${icnsSizes[type]}.png`))),
-				`${type} differs from the Pirichat PNG`,
+				`${type} differs from the pirichat PNG`,
 			);
 			chunks.add(type);
 			offset += length;
@@ -115,11 +115,11 @@ for (const channel of ['stable', 'canary']) {
 		assert.equal(existsSync(path.join(iconRoot, '_compiled/Assets.car')), false);
 		const svg = readFileSync(path.join(iconRoot, 'AppIcon.icon/Assets/Vector.svg'), 'utf8');
 		const embedded = svg.match(/href="data:image\/png;base64,([^"]+)"/);
-		assert.ok(embedded, 'the editable source must embed the actual Pirichat image');
+		assert.ok(embedded, 'the editable source must embed the actual pirichat image');
 		assert.ok(Buffer.from(embedded[1], 'base64').equals(source));
 	});
 
-	test(`${channel} runtime desktop entry installs Pirichat hicolor icons and sets the matching WM class`, () => {
+	test(`${channel} runtime desktop entry installs pirichat hicolor icons and sets the matching WM class`, () => {
 		const writes = new Map();
 		const copies = [];
 		const protocols = [];

@@ -273,7 +273,7 @@ function logErrorResponse<E extends BaseHonoEnv>(err: Error, resolved: ResolvedE
 		logger.error(details, 'Unhandled error occurred');
 		return;
 	}
-	// Pirichat: SHOP_BUSY is load shedding by design (the Payriff budget is spent); it is counted for the admin shop page,
+	// pirichat: SHOP_BUSY is load shedding by design (the Payriff budget is spent); it is counted for the admin shop page,
 	// so a campaign does not fill the error log.
 	const shed = err instanceof FluxerError && err.code === APIErrorCodes.SHOP_BUSY;
 	if (status >= 500 && !shed) {

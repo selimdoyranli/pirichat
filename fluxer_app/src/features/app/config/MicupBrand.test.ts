@@ -62,7 +62,7 @@ vi.mock('@app/features/platform/transport/InstanceHTTP', () => ({}));
 vi.mock('@app/features/messaging/utils/MessagingUrlUtils', () => ({setPathQueryParams: vi.fn()}));
 vi.mock('@app/features/user/components/settings_utils/UserSettingsDeepLinks', () => ({}));
 
-describe('Pirichat brand hosts', () => {
+describe('pirichat brand hosts', () => {
 	it('recognizes pirichat.online invite, gift and theme links and app links', () => {
 		expect(findInvite('https://pirichat.online/invite/abcDEF12')).toBe('abcDEF12');
 		expect(findGifts('https://pirichat.online/gift/abcDEF12')).toEqual(['abcDEF12']);
@@ -71,7 +71,7 @@ describe('Pirichat brand hosts', () => {
 	});
 
 	// Micup is not Fluxer: a fluxer.gg/<code> link is another service's invite, and Fluxer's hosts are not ours.
-	it('treats no Fluxer link as a Pirichat invite, gift, theme or app link', () => {
+	it('treats no Fluxer link as a pirichat invite, gift, theme or app link', () => {
 		expect(findInvite('https://fluxer.gg/abcDEF12')).toBeNull();
 		expect(findInvite('https://fluxer.app/invite/abcDEF12')).toBeNull();
 		expect(findGifts('https://fluxer.gift/abcDEF12')).toEqual([]);
@@ -106,14 +106,14 @@ describe('Pirichat brand hosts', () => {
 		expect(TrustedDomain.isTrustedDomain('canary.micup.gg')).toBe(false);
 	});
 
-	it('points the support contact to info@sanalyer.com', () => {
-		expect(SUPPORT_EMAIL).toBe('info@sanalyer.com');
-		expect(SUPPORT_EMAIL_MAILTO).toBe('mailto:info@sanalyer.com');
+	it('points the support contact to selim.doyranli@albayrakmedya.com', () => {
+		expect(SUPPORT_EMAIL).toBe('selim.doyranli@albayrakmedya.com');
+		expect(SUPPORT_EMAIL_MAILTO).toBe('mailto:selim.doyranli@albayrakmedya.com');
 	});
 });
 
 // An upstream merge must not bring Fluxer's name, its premium name or its jokes back into what users read.
-describe('Pirichat brand text', () => {
+describe('pirichat brand text', () => {
 	const localesDir = resolve(dirname(fileURLToPath(import.meta.url)), '../../i18n/locales');
 	const catalogs = readdirSync(localesDir, {withFileTypes: true})
 		.filter((entry) => entry.isDirectory())
@@ -146,7 +146,7 @@ describe('Pirichat brand text', () => {
 	const EXTERNAL_PUSH_RELAY_MSGID =
 		"The official Fluxer mobile apps receive notifications through Fluxer's push relay, which hands them to Apple and Google. Self-hosted UnifiedPush and ntfy endpoints never reach the relay and need no agreement.";
 
-	it('keeps Pirichat product branding in all 34 languages', () => {
+	it('keeps pirichat product branding in all 34 languages', () => {
 		expect(catalogs).toHaveLength(34);
 		const leaks = catalogs.flatMap(({locale, entries}) =>
 			entries
@@ -171,10 +171,10 @@ describe('Pirichat brand text', () => {
 		expect(wizard).toContain('href={PUSH_RELAY_NOTICE_URL}');
 	});
 
-	// "Pirichat" ends in a front vowel and a voiced r, like upstream's "Fluxer": Pirichat'ı, Pirichat'a, Pirichat'ta,
-	// Pirichat'tan, Pirichat'ın. Micup's back-vowel suffixes (Micup'u, Micup'a, Micup'ta, Micup'tan, Micup'un) must not
+	// "pirichat" ends in a front vowel and a voiced r, like upstream's "Fluxer": pirichat'ı, pirichat'a, pirichat'ta,
+	// pirichat'tan, pirichat'ın. Micup's back-vowel suffixes (Micup'u, Micup'a, Micup'ta, Micup'tan, Micup'un) must not
 	// come back.
-	it('attaches Turkish suffixes that fit "Pirichat" to the product name', () => {
+	it('attaches Turkish suffixes that fit "pirichat" to the product name', () => {
 		const suffixes = tr.flatMap(([, msgstr]) =>
 			[...msgstr.matchAll(/\{(?:productName|PRODUCT_NAME)\}['’](\p{L}+)/gu)].map((match) => match[1]),
 		);
@@ -183,10 +183,10 @@ describe('Pirichat brand text', () => {
 	});
 
 	// No window in the service worker, so its push notification titles use this fallback.
-	it('names the product Pirichat and its premium plan Pirichat Premium without a bootstrap', () => {
-		expect(PRODUCT_NAME).toBe('Pirichat');
-		expect(PREMIUM_PRODUCT_NAME).toBe('Pirichat Plus');
-		expect(PREMIUM_PRODUCT_FULL_NAME).toBe('Pirichat Plus');
+	it('names the product pirichat and its premium plan pirichat Premium without a bootstrap', () => {
+		expect(PRODUCT_NAME).toBe('pirichat');
+		expect(PREMIUM_PRODUCT_NAME).toBe('pirichat Plus');
+		expect(PREMIUM_PRODUCT_FULL_NAME).toBe('pirichat Plus');
 	});
 
 	it('uses neutral example values in form placeholders', () => {
@@ -196,7 +196,7 @@ describe('Pirichat brand text', () => {
 
 	// Catalog text is checked above; these values are filled into it at runtime. Micup: Weblate and fluxer.dev links
 	// render only when the instance is not self-hosted, the Bluesky handle is unused.
-	it('keeps Fluxer addresses only in display constants Pirichat never shows', () => {
+	it('keeps Fluxer addresses only in display constants pirichat never shows', () => {
 		const fluxerValued = Object.entries(constants)
 			.filter(([, value]) => typeof value === 'string' && /fluxer/i.test(value))
 			.map(([name]) => name)

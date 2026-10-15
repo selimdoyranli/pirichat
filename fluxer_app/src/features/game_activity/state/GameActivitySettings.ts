@@ -29,7 +29,7 @@ export class GameActivitySettingsState {
 	}
 
 	setDetectionEnabled(accountId: string, enabled: boolean): void {
-		// Pirichat: local storage belongs to this device; only the account preference is saved.
+		// pirichat: local storage belongs to this device; only the account preference is saved.
 		if (enabled) AppStorage.setItem(`GameActivity:detection:${accountId}`, 'true');
 		else AppStorage.removeItem(`GameActivity:detection:${accountId}`);
 		this.detection.set(accountId, enabled);

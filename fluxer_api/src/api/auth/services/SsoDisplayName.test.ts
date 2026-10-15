@@ -58,8 +58,8 @@ describe('SSO display name', () => {
 		await harness?.shutdown();
 	});
 
-	it.each(['Pirichat Destek', 'ᴍɪᴄᴜᴘ Yetkili'])(
-		'drops the provider name %s, which passes for Pirichat, and shows the username instead',
+	it.each(['pirichat Destek', 'ᴍɪᴄᴜᴘ Yetkili'])(
+		'drops the provider name %s, which passes for pirichat, and shows the username instead',
 		async (name) => {
 			const me = await provisionWithName(name);
 			expect(me.global_name).toBeNull();

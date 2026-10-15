@@ -218,7 +218,7 @@ const SuggestedCommunity = observer(({guild}: {guild: DiscoveryGuild}) => {
 	);
 });
 
-// Pirichat akis-oneri: up to five popular people and five popular Discovery communities under the profile card. One
+// pirichat akis-oneri: up to five popular people and five popular Discovery communities under the profile card. One
 // request per feed page opening (FeedSuggestionPicks): the picks stay through tab changes, follows and joins, so they do
 // not move under the pointer, and the next opening of the feed picks again.
 export const FeedSuggestions = observer(() => {

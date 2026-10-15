@@ -25,7 +25,7 @@ interface DMListPageRowProps {
 	accent?: boolean;
 }
 
-// Pirichat: one row of the DM list (Friends, Personal notes), also the rows of the feed sidebar.
+// pirichat: one row of the DM list (Friends, Personal notes), also the rows of the feed sidebar.
 export const DMListPageRow = ({icon: RowIcon, label, selected, onClick, accent = false}: DMListPageRowProps) => (
 	<FocusRing offset={-2} data-flx="channel.direct-message.dm-list-page-row.focus-ring">
 		<button
@@ -61,7 +61,7 @@ export const DMListPageRow = ({icon: RowIcon, label, selected, onClick, accent =
 const openBots = () => RouterUtils.transitionTo(Routes.BOTS);
 const openShop = () => RouterUtils.transitionTo(Routes.SHOP);
 
-// Pirichat: premium and the shop (the two accented rows, together), then Bot System, under the DM list's and the feed
+// pirichat: premium and the shop (the two accented rows, together), then Bot System, under the DM list's and the feed
 // sidebar's own rows. Each page opens beside the sidebar it is opened from (FeedSectionPages), so the row is current on
 // either path.
 export const DMListPageItems = observer(() => {

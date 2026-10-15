@@ -14,7 +14,7 @@ const FOLLOW_LIST_MAX_PAGES = 5;
 export interface FollowListEntry {
 	readonly id: string;
 	readonly user: User;
-	// Pirichat: whether the viewer follows this account, from the page itself (the server's 60 s following
+	// pirichat: whether the viewer follows this account, from the page itself (the server's 60 s following
 	// list; no look-up per row). Undefined from an older server: the row shows no Follow button.
 	readonly isFollowing?: boolean;
 }

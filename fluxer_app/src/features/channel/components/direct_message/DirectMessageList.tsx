@@ -271,7 +271,7 @@ export const DMList = observer(() => {
 		currentUserId != null &&
 		(routeDmChannelId === currentUserId || (isMobileDmIndexRoute && lastSelectedDmChannelId === currentUserId));
 	const showPremiumFeatures = shouldShowPremiumFeatures();
-	// Pirichat: on a self-hosted instance premium and the shop are pages and have no settings tab, so mobile lists them too.
+	// pirichat: on a self-hosted instance premium and the shop are pages and have no settings tab, so mobile lists them too.
 	const showMobilePlutoniumButton = showPremiumFeatures && (!isMobile || isPremiumPageAvailable());
 	const showShop = isShopPageAvailable();
 	const openShop = () => RouterUtils.transitionTo(Routes.SHOP);

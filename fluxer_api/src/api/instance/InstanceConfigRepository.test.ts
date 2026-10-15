@@ -656,7 +656,7 @@ describe('InstanceConfigRepository', () => {
 		});
 	});
 
-	describe('keeps the stored Pirichat config rows through a read and a rewrite', () => {
+	describe('keeps the stored pirichat config rows through a read and a rewrite', () => {
 		const LIVE_VOICE_NOISE_SUPPRESSION_ROW = {
 			enabled: true,
 			pipeline_v2_enabled: true,
@@ -845,7 +845,7 @@ describe('InstanceConfigRepository', () => {
 			const repository = createRepository(new MockKVProvider());
 			const row = {
 				branding: {
-					product_name: 'Pirichat',
+					product_name: 'pirichat',
 					icon_url: 'https://media.micup.gg/branding/0/14a74a1a.png',
 					symbol_url: 'https://media.micup.gg/branding/0/2502f636.png',
 					logo_url: 'https://media.micup.gg/branding/0/2502f636.png',

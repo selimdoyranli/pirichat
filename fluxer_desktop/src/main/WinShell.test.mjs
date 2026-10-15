@@ -29,7 +29,7 @@ function harness({
 	const processStub = {
 		platform,
 		arch: 'x64',
-		execPath: 'C:\\Pirichat\\current\\pirichat.exe',
+		execPath: 'C:\\pirichat\\current\\pirichat.exe',
 		env: {APPDATA: 'C:\\AppData', USERPROFILE: 'C:\\User'},
 		argv: [],
 		windowsStore: true,
@@ -108,11 +108,11 @@ function harness({
 			},
 		},
 		'@electron/common/DesktopIdentity': {
-			DESKTOP_APP_NAME: 'Pirichat',
+			DESKTOP_APP_NAME: 'pirichat',
 			WINDOWS_APP_USER_MODEL_ID: 'online.pirichat.desktop',
 			WINDOWS_LEGACY_APP_USER_MODEL_IDS: [],
 			LINUX_DESKTOP_ENTRY_ID: 'pirichat',
-			WINDOWS_SHORTCUT_AUTHOR: 'Pirichat',
+			WINDOWS_SHORTCUT_AUTHOR: 'pirichat',
 			WINDOWS_TOAST_ACTIVATOR_CLSID: '{test}',
 		},
 		'@electron/common/BuildChannel': {BUILD_CHANNEL: 'stable'},

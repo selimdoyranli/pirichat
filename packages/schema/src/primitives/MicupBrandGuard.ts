@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-// Micup: vanity codes and names that could pass for Micup itself (display names: Pirichat too), its founder, its
+// Micup: vanity codes and names that could pass for Micup itself (display names: pirichat too), its founder, its
 // staff, or a page of the app.
 // Every word rule is checked on the text as written and with look-alikes folded (see foldLookalikes).
 
 const BRAND = 'micup';
-// Micup: the instance now ships as Pirichat, so a display name may not pass for an official Pirichat account either
-// ("Pirichat Destek", "Pirichat Team"). Usernames and vanity codes still check only BRAND.
-const DISPLAY_NAME_BRANDS = [BRAND, 'Pirichat'];
+// Micup: the instance now ships as pirichat, so a display name may not pass for an official pirichat account either
+// ("pirichat Destek", "pirichat Team"). Usernames and vanity codes still check only BRAND.
+const DISPLAY_NAME_BRANDS = [BRAND, 'pirichat'];
 // Rejected anywhere in a vanity code, hyphens ignored (mi-cup, resmidestek, destekekibi). Accepted side effect:
 // ordinary words that contain one are refused too (ekipler, ekipman, destekci, supporters).
 const OFFICIAL_WORDS = ['destek', 'resmi', 'official', 'support', 'admin', 'yonetim', 'ekip', 'staff', 'moderator'];
@@ -198,8 +198,8 @@ export function nameContainsMicup(name: string): boolean {
 	return readName(name).some((reading) => joinParts(reading).includes(BRAND));
 }
 
-// A display name may mention Micup or Pirichat ("Pirichat sever Ali") or an official word ("Ekip Lideri") on its own.
-// It is refused when it is a bare brand or pairs a brand with an official word ("Micup Destek", "Pirichat Resmi").
+// A display name may mention Micup or pirichat ("pirichat sever Ali") or an official word ("Ekip Lideri") on its own.
+// It is refused when it is a bare brand or pairs a brand with an official word ("Micup Destek", "pirichat Resmi").
 export function displayNamePassesForMicup(name: string): boolean {
 	const readings = readName(name);
 	const brands = DISPLAY_NAME_BRANDS.filter((brand) => readings.some((reading) => joinParts(reading).includes(brand)));

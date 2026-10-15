@@ -60,7 +60,7 @@ function tileImageUrl(post: FeedPost): string {
 	});
 }
 
-// Pirichat: the Media tab, a square grid of the user's posts with pictures or a video.
+// pirichat: the Media tab, a square grid of the user's posts with pictures or a video.
 export const ProfileMediaGrid = observer(({timelineKey}: {timelineKey: string}) => {
 	const {i18n} = useLingui();
 	const timeline = FeedTimeline.getTimeline(timelineKey);

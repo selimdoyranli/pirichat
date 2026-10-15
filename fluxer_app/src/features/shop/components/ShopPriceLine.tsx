@@ -25,8 +25,8 @@ import {clsx} from 'clsx';
 import {observer} from 'mobx-react-lite';
 
 const WITH_MICUP_PLUS_DESCRIPTOR = msg({
-	message: '{price} with Pirichat Plus',
-	comment: 'Secondary shop price for someone without the Pirichat Plus discount. {price} is a price in Turkish lira.',
+	message: '{price} with pirichat Plus',
+	comment: 'Secondary shop price for someone without the pirichat Plus discount. {price} is a price in Turkish lira.',
 });
 
 export interface ShownPrice {

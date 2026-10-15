@@ -125,7 +125,7 @@ export const UserProfilePopout: React.FC<UserProfilePopoutProps> = observer(
 			UserProfileCommands.openUserProfile(user.id, guildId);
 			requestClose();
 		}, [isWebhook, user.id, guildId, requestClose]);
-		// Pirichat: the full profile page; the card stays what a name in chat opens.
+		// pirichat: the full profile page; the card stays what a name in chat opens.
 		const handleOpenProfilePage = useCallback(() => {
 			UserProfileCommands.openProfilePage(user.id);
 			requestClose();
@@ -293,7 +293,7 @@ export const UserProfilePopout: React.FC<UserProfilePopoutProps> = observer(
 								isWebhook={isWebhook}
 								onDisplayNameClick={!isWebhook ? handleOpenFullProfile : undefined}
 								belowName={
-									// Pirichat: Discord's short card. Badges right under the name, in the modal's row
+									// pirichat: Discord's short card. Badges right under the name, in the modal's row
 									// layout; the #tag, follow, posts, note, copy ID, timezone, member since and connections live in
 									// the full profile.
 									!isWebhook && (

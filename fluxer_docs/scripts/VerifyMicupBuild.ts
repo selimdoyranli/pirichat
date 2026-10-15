@@ -119,9 +119,9 @@ for (let start = 0; start < assetList.length; start += 8) {
 }
 for (const path of ['', 'bots/hizli-baslangic/']) {
 	const html = pages.get(new URL(path, base).href) ?? '';
-	if (!/<title>[^<]*Pirichat[^<]*<\/title>/i.test(html)) errors.push(`Missing Pirichat title: ${path || 'homepage'}`);
+	if (!/<title>[^<]*pirichat[^<]*<\/title>/i.test(html)) errors.push(`Missing pirichat title: ${path || 'homepage'}`);
 	if (!html.includes('https://micup.gg/.well-known/fluxer'))
-		errors.push(`Missing Pirichat discovery: ${path || 'homepage'}`);
+		errors.push(`Missing pirichat discovery: ${path || 'homepage'}`);
 }
 const example = pages.get(new URL('bots/hizli-baslangic/', base).href) ?? '';
 for (const expected of ['api_public', '/v1/channels/', 'Authorization', 'Bot']) {
@@ -129,7 +129,7 @@ for (const expected of ['api_public', '/v1/channels/', 'Authorization', 'Bot']) 
 }
 const discovery = pages.get(new URL('http-api/instance/', base).href) ?? '';
 for (const endpoint of ['https://micup.gg/api', 'wss://micup.gg/gateway', 'https://micup.gg/media']) {
-	if (!discovery.includes(endpoint)) errors.push(`Missing Pirichat endpoint mapping: ${endpoint}`);
+	if (!discovery.includes(endpoint)) errors.push(`Missing pirichat endpoint mapping: ${endpoint}`);
 }
 console.log(
 	JSON.stringify(

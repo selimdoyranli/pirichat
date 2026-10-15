@@ -29,16 +29,16 @@ fn premium_tooltip(
     }
     Some(if premium_type == premium_types::LIFETIME {
         match premium_since {
-            Some(since) => format!("Pirichat Visionary since {}", format_admin_timestamp(since)),
-            None => "Pirichat Visionary".into(),
+            Some(since) => format!("pirichat Visionary since {}", format_admin_timestamp(since)),
+            None => "pirichat Visionary".into(),
         }
     } else {
         match premium_since {
             Some(since) => format!(
-                "Pirichat Plutonium subscriber since {}",
+                "pirichat Plutonium subscriber since {}",
                 format_admin_timestamp(since)
             ),
-            None => "Pirichat Plutonium".into(),
+            None => "pirichat Plutonium".into(),
         }
     })
 }
@@ -58,19 +58,19 @@ pub fn user_profile_badges(
     if flags & user_flag_bits::STAFF != 0 {
         badges.push(BadgeDef {
             icon_url: format!("{cdn}/badges/staff.svg?v=2"),
-            tooltip: "Pirichat Staff".into(),
+            tooltip: "pirichat Staff".into(),
         });
     }
     if !is_self_hosted && flags & user_flag_bits::PARTNER != 0 {
         badges.push(BadgeDef {
             icon_url: format!("{cdn}/badges/partner.svg"),
-            tooltip: "Pirichat Partner".into(),
+            tooltip: "pirichat Partner".into(),
         });
     }
     if !is_self_hosted && flags & user_flag_bits::BUG_HUNTER != 0 {
         badges.push(BadgeDef {
             icon_url: format!("{cdn}/badges/bug-hunter.svg"),
-            tooltip: "Pirichat Bug Hunter".into(),
+            tooltip: "pirichat Bug Hunter".into(),
         });
     }
     if let Some(pt) = premium_type

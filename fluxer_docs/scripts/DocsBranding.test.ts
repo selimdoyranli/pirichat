@@ -17,7 +17,7 @@ import {
 const names = ['FLUXER_DOCS_PRODUCT_NAME', 'FLUXER_BASE_DOMAIN', 'FLUXER_PUBLIC_SCHEME', 'FLUXER_PUBLIC_PORT'];
 const previous = names.map((name) => process.env[name]);
 before(() => {
-	process.env.FLUXER_DOCS_PRODUCT_NAME = 'Pirichat';
+	process.env.FLUXER_DOCS_PRODUCT_NAME = 'pirichat';
 	process.env.FLUXER_BASE_DOMAIN = 'micup.gg';
 	process.env.FLUXER_PUBLIC_SCHEME = 'https';
 	process.env.FLUXER_PUBLIC_PORT = '443';
@@ -29,9 +29,9 @@ after(() => {
 	}
 });
 
-test('Pirichat titles and descriptions are branded before content validation', () => {
+test('pirichat titles and descriptions are branded before content validation', () => {
 	assert.deepEqual(brandDocsFrontmatter({title: 'Fluxer API', description: 'Use Fluxer.', draft: false}, 'index.md'), {
-		title: 'Pirichat API',
+		title: 'pirichat API',
 		description: 'Use pirichat.',
 		draft: false,
 	});
@@ -59,7 +59,7 @@ test('prose and endpoint examples change without changing wire names or quoted e
 	transformDocsContent(tree, 'http-api/instance.mdx');
 	assert.equal(
 		(tree.children[0] as {children: Array<{value: string}>}).children[0].value,
-		'Pirichat uses X-Fluxer-Version.',
+		'pirichat uses X-Fluxer-Version.',
 	);
 	assert.equal((tree.children[0] as {children: Array<{value: string}>}).children[1].value, 'Fluxer error');
 	assert.equal(
@@ -89,13 +89,13 @@ test('upstream operator defaults, origins and instructions remain attributed to 
 	assert.match(JSON.stringify(tree), /https:\/\/fluxer.dev/);
 });
 
-test('downloads become unavailable rather than an invented Pirichat mirror', () => {
+test('downloads become unavailable rather than an invented pirichat mirror', () => {
 	const tree: Root = {
 		type: 'root',
 		children: [{type: 'code', value: 'curl https://pkgs.fluxer.com/deb/fluxer.sources'}],
 	};
 	transformDocsContent(tree, 'downloads/linux-repositories.md');
-	assert.match(JSON.stringify(tree), /no verified Pirichat download origin/i);
+	assert.match(JSON.stringify(tree), /no verified pirichat download origin/i);
 	assert.doesNotMatch(JSON.stringify(tree), /pkgs.fluxer|curl|pkgs.micup/);
 	assert.match(
 		String(
@@ -117,7 +117,7 @@ test('default Fluxer content and metadata remain unchanged', () => {
 		assert.deepEqual(tree, original);
 		assert.deepEqual(brandDocsFrontmatter({title: 'Fluxer API'}, 'index.md'), {title: 'Fluxer API'});
 	} finally {
-		process.env.FLUXER_DOCS_PRODUCT_NAME = 'Pirichat';
+		process.env.FLUXER_DOCS_PRODUCT_NAME = 'pirichat';
 	}
 });
 
@@ -136,7 +136,7 @@ test('error registry quotations retain their exact upstream wording and support 
 	assert.match(JSON.stringify(tree), /Blocked from the Fluxer API; email support@fluxer.app/);
 });
 
-test('Pirichat removes upstream hosted promotions but keeps source attribution', () => {
+test('pirichat removes upstream hosted promotions but keeps source attribution', () => {
 	const tree: Root = {
 		type: 'root',
 		children: [
@@ -161,7 +161,7 @@ test('Pirichat removes upstream hosted promotions but keeps source attribution',
 	assert.match(JSON.stringify(tree), /github.com\/fluxerapp\/fluxer/);
 });
 
-test('the real Markdown homepage renders Pirichat discovery with upstream attribution', async () => {
+test('the real Markdown homepage renders pirichat discovery with upstream attribution', async () => {
 	const fileURL = new URL('../src/content/docs/index.md', import.meta.url);
 	const source = (await readFile(fileURL, 'utf8')).replace(/^---[\s\S]*?---\r?\n/u, '');
 	const processor = await createMarkdownProcessor({remarkPlugins: [remarkDocsBranding], syntaxHighlight: false});
@@ -208,7 +208,7 @@ async function renderDocsPage(page: string): Promise<string> {
 	return String(await compile({value: body, path: file}, {remarkPlugins: [remarkGfm, remarkDocsBranding]}));
 }
 
-test('Pirichat withholds the announcement channels page', () => {
+test('pirichat withholds the announcement channels page', () => {
 	const page = 'src/content/docs/topics/announcement-channels.md';
 	const data: {title: string; draft?: boolean} = {title: 'Announcement channels'};
 	assert.equal(brandDocsFrontmatter(data, page).draft, true);
@@ -216,7 +216,7 @@ test('Pirichat withholds the announcement channels page', () => {
 	try {
 		assert.equal(brandDocsFrontmatter(data, page).draft, undefined);
 	} finally {
-		process.env.FLUXER_DOCS_PRODUCT_NAME = 'Pirichat';
+		process.env.FLUXER_DOCS_PRODUCT_NAME = 'pirichat';
 	}
 });
 
@@ -228,7 +228,7 @@ test('every hidden announcement section still exists in the upstream pages', asy
 	}
 });
 
-test('the real pages drop announcement following and publishing in the Pirichat build', async () => {
+test('the real pages drop announcement following and publishing in the pirichat build', async () => {
 	const expectations: Record<string, {hidden: Array<string>; kept: Array<string>}> = {
 		'http-api/channels': {
 			hidden: [
@@ -302,7 +302,7 @@ test('the real pages drop announcement following and publishing in the Pirichat 
 	try {
 		assert.ok((await renderDocsPage('http-api/channels')).includes('Follow announcement channel'));
 	} finally {
-		process.env.FLUXER_DOCS_PRODUCT_NAME = 'Pirichat';
+		process.env.FLUXER_DOCS_PRODUCT_NAME = 'pirichat';
 	}
 });
 

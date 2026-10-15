@@ -278,7 +278,7 @@ export const DMWelcomeSection: React.FC<DMWelcomeSectionProps> = observer(functi
 						/>
 					</button>
 				</FocusRing>
-				{/* Pirichat: the premium crown shares the name's line (the badge row below no longer shows premium). */}
+				{/* pirichat: the premium crown shares the name's line (the badge row below no longer shows premium). */}
 				<div className={profileCardStyles.nameRow} data-flx="channel.direct-message.dm-welcome-section.name-row">
 					<FocusRing offset={-2} data-flx="channel.direct-message.dm-welcome-section.focus-ring--2">
 						<button

@@ -143,11 +143,11 @@ describe('shop pricing', () => {
 
 	it.each([1, 3, 12])('describes Plus %i months with its frozen quote', (months) => {
 		expect(describeShopOrder(7n, {kind: 'premium', itemName: null, months}, {amount_minor: 6800})).toBe(
-			`Pirichat Plus · ${months} ay — ₺68. Sipariş #7`,
+			`pirichat Plus · ${months} ay — ₺68. Sipariş #7`,
 		);
 	});
 
-	it('describes an order with its Pirichat number for the payment provider panel', () => {
+	it('describes an order with its pirichat number for the payment provider panel', () => {
 		const quote = {amount_minor: 6801};
 		expect(
 			describeShopOrder(1490000000000000009n, {kind: 'cosmetic', itemName: 'Yitik Melek', months: null}, quote),
@@ -167,7 +167,7 @@ describe('shop pricing', () => {
 
 	it('describes a Visionary order', () => {
 		expect(describeShopOrder(7n, {kind: 'visionary', itemName: null, months: null}, {amount_minor: 6800})).toBe(
-			'Pirichat Visionary — ₺68. Sipariş #7',
+			'pirichat Visionary — ₺68. Sipariş #7',
 		);
 	});
 

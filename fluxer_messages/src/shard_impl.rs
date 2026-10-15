@@ -3792,7 +3792,7 @@ mod tests {
         let mapped = deleted_user(0);
 
         assert_eq!(mapped.id, "0");
-        assert_eq!(mapped.username, "Pirichat");
+        assert_eq!(mapped.username, "pirichat");
         assert_eq!(mapped.global_name, None);
         assert_eq!(mapped.bot, Some(true));
         assert_eq!(mapped.system, Some(true));

@@ -9,7 +9,7 @@ import {http} from '@app/features/platform/transport/RestTransport';
 import type {RestResponse} from '@app/features/platform/types/TransportTypes';
 import {reaction} from 'mobx';
 
-// Pirichat akis-izlenme. A card at least half on screen (or covering half the screen) is a view; views go to the server in
+// pirichat akis-izlenme. A card at least half on screen (or covering half the screen) is a view; views go to the server in
 // one batch a minute, the most it takes from an account. The server trusts only the post's view_token.
 export const FEED_VIEW_SEND_MS = 60_000;
 const FEED_VIEW_REPEAT_MS = 60_000;

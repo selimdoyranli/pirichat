@@ -54,8 +54,8 @@ function channelStub(channel) {
 	return {'@electron/common/BuildChannel': {BUILD_CHANNEL: channel}};
 }
 
-describe('Pirichat desktop identity', () => {
-	test('updates from pirichat.online and sends manual downloads to the Pirichat download page', () => {
+describe('pirichat desktop identity', () => {
+	test('updates from pirichat.online and sends manual downloads to the pirichat download page', () => {
 		const downloads = load('./UpdaterDownloads.ts', {
 			stubs: channelStub('stable'),
 			globals: {process: {platform: 'win32', arch: 'x64'}},
@@ -69,7 +69,7 @@ describe('Pirichat desktop identity', () => {
 		);
 	});
 
-	test('names Linux manual download artefacts after Pirichat', () => {
+	test('names Linux manual download artefacts after pirichat', () => {
 		const downloads = load('./UpdaterDownloads.ts', {
 			stubs: channelStub('stable'),
 			globals: {process: {platform: 'linux', arch: 'x64'}},
@@ -80,7 +80,7 @@ describe('Pirichat desktop identity', () => {
 		assert.equal(appimage.suggestedName, 'pirichat-1.0.1-linux-x86_64.AppImage');
 	});
 
-	test('opens pirichat:// links and trusts only Pirichat web origins', () => {
+	test('opens pirichat:// links and trusts only pirichat web origins', () => {
 		const constants = load('../common/Constants.ts', {stubs: channelStub('stable')});
 
 		assert.equal(constants.APP_PROTOCOL, 'pirichat');
@@ -93,13 +93,13 @@ describe('Pirichat desktop identity', () => {
 		const stable = load('../common/DesktopIdentity.ts', {stubs: channelStub('stable')});
 		const canary = load('../common/DesktopIdentity.ts', {stubs: channelStub('canary')});
 
-		assert.equal(stable.DESKTOP_APP_NAME, 'Pirichat');
+		assert.equal(stable.DESKTOP_APP_NAME, 'pirichat');
 		assert.equal(stable.MACOS_BUNDLE_ID, 'online.pirichat.desktop');
 		assert.equal(stable.LINUX_DESKTOP_ENTRY_ID, 'pirichat');
 		assert.equal(stable.WINDOWS_VELOPACK_ID, 'pirichat_desktop');
 		assert.equal(stable.WINDOWS_APP_USER_MODEL_ID, 'online.pirichat.desktop');
-		assert.equal(stable.WINDOWS_SHORTCUT_AUTHOR, 'Pirichat');
-		assert.equal(canary.DESKTOP_APP_NAME, 'Pirichat Canary');
+		assert.equal(stable.WINDOWS_SHORTCUT_AUTHOR, 'pirichat');
+		assert.equal(canary.DESKTOP_APP_NAME, 'pirichat Canary');
 		assert.equal(canary.LINUX_DESKTOP_ENTRY_ID, 'pirichat-canary');
 		assert.equal(canary.WINDOWS_VELOPACK_ID, 'pirichat_desktop_canary');
 		for (const clsid of [stable.WINDOWS_TOAST_ACTIVATOR_CLSID, canary.WINDOWS_TOAST_ACTIVATOR_CLSID]) {
@@ -109,8 +109,8 @@ describe('Pirichat desktop identity', () => {
 		assert.notEqual(stable.WINDOWS_TOAST_ACTIVATOR_CLSID, canary.WINDOWS_TOAST_ACTIVATOR_CLSID);
 	});
 
-	test('stores user data apart from the Pirichat v1 profile in %APPDATA%\\Pirichat', () => {
-		const appData = path.join('C:', 'Users', 'Pirichat', 'AppData', 'Roaming');
+	test('stores user data apart from the pirichat v1 profile in %APPDATA%\\pirichat', () => {
+		const appData = path.join('C:', 'Users', 'pirichat', 'AppData', 'Roaming');
 		for (const [channel, directoryName] of [
 			['stable', 'pirichat_desktop'],
 			['canary', 'pirichat_desktop_canary'],
@@ -136,13 +136,13 @@ describe('Pirichat desktop identity', () => {
 
 			assert.equal(resolved.directoryName, directoryName);
 			assert.equal(setPaths.get('userData'), path.join(appData, directoryName));
-			// NTFS matches folder names case-insensitively: "Pirichat" would reopen v1's Chromium profile
+			// NTFS matches folder names case-insensitively: "pirichat" would reopen v1's Chromium profile
 			// (cookies, service worker, zoom) and share its single-instance lock.
-			assert.notEqual(resolved.directoryName.toLowerCase(), 'Pirichat');
+			assert.notEqual(resolved.directoryName.toLowerCase(), 'pirichat');
 		}
 	});
 
-	test('packages as online.pirichat.desktop with the Pirichat protocol', () => {
+	test('packages as online.pirichat.desktop with the pirichat protocol', () => {
 		const previousArch = process.env.ELECTRON_ARCH;
 		process.env.ELECTRON_ARCH = 'x64';
 		let config;
@@ -154,14 +154,14 @@ describe('Pirichat desktop identity', () => {
 		}
 
 		assert.equal(config.appId, 'online.pirichat.desktop');
-		assert.equal(config.productName, 'Pirichat');
+		assert.equal(config.productName, 'pirichat');
 		assert.match(config.artifactName, /^pirichat-/);
 		assert.deepEqual(
 			config.protocols.map((protocol) => protocol.schemes),
-			[['Pirichat']],
+			[['pirichat']],
 		);
 		// The exe's CompanyName (Task Manager > Startup apps "Publisher") comes from the author.
-		assert.equal(config.extraMetadata.author.name, 'Pirichat');
+		assert.equal(config.extraMetadata.author.name, 'pirichat');
 		for (const [key, prompt] of Object.entries(config.mac.extendInfo)) {
 			assert.doesNotMatch(prompt, /Fluxer/, key);
 		}
@@ -190,7 +190,7 @@ describe('Pirichat desktop identity', () => {
 		);
 	});
 
-	test('names the tray, app menu, update and startup errors, Theme Studio and autostart entry after Pirichat', () => {
+	test('names the tray, app menu, update and startup errors, Theme Studio and autostart entry after pirichat', () => {
 		for (const file of [
 			'./DesktopTray.ts',
 			'./Menu.ts',
@@ -202,11 +202,11 @@ describe('Pirichat desktop identity', () => {
 		]) {
 			const source = readFileSync(new URL(file, import.meta.url), 'utf8');
 			assert.doesNotMatch(source, /\bFluxer\b/, file);
-			assert.match(source, /DESKTOP_APP_NAME|`Pirichat /, file);
+			assert.match(source, /DESKTOP_APP_NAME|`pirichat /, file);
 		}
 		const menu = readFileSync(new URL('./Menu.ts', import.meta.url), 'utf8');
 		assert.match(menu, /openExternalDeduped\('mailto:info@pirichat\.com'\)/);
-		// AGPL source offer: Help > Source code opens the Pirichat source page, not upstream GitHub.
+		// AGPL source offer: Help > Source code opens the pirichat source page, not upstream GitHub.
 		assert.match(
 			menu,
 			/label: t\('desktop\.appMenu\.sourceCode'\),\s*click: async \(\) => \{\s*await openExternalDeduped\('https:\/\/github\.com\/RadKod\/fluxer'\);/,
@@ -215,7 +215,7 @@ describe('Pirichat desktop identity', () => {
 	});
 
 	// Desktop 1.0.1 showed "Fluxer uygulamasını gizle": the tray passed its own 'Fluxer' as {appName}.
-	test('fills every native string with Pirichat, also the ones the renderer sent in Turkish', () => {
+	test('fills every native string with pirichat, also the ones the renderer sent in Turkish', () => {
 		const i18n = load('./MainI18n.ts', {
 			stubs: {
 				'@electron/common/DesktopIdentity': load('../common/DesktopIdentity.ts', {stubs: channelStub('stable')}),
@@ -235,7 +235,7 @@ describe('Pirichat desktop identity', () => {
 		for (const key of keys) {
 			assert.doesNotMatch(i18n.t(key), /fluxer/i, key);
 		}
-		assert.equal(i18n.t('desktop.tray.show'), 'Show Pirichat');
+		assert.equal(i18n.t('desktop.tray.show'), 'Show pirichat');
 		assert.equal(i18n.t('desktop.appMenu.sourceCode'), 'Source code');
 
 		i18n.setNativeStrings('tr', {
@@ -243,8 +243,8 @@ describe('Pirichat desktop identity', () => {
 			'desktop.tray.restart': '{appName} uygulamasını yeniden başlat',
 			'desktop.tray.quit': '{appName} uygulamasından çık',
 		});
-		assert.equal(i18n.t('desktop.tray.hide'), 'Pirichat uygulamasını gizle');
-		assert.equal(i18n.t('desktop.tray.restart'), 'Pirichat uygulamasını yeniden başlat');
-		assert.equal(i18n.t('desktop.tray.quit'), 'Pirichat uygulamasından çık');
+		assert.equal(i18n.t('desktop.tray.hide'), 'pirichat uygulamasını gizle');
+		assert.equal(i18n.t('desktop.tray.restart'), 'pirichat uygulamasını yeniden başlat');
+		assert.equal(i18n.t('desktop.tray.quit'), 'pirichat uygulamasından çık');
 	});
 });

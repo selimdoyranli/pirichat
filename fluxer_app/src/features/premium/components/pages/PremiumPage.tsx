@@ -46,7 +46,7 @@ const READING_LINE_MARGIN = '100000px 0px -85% 0px';
 // also starts a middle-click autoscroll).
 const USER_SCROLL_EVENTS = ['wheel', 'touchstart', 'keydown', 'pointerdown'] as const;
 
-// Pirichat: self-hosted premium beside the DM list (Routes.PREMIUM): one long page under the bar, whose tabs jump to
+// pirichat: self-hosted premium beside the DM list (Routes.PREMIUM): one long page under the bar, whose tabs jump to
 // the hero, the comparison and the plans and follow the scroll. The sections' look lives in PremiumPageSections.
 export const PremiumPage = observer(function PremiumPage() {
 	const {i18n} = useLingui();

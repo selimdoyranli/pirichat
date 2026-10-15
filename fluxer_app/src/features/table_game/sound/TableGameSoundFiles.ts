@@ -2,7 +2,7 @@
 
 import damaCaptureSound from '@app/media/sounds/table-game/dama-al.mp3';
 import damaMoveSound from '@app/media/sounds/table-game/dama-hamle.mp3';
-// Pirichat: the table game sound types and files, spread into Fluxer's SoundType, SOUND_FILES and the one-shot policies
+// pirichat: the table game sound types and files, spread into Fluxer's SoundType, SOUND_FILES and the one-shot policies
 // (notification/utils/SoundUtils, ui/state/Sound). A leaf module: it imports nothing from those files.
 import okeyFinishSound from '@app/media/sounds/table-game/okey-bitir.mp3';
 import shuffleSound from '@app/media/sounds/table-game/okey-karistir.mp3';

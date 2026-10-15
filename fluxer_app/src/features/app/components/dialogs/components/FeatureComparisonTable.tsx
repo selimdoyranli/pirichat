@@ -69,7 +69,7 @@ const VIDEO_QUALITY_4K_60FPS_DESCRIPTOR = msg({
 	comment:
 		'Feature comparison table value label. Shown in the restricted or stock column for a text-valued perk. Format includes a resolution token (4K) and a framerate token that should not be translated.',
 });
-// Pirichat: the premium sales page's perk tiles read the same labels and values; there is no second copy.
+// pirichat: the premium sales page's perk tiles read the same labels and values; there is no second copy.
 const PERK_LABELS: Record<string, MessageDescriptor | string> = {
 	per_community_profiles: PER_COMMUNITY_PROFILES_DESCRIPTOR,
 	profile_badge: PROFILE_BADGE_DESCRIPTOR,

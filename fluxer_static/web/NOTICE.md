@@ -1,7 +1,7 @@
 # Web icon asset notice
 
 The favicon, apple-touch, android-chrome, mstile and og-image files in this
-directory are Pirichat brand assets, generated from
+directory are pirichat brand assets, generated from
 `fluxer_desktop/build_resources/pirichat_logo.png` by
 `fluxer_desktop/scripts/generate-brand-icons.py`, in place of the Fluxer icons
 upstream ships here. The desktop app icon files under `icons/` come from the same

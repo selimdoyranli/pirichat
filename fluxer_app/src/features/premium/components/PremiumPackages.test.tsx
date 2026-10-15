@@ -162,7 +162,7 @@ describe('PremiumPackages', () => {
 		render();
 
 		expect(cards()).toHaveLength(0);
-		expect(container.textContent).toContain('Pirichat Plus sales are paused right now.');
+		expect(container.textContent).toContain('pirichat Plus sales are paused right now.');
 		expect(container.textContent).toContain('If you have a key, you can redeem it below.');
 		const jump = container.querySelector<HTMLElement>(
 			'[data-flx="premium.premium-packages.notice"] [data-testid="jump"]',

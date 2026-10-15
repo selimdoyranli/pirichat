@@ -226,7 +226,7 @@ function readLegacyAccessibilityStartupSettings(): AccessibilityStartupSettings 
 	};
 }
 
-// Pirichat: the motion settings the app writes (sync and override), so a chosen "Reduce motion" paints from the first frame.
+// pirichat: the motion settings the app writes (sync and override), so a chosen "Reduce motion" paints from the first frame.
 function readLocalMotionSettings(): Record<string, unknown> | null {
 	try {
 		const parsed: unknown = JSON.parse(window.localStorage.getItem(ACCESSIBILITY_MOTION_STORAGE_KEY) ?? 'null');
@@ -263,7 +263,7 @@ function readAccessibilityStartupSettings(): AccessibilityStartupSettings | null
 			reducedMotionOverride: legacySettings?.reducedMotionOverride ?? null,
 		};
 	}
-	// Pirichat: as the app reads it, a saved motion record is the whole answer (a null override included), and the app's
+	// pirichat: as the app reads it, a saved motion record is the whole answer (a null override included), and the app's
 	// one-time move turns an old-default sync (on, no override) off before the app reads it.
 	const reducedMotionOverride =
 		typeof localMotion.reducedMotionOverride === 'boolean' ? localMotion.reducedMotionOverride : null;

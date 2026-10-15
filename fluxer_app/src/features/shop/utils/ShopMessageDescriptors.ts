@@ -170,7 +170,7 @@ export const FINISH_PAYING_IN_BROWSER_DESCRIPTOR = msg({
 });
 export const PAYMENT_PAGE_OPENED_DESCRIPTOR = msg({
 	message: 'The payment page opened in a new tab. This window updates by itself once the payment is confirmed.',
-	// Pirichat: no provider name; which payment provider (if any) runs is a server setting.
+	// pirichat: no provider name; which payment provider (if any) runs is a server setting.
 	comment: 'Body of the buy dialog while it waits for the payment.',
 });
 export const WAITING_FOR_PAYMENT_DESCRIPTOR = msg({
@@ -305,9 +305,9 @@ export const PAYMENT_RETURN_PENDING_DESCRIPTOR = msg({
 	comment: 'Body of the payment return page in the browser while the payment is being confirmed.',
 });
 
-// Pirichat Visionary: lifetime Plus with a numbered badge, sold on the Plus page.
+// pirichat Visionary: lifetime Plus with a numbered badge, sold on the Plus page.
 export const VISIONARY_NAME_DESCRIPTOR = msg({
-	message: 'Pirichat Visionary',
+	message: 'pirichat Visionary',
 	comment: 'Product name on the Visionary card and buy dialog. A product name: keep it as written.',
 });
 export const VISIONARY_REWARDS_DESCRIPTOR = msg({
@@ -324,7 +324,7 @@ export const VISIONARY_SOLD_OUT_DESCRIPTOR = msg({
 	comment: 'Body of the Visionary buy dialog when no spot is left.',
 });
 export const LIFETIME_MEANS_DESCRIPTOR = msg({
-	message: 'Lifetime means for as long as Pirichat runs.',
+	message: 'Lifetime means for as long as pirichat runs.',
 	comment: 'Note in the Visionary buy dialog, under the price.',
 });
 export const REMAINING_TIME_NOT_REFUNDED_DESCRIPTOR = msg({

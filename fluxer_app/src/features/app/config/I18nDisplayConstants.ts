@@ -7,15 +7,15 @@ import {THE_OTHER_PLATFORM} from '@fluxer/constants/src/ExternalPlatformConstant
 export {PREMIUM_PRODUCT_FULL_NAME, PREMIUM_PRODUCT_NAME, PRODUCT_NAME};
 export const DESKTOP_ENTRY_NAME = PRODUCT_NAME;
 export const CANARY_DESKTOP_ENTRY_NAME = `${PRODUCT_NAME} Canary`;
-// Pirichat: the upstream Stripe subscription flows name Stripe; the TRY shop checkout names no provider.
+// pirichat: the upstream Stripe subscription flows name Stripe; the TRY shop checkout names no provider.
 export const PAYMENT_PROVIDER_NAME = 'Stripe';
 export const BLUESKY_PROVIDER_NAME = 'Bluesky';
 export const APP_STORE_NAME = 'App Store';
 export const GOOGLE_PLAY_NAME = 'Google Play';
 export const PIX_PAYMENT_METHOD = 'Pix';
 export const UPI_PAYMENT_METHOD = 'UPI';
-// Pirichat support contact.
-export const SUPPORT_EMAIL = 'info@sanalyer.com';
+// pirichat support contact.
+export const SUPPORT_EMAIL = 'selim.doyranli@albayrakmedya.com';
 export const SUPPORT_EMAIL_MAILTO = `mailto:${SUPPORT_EMAIL}`;
 export const I18N_WEBLATE_DOMAIN = 'weblate.fluxer.tools';
 export const I18N_WEBLATE_URL = `https://${I18N_WEBLATE_DOMAIN}`;

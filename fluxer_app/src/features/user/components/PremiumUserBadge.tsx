@@ -24,7 +24,7 @@ interface PremiumUserBadgeProps {
 	readonly 'data-flx'?: string;
 }
 
-// Pirichat: the premium crown next to the name, the twin of VerifiedUserBadge. The server sets PREMIUM_BADGE on every read
+// pirichat: the premium crown next to the name, the twin of VerifiedUserBadge. The server sets PREMIUM_BADGE on every read
 // (premium and not hidden), so the flag alone decides; the image ships with the app, no CDN upload.
 // a click opens the premium page. The name next to it opens the profile popout, so the click stops here.
 export function PremiumUserBadge({

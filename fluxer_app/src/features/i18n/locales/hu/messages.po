@@ -1520,7 +1520,7 @@ msgstr "{displayName}'s screen"
 
 #. Instance selector error shown when the instance speaks a protocol generation this client does not know. Domain is interpolated.
 #: src/features/auth/flow/instance_selector/InstanceDiscoveryFailure.ts
-msgid "{domain} runs a newer version of Pirichat than this app. Update Pirichat, then try again."
+msgid "{domain} runs a newer version of pirichat than this app. Update pirichat, then try again."
 msgstr "A(z) {domain} a Pirichatnál újabb verziót futtat, mint ez az alkalmazás. Frissítse a Pirichatt, majd próbálkozzon újra."
 
 #. Profile timezone difference text. duration is a localized hours/minutes phrase for how far ahead the target user's local time is.
@@ -2016,20 +2016,20 @@ msgstr "{premiumProductName} előfizetés"
 msgid "{presenceCount} online"
 msgstr "{presenceCount} online"
 
-#. Monthly price of a Pirichat Plus package, in Turkish lira. The package total is charged at once.
+#. Monthly price of a pirichat Plus package, in Turkish lira. The package total is charged at once.
 #: src/features/shop/components/ShopPrice.tsx
 msgid "{price} a month"
 msgstr "{price} havonta"
 
-#. Full price of a multi-month Pirichat Plus package, charged at once, in Turkish lira. Under the monthly price.
+#. Full price of a multi-month pirichat Plus package, charged at once, in Turkish lira. Under the monthly price.
 #: src/features/shop/components/ShopPrice.tsx
 msgid "{price} in total"
 msgstr "Összesen {price}"
 
-#. Secondary shop price for someone without the Pirichat Plus discount. {price} is a price in Turkish lira.
+#. Secondary shop price for someone without the pirichat Plus discount. {price} is a price in Turkish lira.
 #: src/features/shop/components/ShopPriceLine.tsx
-msgid "{price} with Pirichat Plus"
-msgstr "{price} Pirichat Plus-előfizetéssel"
+msgid "{price} with pirichat Plus"
+msgstr "{price} pirichat Plus-előfizetéssel"
 
 #: src/features/auth/state/NewDeviceMonitoring.tsx
 msgid "{PRODUCT_NAME} has found a new audio device named <0>{deviceName}</0>. Do you want to switch to it?"
@@ -2767,7 +2767,7 @@ msgstr "<0>Továbbítva innen</0>{sourceInfo}"
 msgid "<0>Kenji</0>, <1>Amara</1> and <2>Mateo</2> are typing..."
 msgstr "<0>Kenji</0>, <1>Amara</1> és <2>Mateo</2> épp ír..."
 
-#. Approximate daily price of a Pirichat Plus package, in Turkish lira, using 30 days per month.
+#. Approximate daily price of a pirichat Plus package, in Turkish lira, using 30 days per month.
 #: src/features/shop/components/ShopPrice.tsx
 msgid "≈ {price} a day"
 msgstr "≈ {price} naponta"
@@ -11440,8 +11440,8 @@ msgstr "Nem sikerült közzétenni ezt az üzenetet"
 
 #. Instance selector error shown when no Fluxer instance answered at the address. Domain is interpolated.
 #: src/features/auth/flow/instance_selector/InstanceDiscoveryFailure.ts
-msgid "Couldn't reach a Pirichat instance at {domain}. Check the address and that the instance is online."
-msgstr "Nem sikerült elérni egy Pirichat példányt a következő címen: {domain}. Ellenőrizd a címet, és győződj meg róla, hogy az példány online van."
+msgid "Couldn't reach a pirichat instance at {domain}. Check the address and that the instance is online."
+msgstr "Nem sikerült elérni egy pirichat példányt a következő címen: {domain}. Ellenőrizd a címet, és győződj meg róla, hogy az példány online van."
 
 #. Title of the generic fallback error modal shown when reactivating a Plutonium subscription fails.
 #: src/features/app/components/dialogs/components/plutonium/hooks/useSubscriptionActions.ts
@@ -13483,7 +13483,7 @@ msgstr "Észlelés gépelés közben"
 msgid "Developer"
 msgstr "Fejlesztő"
 
-#. Button opening Pirichat developer documentation with the external link warning.
+#. Button opening pirichat developer documentation with the external link warning.
 #: src/features/bots/utils/BotMessageDescriptors.ts
 msgid "Developer documentation"
 msgstr "Fejlesztői dokumentáció"
@@ -21534,8 +21534,8 @@ msgstr "Élethosszig tartó {premiumProductName}, sorszámozott jelvény, a #000
 
 #. Note in the Visionary buy dialog, under the price.
 #: src/features/shop/utils/ShopMessageDescriptors.ts
-msgid "Lifetime means for as long as Pirichat runs."
-msgstr "Az élethosszig tartó azt jelenti: ameddig a Pirichat működik."
+msgid "Lifetime means for as long as pirichat runs."
+msgstr "Az élethosszig tartó azt jelenti: ameddig a pirichat működik."
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/expressions/components/modals/sticker_form/StickerPreview.tsx
@@ -25815,8 +25815,8 @@ msgstr "Hivatalos példány"
 
 #. Description of the official applications listed in the bot catalog.
 #: src/features/bots/components/pages/BotsPage.tsx
-msgid "Official Pirichat bots you can add to your community."
-msgstr "Hivatalos Pirichat botok, amelyeket hozzáadhatsz a közösségedhez."
+msgid "Official pirichat bots you can add to your community."
+msgstr "Hivatalos pirichat botok, amelyeket hozzáadhatsz a közösségedhez."
 
 #. Generic presence-status label indicating the user is offline.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
@@ -28676,12 +28676,12 @@ msgstr "Profil előnézete (nyomd meg az Entert a teljes előnézet megnyitásá
 msgid "Profile privacy"
 msgstr "Profil adatvédelme"
 
-#. Pirichat nagbar for a user whose profile privacy was the removed "Friends and small communities only" option; it now reads as "Shared communities". The quoted names are option labels in Privacy settings. Legal-effect text: approved before release.
+#. pirichat nagbar for a user whose profile privacy was the removed "Friends and small communities only" option; it now reads as "Shared communities". The quoted names are option labels in Privacy settings. Legal-effect text: approved before release.
 #: src/features/app/components/layout/app_layout/nagbars/ProfilePrivacyChangedNagbar.tsx
 msgid "Profile privacy options have changed: \"Friends and small communities only\" is gone. Your profile is now on \"Shared communities\": your friends, people you follow each other with and members of communities you share can see it."
 msgstr "Profile privacy options have changed: \"Friends and small communities only\" is gone. Your profile is now on \"Shared communities\": your friends, people you follow each other with and members of communities you share can see it."
 
-#. Pirichat nagbar for a user whose profile privacy was "Friends only", which now also lets mutual follows (people who follow each other) see the profile. The quoted names are option labels in Privacy settings. Legal-effect text: approved before release.
+#. pirichat nagbar for a user whose profile privacy was "Friends only", which now also lets mutual follows (people who follow each other) see the profile. The quoted names are option labels in Privacy settings. Legal-effect text: approved before release.
 #: src/features/app/components/layout/app_layout/nagbars/ProfilePrivacyChangedNagbar.tsx
 msgid "Profile privacy options have changed: \"Friends only\" is now \"Friends and mutual follows\". People you follow each other with can see your profile too."
 msgstr "Profile privacy options have changed: \"Friends only\" is now \"Friends and mutual follows\". People you follow each other with can see your profile too."
@@ -31433,18 +31433,18 @@ msgid "Same time as you"
 msgstr "Ugyanannyi az idő, mint nálad"
 
 #: src/features/user/components/modals/UsernamePickerModal.tsx
-msgid "Pirichat no longer uses #1234 tags. Everyone has a unique username: @yourname."
-msgstr "A Pirichat már nem használ #1234 címkéket. Mindenkinek egyedi felhasználóneve van: @yourname."
+msgid "pirichat no longer uses #1234 tags. Everyone has a unique username: @yourname."
+msgstr "A pirichat már nem használ #1234 címkéket. Mindenkinek egyedi felhasználóneve van: @yourname."
 
 #. Status shown when browser sign-in status polling gives up after repeated failures.
 #: src/features/auth/flow/auth_login_core/AuthLoginBrowserStep.tsx
-msgid "Pirichat stopped checking whether the browser approved this sign-in. It didn't lose your code."
-msgstr "A Pirichat abbahagyta annak ellenőrzését, hogy a böngésző jóváhagyta-e ezt a bejelentkezést. Nem veszítette el a kódodat."
+msgid "pirichat stopped checking whether the browser approved this sign-in. It didn't lose your code."
+msgstr "A pirichat abbahagyta annak ellenőrzését, hogy a böngésző jóváhagyta-e ezt a bejelentkezést. Nem veszítette el a kódodat."
 
 #. Product name on the Visionary card and buy dialog. A product name: keep it as written.
 #: src/features/shop/utils/ShopMessageDescriptors.ts
-msgid "Pirichat Visionary"
-msgstr "Pirichat Visionary"
+msgid "pirichat Visionary"
+msgstr "pirichat Visionary"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/ChatSettingsIndex.ts
@@ -36303,8 +36303,8 @@ msgid "Tag name"
 msgstr "Címke neve"
 
 #: src/features/user/components/modals/UsernamePickerModal.tsx
-msgid "Tagged names are no longer used. Choose a unique username to continue using Pirichat."
-msgstr "A címkézett neveket már nem használják. Válasszon egyedi felhasználónevet a Pirichat használatának folytatásához."
+msgid "Tagged names are no longer used. Choose a unique username to continue using pirichat."
+msgstr "A címkézett neveket már nem használják. Válasszon egyedi felhasználónevet a pirichat használatának folytatásához."
 
 #. Label of the tag filter in a forum channel and of the tags section in forum settings.
 #. Short label in the theme studio library section. Keep it concise.
@@ -40825,8 +40825,8 @@ msgstr "Rendszer területi beállításainak használata az időformátumhoz"
 
 #. Accessible label for the official Fluxer instance option.
 #: src/features/auth/flow/instance_selector/InstancePickerRows.tsx
-msgid "Use the official Pirichat instance"
-msgstr "Használja a hivatalos Pirichat példányt"
+msgid "Use the official pirichat instance"
+msgstr "Használja a hivatalos pirichat példányt"
 
 #. Settings search entry description. One-line summary of what the settings search entry controls.
 #: src/features/user/components/settings_utils/search_index/DesktopSettingsIndex.ts
@@ -43039,7 +43039,7 @@ msgstr "Szavak"
 msgid "Works while {productName} is focused"
 msgstr "Akkor működik, ha a(z) {productName} fókuszban van"
 
-#. Pirichat one-time nagbar offering a public profile. It must say that earlier posts marked public open to everyone and that the last 72 hours of them can appear in Discover. "Shared communities" is an option label in Privacy settings. Legal-effect text: approved before release.
+#. pirichat one-time nagbar offering a public profile. It must say that earlier posts marked public open to everyone and that the last 72 hours of them can appear in Discover. "Shared communities" is an option label in Privacy settings. Legal-effect text: approved before release.
 #: src/features/app/components/layout/app_layout/nagbars/ProfilePublicOfferNagbar.tsx
 msgid "Would you like to make your profile public? If you do, everyone signed in can see your profile. Your earlier posts marked public (most of what you shared while on \"Shared communities\") open to everyone too, and those from the last 72 hours can appear in Discover."
 msgstr "Would you like to make your profile public? If you do, everyone signed in can see your profile. Your earlier posts marked public (most of what you shared while on \"Shared communities\") open to everyone too, and those from the last 72 hours can appear in Discover."

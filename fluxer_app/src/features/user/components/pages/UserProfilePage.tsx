@@ -129,7 +129,7 @@ const logger = new Logger('UserProfilePage');
 
 type ProfilePageTab = 'posts' | 'media' | 'about';
 
-// Pirichat: the full profile page at /users/<id>, built from the profile modal's parts. It asks for
+// pirichat: the full profile page at /users/<id>, built from the profile modal's parts. It asks for
 // the profile without the mutual lists (60 s client cache, so usually none after the popup) and, only on a full or public
 // profile, the first page of posts; the mutual lists come when About opens. No gateway subscription: counts change through
 // FOLLOW_CREATE/DELETE as everywhere else.

@@ -5,7 +5,7 @@ import {Config} from '@app/api/Config';
 let cachedProductName: string | null = null;
 
 export function getDefaultProductName(): string {
-	return Config.instance.branding.productName || 'Pirichat';
+	return Config.instance.branding.productName || 'pirichat';
 }
 
 export function getInstanceProductName(): string {

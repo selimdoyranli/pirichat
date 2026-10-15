@@ -67,7 +67,7 @@ export function toastFollowFailure(i18n: I18n, outcome: FollowCommands.FollowOut
 	}
 }
 
-// Pirichat akis-takip: the text Follow button beside Message in the profile header, as tall as it; the
+// pirichat akis-takip: the text Follow button beside Message in the profile header, as tall as it; the
 // same visibility rule as the card icon (getFollowControls). Plus and check icons, since the friend request button
 // beside it already shows the user-plus.
 export const ProfileFollowButton = observer(({userId}: {userId: string}) => {

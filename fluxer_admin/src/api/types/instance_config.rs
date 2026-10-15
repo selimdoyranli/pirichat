@@ -409,7 +409,7 @@ impl Default for AppBrandingConfigResponse {
 }
 
 fn default_product_name() -> String {
-    "Pirichat".to_owned()
+    "pirichat".to_owned()
 }
 
 fn default_premium_product_name() -> String {

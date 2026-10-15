@@ -298,7 +298,7 @@ mod tests {
     fn api_partial_maps_system_user_like_the_api_mapper() {
         let system = partial_with_flags(FLUXER_SYSTEM_USER_ID, USER_FLAG_STAFF).to_api_partial();
 
-        assert_eq!(system.username, "Pirichat");
+        assert_eq!(system.username, "pirichat");
         assert_eq!(system.bot, Some(true));
         assert_eq!(system.system, Some(true));
         assert_eq!(

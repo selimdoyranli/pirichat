@@ -188,7 +188,7 @@ export const MarkdownTab: React.FC = observer(() => {
 					{label: '[text](url)', content: '[Masked link](https://pirichat.online)'},
 					{label: '<url>', content: '<https://pirichat.online>'},
 					{label: 'url', content: 'https://pirichat.online'},
-					{label: '<email>', content: '<info@sanalyer.com>'},
+					{label: '<email>', content: '<selim.doyranli@albayrakmedya.com>'},
 				],
 			},
 			{

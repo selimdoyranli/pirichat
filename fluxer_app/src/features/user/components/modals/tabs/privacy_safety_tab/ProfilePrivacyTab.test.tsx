@@ -46,7 +46,7 @@ const {ProfilePrivacyTabContent} = await import(
 	'@app/features/user/components/modals/tabs/privacy_safety_tab/ProfilePrivacyTab'
 );
 
-describe('ProfilePrivacyTab (Pirichat four options)', () => {
+describe('ProfilePrivacyTab (pirichat four options)', () => {
 	let container: HTMLDivElement;
 	let root: ReturnType<typeof createRoot>;
 	const radios = () => [...container.querySelectorAll<HTMLButtonElement>('[role="radio"]')];

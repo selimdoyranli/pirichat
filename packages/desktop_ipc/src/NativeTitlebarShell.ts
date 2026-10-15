@@ -17,7 +17,7 @@ export const NATIVE_TITLEBAR_CLASS = {
 
 export const NATIVE_TITLEBAR_WORDMARK_VIEWBOX = '0 0 256 256';
 
-// pirichat: the startup titlebar draws the Pirichat symbol (three squares and the tilted one) instead of Fluxer's wordmark.
+// pirichat: the startup titlebar draws the pirichat symbol (three squares and the tilted one) instead of Fluxer's wordmark.
 export const NATIVE_TITLEBAR_WORDMARK_PATHS: ReadonlyArray<string> = [
 	'M102.30 75.58h45.28a10.29 10.29 0 0 1 10.29 10.29v45.28a10.29 10.29 0 0 1 -10.29 10.29h-45.28a10.29 10.29 0 0 1 -10.29 -10.29v-45.28a10.29 10.29 0 0 1 10.29 -10.29Z',
 	'M28.21 149.67h45.28a10.29 10.29 0 0 1 10.29 10.29v45.28a10.29 10.29 0 0 1 -10.29 10.29h-45.28a10.29 10.29 0 0 1 -10.29 -10.29v-45.28a10.29 10.29 0 0 1 10.29 -10.29Z',
@@ -47,7 +47,7 @@ export function nativeTitlebarControlIconSvg(icon: NativeTitlebarControlIconName
 export function nativeTitlebarWordmarkSvg(className: string = NATIVE_TITLEBAR_CLASS.wordmark): string {
 	const paths = NATIVE_TITLEBAR_WORDMARK_PATHS.map((d) => `<path fill="currentColor" d="${d}"/>`).join('');
 	return (
-		`<svg class="${className}" role="img" aria-label="Pirichat" xmlns="http://www.w3.org/2000/svg" ` +
+		`<svg class="${className}" role="img" aria-label="pirichat" xmlns="http://www.w3.org/2000/svg" ` +
 		`fill="none" viewBox="${NATIVE_TITLEBAR_WORDMARK_VIEWBOX}">${paths}</svg>`
 	);
 }

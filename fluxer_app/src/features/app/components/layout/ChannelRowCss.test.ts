@@ -132,7 +132,7 @@ describe('member list role groups', () => {
 	it.each([
 		['features/channel/components/ChannelMembers.module.css', 'virtualGroupRow'],
 		['features/channel/components/MemberListSkeleton.module.css', 'groupHeader'],
-	])('keeps the upstream top padding without a Pirichat gap override in %s', (file, className) => {
+	])('keeps the upstream top padding without a pirichat gap override in %s', (file, className) => {
 		const css = readFileSync(`${SRC_ROOT}${file}`, 'utf8');
 		expect(css).not.toContain(ROLE_GAP_MARKER);
 		expect(css).toMatch(new RegExp(`\\.${className} \\{[^}]*padding(?:-top)?: 0\\.75rem`));

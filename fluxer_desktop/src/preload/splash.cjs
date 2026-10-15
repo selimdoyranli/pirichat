@@ -166,7 +166,7 @@ function getStatusText(state) {
 				? `Required security update failed. Retrying in ${state.seconds ?? 0} sec…`
 				: `Update failed. Retrying in ${state.seconds ?? 0} sec…`;
 		case SplashStatus.SHELL_UPDATE_DOWNLOADING:
-			return state.requiredSecurityUpdate ? 'Downloading required security update…' : 'Updating Pirichat…';
+			return state.requiredSecurityUpdate ? 'Downloading required security update…' : 'Updating pirichat…';
 		case SplashStatus.SHELL_UPDATE_RESTARTING:
 			return state.requiredSecurityUpdate
 				? 'Restarting to finish the required security update…'
@@ -176,7 +176,7 @@ function getStatusText(state) {
 				? 'A required security update is needed to continue'
 				: 'Update required to continue';
 		case SplashStatus.BLOCKED_UPDATE_UNREACHABLE:
-			return "Can't reach the Pirichat update server";
+			return "Can't reach the pirichat update server";
 		case SplashStatus.BLOCKED_SECURITY_UPDATE_REQUIRED:
 			return 'A required security update is needed to continue';
 		case SplashStatus.BLOCKED_SECURITY_UPDATE_MANAGED:
@@ -186,13 +186,13 @@ function getStatusText(state) {
 		case SplashStatus.BLOCKED_SHELL_UPDATE:
 			return state.requiredSecurityUpdate
 				? 'A required security update is needed to continue'
-				: 'A new version of Pirichat is required';
+				: 'A new version of pirichat is required';
 		case SplashStatus.BLOCKED_SHELL_UPDATE_MANAGED:
 			return state.message?.includes('Microsoft Store')
-				? 'Update Pirichat through Microsoft Store'
-				: 'Update Pirichat through your package manager';
+				? 'Update pirichat through Microsoft Store'
+				: 'Update pirichat through your package manager';
 		case SplashStatus.BLOCKED_UNSUPPORTED_BUILD:
-			return 'This installation is incomplete. Reinstall Pirichat';
+			return 'This installation is incomplete. Reinstall pirichat';
 		case SplashStatus.LAUNCHING:
 			return 'Starting…';
 		case SplashStatus.UNREACHABLE_LAUNCH:

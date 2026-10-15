@@ -1842,7 +1842,7 @@ Display name can't contain "system message"
 
 ### `GLOBAL_NAME_CANNOT_IMPERSONATE_MICUP`
 
-Display name can't pass for an official Pirichat account
+Display name can't pass for an official pirichat account
 
 ### `GLOBAL_NAME_LENGTH_INVALID`
 

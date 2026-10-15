@@ -132,7 +132,7 @@ function loadUpdater({
 		},
 		'@electron/common/BuildChannel': {BUILD_CHANNEL: 'canary'},
 		'@electron/common/Constants': {DOWNLOAD_PAGE_URLS: {canary: 'https://canary.fluxer.app/download'}},
-		'@electron/common/DesktopIdentity': {DESKTOP_ARTIFACT_PRODUCT_NAME: 'Pirichat-Canary'},
+		'@electron/common/DesktopIdentity': {DESKTOP_ARTIFACT_PRODUCT_NAME: 'pirichat-Canary'},
 		'@electron/common/UserDataPath': {isPortableMode: () => false},
 		'@electron/main/DesktopTray': {destroyDesktopTray() {}},
 		'@electron/main/UnreadBadge': {
@@ -342,7 +342,7 @@ describe('Updater AppImage lifecycle', () => {
 			assert.equal(available.downloadOptions[0].format, 'appimage');
 			assert.equal(
 				available.downloadOptions[0].suggestedName,
-				`Pirichat-Canary-${PUBLISHED_VERSION}-linux-arm64.AppImage`,
+				`pirichat-Canary-${PUBLISHED_VERSION}-linux-arm64.AppImage`,
 			);
 		} finally {
 			chmodSync(install.applications, 0o755);

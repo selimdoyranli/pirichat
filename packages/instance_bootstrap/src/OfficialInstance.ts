@@ -6,7 +6,7 @@ import {
 	normalizeCanonicalNetworkEndpoint,
 } from '@fluxer/instance_bootstrap/src/NetworkOrigin';
 
-export const OFFICIAL_INSTANCE_NAME = 'Pirichat';
+export const OFFICIAL_INSTANCE_NAME = 'pirichat';
 
 export const OFFICIAL_INSTANCE_DISPLAY_HOST = 'pirichat.online';
 

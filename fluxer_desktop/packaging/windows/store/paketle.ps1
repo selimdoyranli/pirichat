@@ -31,7 +31,7 @@ try {
 
 	if ($TestSign) {
 		$cert = New-SelfSignedCertificate -Type Custom -Subject $msix.publisher -KeyUsage DigitalSignature `
-			-FriendlyName 'Pirichat MSIX sandbox test' -CertStoreLocation 'Cert:\CurrentUser\My' `
+			-FriendlyName 'pirichat MSIX sandbox test' -CertStoreLocation 'Cert:\CurrentUser\My' `
 			-TextExtension @('2.5.29.37={text}1.3.6.1.5.5.7.3.3', '2.5.29.19={text}')
 		$pfx = Join-Path $env:TEMP 'pirichat-msix-test.pfx'
 		$password = [guid]::NewGuid().ToString()

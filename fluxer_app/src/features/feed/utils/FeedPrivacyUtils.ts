@@ -5,7 +5,7 @@ import UserSettings from '@app/features/user/state/UserSettings';
 import {getEffectiveProfilePrivacy} from '@app/features/user/utils/ProfilePrivacyUtils';
 import {ProfilePrivacyLevels} from '@fluxer/constants/src/UserConstants';
 
-// Whether your posts reach strangers and Discover, so the note beside the feed says so. Pirichat: only a
+// Whether your posts reach strangers and Discover, so the note beside the feed says so. pirichat: only a
 // public profile's posts do; the server sets each post's public bit from the profile visibility , so the
 // composer sends none. Not with Discover off, nor before the settings load.
 export function canFeedPostsBePublic(): boolean {

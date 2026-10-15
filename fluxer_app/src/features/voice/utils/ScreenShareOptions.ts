@@ -103,7 +103,7 @@ const STREAMING_MODE_PRESETS: Record<
 		frameRate: SupportedScreenShareFrameRate;
 	}
 > = {
-	// Pirichat: 720p60 carries the 1080p30 bitrate; higher rungs stay a choice in the quality menu.
+	// pirichat: 720p60 carries the 1080p30 bitrate; higher rungs stay a choice in the quality menu.
 	gaming: {resolution: 'medium', frameRate: 60},
 	screenshare: {resolution: 'high', frameRate: 30},
 };

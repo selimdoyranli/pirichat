@@ -262,7 +262,7 @@ export const UserProfileModal: UserProfileModalComponent = observer(
 				),
 			);
 		};
-		// Pirichat: the full profile page; openProfilePage closes this modal.
+		// pirichat: the full profile page; openProfilePage closes this modal.
 		const handleOpenProfilePage = () => {
 			UserProfileCommands.openProfilePage(userId);
 		};

@@ -44,7 +44,7 @@ const SAMPLE_VARIABLES = {
 	amount: '$5.00',
 	currency: 'USD',
 	interval: 'month',
-	support_email: 'info@sanalyer.com',
+	support_email: 'selim.doyranli@albayrakmedya.com',
 };
 
 function buttonTemplates(catalog: Record<string, EmailTemplate>): Array<string> {
@@ -158,7 +158,7 @@ describe('EmailI18n locale files', () => {
 				key as EmailTemplateKey,
 				locale,
 				{...SAMPLE_VARIABLES, [ACTION_URL_VARIABLES[key]]: url} as EmailTemplateVariables[EmailTemplateKey],
-				'Pirichat',
+				'pirichat',
 			);
 			expect(template.ok).toBe(true);
 			if (!template.ok) return;
@@ -178,9 +178,9 @@ describe('EmailI18n locale files', () => {
 			'registration_approved',
 			'tr',
 			{username: 'ayse', channelsUrl: 'https://example.com/channels/@me'},
-			'Pirichat',
+			'pirichat',
 		);
-		expect(template.ok && template.value.button).toBe("Pirichat'ı aç");
+		expect(template.ok && template.value.button).toBe("pirichat'ı aç");
 	});
 	it.each(LOCALES)('%s keeps the source placeholders in every template', (locale) => {
 		const messages: Partial<Record<EmailTemplateKey, {subject: string; body: string}>> =

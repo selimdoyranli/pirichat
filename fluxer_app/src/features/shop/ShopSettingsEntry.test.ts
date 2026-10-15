@@ -18,11 +18,11 @@ vi.mock('@app/features/app/state/RuntimeConfig', () => ({
 		},
 	},
 }));
-vi.mock('@app/features/app/config/I18nDisplayConstants', () => ({PREMIUM_PRODUCT_FULL_NAME: 'Pirichat Plus'}));
+vi.mock('@app/features/app/config/I18nDisplayConstants', () => ({PREMIUM_PRODUCT_FULL_NAME: 'pirichat Plus'}));
 vi.mock('@app/features/premium/utils/PremiumUtils', () => ({
 	shouldShowPremiumFeatures: () => true,
-	getPremiumProductFullName: () => 'Pirichat Plus',
-	getPremiumProductName: () => 'Pirichat Plus',
+	getPremiumProductFullName: () => 'pirichat Plus',
+	getPremiumProductName: () => 'pirichat Plus',
 }));
 vi.mock('@app/features/ui/utils/NativeUtils', () => ({
 	getElectronAPI: () => null,

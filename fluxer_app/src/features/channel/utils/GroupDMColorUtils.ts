@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-// Pirichat: the violet and fuchsia tones are v1 greys in the coal and dark themes (GenerateColorSystem.ts).
+// pirichat: the violet and fuchsia tones are v1 greys in the coal and dark themes (GenerateColorSystem.ts).
 const GROUP_DM_COLORS = [
 	'#2563EB',
 	'var(--group-dm-accent-violet, #7C3AED)',

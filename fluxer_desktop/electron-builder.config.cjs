@@ -8,9 +8,9 @@ const {promisify} = require('node:util');
 const execFileAsync = promisify(execFile);
 const CHANNELS = {
 	stable: {
-		productName: 'Pirichat',
-		linuxOptDirName: 'Pirichat',
-		artifactProductName: 'Pirichat',
+		productName: 'pirichat',
+		linuxOptDirName: 'pirichat',
+		artifactProductName: 'pirichat',
 		appId: 'online.pirichat.desktop',
 		iconDirectory: 'icons-stable',
 		packageName: 'pirichat_desktop',
@@ -23,30 +23,30 @@ const CHANNELS = {
 		provisioningProfile: null,
 	},
 	canary: {
-		productName: 'Pirichat Canary',
+		productName: 'pirichat Canary',
 		linuxOptDirName: 'pirichat-canary',
-		artifactProductName: 'Pirichat-Canary',
+		artifactProductName: 'pirichat-Canary',
 		appId: 'online.pirichat.desktop.canary',
 		iconDirectory: 'icons-canary',
 		packageName: 'pirichat_desktop_canary',
 		linuxPackageName: 'pirichat-canary',
 		linuxDesktopId: 'pirichat-canary',
-		linuxComment: 'Canary build of Pirichat',
+		linuxComment: 'Canary build of pirichat',
 		protocolScheme: 'pirichat',
 		macEntitlements: 'build_resources/entitlements.mac.development.plist',
 		notarize: true,
 		provisioningProfile: null,
 	},
 	development: {
-		productName: 'Pirichat Development',
+		productName: 'pirichat Development',
 		linuxOptDirName: 'pirichat-development',
-		artifactProductName: 'Pirichat-Development',
+		artifactProductName: 'pirichat-Development',
 		appId: 'online.pirichat.desktop.development',
 		iconDirectory: 'icons-development',
 		packageName: 'pirichat_desktop_development',
 		linuxPackageName: 'pirichat-development',
 		linuxDesktopId: 'pirichat-development',
-		linuxComment: 'Development build of Pirichat',
+		linuxComment: 'Development build of pirichat',
 		protocolScheme: 'pirichat-development',
 		macEntitlements: 'build_resources/entitlements.mac.development.plist',
 		notarize: false,
@@ -61,7 +61,7 @@ if (!channel) {
 }
 
 if (buildChannel === 'development' && process.argv.includes('msix')) {
-	throw new Error('Development builds cannot use the Pirichat Store package identity.');
+	throw new Error('Development builds cannot use the pirichat Store package identity.');
 }
 
 const isLinuxBuild = process.argv.includes('--linux');
@@ -1413,7 +1413,7 @@ const agplLicenseFile = [{from: 'LICENSE', to: 'LICENSE.txt'}];
 module.exports = {
 	appId,
 	productName: installedProductName,
-	copyright: 'Copyright © 2026 Fluxer Platform AB and Pirichat',
+	copyright: 'Copyright © 2026 Fluxer Platform AB and pirichat',
 	artifactName: `${artifactProductName}-\${version}-\${os}-\${arch}.\${ext}`,
 	directories: {
 		buildResources: 'build_resources',
@@ -1433,8 +1433,8 @@ module.exports = {
 	extraMetadata: {
 		main: 'dist/main/index.js',
 		name: metadataName,
-		// Pirichat publishes this build: the author becomes the exe's CompanyName (Windows "Publisher").
-		author: {name: 'Pirichat'},
+		// pirichat publishes this build: the author becomes the exe's CompanyName (Windows "Publisher").
+		author: {name: 'pirichat'},
 		homepage: 'https://pirichat.online',
 		...(process.env.VERSION ? {version: process.env.VERSION} : {}),
 		...(targetPlatform === 'linux' ? {desktopName: `${linuxDesktopId}.desktop`} : {}),
@@ -1571,13 +1571,13 @@ module.exports = {
 			},
 		],
 		extendInfo: {
-			NSMicrophoneUsageDescription: 'Pirichat needs access to your microphone to enable voice chat features.',
-			NSCameraUsageDescription: 'Pirichat needs access to your camera to enable video chat features.',
-			NSAppleEventsUsageDescription: 'Pirichat needs access to Apple Events for automation features.',
-			NSAudioCaptureUsageDescription: 'Pirichat captures audio from the screen or window you choose to share.',
-			NSScreenCaptureUsageDescription: 'Pirichat captures the screen or window you choose to share.',
+			NSMicrophoneUsageDescription: 'pirichat needs access to your microphone to enable voice chat features.',
+			NSCameraUsageDescription: 'pirichat needs access to your camera to enable video chat features.',
+			NSAppleEventsUsageDescription: 'pirichat needs access to Apple Events for automation features.',
+			NSAudioCaptureUsageDescription: 'pirichat captures audio from the screen or window you choose to share.',
+			NSScreenCaptureUsageDescription: 'pirichat captures the screen or window you choose to share.',
 			NSLocalNetworkUsageDescription:
-				'Pirichat needs local network access to reach a Pirichat instance you host on your own network. It never scans your network or connects to devices you have not pointed it at.',
+				'pirichat needs local network access to reach a pirichat instance you host on your own network. It never scans your network or connects to devices you have not pointed it at.',
 		},
 	},
 	dmg: {
@@ -1600,11 +1600,11 @@ module.exports = {
 		extraFiles: agplLicenseFile,
 	},
 	msix: {
-		// Partner Center > Pirichat (9P1SNJ2H2W9H) > Product identity; applicationId as in the published 0.4.4.0 package (keeps pinned tiles).
-		identityName: 'Pirichat.Pirichat',
+		// Partner Center > pirichat (9P1SNJ2H2W9H) > Product identity; applicationId as in the published 0.4.4.0 package (keeps pinned tiles).
+		identityName: 'pirichat.pirichat',
 		publisher: 'CN=6B905D36-79B1-4EA5-8E9B-F18A23784188',
-		publisherDisplayName: 'Pirichat',
-		applicationId: 'Pirichat',
+		publisherDisplayName: 'pirichat',
+		applicationId: 'pirichat',
 		backgroundColor: '#0b0b0c',
 		languages: ['tr-TR', 'en-US'],
 		setBuildNumber: false,

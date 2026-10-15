@@ -124,7 +124,7 @@ interface BaseAvatarProps {
 	customStatusBadgeMaxSizeRatio?: number;
 	customStatusBadgeCutoutPaddingScale?: number;
 	decoration?: React.ReactNode;
-	// Pirichat: the ultra decoration, drawn before the avatar image so DOM order keeps it behind without a z-index.
+	// pirichat: the ultra decoration, drawn before the avatar image so DOM order keeps it behind without a z-index.
 	underlay?: React.ReactNode;
 	title?: never;
 	[themeAttr: `data-flx-${string}`]: string | undefined;

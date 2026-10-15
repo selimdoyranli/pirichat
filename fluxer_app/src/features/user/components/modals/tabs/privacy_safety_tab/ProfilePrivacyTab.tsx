@@ -21,7 +21,7 @@ const WHO_CAN_SEE_YOUR_PROFILE_DESCRIPTOR = msg({
 	message: 'Who can see your profile',
 	comment: 'Privacy > Profile privacy: section title.',
 });
-// Pirichat: four options. The descriptions have legal effect and are approved before release. "Profile
+// pirichat: four options. The descriptions have legal effect and are approved before release. "Profile
 // content" is the same under every option: bio and connections, follow lists and counts, posts and media, mutual friends
 // and communities.
 const EVERYONE_OPTION_DESCRIPTOR = msg({
@@ -74,7 +74,7 @@ const EARLIER_POSTS_NOTE_DESCRIPTOR = msg({
 });
 export const ProfilePrivacyTabContent: React.FC = observer(() => {
 	const {i18n} = useLingui();
-	// Pirichat: the level the server applies — the legacy small-communities value (never offered again) and a stored Everyone
+	// pirichat: the level the server applies — the legacy small-communities value (never offered again) and a stored Everyone
 	// under 16 read as shared communities.
 	const profilePrivacy = getEffectiveProfilePrivacy();
 	const publicAllowed = Users.currentUser?.publicProfileAllowed === true;

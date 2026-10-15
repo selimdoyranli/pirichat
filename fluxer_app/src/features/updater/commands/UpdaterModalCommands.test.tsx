@@ -8,7 +8,7 @@ const pushed = vi.hoisted((): {render: (() => ReactElement) | null} => ({render:
 
 vi.mock('@lingui/core/macro', () => ({msg: (descriptor: {message: string}) => descriptor}));
 vi.mock('@lingui/core', () => ({i18n: {_: (descriptor: {message: string}) => descriptor.message}}));
-vi.mock('@app/features/app/state/RuntimeConfig', () => ({default: {productName: 'Pirichat'}}));
+vi.mock('@app/features/app/state/RuntimeConfig', () => ({default: {productName: 'pirichat'}}));
 vi.mock('@app/features/app/components/dialogs/ConfirmModal', () => ({ConfirmModal: () => null}));
 vi.mock('@app/features/ui/components/form/FormCombobox', () => ({Combobox: () => null}));
 vi.mock('@app/features/ui/commands/ModalCommands', () => ({
@@ -38,7 +38,7 @@ describe('system-managed install update button', () => {
 		pushed.render = null;
 	});
 
-	it('opens the Pirichat Microsoft Store page from the Store copy on Windows', () => {
+	it('opens the pirichat Microsoft Store page from the Store copy on Windows', () => {
 		native.windows = true;
 
 		pressPrimary();

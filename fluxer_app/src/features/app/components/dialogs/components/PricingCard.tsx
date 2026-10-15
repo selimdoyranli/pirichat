@@ -38,12 +38,12 @@ export const PricingCard = observer(
 	}: {
 		title: string;
 		price: string;
-		// Pirichat (shop): a campaign's pre-sale price, struck through next to the price.
+		// pirichat (shop): a campaign's pre-sale price, struck through next to the price.
 		originalPrice?: string;
 		period?: string;
 		badge?: string;
 		isPopular?: boolean;
-		// Pirichat (shop): replaces "Most popular" on the highlighted card.
+		// pirichat (shop): replaces "Most popular" on the highlighted card.
 		highlightLabel?: string;
 		isSoldOut?: boolean;
 		soldOut?: boolean;
@@ -54,7 +54,7 @@ export const PricingCard = observer(
 		isLoading?: boolean;
 		disabled?: boolean;
 		className?: string;
-		// Pirichat (shop): shown under the badge, above the button (a campaign countdown).
+		// pirichat (shop): shown under the badge, above the button (a campaign countdown).
 		footer?: React.ReactNode;
 	}) => {
 		const {i18n} = useLingui();

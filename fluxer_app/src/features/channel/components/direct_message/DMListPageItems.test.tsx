@@ -21,7 +21,7 @@ vi.mock('@app/features/platform/components/router/RouterReact', () => ({
 vi.mock('@app/features/navigation/utils/RouterUtils', () => routerUtils);
 vi.mock('@app/features/premium/commands/PremiumModalCommands', () => premiumModalCommands);
 vi.mock('@app/features/premium/utils/PremiumUtils', () => ({
-	getPremiumProductName: () => 'Pirichat Plus',
+	getPremiumProductName: () => 'pirichat Plus',
 	shouldShowPremiumFeatures: () => state.premium,
 }));
 vi.mock('@app/features/shop/utils/ShopAvailability', () => ({isShopPageAvailable: () => state.shop}));
@@ -68,7 +68,7 @@ describe('DMListPageItems', () => {
 	// The two accented rows sit together on top, Bot System under them.
 	it('lists premium, the shop and Bot System in one order', () => {
 		render();
-		expect(labels()).toEqual(['Pirichat Plus', 'Shop', 'Bot System']);
+		expect(labels()).toEqual(['pirichat Plus', 'Shop', 'Bot System']);
 		state.premium = false;
 		render();
 		expect(labels()).toEqual(['Shop', 'Bot System']);
@@ -79,7 +79,7 @@ describe('DMListPageItems', () => {
 
 	it('opens premium through its command and the other pages by route', () => {
 		render();
-		act(() => row('Pirichat Plus')!.click());
+		act(() => row('pirichat Plus')!.click());
 		expect(premiumModalCommands.open).toHaveBeenCalledTimes(1);
 		act(() => row('Bot System')!.click());
 		expect(routerUtils.transitionTo).toHaveBeenCalledWith('/bots');
@@ -90,10 +90,10 @@ describe('DMListPageItems', () => {
 	it.each([
 		['/channels/@me', []],
 		['/feed', []],
-		['/premium', ['Pirichat Plus']],
+		['/premium', ['pirichat Plus']],
 		['/bots', ['Bot System']],
 		['/shop', ['Shop']],
-		['/feed/premium', ['Pirichat Plus']],
+		['/feed/premium', ['pirichat Plus']],
 		['/feed/bots', ['Bot System']],
 		['/feed/shop', ['Shop']],
 	])('on %s marks %j as the current page', (pathname, expected) => {
@@ -113,7 +113,7 @@ describe('DMListPageItems', () => {
 
 	it('marks premium and the shop with the accent, not Bot System', () => {
 		render();
-		for (const label of ['Pirichat Plus', 'Shop']) {
+		for (const label of ['pirichat Plus', 'Shop']) {
 			expect(row(label)!.classList).toContain(styles.accent);
 			expect(row(label)!.querySelector(`.${styles.accentIcon}`)).not.toBeNull();
 			expect(row(label)!.querySelector(`.${styles.accentLabel}`)?.textContent).toBe(label);

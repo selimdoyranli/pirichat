@@ -1,10 +1,10 @@
 <desktop:Extension Category="windows.startupTask" Executable="app\pirichat.exe" EntryPoint="Windows.FullTrustApplication">
-          <desktop:StartupTask TaskId="PirichatStartup" Enabled="false" DisplayName="Pirichat" />
+          <desktop:StartupTask TaskId="PirichatStartup" Enabled="false" DisplayName="pirichat" />
         </desktop:Extension>
         <com:Extension xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10" Category="windows.comServer">
           <com:ComServer>
-            <com:ExeServer Executable="app\pirichat.exe" Arguments="-ToastActivated" DisplayName="Pirichat">
-              <com:Class Id="978334C3-2A4E-47B0-AA72-05256D289C5E" DisplayName="Pirichat toast activator" />
+            <com:ExeServer Executable="app\pirichat.exe" Arguments="-ToastActivated" DisplayName="pirichat">
+              <com:Class Id="978334C3-2A4E-47B0-AA72-05256D289C5E" DisplayName="pirichat toast activator" />
             </com:ExeServer>
           </com:ComServer>
         </com:Extension>

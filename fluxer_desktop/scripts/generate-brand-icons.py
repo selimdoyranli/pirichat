@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-"""Regenerate desktop and web icons from the Pirichat logo (build_resources/pirichat_logo.png).
+"""Regenerate desktop and web icons from the pirichat logo (build_resources/pirichat_logo.png).
 
 Run with Python + Pillow 12: python fluxer_desktop/scripts/generate-brand-icons.py
 The source is an opaque square: a dark rounded tile on pure black. The tile is cut out with a rounded
@@ -132,7 +132,7 @@ def main():
             WEB / f"android-chrome-{size}x{size}.png", compress_level=9
         )
     centered(tile, 1200, 630, 0.7, TILE_BACKGROUND).convert("RGB").save(WEB / "og-image-default.png", compress_level=9)
-    print(f"Pirichat icons written; ICNS={len(icns)} bytes")
+    print(f"pirichat icons written; ICNS={len(icns)} bytes")
 
 
 if __name__ == "__main__":

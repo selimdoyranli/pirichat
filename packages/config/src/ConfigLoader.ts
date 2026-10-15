@@ -144,7 +144,7 @@ function defaultConfig(): MasterConfig {
 			profile_pseudonym_secret: '',
 			sso_allow_private_addresses: false,
 			passkeys: {
-				rp_name: 'Pirichat',
+				rp_name: 'pirichat',
 				rp_id: '',
 				additional_allowed_origins: DEFAULT_PASSKEY_ORIGINS,
 			},
@@ -155,7 +155,7 @@ function defaultConfig(): MasterConfig {
 			},
 			bluesky: {
 				enabled: false,
-				client_name: 'Pirichat',
+				client_name: 'pirichat',
 				client_uri: '',
 				logo_uri: '',
 				tos_uri: '',
@@ -279,7 +279,7 @@ function defaultConfig(): MasterConfig {
 			self_hosted: false,
 			abuse_policy: {phone_flagging: {enabled: true}},
 			branding: {
-				product_name: 'Pirichat',
+				product_name: 'pirichat',
 			},
 			setup: {
 				configured: false,

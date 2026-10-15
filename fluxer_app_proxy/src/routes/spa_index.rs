@@ -1002,7 +1002,7 @@ mod tests {
         assert!(!served.contains(r#"name="description""#));
         assert!(served.contains(r#"<meta name="viewport""#));
         assert_eq!(served.matches("<title").count(), 1);
-        assert!(served.contains("<title>Pirichat</title>"));
+        assert!(served.contains("<title>pirichat</title>"));
     }
 
     fn image_sources_of(policy: &str) -> Vec<String> {
@@ -1165,9 +1165,9 @@ mod tests {
         assert_eq!(response.status(), StatusCode::OK);
         let served = read_document(response).await;
 
-        assert!(served.contains("<title>Pirichat</title>"));
+        assert!(served.contains("<title>pirichat</title>"));
         assert!(served.contains(r#"<meta name="description""#));
-        assert!(served.contains(r#"<meta property="og:title" content="Pirichat">"#));
+        assert!(served.contains(r#"<meta property="og:title" content="pirichat">"#));
         assert!(served.contains(
             r#"<meta property="og:image" content="https://cdn.example.test/web/og-image-default.png">"#
         ));
@@ -1196,7 +1196,7 @@ mod tests {
         assert_eq!(response.status(), StatusCode::OK);
         let served = read_document(response).await;
 
-        assert!(served.contains("<title>Pirichat</title>"));
+        assert!(served.contains("<title>pirichat</title>"));
         assert!(served.contains(r#"<meta name="description""#));
     }
 

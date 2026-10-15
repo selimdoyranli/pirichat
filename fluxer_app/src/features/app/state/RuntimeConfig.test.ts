@@ -407,7 +407,7 @@ describe('describeAPIEndpoint', () => {
 	});
 });
 
-describe('Pirichat instance features and source URL', () => {
+describe('pirichat instance features and source URL', () => {
 	test('retains trial, gifts and legal source in the runtime snapshot', () => {
 		const document = discoveryDocument('micup.test');
 		document.features.premium_trial_days = 7;

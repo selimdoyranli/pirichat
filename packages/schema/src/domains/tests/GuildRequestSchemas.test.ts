@@ -9,8 +9,8 @@ import {TemplateChannel} from '@fluxer/schema/src/domains/guild/GuildTemplateSch
 import {describe, expect, it} from 'vitest';
 
 describe('GuildMemberUpdateRequest', () => {
-	it.each(['Pirichat Destek', 'Pirichat Yetkili', 'ᴍɪᴄᴜᴘ Moderasyon'])(
-		'rejects the nickname %s, which passes for an official Pirichat account',
+	it.each(['pirichat Destek', 'pirichat Yetkili', 'ᴍɪᴄᴜᴘ Moderasyon'])(
+		'rejects the nickname %s, which passes for an official pirichat account',
 		(nick) => {
 			for (const schema of [GuildMemberUpdateRequest, MyGuildMemberUpdateRequest]) {
 				expect(schema.safeParse({nick}).error?.issues[0]?.message).toBe(
@@ -19,7 +19,7 @@ describe('GuildMemberUpdateRequest', () => {
 			}
 		},
 	);
-	it.each(['Sunucu Yetkilisi', 'Pirichat sever', null, ''])('accepts the nickname %j', (nick) => {
+	it.each(['Sunucu Yetkilisi', 'pirichat sever', null, ''])('accepts the nickname %j', (nick) => {
 		expect(MyGuildMemberUpdateRequest.safeParse({nick}).success).toBe(true);
 	});
 });

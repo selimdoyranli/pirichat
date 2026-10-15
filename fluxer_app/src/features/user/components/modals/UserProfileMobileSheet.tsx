@@ -141,7 +141,7 @@ export const UserProfileMobileSheet: React.FC = observer(function UserProfileMob
 	const displayUser = user ?? fallbackUser;
 	const fallbackProfile = useMemo(() => (fallbackUser ? createMockProfile(fallbackUser) : null), [fallbackUser]);
 	const mockProfile = useMemo(() => (user ? createMockProfile(user) : null), [user]);
-	// Pirichat: a profile the page cached without the mutual lists is asked for again with them.
+	// pirichat: a profile the page cached without the mutual lists is asked for again with them.
 	const initialProfile = useMemo(() => {
 		const cached = userId ? UserProfile.getProfile(userId, guildId) : null;
 		return cached?.mutualsLoaded ? cached : null;
@@ -379,7 +379,7 @@ const UserProfileMobileSheetContent: React.FC<UserProfileMobileSheetContentProps
 				),
 			);
 		};
-		// Pirichat: the full profile page; openProfilePage closes this sheet.
+		// pirichat: the full profile page; openProfilePage closes this sheet.
 		const handleOpenProfilePage = () => {
 			UserProfileCommands.openProfilePage(user.id);
 		};

@@ -4,7 +4,7 @@ import {renderEmailHtml} from '@pkgs/email/src/EmailHtml';
 import type {EmailHtmlBranding} from '@pkgs/email/src/EmailProviderTypes';
 import {describe, expect, it} from 'vitest';
 
-const BRANDING: EmailHtmlBranding = {productName: 'Pirichat', logoUrl: null, headerColor: null, footer: {}};
+const BRANDING: EmailHtmlBranding = {productName: 'pirichat', logoUrl: null, headerColor: null, footer: {}};
 const BUTTON_CELL = 'bgcolor="#5764ef"';
 
 function render(body: string, action?: {url: string; label: string}): string {

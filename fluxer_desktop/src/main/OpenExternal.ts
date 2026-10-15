@@ -10,7 +10,7 @@ const ALLOWED_EXTERNAL_URL_PROTOCOLS = new Set([
 	'mailto:',
 	'tel:',
 	'appstream:',
-	// Pirichat: the Store copy's update button opens its Microsoft Store page.
+	// pirichat: the Store copy's update button opens its Microsoft Store page.
 	'ms-windows-store:',
 	`${APP_PROTOCOL}:`,
 ]);

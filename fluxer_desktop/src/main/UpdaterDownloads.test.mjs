@@ -45,7 +45,7 @@ function loadUpdaterDownloads({channel = 'stable', platform = 'linux', arch = 'x
 			};
 		}
 		if (specifier === '@electron/common/DesktopIdentity') {
-			const names = {stable: 'Pirichat', canary: 'Pirichat-Canary', development: 'Pirichat-Development'};
+			const names = {stable: 'pirichat', canary: 'pirichat-Canary', development: 'pirichat-Development'};
 			return {DESKTOP_ARTIFACT_PRODUCT_NAME: names[channel]};
 		}
 		throw new Error(`Unexpected import: ${specifier}`);
@@ -79,7 +79,7 @@ describe('UpdaterDownloads platform feeds', () => {
 			['darwin', 'x64', 'zip'],
 			['linux', 'x64', 'appimage'],
 		]) {
-			test(`uses the Pirichat ${channel} feed for ${platform}/${arch}`, () => {
+			test(`uses the pirichat ${channel} feed for ${platform}/${arch}`, () => {
 				const downloads = loadUpdaterDownloads({channel, platform, arch});
 				const baseUrl = `https://pirichat.online/desktop/${channel}/${platform}/${arch}`;
 				assert.equal(downloads.UPDATE_BASE_URL, baseUrl);
@@ -172,7 +172,7 @@ describe('UpdaterDownloads Linux manual update options', () => {
 		assert.equal(stableDeb.url, 'https://pirichat.online/desktop/stable/linux/x64/2026.910.101500/deb');
 		assert.equal(stableDeb.suggestedName, 'pirichat-2026.910.101500-linux-amd64.deb');
 		assert.equal(canaryDeb.url, 'https://pirichat.online/desktop/canary/linux/x64/2026.910.101500/deb');
-		assert.equal(canaryDeb.suggestedName, 'Pirichat-Canary-2026.910.101500-linux-amd64.deb');
+		assert.equal(canaryDeb.suggestedName, 'pirichat-Canary-2026.910.101500-linux-amd64.deb');
 	});
 
 	test('only ever fetches 2026.908.173325 for a prompt built from that release', () => {
@@ -186,7 +186,7 @@ describe('UpdaterDownloads Linux manual update options', () => {
 		const options = structuredClone(getManualDownloadOptions(info));
 		const deb = options.find((option) => option.format === 'deb');
 
-		assert.equal(deb.suggestedName, 'Pirichat-Canary-2026.908.173325-linux-amd64.deb');
+		assert.equal(deb.suggestedName, 'pirichat-Canary-2026.908.173325-linux-amd64.deb');
 		assert.equal(deb.url, 'https://pirichat.online/desktop/canary/linux/x64/2026.908.173325/deb');
 		assert.equal(deb.sha256, DEB_SHA256);
 		assert.equal(options.length, 4);
@@ -194,7 +194,7 @@ describe('UpdaterDownloads Linux manual update options', () => {
 			const [format, version] = new URL(option.url).pathname.split('/').reverse();
 			assert.equal(format, option.format);
 			assert.equal(version, '2026.908.173325');
-			assert.match(option.suggestedName, /^Pirichat-Canary-2026\.908\.173325-linux-/);
+			assert.match(option.suggestedName, /^pirichat-Canary-2026\.908\.173325-linux-/);
 		}
 		assert.equal(getManualDownloadUrl(info), 'https://pirichat.online/desktop/canary/linux/x64/2026.908.173325/appimage');
 	});

@@ -15,7 +15,7 @@ async function loadHydratedTheme() {
 	return theme;
 }
 
-describe('Pirichat default theme', () => {
+describe('pirichat default theme', () => {
 	beforeEach(() => {
 		window.localStorage.clear();
 	});

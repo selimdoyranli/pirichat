@@ -112,7 +112,7 @@ const LOCKED_DESCRIPTOR = msg({
 	comment: 'Shop buy dialog for Plus, opened from a Plus-only decoration. {name} is the decoration name.',
 });
 const COPY_DESCRIPTOR = msg({message: 'Copy', comment: 'Copies the order number in the shop buy dialog.'});
-// Pirichat: the order is charged in Turkish lira, the same amount the shop shows; no second currency to explain.
+// pirichat: the order is charged in Turkish lira, the same amount the shop shows; no second currency to explain.
 const PAYMENT_PRICE_NOTE_DESCRIPTOR = msg({
 	message: 'You will pay {price}.',
 	comment:
@@ -578,7 +578,7 @@ export const ShopCheckoutModal = observer<ShopCheckoutModalProps>(({target}) => 
 					{order && checkout.quote && (
 						<Summary price={order} before={checkout.quote} data-flx="shop.shop-checkout-modal.new-summary" />
 					)}
-					{/* Pirichat: the summary's total is the amount charged; the note only stands in when there is none. */}
+					{/* pirichat: the summary's total is the amount charged; the note only stands in when there is none. */}
 					{order && !checkout.quote && <PaymentPriceNote order={order} />}
 				</div>
 			);

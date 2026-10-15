@@ -1520,8 +1520,8 @@ msgstr "{displayName}'s screen"
 
 #. Instance selector error shown when the instance speaks a protocol generation this client does not know. Domain is interpolated.
 #: src/features/auth/flow/instance_selector/InstanceDiscoveryFailure.ts
-msgid "{domain} runs a newer version of Pirichat than this app. Update Pirichat, then try again."
-msgstr "{domain} 執行了比此應用程式更新版本的 Pirichat。請更新 Pirichat，然後再試一次。"
+msgid "{domain} runs a newer version of pirichat than this app. Update pirichat, then try again."
+msgstr "{domain} 執行了比此應用程式更新版本的 pirichat。請更新 pirichat，然後再試一次。"
 
 #. Profile timezone difference text. duration is a localized hours/minutes phrase for how far ahead the target user's local time is.
 #: src/features/user/components/popouts/UserProfileShared.tsx
@@ -2016,20 +2016,20 @@ msgstr "{premiumProductName} 訂閱"
 msgid "{presenceCount} online"
 msgstr "{presenceCount} 位在線上"
 
-#. Monthly price of a Pirichat Plus package, in Turkish lira. The package total is charged at once.
+#. Monthly price of a pirichat Plus package, in Turkish lira. The package total is charged at once.
 #: src/features/shop/components/ShopPrice.tsx
 msgid "{price} a month"
 msgstr "每月 {price}"
 
-#. Full price of a multi-month Pirichat Plus package, charged at once, in Turkish lira. Under the monthly price.
+#. Full price of a multi-month pirichat Plus package, charged at once, in Turkish lira. Under the monthly price.
 #: src/features/shop/components/ShopPrice.tsx
 msgid "{price} in total"
 msgstr "共 {price}"
 
-#. Secondary shop price for someone without the Pirichat Plus discount. {price} is a price in Turkish lira.
+#. Secondary shop price for someone without the pirichat Plus discount. {price} is a price in Turkish lira.
 #: src/features/shop/components/ShopPriceLine.tsx
-msgid "{price} with Pirichat Plus"
-msgstr "使用 Pirichat Plus 時為 {price}"
+msgid "{price} with pirichat Plus"
+msgstr "使用 pirichat Plus 時為 {price}"
 
 #: src/features/auth/state/NewDeviceMonitoring.tsx
 msgid "{PRODUCT_NAME} has found a new audio device named <0>{deviceName}</0>. Do you want to switch to it?"
@@ -2767,7 +2767,7 @@ msgstr "<0>轉傳自</0>{sourceInfo}"
 msgid "<0>Kenji</0>, <1>Amara</1> and <2>Mateo</2> are typing..."
 msgstr "<0>Kenji</0>、<1>Amara</1> 和 <2>Mateo</2> 正在輸入訊息…"
 
-#. Approximate daily price of a Pirichat Plus package, in Turkish lira, using 30 days per month.
+#. Approximate daily price of a pirichat Plus package, in Turkish lira, using 30 days per month.
 #: src/features/shop/components/ShopPrice.tsx
 msgid "≈ {price} a day"
 msgstr "每天 ≈ {price}"
@@ -11440,8 +11440,8 @@ msgstr "無法發布此訊息"
 
 #. Instance selector error shown when no Fluxer instance answered at the address. Domain is interpolated.
 #: src/features/auth/flow/instance_selector/InstanceDiscoveryFailure.ts
-msgid "Couldn't reach a Pirichat instance at {domain}. Check the address and that the instance is online."
-msgstr "無法連線到 {domain} 的 Pirichat 執行個體。請檢查位址並確認執行個體已上線。"
+msgid "Couldn't reach a pirichat instance at {domain}. Check the address and that the instance is online."
+msgstr "無法連線到 {domain} 的 pirichat 執行個體。請檢查位址並確認執行個體已上線。"
 
 #. Title of the generic fallback error modal shown when reactivating a Plutonium subscription fails.
 #: src/features/app/components/dialogs/components/plutonium/hooks/useSubscriptionActions.ts
@@ -13483,7 +13483,7 @@ msgstr "輸入時偵測"
 msgid "Developer"
 msgstr "開發人員"
 
-#. Button opening Pirichat developer documentation with the external link warning.
+#. Button opening pirichat developer documentation with the external link warning.
 #: src/features/bots/utils/BotMessageDescriptors.ts
 msgid "Developer documentation"
 msgstr "開發人員說明文件"
@@ -21534,8 +21534,8 @@ msgstr "終身 {premiumProductName}、專屬編號徽章、#0000 標籤，以及
 
 #. Note in the Visionary buy dialog, under the price.
 #: src/features/shop/utils/ShopMessageDescriptors.ts
-msgid "Lifetime means for as long as Pirichat runs."
-msgstr "終身是指 Pirichat 持續營運期間。"
+msgid "Lifetime means for as long as pirichat runs."
+msgstr "終身是指 pirichat 持續營運期間。"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/expressions/components/modals/sticker_form/StickerPreview.tsx
@@ -25815,8 +25815,8 @@ msgstr "官方伺服器"
 
 #. Description of the official applications listed in the bot catalog.
 #: src/features/bots/components/pages/BotsPage.tsx
-msgid "Official Pirichat bots you can add to your community."
-msgstr "可新增至社群的Pirichat官方機器人。"
+msgid "Official pirichat bots you can add to your community."
+msgstr "可新增至社群的pirichat官方機器人。"
 
 #. Generic presence-status label indicating the user is offline.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
@@ -28676,12 +28676,12 @@ msgstr "個人檔案預覽（按 Enter 鍵開啟完整預覽）"
 msgid "Profile privacy"
 msgstr "個人檔案隱私設定"
 
-#. Pirichat nagbar for a user whose profile privacy was the removed "Friends and small communities only" option; it now reads as "Shared communities". The quoted names are option labels in Privacy settings. Legal-effect text: approved before release.
+#. pirichat nagbar for a user whose profile privacy was the removed "Friends and small communities only" option; it now reads as "Shared communities". The quoted names are option labels in Privacy settings. Legal-effect text: approved before release.
 #: src/features/app/components/layout/app_layout/nagbars/ProfilePrivacyChangedNagbar.tsx
 msgid "Profile privacy options have changed: \"Friends and small communities only\" is gone. Your profile is now on \"Shared communities\": your friends, people you follow each other with and members of communities you share can see it."
 msgstr "Profile privacy options have changed: \"Friends and small communities only\" is gone. Your profile is now on \"Shared communities\": your friends, people you follow each other with and members of communities you share can see it."
 
-#. Pirichat nagbar for a user whose profile privacy was "Friends only", which now also lets mutual follows (people who follow each other) see the profile. The quoted names are option labels in Privacy settings. Legal-effect text: approved before release.
+#. pirichat nagbar for a user whose profile privacy was "Friends only", which now also lets mutual follows (people who follow each other) see the profile. The quoted names are option labels in Privacy settings. Legal-effect text: approved before release.
 #: src/features/app/components/layout/app_layout/nagbars/ProfilePrivacyChangedNagbar.tsx
 msgid "Profile privacy options have changed: \"Friends only\" is now \"Friends and mutual follows\". People you follow each other with can see your profile too."
 msgstr "Profile privacy options have changed: \"Friends only\" is now \"Friends and mutual follows\". People you follow each other with can see your profile too."
@@ -31433,18 +31433,18 @@ msgid "Same time as you"
 msgstr "與您的時區相同"
 
 #: src/features/user/components/modals/UsernamePickerModal.tsx
-msgid "Pirichat no longer uses #1234 tags. Everyone has a unique username: @yourname."
-msgstr "Pirichat 不再使用 #1234 標籤。每個人都有一個唯一的使用者名稱：@yourname。"
+msgid "pirichat no longer uses #1234 tags. Everyone has a unique username: @yourname."
+msgstr "pirichat 不再使用 #1234 標籤。每個人都有一個唯一的使用者名稱：@yourname。"
 
 #. Status shown when browser sign-in status polling gives up after repeated failures.
 #: src/features/auth/flow/auth_login_core/AuthLoginBrowserStep.tsx
-msgid "Pirichat stopped checking whether the browser approved this sign-in. It didn't lose your code."
-msgstr "Pirichat 已停止檢查瀏覽器是否核准此登入。您的驗證碼並未遺失。"
+msgid "pirichat stopped checking whether the browser approved this sign-in. It didn't lose your code."
+msgstr "pirichat 已停止檢查瀏覽器是否核准此登入。您的驗證碼並未遺失。"
 
 #. Product name on the Visionary card and buy dialog. A product name: keep it as written.
 #: src/features/shop/utils/ShopMessageDescriptors.ts
-msgid "Pirichat Visionary"
-msgstr "Pirichat Visionary"
+msgid "pirichat Visionary"
+msgstr "pirichat Visionary"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/ChatSettingsIndex.ts
@@ -36303,8 +36303,8 @@ msgid "Tag name"
 msgstr "標籤名稱"
 
 #: src/features/user/components/modals/UsernamePickerModal.tsx
-msgid "Tagged names are no longer used. Choose a unique username to continue using Pirichat."
-msgstr "不再使用標記名稱。選擇一個唯一的使用者名稱以繼續使用 Pirichat。"
+msgid "Tagged names are no longer used. Choose a unique username to continue using pirichat."
+msgstr "不再使用標記名稱。選擇一個唯一的使用者名稱以繼續使用 pirichat。"
 
 #. Label of the tag filter in a forum channel and of the tags section in forum settings.
 #. Short label in the theme studio library section. Keep it concise.
@@ -40825,8 +40825,8 @@ msgstr "使用系統地區設定來顯示時間格式"
 
 #. Accessible label for the official Fluxer instance option.
 #: src/features/auth/flow/instance_selector/InstancePickerRows.tsx
-msgid "Use the official Pirichat instance"
-msgstr "使用官方 Pirichat 伺服器"
+msgid "Use the official pirichat instance"
+msgstr "使用官方 pirichat 伺服器"
 
 #. Settings search entry description. One-line summary of what the settings search entry controls.
 #: src/features/user/components/settings_utils/search_index/DesktopSettingsIndex.ts
@@ -43039,7 +43039,7 @@ msgstr "字詞"
 msgid "Works while {productName} is focused"
 msgstr "在 {productName} 處於焦點時有效"
 
-#. Pirichat one-time nagbar offering a public profile. It must say that earlier posts marked public open to everyone and that the last 72 hours of them can appear in Discover. "Shared communities" is an option label in Privacy settings. Legal-effect text: approved before release.
+#. pirichat one-time nagbar offering a public profile. It must say that earlier posts marked public open to everyone and that the last 72 hours of them can appear in Discover. "Shared communities" is an option label in Privacy settings. Legal-effect text: approved before release.
 #: src/features/app/components/layout/app_layout/nagbars/ProfilePublicOfferNagbar.tsx
 msgid "Would you like to make your profile public? If you do, everyone signed in can see your profile. Your earlier posts marked public (most of what you shared while on \"Shared communities\") open to everyone too, and those from the last 72 hours can appear in Discover."
 msgstr "Would you like to make your profile public? If you do, everyone signed in can see your profile. Your earlier posts marked public (most of what you shared while on \"Shared communities\") open to everyone too, and those from the last 72 hours can appear in Discover."

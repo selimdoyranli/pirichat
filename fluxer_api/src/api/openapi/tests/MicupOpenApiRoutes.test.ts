@@ -138,12 +138,12 @@ function missingOperations(specPath: string, operations: ReadonlyArray<string>):
 	});
 }
 
-describe('Pirichat routes in the OpenAPI specs', () => {
-	it('lists every public Pirichat operation in openapi.json', () => {
+describe('pirichat routes in the OpenAPI specs', () => {
+	it('lists every public pirichat operation in openapi.json', () => {
 		expect(missingOperations('fluxer_api/src/api/openapi/openapi.json', PUBLIC_OPERATIONS)).toEqual([]);
 	});
 
-	it('lists every admin Pirichat operation in openapi-admin.json', () => {
+	it('lists every admin pirichat operation in openapi-admin.json', () => {
 		expect(missingOperations('fluxer_admin/openapi-admin.json', ADMIN_OPERATIONS)).toEqual([]);
 	});
 });

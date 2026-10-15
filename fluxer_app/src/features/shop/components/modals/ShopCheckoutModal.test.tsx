@@ -274,7 +274,7 @@ describe('ShopCheckoutModal', () => {
 		});
 		render({kind: 'item', sku: 'cosmetic:5'});
 
-		expect(texts('dt')).toEqual(['Price', 'Sale (-20%)', 'Pirichat Plus discount (-30%)', 'Total']);
+		expect(texts('dt')).toEqual(['Price', 'Sale (-20%)', 'pirichat Plus discount (-30%)', 'Total']);
 		expect(texts('dd')).toEqual(['₺5', '−₺1', '−₺1.20', '₺2.80']);
 		expect(container.querySelector('[data-stage="5"]')).not.toBeNull();
 	});
@@ -529,13 +529,13 @@ describe('ShopCheckoutModal', () => {
 		users.currentUser = userWith({premium: true});
 		render({kind: 'visionary'});
 
-		expect(texts('h2')).toEqual(['Pirichat Visionary']);
+		expect(texts('h2')).toEqual(['pirichat Visionary']);
 		expect(texts('dt')).toEqual(['Price', 'Total']);
 		expect(texts('p')).toEqual(
 			expect.arrayContaining([
-				'Lifetime Pirichat Plus, a numbered badge, the #0000 tag and a decoration only Visionaries have.',
-				'Lifetime means for as long as Pirichat runs.',
-				'Your remaining Pirichat Plus time becomes part of the lifetime plan. It is not refunded.',
+				'Lifetime pirichat Plus, a numbered badge, the #0000 tag and a decoration only Visionaries have.',
+				'Lifetime means for as long as pirichat runs.',
+				'Your remaining pirichat Plus time becomes part of the lifetime plan. It is not refunded.',
 			]),
 		);
 

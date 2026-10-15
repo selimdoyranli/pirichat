@@ -115,9 +115,9 @@ export function describeShopOrder(
 	const suffix = ` — ${formatShopTry(quote.amount_minor, 'tr')}. Sipariş #${orderId}`;
 	const name =
 		prepared.kind === 'visionary'
-			? 'Pirichat Visionary'
+			? 'pirichat Visionary'
 			: prepared.kind === 'premium'
-				? `Pirichat Plus · ${prepared.months} ay`
+				? `pirichat Plus · ${prepared.months} ay`
 				: (prepared.itemName ?? '');
 	const room = MAX_ORDER_DESCRIPTION_LENGTH - suffix.length;
 	const fitted = name.length <= room ? name : `${name.slice(0, room - 1).replace(/[\uD800-\uDBFF]$/, '')}…`;

@@ -70,7 +70,7 @@ function createDMActionSkeletonSpecs(
 	}
 	if (layout?.premiumVisible ?? (shouldShowPremiumFeatures() && !isMobile)) {
 		specs.push({key: 'premium', labelWidth: PREMIUM_ACTION_LABEL_WIDTH});
-		// Pirichat: the shop row sits under premium wherever the shop runs, which only happens where premium shows.
+		// pirichat: the shop row sits under premium wherever the shop runs, which only happens where premium shows.
 		if (isShopPageAvailable()) specs.push({key: 'shop', labelWidth: SHOP_ACTION_LABEL_WIDTH});
 	}
 	return Object.freeze(specs);

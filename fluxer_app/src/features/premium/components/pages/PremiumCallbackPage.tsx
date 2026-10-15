@@ -13,7 +13,7 @@ import {CheckCircleIcon, XCircleIcon} from '@phosphor-icons/react';
 import {observer} from 'mobx-react-lite';
 import {useEffect} from 'react';
 
-// Pirichat: the shop's Payriff return. The server sends the browser here with a status and
+// pirichat: the shop's Payriff return. The server sends the browser here with a status and
 // nothing else; the page needs no session, since a desktop buyer pays in a browser that may not be signed in.
 const PAYRIFF_RETURN_STATUSES = new Set(['success', 'cancel', 'pending']);
 

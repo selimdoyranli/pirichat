@@ -26,7 +26,7 @@ it('shares the media row equally between the visible controls', () => {
 });
 
 describe('voice panel channel line', () => {
-	it('is 10% larger in a Pirichat block at the end of the file', () => {
+	it('is 10% larger in a pirichat block at the end of the file', () => {
 		expect(CSS.split(MARKER)).toHaveLength(2);
 		expect(flat(CSS.slice(CSS.indexOf(MARKER) + MARKER.length))).toBe(
 			'.channelSourceLink { font-size: 0.825rem; line-height: 1.1rem; }',

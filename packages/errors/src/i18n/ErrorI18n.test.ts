@@ -20,12 +20,12 @@ describe('ErrorI18n', () => {
 		});
 	});
 	describe('global IP block messages', () => {
-		it('names the blocked address and the Pirichat support mailbox in every locale', () => {
+		it('names the blocked address and the pirichat support mailbox in every locale', () => {
 			for (const locale of Object.keys(ERROR_I18N_LOCALE_MESSAGES)) {
 				for (const code of ['GLOBAL_IP_BANNED', 'GLOBAL_IP_TEMPORARILY_BANNED']) {
 					const message = getErrorMessageUnsafe(code, locale, {ipAddress: '203.0.113.20'});
 					expect(message, `${locale} ${code}`).toContain('203.0.113.20');
-					expect(message, `${locale} ${code}`).toContain('info@sanalyer.com');
+					expect(message, `${locale} ${code}`).toContain('selim.doyranli@albayrakmedya.com');
 					expect(message, `${locale} ${code}`).not.toContain('Fluxer');
 				}
 			}
@@ -54,7 +54,7 @@ describe('ErrorI18n', () => {
 		it.each([
 			[
 				'phone.country_not_supported',
-				"We don't send verification texts to this country. Use a mobile number from another country, or email info@sanalyer.com and a person will review your account.",
+				"We don't send verification texts to this country. Use a mobile number from another country, or email selim.doyranli@albayrakmedya.com and a person will review your account.",
 			],
 			[
 				'phone.inbound_verification_required',
@@ -66,15 +66,15 @@ describe('ErrorI18n', () => {
 			],
 			[
 				'phone.number_not_in_service',
-				"Your carrier says this number isn't in service. Check the number and try again, or email info@sanalyer.com if it's correct.",
+				"Your carrier says this number isn't in service. Check the number and try again, or email selim.doyranli@albayrakmedya.com if it's correct.",
 			],
 			[
 				'phone.number_not_mobile',
-				"This isn't a mobile number, so it can't receive our text. Use a mobile number, or email info@sanalyer.com if you think that's wrong.",
+				"This isn't a mobile number, so it can't receive our text. Use a mobile number, or email selim.doyranli@albayrakmedya.com if you think that's wrong.",
 			],
 			[
 				'phone.verification_needs_review',
-				"We couldn't verify this number automatically. Email info@sanalyer.com and a person will review your account.",
+				"We couldn't verify this number automatically. Email selim.doyranli@albayrakmedya.com and a person will review your account.",
 			],
 		])('resolves %s to its own message', (code, expected) => {
 			const message = getErrorMessageUnsafe(code, 'en-US');
@@ -87,7 +87,7 @@ describe('ErrorI18n', () => {
 			'phone.number_not_mobile',
 			'phone.verification_needs_review',
 		])('routes %s to support', (code) => {
-			expect(getErrorMessageUnsafe(code, 'en-US')).toContain('info@sanalyer.com');
+			expect(getErrorMessageUnsafe(code, 'en-US')).toContain('selim.doyranli@albayrakmedya.com');
 		});
 		it('blames us for a lookup outage and invites the same number again', () => {
 			const message = getErrorMessageUnsafe('phone.lookup_unavailable', 'en-US');

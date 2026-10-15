@@ -145,7 +145,7 @@ const RailActionButton = ({
 	</flx-app-guild-rail-skeleton-item>
 );
 
-// Pirichat: with a branding icon the feed tile is that icon (see FeedButton), so the startup rail draws it the same way.
+// pirichat: with a branding icon the feed tile is that icon (see FeedButton), so the startup rail draws it the same way.
 const FeedLogoPlaceholder = ({iconUrl, selected}: {readonly iconUrl: string; readonly selected: boolean}) => (
 	<flx-app-guild-rail-skeleton-item
 		className={flxElementClassName(styles.item)}

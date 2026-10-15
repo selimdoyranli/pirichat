@@ -187,7 +187,7 @@ async function sendVelopackApplyFailure(
 		type: 'error',
 		context,
 		phase: 'install',
-		message: `Pirichat could not finish installing version ${attempt.version}.`,
+		message: `pirichat could not finish installing version ${attempt.version}.`,
 	});
 	try {
 		const latest = await fetchManualLatest({forceRefresh: true});

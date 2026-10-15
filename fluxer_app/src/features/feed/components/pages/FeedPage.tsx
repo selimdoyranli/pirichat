@@ -279,7 +279,7 @@ const FeedMain = observer(({view, onViewChange}: {view: FeedView; onViewChange?:
 	);
 });
 
-// Pirichat: the DM list's rows (DMListPageItems), so both sidebars list premium, Bot System and the shop alike. On a page
+// pirichat: the DM list's rows (DMListPageItems), so both sidebars list premium, Bot System and the shop alike. On a page
 // (children) no feed row is current: the page's own row is.
 const FeedSidebarNav = observer(
 	({view, onPage, onViewChange}: {view: FeedView; onPage: boolean; onViewChange: (view: FeedView) => void}) => {
@@ -317,7 +317,7 @@ const FeedSidebarNav = observer(
 	},
 );
 
-// /feed, or with postId /feed/posts/:postId: the post page in place of the list, beside the same sidebar. Pirichat: with
+// /feed, or with postId /feed/posts/:postId: the post page in place of the list, beside the same sidebar. pirichat: with
 // children (/feed/premium, /feed/shop, /feed/bots) that page in place of the list.
 export const FeedPage = observer(({postId, children}: {postId?: string; children?: ReactNode}) => {
 	const {i18n} = useLingui();
@@ -325,7 +325,7 @@ export const FeedPage = observer(({postId, children}: {postId?: string; children
 	useEffect(() => {
 		if (!enabled) RouterUtils.replaceWith(Routes.ME);
 	}, [enabled]);
-	// Pirichat akis-oneri: the suggestions beside the feed are picked once per opening of this page.
+	// pirichat akis-oneri: the suggestions beside the feed are picked once per opening of this page.
 	useEffect(() => FeedSuggestionPicks.reset, []);
 	if (!enabled) return null;
 	// The remembered tab, read on every render so a restored choice or Discover turned off applies at once.

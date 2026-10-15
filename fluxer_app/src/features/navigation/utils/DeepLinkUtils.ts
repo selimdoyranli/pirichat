@@ -226,7 +226,7 @@ export async function startDeepLinkHandling(): Promise<void> {
 	}
 }
 
-// Pirichat: Fluxer's app hosts are another service's, so their channel links are not opened in place.
+// pirichat: Fluxer's app hosts are another service's, so their channel links are not opened in place.
 const OFFICIAL_INTERNAL_APP_HOSTS = ['pirichat.online'];
 const getNormalizedWebAppHost = (): string => {
 	try {
@@ -310,7 +310,7 @@ export function parseUserProfileUrl(url: string): string | null {
 	}
 }
 
-// Pirichat: /users/<id> is the full profile page; anything but a plain snowflake goes home.
+// pirichat: /users/<id> is the full profile page; anything but a plain snowflake goes home.
 // The guild context the old modal took is dropped.
 export function navigateToLinkedUserProfile(userId: string, {replace = false}: {replace?: boolean} = {}): void {
 	const navigate = replace ? RouterUtils.replaceWith : RouterUtils.transitionTo;

@@ -7,23 +7,23 @@ import {describe, expect, it} from 'vitest';
 const CONFIG: EmailConfig = {
 	enabled: true,
 	fromEmail: 'noreply@example.test',
-	fromName: 'Pirichat',
+	fromName: 'pirichat',
 	appBaseUrl: 'https://app.example.test',
 	termsUrl: 'https://example.test/marketing/terms',
 	guidelinesUrl: 'https://example.test/marketing/guidelines',
-	appealsEmail: 'info@sanalyer.com',
-	safetyEmail: 'info@sanalyer.com',
-	supportEmail: 'info@sanalyer.com',
-	productName: 'Pirichat',
+	appealsEmail: 'selim.doyranli@albayrakmedya.com',
+	safetyEmail: 'selim.doyranli@albayrakmedya.com',
+	supportEmail: 'selim.doyranli@albayrakmedya.com',
+	productName: 'pirichat',
 };
 const LOGO_URL = 'https://static.example.test/web/android-chrome-192x192.png';
 const HTML: EmailHtmlBranding = {
-	productName: 'Pirichat',
+	productName: 'pirichat',
 	logoUrl: LOGO_URL,
 	headerColor: '#0B0B0C',
 	footer: {
-		tr: 'Pirichat, bireysel bir geliştirici tarafından işletilir. İletişim: pr@example.test',
-		'en-US': 'Pirichat is operated by an individual developer. Contact: pr@example.test',
+		tr: 'pirichat, bireysel bir geliştirici tarafından işletilir. İletişim: pr@example.test',
+		'en-US': 'pirichat is operated by an individual developer. Contact: pr@example.test',
 	},
 };
 
@@ -69,16 +69,16 @@ describe('EmailService HTML part', () => {
 	it('brands the HTML part with the logo, product name, header colour and action link', async () => {
 		const html = (await sendIpAuthorization({...CONFIG, html: HTML}, 'tr')).html ?? '';
 		expect(html).toContain(`src="${LOGO_URL}"`);
-		expect(html).toContain('>Pirichat<');
+		expect(html).toContain('>pirichat<');
 		expect(html).toContain('background-color:#0B0B0C');
 		expect(html).toContain('href="https://app.example.test/authorize-ip#token=tok123"');
 		expect(html.toLowerCase()).not.toContain('fluxer');
 	});
 
 	it('names the header after the instance product name, not the sender name', async () => {
-		const html = (await sendIpAuthorization({...CONFIG, fromName: 'Pirichat Bildirim', html: HTML}, 'tr')).html ?? '';
-		expect(html).toContain('>Pirichat</span>');
-		expect(html).not.toContain('Pirichat Bildirim');
+		const html = (await sendIpAuthorization({...CONFIG, fromName: 'pirichat Bildirim', html: HTML}, 'tr')).html ?? '';
+		expect(html).toContain('>pirichat</span>');
+		expect(html).not.toContain('pirichat Bildirim');
 	});
 
 	it('picks the footer for the message locale and falls back to en-US', async () => {
@@ -104,7 +104,7 @@ describe('EmailService HTML part', () => {
 	it('keeps an English fallback footer left-to-right inside a right-to-left email', async () => {
 		const ar = (await sendIpAuthorization({...CONFIG, html: HTML}, 'ar')).html ?? '';
 		const arFooter = (await sendIpAuthorization({...CONFIG, html: {...HTML, footer: {ar: 'تذييل'}}}, 'ar')).html ?? '';
-		expect(ar).toMatch(/<p dir="ltr"[^>]*>Pirichat is operated/);
+		expect(ar).toMatch(/<p dir="ltr"[^>]*>pirichat is operated/);
 		expect(arFooter).toMatch(/<p dir="rtl"[^>]*>تذييل/);
 	});
 
@@ -128,9 +128,9 @@ describe('EmailService HTML part', () => {
 	});
 
 	it('escapes markup in the footer and keeps its line breaks', async () => {
-		const html = await tempBanHtml({...CONFIG, html: {...HTML, footer: {tr: '<b>Pirichat</b>\nsatır'}}}, 'spam');
+		const html = await tempBanHtml({...CONFIG, html: {...HTML, footer: {tr: '<b>pirichat</b>\nsatır'}}}, 'spam');
 		expect(html).not.toContain('<b>');
-		expect(html).toContain('&lt;b&gt;Pirichat&lt;/b&gt;<br>satır');
+		expect(html).toContain('&lt;b&gt;pirichat&lt;/b&gt;<br>satır');
 	});
 
 	it('drops a logo that is not https and a header colour that is not hex', async () => {
@@ -141,7 +141,7 @@ describe('EmailService HTML part', () => {
 					'tr',
 				)
 			).html ?? '';
-		expect(html).toContain('>Pirichat<');
+		expect(html).toContain('>pirichat<');
 		expect(html).not.toContain('<img');
 		expect(html).not.toContain('red;x:y');
 		expect(html).toContain('background-color:#0B0B0C');
@@ -244,7 +244,7 @@ describe('EmailService action button', () => {
 });
 
 describe('EmailService dark layout', () => {
-	it('declares a dark colour scheme on the Pirichat dark surfaces', async () => {
+	it('declares a dark colour scheme on the pirichat dark surfaces', async () => {
 		const html = (await sendVerification({...CONFIG, html: HTML}, 'tr')).html ?? '';
 		expect(html).toContain('<meta name="color-scheme" content="dark">');
 		expect(html).toContain('<meta name="supported-color-schemes" content="dark">');
@@ -256,13 +256,13 @@ describe('EmailService dark layout', () => {
 
 	it('puts the subject in the card as the heading and mutes the signature', async () => {
 		const html = (await sendVerification({...CONFIG, html: HTML}, 'tr')).html ?? '';
-		expect(html).toMatch(/<h1 [^>]*color:#f2f2f4;[^>]*>Pirichat e-posta adresini doğrula<\/h1>/);
-		expect(html).toMatch(/<p [^>]*color:#8e8e98;[^>]*>– Pirichat Ekibi<\/p>/);
+		expect(html).toMatch(/<h1 [^>]*color:#f2f2f4;[^>]*>pirichat e-posta adresini doğrula<\/h1>/);
+		expect(html).toMatch(/<p [^>]*color:#8e8e98;[^>]*>– pirichat Ekibi<\/p>/);
 	});
 
 	it('mutes the Hebrew team signature, which has no leading dash', async () => {
 		const html = (await sendVerification({...CONFIG, html: HTML}, 'he')).html ?? '';
-		expect(html).toMatch(/<p [^>]*color:#8e8e98;[^>]*>צוות Pirichat<\/p>/);
+		expect(html).toMatch(/<p [^>]*color:#8e8e98;[^>]*>צוות pirichat<\/p>/);
 	});
 
 	it('sets a verification code in a monospace code box', async () => {
@@ -277,15 +277,15 @@ describe('EmailService dark layout', () => {
 });
 
 describe('EmailService contact address', () => {
-	it('names info@sanalyer.com as the appeals and safety contact', async () => {
+	it('names selim.doyranli@albayrakmedya.com as the appeals and safety contact', async () => {
 		const tempBan = await capture(CONFIG, (service) =>
 			service.sendAccountTempBannedEmail('user@example.test', 'ayse', null, 24, new Date('2026-09-26T00:00:00Z'), 'tr'),
 		);
 		const report = await capture(CONFIG, (service) =>
 			service.sendReportResolvedEmail('user@example.test', 'ayse', '123', '', 'tr'),
 		);
-		expect(tempBan.text).toContain('info@sanalyer.com');
-		expect(report.text).toContain('info@sanalyer.com');
+		expect(tempBan.text).toContain('selim.doyranli@albayrakmedya.com');
+		expect(report.text).toContain('selim.doyranli@albayrakmedya.com');
 		expect(`${tempBan.text}${report.text}`).not.toContain('destek@micup.gg');
 	});
 });

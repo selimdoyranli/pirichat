@@ -193,7 +193,7 @@ describe('CosmeticsSettingsTab', () => {
 		click(tile('Alev'));
 		expect(tile('Alev')?.getAttribute('aria-pressed')).toBe('false');
 		expect(UnsavedChangesCommands.setUnsavedChanges).not.toHaveBeenCalledWith('profile_cosmetics', true);
-		expect(container.textContent).toContain('Alev comes with Pirichat Plus.');
+		expect(container.textContent).toContain('Alev comes with pirichat Plus.');
 
 		click(
 			container.querySelector<HTMLButtonElement>('[data-flx="cosmetics.cosmetics-settings-tab.button.get-premium"]'),
@@ -204,7 +204,7 @@ describe('CosmeticsSettingsTab', () => {
 	it('only explains the lock where the premium tab is not offered', () => {
 		vi.mocked(shouldShowPremiumFeatures).mockReturnValue(false);
 		click(tile('Alev'));
-		expect(container.textContent).toContain('Alev comes with Pirichat Plus.');
+		expect(container.textContent).toContain('Alev comes with pirichat Plus.');
 		expect(container.querySelector('[data-flx="cosmetics.cosmetics-settings-tab.button.get-premium"]')).toBeNull();
 	});
 });

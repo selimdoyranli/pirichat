@@ -4,7 +4,7 @@ import RuntimeConfig from '@app/features/app/state/RuntimeConfig';
 import UserSettings from '@app/features/user/state/UserSettings';
 import {makeAutoObservable} from 'mobx';
 
-// Pirichat: Fluxer's hosts (fluxer.app and every subdomain, fluxer.gg, fluxer.gift, fluxerstatus.com) are another
+// pirichat: Fluxer's hosts (fluxer.app and every subdomain, fluxer.gg, fluxer.gift, fluxerstatus.com) are another
 // service's and open with the usual warning.
 const BUILT_IN_TRUST_PATTERNS = ['pirichat.online'] as const;
 const TRUST_EVERYTHING_PATTERN = '*';

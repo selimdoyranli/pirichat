@@ -59,10 +59,10 @@ test('real MSIX expansion produces valid XML and preserves identity and extensio
 			platformOptions: {},
 			metadata: {dependencies: {}},
 			appInfo: {
-				productFilename: 'Pirichat',
-				productName: 'Pirichat',
-				name: 'Pirichat',
-				description: 'Pirichat',
+				productFilename: 'pirichat',
+				productName: 'pirichat',
+				name: 'pirichat',
+				description: 'pirichat',
 				getVersionInWeirdWindowsForm: () => '1.0.7.0',
 			},
 		};
@@ -85,7 +85,7 @@ test('real MSIX expansion produces valid XML and preserves identity and extensio
 		assert.equal(result.identity, 'pirichat.pirichat');
 		assert.equal(result.publisher, config.msix.publisher);
 		assert.equal(result.min, '10.0.17763.0');
-		assert.equal(result.app, 'Pirichat');
+		assert.equal(result.app, 'pirichat');
 		assert.equal(result.startup, 'PirichatStartup');
 		assert.equal(result.border, 1);
 		assert.equal(result.fulltrust, 1);

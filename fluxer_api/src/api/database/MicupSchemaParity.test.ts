@@ -401,8 +401,8 @@ function ttlFromOptions(options: string): number {
 	return match ? Number(match[1]) : 0;
 }
 
-describe('Pirichat Cassandra schema parity', () => {
-	it('defines every pinned Pirichat table in a module table file and nothing else', () => {
+describe('pirichat Cassandra schema parity', () => {
+	it('defines every pinned pirichat table in a module table file and nothing else', () => {
 		expect(DSL_TABLES.map((table) => table.name).sort()).toEqual(Object.keys(MICUP_TABLES).sort());
 	});
 

@@ -25,7 +25,7 @@ vi.mock('@app/features/member/models/GuildMember', () => ({GuildMember: class {}
 vi.mock('@app/features/member/state/GuildMembers', () => ({default: {}}));
 vi.mock('@app/features/premium/commands/PremiumModalCommands', () => premiumModalCommands);
 vi.mock('@app/features/premium/utils/PremiumUtils', () => ({
-	getPremiumProductName: () => 'Pirichat Plus',
+	getPremiumProductName: () => 'pirichat Plus',
 	shouldShowPremiumFeatures: () => nav.premium,
 }));
 vi.mock('@app/features/shop/utils/ShopAvailability', () => ({isShopPageAvailable: () => nav.shop}));
@@ -426,13 +426,13 @@ describe('FeedPage', () => {
 		expect(button('Home feed')!.classList).toContain(dmStyles.clickableItemSelected);
 		expect(button('Your posts')!.classList).toContain(dmStyles.clickableItem);
 		expect(button('Your posts')!.classList).not.toContain(dmStyles.clickableItemSelected);
-		for (const label of ['Home feed', 'Your posts', 'Pirichat Plus', 'Shop', 'Bot System']) {
+		for (const label of ['Home feed', 'Your posts', 'pirichat Plus', 'Shop', 'Bot System']) {
 			expect(button(label)!.querySelector(`.${dmStyles.clickableItemIcon} svg`)).not.toBeNull();
 		}
 		act(() => button('Your posts')!.click());
 		expect(button('Your posts')!.classList).toContain(dmStyles.clickableItemSelected);
 		expect(button('Home feed')!.classList).not.toContain(dmStyles.clickableItemSelected);
-		expect(button('Pirichat Plus')!.classList).toContain(pageItemStyles.accent);
+		expect(button('pirichat Plus')!.classList).toContain(pageItemStyles.accent);
 		expect(button('Shop')!.classList).toContain(pageItemStyles.accent);
 		expect(button('Bot System')!.classList).not.toContain(pageItemStyles.accent);
 	});
@@ -512,15 +512,15 @@ describe('FeedPage', () => {
 
 	it('lists premium and the shop under Your posts', () => {
 		render();
-		expect(sidebarItems()).toEqual(['Home feed', 'Your posts', 'Pirichat Plus', 'Shop', 'Bot System']);
-		expect(sidebarItem('Pirichat Plus')!.getAttribute('aria-current')).toBeNull();
+		expect(sidebarItems()).toEqual(['Home feed', 'Your posts', 'pirichat Plus', 'Shop', 'Bot System']);
+		expect(sidebarItem('pirichat Plus')!.getAttribute('aria-current')).toBeNull();
 		expect(sidebarItem('Shop')!.getAttribute('aria-current')).toBeNull();
 		expect(sidebarItem('Home feed')!.getAttribute('aria-current')).toBe('page');
 	});
 
 	it('opens premium the way the DM list does and goes to the shop page', () => {
 		render();
-		act(() => sidebarItem('Pirichat Plus')!.click());
+		act(() => sidebarItem('pirichat Plus')!.click());
 		expect(premiumModalCommands.open).toHaveBeenCalledTimes(1);
 		act(() => sidebarItem('Shop')!.click());
 		expect(routerUtils.transitionTo).toHaveBeenCalledWith('/shop');
@@ -554,7 +554,7 @@ describe('FeedPage', () => {
 	const page = () => container.querySelector('[data-testid="page"]');
 
 	it.each([
-		['/feed/premium', 'Pirichat Plus'],
+		['/feed/premium', 'pirichat Plus'],
 		['/feed/bots', 'Bot System'],
 		['/feed/shop', 'Shop'],
 	])('shows %s in the main column beside the sidebar, with %s as the current page', (pathname, label) => {

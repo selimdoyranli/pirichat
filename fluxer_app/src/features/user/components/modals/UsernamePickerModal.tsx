@@ -115,7 +115,7 @@ export const UsernamePickerModal = observer(
 				{announcement ? (
 					<>
 						<p>
-							<Trans>Pirichat no longer uses #1234 tags. Everyone has a unique username: @yourname.</Trans>
+							<Trans>pirichat no longer uses #1234 tags. Everyone has a unique username: @yourname.</Trans>
 						</p>
 						<p>
 							<Trans>Choose a unique username. Your friends can find and add you with this name.</Trans>
@@ -135,7 +135,7 @@ export const UsernamePickerModal = observer(
 					</>
 				) : (
 					<p>
-						<Trans>Tagged names are no longer used. Choose a unique username to continue using Pirichat.</Trans>
+						<Trans>Tagged names are no longer used. Choose a unique username to continue using pirichat.</Trans>
 					</p>
 				)}
 				<UsernamePicker

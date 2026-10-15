@@ -72,7 +72,7 @@ function electronStub() {
 			app: {
 				isPackaged: true,
 				getVersion: () => '1.0.1',
-				getPath: () => 'C:\\Users\\Pirichat\\AppData\\Roaming\\Pirichat',
+				getPath: () => 'C:\\Users\\pirichat\\AppData\\Roaming\\pirichat',
 				on() {},
 				getLoginItemSettings: () => ({openAtLogin: false, executableWillLaunchAtLogin: false, launchItems: []}),
 				setLoginItemSettings: (settings) => calls.setLoginItemSettings.push(settings),
@@ -94,7 +94,7 @@ function electronStub() {
 
 const logStub = {info() {}, warn() {}, error() {}, debug() {}, transports: {file: {}, console: {}}};
 const identityStub = {
-	DESKTOP_APP_NAME: 'Pirichat',
+	DESKTOP_APP_NAME: 'pirichat',
 	LINUX_DESKTOP_ENTRY_ID: 'pirichat',
 	LEGACY_LINUX_DESKTOP_ENTRY_ID: 'pirichat',
 	LINUX_ICON_NAME: 'pirichat',
@@ -498,7 +498,7 @@ describe('Microsoft Store (MSIX) package', () => {
 		);
 
 		assert.equal(config.msix.identityName, identity.WINDOWS_STORE_IDENTITY_NAME);
-		// Partner Center > Pirichat (9P1SNJ2H2W9H) > Product identity; Application Id as in the published 0.4.4.0 package.
+		// Partner Center > pirichat (9P1SNJ2H2W9H) > Product identity; Application Id as in the published 0.4.4.0 package.
 		assert.deepEqual(
 			{
 				identityName: config.msix.identityName,
@@ -509,19 +509,19 @@ describe('Microsoft Store (MSIX) package', () => {
 			{
 				identityName: 'pirichat.pirichat',
 				publisher: 'CN=6B905D36-79B1-4EA5-8E9B-F18A23784188',
-				publisherDisplayName: 'Pirichat',
-				applicationId: 'Pirichat',
+				publisherDisplayName: 'pirichat',
+				applicationId: 'pirichat',
 			},
 		);
 		assert.deepEqual(config.msix.languages, ['tr-TR', 'en-US']);
 		assert.equal(config.msix.setBuildNumber, false);
 		assert.deepEqual(
 			config.protocols.flatMap((protocol) => protocol.schemes),
-			['Pirichat'],
+			['pirichat'],
 		);
 		assert.match(extensions, /<desktop:StartupTask TaskId="PirichatStartup" Enabled="false"/);
 		assert.match(extensions, new RegExp(`<com:Class Id="${clsid}"`));
 		assert.match(extensions, new RegExp(`ToastActivatorCLSID="${clsid}"`));
-		assert.equal((extensions.match(/Executable="app\\Pirichat\.exe"/g) ?? []).length, 2);
+		assert.equal((extensions.match(/Executable="app\\pirichat\.exe"/g) ?? []).length, 2);
 	});
 });

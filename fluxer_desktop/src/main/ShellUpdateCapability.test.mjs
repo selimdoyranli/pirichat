@@ -270,7 +270,7 @@ describe('blocked shell update states', () => {
 			withProperty(process, 'windowsStore', true, () => {
 				const blocked = getBlockedShellUpdate(MANAGED_PLAN, null);
 				assert.equal(blocked.action.label, 'Microsoft Store’u aç');
-				assert.equal(blocked.message, 'Pirichat başlamadan önce Microsoft Store’dan bir güncelleme yüklenmelidir.');
+				assert.equal(blocked.message, 'pirichat başlamadan önce Microsoft Store’dan bir güncelleme yüklenmelidir.');
 				assert.equal(blocked.downloadUrl, 'ms-windows-store://pdp/?ProductId=9P1SNJ2H2W9H');
 				assert.equal(blocked.downloadUrls.size, 0);
 				assert.equal(blocked.options, null);
@@ -278,7 +278,7 @@ describe('blocked shell update states', () => {
 				assert.equal(security.status, 'blocked-security-update-managed');
 				assert.equal(
 					security.message,
-					'Pirichat başlamadan önce Microsoft Store’dan zorunlu güvenlik güncellemesi yüklenmelidir.',
+					'pirichat başlamadan önce Microsoft Store’dan zorunlu güvenlik güncellemesi yüklenmelidir.',
 				);
 			}),
 		);
@@ -293,10 +293,10 @@ describe('blocked shell update states', () => {
 		try {
 			withPlatform('win32', () =>
 				withProperty(process, 'windowsStore', true, () => {
-					assert.equal(getBlockedShellUpdate(MANAGED_PLAN, null).message, 'Update Pirichat from Microsoft Store.');
+					assert.equal(getBlockedShellUpdate(MANAGED_PLAN, null).message, 'Update pirichat from Microsoft Store.');
 					assert.equal(
 						getBlockedShellUpdate(MANAGED_PLAN, null, true).message,
-						'Security update for Pirichat from Microsoft Store.',
+						'Security update for pirichat from Microsoft Store.',
 					);
 				}),
 			);

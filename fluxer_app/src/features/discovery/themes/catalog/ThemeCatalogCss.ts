@@ -5,10 +5,10 @@
 
 export const MOR_GECE_CSS = `/* SPDX-License-Identifier: AGPL-3.0-or-later
  * @name Mor Gece
- * @description Pirichat markasının moru ve altını, gece lacivertine yakın koyu bir zeminde.
- * @author Pirichat
+ * @description pirichat markasının moru ve altını, gece lacivertine yakın koyu bir zeminde.
+ * @author pirichat
  * @version 1.0.0
- * @tags koyu, mor, Pirichat
+ * @tags koyu, mor, pirichat
  */
 
 /* The palette applies over every built-in theme: :root[class] outranks the theme classes of color-system.css. */
@@ -76,7 +76,7 @@ export const MOR_GECE_CSS = `/* SPDX-License-Identifier: AGPL-3.0-or-later
 export const DERIN_DENIZ_CSS = `/* SPDX-License-Identifier: AGPL-3.0-or-later
  * @name Derin Deniz
  * @description Lacivert zemin, turkuaz vurgu; gece yarısı denizi.
- * @author Pirichat
+ * @author pirichat
  * @version 1.0.0
  * @tags koyu, mavi
  */
@@ -146,7 +146,7 @@ export const DERIN_DENIZ_CSS = `/* SPDX-License-Identifier: AGPL-3.0-or-later
 export const CAM_ORMANI_CSS = `/* SPDX-License-Identifier: AGPL-3.0-or-later
  * @name Çam Ormanı
  * @description Yosun yeşili zeminler, açık yeşil vurgu; gözü yormayan serin bir gece.
- * @author Pirichat
+ * @author pirichat
  * @version 1.0.0
  * @tags koyu, yeşil
  */
@@ -216,7 +216,7 @@ export const CAM_ORMANI_CSS = `/* SPDX-License-Identifier: AGPL-3.0-or-later
 export const KEHRIBAR_CSS = `/* SPDX-License-Identifier: AGPL-3.0-or-later
  * @name Kehribar
  * @description Kahve tonlarında sıcak bir zemin, kehribar sarısı vurgu.
- * @author Pirichat
+ * @author pirichat
  * @version 1.0.0
  * @tags koyu, sıcak, turuncu
  */
@@ -286,7 +286,7 @@ export const KEHRIBAR_CSS = `/* SPDX-License-Identifier: AGPL-3.0-or-later
 export const KAGIT_CSS = `/* SPDX-License-Identifier: AGPL-3.0-or-later
  * @name Kağıt
  * @description Krem kâğıt dokusunda açık bir tema; gündüz okumak için.
- * @author Pirichat
+ * @author pirichat
  * @version 1.0.0
  * @tags açık, krem
  */

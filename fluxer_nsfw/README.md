@@ -2,10 +2,10 @@
 
 # fluxer-nsfw
 
-**Pirichat addition, not in upstream Fluxer.** `fluxer_media_proxy` sends image and video frames to an external classifier
+**pirichat addition, not in upstream Fluxer.** `fluxer_media_proxy` sends image and video frames to an external classifier
 at `FLUXER_NSFW_SERVICE_ENDPOINT`, and upstream ships no such service. This is that service. It implements the
 contract in `fluxer_media_proxy/src/nsfw.rs` and nothing else. It holds no state, so it scales by adding replicas
-behind the one endpoint (Pirichat PLAN §8, G-N).
+behind the one endpoint (pirichat PLAN §8, G-N).
 
 ## Contract
 

@@ -123,7 +123,7 @@ export const FeedPostCard = observer(({post, variant = 'timeline', onOpenPost, .
 	const viewTokenRef = useRef(post.viewToken);
 	viewTokenRef.current = post.viewToken;
 	const watchViews = post.viewToken !== null;
-	// Pirichat akis-izlenme: the card counts as seen once half of it is on screen (FeedViewCommands); only while the server
+	// pirichat akis-izlenme: the card counts as seen once half of it is on screen (FeedViewCommands); only while the server
 	// gives the post a view token, so with view counts off nothing is watched or sent.
 	useEffect(() => {
 		const card = cardRef.current;
@@ -137,7 +137,7 @@ export const FeedPostCard = observer(({post, variant = 'timeline', onOpenPost, .
 			{threshold: FEED_VIEW_THRESHOLDS},
 		);
 	}, [post.id, watchViews]);
-	// Pirichat akis-takip: the pill is offered when the card mounts on a Discover post of an author the viewer does not
+	// pirichat akis-takip: the pill is offered when the card mounts on a Discover post of an author the viewer does not
 	// follow, and stays through the follow so a second tap undoes it; a card mounted later has none (X, Instagram). Not to
 	// a viewer the server would refuse on the post path.
 	const [followOfferedFor] = useState(() =>

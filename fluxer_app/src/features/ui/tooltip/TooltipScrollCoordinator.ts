@@ -53,7 +53,7 @@ export function subscribeTooltipScrollHide(listener: () => void): () => void {
 	};
 }
 
-// Pirichat: resets the last scroll time and the listeners between tests; the fake clock starts again at 0
+// pirichat: resets the last scroll time and the listeners between tests; the fake clock starts again at 0
 // each test.
 export function resetTooltipScrollCoordinatorForTests(): void {
 	scrollHideListeners.clear();

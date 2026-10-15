@@ -809,7 +809,7 @@ fn integrations_config_section(
                                 "integration_bluesky_client_name",
                                 "Client name",
                                 integrations.bluesky.client_name.as_deref().unwrap_or(""),
-                                "Pirichat",
+                                "pirichat",
                             ))
                             (text_input(
                                 "integration_bluesky_client_uri",
@@ -1009,7 +1009,7 @@ fn app_public_config_section(
                                 "app_product_name",
                                 "Product Name",
                                 &app_public.branding.product_name,
-                                "Pirichat",
+                                "pirichat",
                             ))
                             (text_input(
                                 "app_theme_color",

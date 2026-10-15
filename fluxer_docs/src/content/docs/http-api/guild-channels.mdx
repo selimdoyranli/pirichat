@@ -143,7 +143,7 @@ Creates a guild channel and returns its [channel object](/http-api/channels/#cha
 
 - Supplying `permission_overwrites` also requires [MANAGE_ROLES](/http-api/permissions/) in the same context.
 - Both permissions resolve through the parent category's overwrites. A category overwrite that allows one grants it for that category only, and a category overwrite that denies one blocks a caller who holds it at guild level.
-- pirichat: an empty `permission_overwrites` array is treated as omitted. It does not require `MANAGE_ROLES`, and the channel inherits its parent category's overwrites. To create a channel that is open to everyone inside a private category, supply a non-empty overwrite list or [set channel permission overwrites](/http-api/channels/#set-channel-permission-overwrite) after creation. This is a temporary Pirichat deviation from Fluxer and will be removed once older Pirichat mobile builds are closed by a forced update.
+- pirichat: an empty `permission_overwrites` array is treated as omitted. It does not require `MANAGE_ROLES`, and the channel inherits its parent category's overwrites. To create a channel that is open to everyone inside a private category, supply a non-empty overwrite list or [set channel permission overwrites](/http-api/channels/#set-channel-permission-overwrite) after creation. This is a temporary pirichat deviation from Fluxer and will be removed once older pirichat mobile builds are closed by a forced update.
 
 `MANAGE_CHANNELS` is an [elevated permission](/http-api/permissions/#elevated-permissions). It also requires an enrolled multi-factor authenticator when the guild [MFA level](/http-api/guilds/#mfa-levels) is elevated and the caller is not the guild owner.
 

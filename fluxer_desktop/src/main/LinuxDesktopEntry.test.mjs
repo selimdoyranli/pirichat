@@ -43,7 +43,7 @@ const desktopStubs = {
 	electron: {app: electronApp},
 	'@electron/common/BuildChannel': {BUILD_CHANNEL: 'stable'},
 	'@electron/common/DesktopIdentity': {
-		DESKTOP_APP_NAME: 'Pirichat',
+		DESKTOP_APP_NAME: 'pirichat',
 		LINUX_DESKTOP_ENTRY_ID: 'pirichat',
 		LINUX_ICON_NAME: 'pirichat',
 		LEGACY_LINUX_DESKTOP_ENTRY_ID: 'pirichat-legacy',
@@ -67,7 +67,7 @@ function parseMainGroup(contents) {
 }
 
 describe('LinuxDesktopEntry contents', () => {
-	test('uses the Pirichat desktop id for window matching and the packaged icon', () => {
+	test('uses the pirichat desktop id for window matching and the packaged icon', () => {
 		const entry = parseMainGroup(desktopEntry.buildDesktopFileContents(EXEC_PATH, false));
 		assert.equal(entry.get('StartupWMClass'), 'pirichat');
 		assert.equal(entry.get('Icon'), 'pirichat');

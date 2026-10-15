@@ -16,7 +16,7 @@ const CATALOGS: Record<string, Record<string, string>> = {
 	...ERROR_I18N_LOCALE_MESSAGES,
 };
 
-describe('Pirichat error brand', () => {
+describe('pirichat error brand', () => {
 	it.each(Object.keys(CATALOGS))('%s names no upstream brand or support address', (locale) => {
 		const leaks = Object.entries(CATALOGS[locale])
 			.filter(([, message]) => UPSTREAM_BRAND.test(message))
@@ -24,22 +24,22 @@ describe('Pirichat error brand', () => {
 		expect(leaks).toEqual([]);
 	});
 
-	it('sends IP ban appeals to Pirichat support', () => {
+	it('sends IP ban appeals to pirichat support', () => {
 		const message = getErrorMessageUnsafe('GLOBAL_IP_BANNED', 'en-US', {ipAddress: '203.0.113.1'});
-		expect(message).toContain('Pirichat API');
-		expect(message).toContain('info@sanalyer.com');
+		expect(message).toContain('pirichat API');
+		expect(message).toContain('selim.doyranli@albayrakmedya.com');
 		const error = new IpBannedError({
 			ipAddress: '203.0.113.1',
 			kind: 'permanent',
-			appealEmail: 'info@sanalyer.com',
-			productName: 'Pirichat',
+			appealEmail: 'selim.doyranli@albayrakmedya.com',
+			productName: 'pirichat',
 		});
-		expect(error.data?.appeal_email).toBe('info@sanalyer.com');
+		expect(error.data?.appeal_email).toBe('selim.doyranli@albayrakmedya.com');
 	});
 
-	it('calls the premium tier Pirichat Plus', () => {
+	it('calls the premium tier pirichat Plus', () => {
 		expect(new CannotRedeemPlutoniumWithVisionaryError().messageVariables).toEqual({
-			premium_tier_name: 'Pirichat Plus',
+			premium_tier_name: 'pirichat Plus',
 		});
 	});
 });

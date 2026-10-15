@@ -17,7 +17,7 @@ const autostart = loadTsModule('@electron/main/Autostart', {
 		'electron-log': {info: () => {}, warn: () => {}, error: () => {}},
 		'@electron/common/BuildChannel': {BUILD_CHANNEL: 'stable'},
 		'@electron/common/DesktopIdentity': {
-			DESKTOP_APP_NAME: 'Pirichat',
+			DESKTOP_APP_NAME: 'pirichat',
 			LINUX_DESKTOP_ENTRY_ID: 'pirichat',
 			LEGACY_LINUX_DESKTOP_ENTRY_ID: 'pirichat-legacy',
 		},
@@ -77,7 +77,7 @@ describe('Linux autostart with an entry left under the previous desktop id', () 
 					'electron-log': {info: () => {}, warn: () => {}, error: () => {}},
 					'@electron/common/BuildChannel': {BUILD_CHANNEL: 'stable'},
 					'@electron/common/DesktopIdentity': {
-						DESKTOP_APP_NAME: 'Pirichat',
+						DESKTOP_APP_NAME: 'pirichat',
 						LINUX_DESKTOP_ENTRY_ID: 'pirichat',
 						LEGACY_LINUX_DESKTOP_ENTRY_ID: 'pirichat-legacy',
 					},

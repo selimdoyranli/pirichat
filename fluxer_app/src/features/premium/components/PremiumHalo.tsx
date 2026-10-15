@@ -14,7 +14,7 @@ interface PremiumHaloProps {
 	children: React.ReactNode;
 }
 
-// Pirichat: the coloured light around the premium and shop buy buttons. Two blurred strips slide in opposite directions
+// pirichat: the coloured light around the premium and shop buy buttons. Two blurred strips slide in opposite directions
 // behind the button (transform only), only while hovered, focused or animated; the small one and reduced motion hold
 // them still.
 export function PremiumHalo({size, animated, className, children}: PremiumHaloProps) {

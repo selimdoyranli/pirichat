@@ -3,7 +3,7 @@
 import {Tooltip} from '@app/features/ui/tooltip/Tooltip';
 import type React from 'react';
 
-// Pirichat: upstream dropped its Plutonium copy of this wrapper; shop buy buttons still explain why they are disabled.
+// pirichat: upstream dropped its Plutonium copy of this wrapper; shop buy buttons still explain why they are disabled.
 interface PurchaseDisabledWrapperProps {
 	disabled: boolean;
 	tooltipText: React.ReactNode;

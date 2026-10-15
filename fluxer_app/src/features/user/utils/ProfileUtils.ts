@@ -88,7 +88,7 @@ export function createMockProfile(
 	const finalBio = options?.previewBio !== undefined ? options.previewBio : user.bio || null;
 	const finalPronouns = options?.previewPronouns !== undefined ? options.previewPronouns : user.pronouns || null;
 	const visiblePremiumData = computeVisiblePremiumData(user, options?.previewBadgeSettings);
-	// Pirichat: badges and the profile effect live on the profile, not the user; the preview keeps the loaded ones.
+	// pirichat: badges and the profile effect live on the profile, not the user; the preview keeps the loaded ones.
 	const loadedProfile = UserProfile.getProfile(user.id);
 	return new Profile({
 		user: user.toJSON(),

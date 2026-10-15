@@ -26,14 +26,14 @@ export interface AuthSessionStoredAccountResolverStorage {
 	replaceInventoryEntry(request: StoredAccountInventoryReplacement): Promise<QualifiedStoredAccount>;
 }
 
-// Pirichat: adopted means the account record is stored, rejected means the credential was signed out and removed,
+// pirichat: adopted means the account record is stored, rejected means the credential was signed out and removed,
 // skipped means nothing changed and the next boot asks again.
 export type LegacyCredentialAdoption = 'adopted' | 'rejected' | 'skipped';
 
 export interface AuthSessionStoredAccountResolverDependencies {
 	readonly accountStorage: AuthSessionStoredAccountResolverStorage;
 	readonly resolveRuntimeEndpoint: (input: string) => Promise<InstanceSnapshotResolution>;
-	// Pirichat: stores the account record for a raw mirror credential this page's instance confirms.
+	// pirichat: stores the account record for a raw mirror credential this page's instance confirms.
 	readonly adoptLegacyCredential?: (credential: StoredSessionCredential) => Promise<LegacyCredentialAdoption>;
 }
 
@@ -350,7 +350,7 @@ export class AuthSessionStoredAccountResolver {
 		return restoration;
 	}
 
-	// Pirichat: the previous web release never persisted its account record (its runtime snapshot kept a MobX observable
+	// pirichat: the previous web release never persisted its account record (its runtime snapshot kept a MobX observable
 	// array, so every IndexedDB put failed with a DataCloneError and fell back to memory); its session exists only in
 	// the raw token/userId mirror. This is the only gate of that adoption: a web document whose IndexedDB inventory has
 	// no record for the raw credential. The desktop authority and qualified pointers keep the upstream behavior.

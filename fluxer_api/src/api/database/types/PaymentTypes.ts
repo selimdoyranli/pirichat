@@ -61,7 +61,7 @@ export interface VisionarySlotRow {
 	slot_index: number;
 	user_id: UserID | null;
 	// Micup Visionary sale. Optional so upstream's partial writes stay valid.
-	version?: number | null; // CAS counter; rows Pirichat opens start at 1, rows without one are never handed out
+	version?: number | null; // CAS counter; rows pirichat opens start at 1, rows without one are never handed out
 	order_id?: bigint | null; // the order holding the number, kept after it is taken (retry proof)
 	held_until?: Date | null; // no owner: end of a pending order's hold; an owner: when an admin took the number back
 }

@@ -35,7 +35,7 @@ const PUBLIC_POSTS_NOTE_DESCRIPTOR = msg({
 // Only the signed-in account: no profile request and no follow counts. The cover comes like
 // UserAreaPopout's: the stored profile when one is loaded, else a mock one built from the account (no request either).
 // Read on every render, not memoised: the rail stays mounted beside the feed, so a profile stored or changed later shows.
-// Pirichat akis-oneri: the feed page puts the suggestions under the card as children; this card itself still
+// pirichat akis-oneri: the feed page puts the suggestions under the card as children; this card itself still
 // sends no request.
 export const FeedProfileAside = observer(({onShowPosts, children}: PropsWithChildren<{onShowPosts?: () => void}>) => {
 	const {i18n} = useLingui();

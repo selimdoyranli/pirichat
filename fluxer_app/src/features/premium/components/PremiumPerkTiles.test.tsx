@@ -181,12 +181,12 @@ describe('PremiumPerkTiles', () => {
 			.filter((tile) => tile.querySelector('[data-flx="premium.premium-perk-tiles.active"]'))
 			.map((tile) => tile.querySelector('[data-flx="premium.premium-perk-tiles.tile-title"]')?.textContent);
 
-	it('names Pirichat Plus in every foot and calls nothing active for an account without Plus', () => {
+	it('names pirichat Plus in every foot and calls nothing active for an account without Plus', () => {
 		render();
 
 		expect(tiles()).toHaveLength(5);
 		for (const tile of tiles()) {
-			expect(tile.querySelector('[data-flx="premium.premium-perk-tiles.tier"]')?.textContent).toBe('Pirichat Plus');
+			expect(tile.querySelector('[data-flx="premium.premium-perk-tiles.tier"]')?.textContent).toBe('pirichat Plus');
 			expect(tile.hasAttribute('data-active')).toBe(false);
 		}
 		expect(activeTitles()).toEqual([]);
@@ -218,7 +218,7 @@ describe('PremiumPerkTiles', () => {
 			'Avatar decoration',
 			'Profile effect',
 			'Nameplate',
-			'Pirichat Plus badge',
+			'pirichat Plus badge',
 			'Special discounts in the shop',
 		]);
 	});
@@ -227,7 +227,7 @@ describe('PremiumPerkTiles', () => {
 		catalog.itemEntries = [entry('10', 'avatar_decoration', 'owned'), entry('2', 'profile_effect', 'premium')];
 		render();
 
-		expect(titles()).toEqual(['Profile effect', 'Pirichat Plus badge', 'Special discounts in the shop']);
+		expect(titles()).toEqual(['Profile effect', 'pirichat Plus badge', 'Special discounts in the shop']);
 	});
 
 	it('shows the shop discount tile only above 0', () => {
@@ -285,7 +285,7 @@ describe('PremiumPerkTiles', () => {
 			nameplate_data: null,
 		});
 		expect(seen.profile?.previewProfileEffect).toBeNull();
-		expect(titles()).toEqual(['Pirichat Plus badge', 'Special discounts in the shop']);
+		expect(titles()).toEqual(['pirichat Plus badge', 'Special discounts in the shop']);
 		expect(container.querySelector('[data-flx="premium.premium-perk-tiles.legend"]')).toBeNull();
 		expect(seen.avatar).toBeNull();
 		expect(seen.row).toBeNull();

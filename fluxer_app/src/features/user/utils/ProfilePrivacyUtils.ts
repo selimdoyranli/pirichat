@@ -4,7 +4,7 @@ import UserSettings from '@app/features/user/state/UserSettings';
 import Users from '@app/features/user/state/Users';
 import {type ProfilePrivacyLevel, ProfilePrivacyLevels} from '@fluxer/constants/src/UserConstants';
 
-// Pirichat: the level the server applies now (resolveProfileAudience). The legacy 1 reads as shared communities,
+// pirichat: the level the server applies now (resolveProfileAudience). The legacy 1 reads as shared communities,
 // and so does a stored Everyone until the account may have a public profile (16 and a date of birth): the settings, the
 // feed note and the connection note show this, never the stored value.
 export function getEffectiveProfilePrivacy(): ProfilePrivacyLevel {

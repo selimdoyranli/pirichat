@@ -15,7 +15,7 @@ function project(features: Record<string, unknown> = {}, appPublic: Record<strin
 	);
 }
 
-describe('client discovery Pirichat contract', () => {
+describe('client discovery pirichat contract', () => {
 	it('preserves migration deadlines and tiers through the canonical document and runtime projection', () => {
 		const username_migration = {
 			state: 'selecting' as const,
