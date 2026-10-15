@@ -3,7 +3,6 @@
 import {messages as messagesEnUS} from '@app/features/i18n/locales/en-US/messages.mjs';
 import {AppStorageKey} from '@app/features/platform/state/AppStorageKeys';
 import AppStorage from '@app/features/platform/state/PersistentStorage';
-import {getNativeLocaleIdentifier} from '@app/features/platform/types/Platform';
 import {Logger} from '@app/features/platform/utils/AppLogger';
 import {loadLazyModule} from '@app/features/platform/utils/LazyModuleLoader';
 import {noteLocale} from '@app/features/theme/fonts/ScriptFontLoader';
@@ -13,6 +12,7 @@ import {type I18n, i18n, type Messages} from '@lingui/core';
 import {createAtom, runInAction} from 'mobx';
 
 const DEFAULT_LOCALE: LocaleCode = 'en-US';
+const PIRICHAT_DEFAULT_LOCALE: LocaleCode = 'tr';
 const supportedLocaleSet = new Set<LocaleCode>(AllLocales);
 const logger = new Logger('i18n');
 const LANGUAGE_OVERRIDES: Record<string, LocaleCode> = {
@@ -171,15 +171,8 @@ function detectPreferredLocale(forceLocale?: string): LocaleCode {
 	if (instanceLocale) {
 		return instanceLocale;
 	}
-	const nativeLocale = getNativeLocaleIdentifier();
-	if (nativeLocale) {
-		return normalizeLocale(nativeLocale);
-	}
-	const browserLocale = detectBrowserLocale();
-	if (browserLocale) {
-		return normalizeLocale(browserLocale);
-	}
-	return DEFAULT_LOCALE;
+	// pirichat: Turkish for everyone until they pick a language, whatever the browser or OS language is.
+	return PIRICHAT_DEFAULT_LOCALE;
 }
 
 function activateLocale(localeCode: LocaleCode, messages: Messages): void {

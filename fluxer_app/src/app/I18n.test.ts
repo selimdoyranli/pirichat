@@ -138,10 +138,10 @@ describe('instance default locale', () => {
 	});
 
 	it.each(['xx', 'turkish', '</script><script>alert(1)</script>'])(
-		'ignores the instance locale %s the client does not ship and detects as upstream does',
+		'ignores the instance locale %s the client does not ship and opens in Turkish',
 		async (defaultLocale) => {
 			const setting = {...MICUP, defaultLocale};
-			expect(await openedLocale({setting, timeZone: 'Europe/Istanbul', languages: ['az-AZ', 'ru-RU']})).toBe('en-US');
+			expect(await openedLocale({setting, timeZone: 'Europe/Istanbul', languages: ['az-AZ', 'ru-RU']})).toBe('tr');
 		},
 	);
 
@@ -159,12 +159,13 @@ describe('instance default locale', () => {
 	);
 });
 
-describe('without the instance default the detection is upstream (K3)', () => {
+// pirichat: without an instance default everyone opens in Turkish, whatever the browser or OS language is.
+describe('without the instance default the client opens in Turkish', () => {
 	const visits = [
 		{label: 'a Turkish browser in Istanbul', timeZone: 'Europe/Istanbul', languages: ['tr-TR', 'tr'], expected: 'tr'},
-		{label: 'an English browser in Istanbul', timeZone: 'Europe/Istanbul', languages: ['en-US'], expected: 'en-US'},
-		{label: 'a German browser in Berlin', timeZone: 'Europe/Berlin', languages: ['de-DE'], expected: 'de'},
-		{label: 'an unsupported first language', timeZone: 'Asia/Baku', languages: ['az-AZ', 'ru-RU'], expected: 'en-US'},
+		{label: 'an English browser in Istanbul', timeZone: 'Europe/Istanbul', languages: ['en-US'], expected: 'tr'},
+		{label: 'a German browser in Berlin', timeZone: 'Europe/Berlin', languages: ['de-DE'], expected: 'tr'},
+		{label: 'an unsupported first language', timeZone: 'Asia/Baku', languages: ['az-AZ', 'ru-RU'], expected: 'tr'},
 		{label: 'a saved locale', timeZone: 'Europe/Istanbul', languages: ['tr-TR'], savedLocale: 'fr', expected: 'fr'},
 	];
 	it.each(visits)('$label, with no instance setting', async ({expected, label: _label, ...visit}) => {
@@ -183,7 +184,7 @@ describe('without the instance default the detection is upstream (K3)', () => {
 
 describe('runtime locale policy after early shell initialization', () => {
 	it('applies the instance locale when the device had no saved choice', async () => {
-		expect(await openedLocale({setting: null, timeZone: 'Europe/Istanbul', languages: ['en-US']})).toBe('en-US');
+		expect(await openedLocale({setting: null, timeZone: 'Europe/Istanbul', languages: ['en-US']})).toBe('tr');
 		const {applyInstanceDefaultLocale, default: i18n} = await import('@app/app/I18n');
 		await applyInstanceDefaultLocale({default_locale: 'tr', default_locale_time_zones: ['Europe/Istanbul']});
 		expect(i18n.locale).toBe('tr');

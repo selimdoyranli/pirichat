@@ -1,193 +1,23 @@
-<!doctype html>
-<html lang="tr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>pirichat: arkadaşların, sesli odaların, okey masan</title>
-<meta name="description" content="pirichat; sesli odalar, kanallar ve 3D kahvehanesiyle arkadaşlarını bir araya getiren sohbet uygulaması. Tarayıcıda hemen açılır.">
-<meta name="theme-color" content="#08080e">
-<link rel="icon" href="/tanitim/favicon.png" type="image/png">
-<link rel="apple-touch-icon" href="/web/apple-touch-icon.png">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://pirichat.online/">
-<meta property="og:title" content="pirichat">
-<meta property="og:description" content="Arkadaşların, sesli odaların, okey masan. Tarayıcıda hemen açılır.">
-<meta property="og:image" content="https://pirichat.online/tanitim/og.png">
-<meta name="twitter:card" content="summary_large_image">
-<script>
-  // Served at / and /marketing. Links that carry a query or hash belong to the app,
-  // and a visitor with a stored session goes straight to the app.
-  (function () {
-    var params = new URLSearchParams(location.search);
-    if (params.has('tanitim')) return;
-    var go = function () { location.replace('/channels/@me' + location.search + location.hash); };
-    if (location.pathname === '/' && (location.search || location.hash)) { go(); return; }
-    try {
-      var t = localStorage.getItem('token');
-      if (t && t !== 'undefined' && t !== 'null') { go(); return; }
-    } catch (e) {}
-    // Newer clients keep accounts in the FluxerAccounts IndexedDB; only the record count is read.
-    if (!('indexedDB' in window) || typeof indexedDB.databases !== 'function') return;
-    indexedDB.databases().then(function (dbs) {
-      if (!dbs.some(function (d) { return d.name === 'FluxerAccounts'; })) return;
-      var req = indexedDB.open('FluxerAccounts');
-      req.onsuccess = function () {
-        var db = req.result;
-        if (!db.objectStoreNames.contains('accounts')) { db.close(); return; }
-        var count = db.transaction('accounts', 'readonly').objectStore('accounts').count();
-        count.onsuccess = function () { db.close(); if (count.result > 0) go(); };
-        count.onerror = function () { db.close(); };
-      };
-    }).catch(function () {});
-  })();
-</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tanitim/site.css">
-</head>
-<body>
-
-<div class="kap">
-  <header class="ust">
-    <a class="marka" href="/" aria-label="pirichat ana sayfa">
-      <img src="/tanitim/logo.png" width="38" height="38" alt="">
-      <span>pirichat</span>
-    </a>
-    <nav aria-label="Sayfa">
-      <a class="dip" href="#odalar">Odalar</a>
-      <a class="dip" href="/indir">İndir</a>
-      <a class="dip" href="#sss">Sık sorulanlar</a>
-      <a class="dugme bos kucuk" href="/login">Giriş yap</a>
-    </nav>
-  </header>
-
-  <main>
-    <section class="kahraman" aria-labelledby="baslik">
-      <div>
-        <h1 id="baslik">Herkes yerini <span class="parca">bulur<span class="kare" aria-hidden="true"></span></span></h1>
-        <p class="alt">Arkadaşların, sesli odaların, okey masan. Hepsi tek bir yerde, tarayıcıda hemen açılır.</p>
-        <div class="eylem">
-          <a class="dugme dolu" href="/register">Hesap aç</a>
-          <a class="dugme bos" href="/channels/@me">Tarayıcıda aç</a>
-        </div>
-        <p class="not">Tarayıcıda çalışır; <a href="/indir">masaüstü uygulaması</a> da var.</p>
-      </div>
-      <figure>
-        <img src="/tanitim/kahvehane.webp" width="1600" height="1144" alt="pirichat'ın 3D kahvehanesi: yeşil çuhalı okey masaları, minderli sedirler, duvarda televizyon ve tezgâh.">
-        <figcaption>Sesli odadaki kahvehane.</figcaption>
-      </figure>
-    </section>
-  </main>
-</div>
-
-<section class="koyu bolum" id="odalar" aria-labelledby="odalar-baslik">
-  <div class="kap">
-    <h2 id="odalar-baslik">Sesli oda dediğin bir <span class="vurgu">mekân</span> olmalı.</h2>
-    <p class="giris">Ses kanalını bir odaya çevir. Herkes bir koltuğa oturur, masaya geçen oyuna başlar, ekranını paylaşan duvardaki televizyona düşer.</p>
-
-    <div class="oda">
-      <figure><img src="/tanitim/gece-lounge.webp" width="1600" height="1154" loading="lazy" alt="Mor ve turkuaz neon ışıklı gece lounge'ı: koltuk takımları, bar tezgâhı ve ortada oyun masası."></figure>
-      <div>
-        <h3>Üç oda, hepsi bizim.</h3>
-        <p>Kahvehane, gece lounge'ı ve oyun odası. Kanalı yöneten kişi odayı seçer, kanala giren herkes aynı odada buluşur.</p>
-        <ul class="liste" aria-label="Odalar">
-          <li>Kahvehane</li><li>Gece lounge'ı</li><li>Oyun odası</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="oda ters">
-      <figure class="masa"><img src="/tanitim/masa.webp" width="1200" height="544" loading="lazy" alt="Masadaki oyun takımları: okey ıstakası ve taşları, satranç taşları ve tavla tahtası."></figure>
-      <div>
-        <h3>Masaya otur, el aç.</h3>
-        <p>Odadaki masalarda sohbet ederken oyun oynanıyor. Taşlar herkesin gözü önünde.</p>
-        <ul class="liste" aria-label="Masa oyunları">
-          <li>Okey</li><li>101</li><li>Tavla</li><li>Satranç</li><li>Dama</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="oda">
-      <figure><img src="/tanitim/oyun-odasi.webp" width="1600" height="1156" loading="lazy" alt="Neon çizgili oyun odası: oyuncu masaları, armut koltuklar, büyük ekran ve iki atari makinesi."></figure>
-      <div>
-        <h3>Ekranını paylaş, herkes izlesin.</h3>
-        <p>Oyununu, filmini ya da üzerinde çalıştığın işi paylaş; odadaki televizyonda açılır. Kamerası açık olanın görüntüsü avatarının üstünde durur.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="kap">
-  <section class="bolum" aria-labelledby="dahasi-baslik">
-    <h2 id="dahasi-baslik">Bir de bunlar var.</h2>
-    <div class="seritler">
-      <div class="serit">
-        <h3>Müzik botu</h3>
-        <p>Sesli odadayken <code>!çal</code> yaz, şarkı adı ya da link ver. Listeye ekleyen ekler, bot sırayla çalar.</p>
-      </div>
-      <div class="serit">
-        <h3>Topluluk botu</h3>
-        <p>Yeni geleni karşılar, rol dağıtır, seviye tutar, küfürle spamı ayıklar. Topluluk ayarlarından açılır.</p>
-      </div>
-      <div class="serit">
-        <h3>Akış</h3>
-        <p>Sunucuların dışında da görün: gönderi paylaş, sevdiklerini takip et, rozetlerini profilinde taşı.</p>
-      </div>
-      <div class="serit">
-        <h3>Tanıdık düzen</h3>
-        <p>Sunucular, kanallar, özel mesajlar, emojiler. Discord'dan geldiysen yolunu kaybetmezsin.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="bolum sss" id="sss" aria-labelledby="sss-baslik" style="padding-top:0">
-    <h2 id="sss-baslik">Sık sorulanlar</h2>
-    <details>
-      <summary>Bir şey indirmem gerekiyor mu?</summary>
-      <p>Hayır. pirichat tarayıcıda çalışıyor; Chrome, Edge, Firefox ya da Safari'nin güncel sürümü yeter. İstersen <a href="/indir">masaüstü uygulamasını</a> da kurabilirsin.</p>
-    </details>
-    <details>
-      <summary>Ücretli mi?</summary>
-      <p>Hayır, kullanmak ücretsiz. Mağazadaki kozmetikler isteğe bağlı.</p>
-    </details>
-    <details>
-      <summary>Kimler katılabilir?</summary>
-      <p>Kayıt herkese açık. Hesabını açtıktan sonra bir davet linkiyle topluluğa katılırsın ya da kendi topluluğunu kurarsın.</p>
-    </details>
-    <details>
-      <summary>3D oda bilgisayarımı yorar mı?</summary>
-      <p>Odalar hafif tutuldu. Telefonda ya da zayıf bir bilgisayarda pirichat kendiliğinden düz görünüme geçer, sohbet aynen sürer.</p>
-    </details>
-    <details>
-      <summary>Neyin üzerine kurulu?</summary>
-      <p>pirichat, AGPLv3 lisanslı açık kaynak Fluxer yazılımının üzerine kurulu.</p>
-    </details>
-  </section>
-</div>
-
-<section class="koyu" aria-labelledby="son-baslik">
-  <div class="bolum kapanis"><div class="kap">
-    <h2 id="son-baslik">Kahve demlendi, masa kuruldu.</h2>
-    <div class="eylem">
-      <a class="dugme dolu" href="/register">Hesap aç</a>
-      <a class="dugme bos" href="/login">Giriş yap</a>
-      <a class="dugme bos" href="/indir">Masaüstü uygulamasını indir</a>
-    </div>
-  </div></div>
-  <footer>
-    <div class="kap">
-      <span>© 2026 pirichat</span>
-      <nav aria-label="Alt bağlantılar">
-        <a href="/indir">İndir</a>
-        <a href="/kullanim-kosullari">Kullanım koşulları</a>
-        <a href="/gizlilik">Gizlilik</a>
-        <a href="mailto:selim.doyranli@albayrakmedya.com">selim.doyranli@albayrakmedya.com</a>
-        <a href="/login">Giriş yap</a>
-      </nav>
-    </div>
-  </footer>
-</section>
-
-</body>
-</html>
+<!DOCTYPE html>
+<html dir="ltr" lang="tr"><head><meta charset="utf-8"/><script>(function(){var root=document.documentElement;root.classList.add('js');root.classList.add('pre-sync');var ua=(navigator.platform+' '+navigator.userAgent).toLowerCase();var platform='unknown';if(/macintosh|macintel/.test(ua)&&navigator.maxTouchPoints>1){platform=/safari/.test(ua)&&!/chrome|chromium|edg\//.test(ua)?'ios':'unknown';}else if(/iphone|ipad|ipod/.test(ua)){platform='ios';}else if(/android/.test(ua)){platform='android';}else if(/mobile/.test(ua)){platform='unknown';}else if(/windows|win32|win64/.test(ua)){platform='windows';}else if(/macintosh|mac os|macintel|macos/.test(ua)){platform='macos';}else if(/linux/.test(ua)){platform='linux';}root.dataset.platform=platform;}());</script><script>(function () {
+  var params = new URLSearchParams(location.search);
+  if (params.has('tanitim')) return;
+  var go = function () { location.replace('/channels/@me' + location.search + location.hash); };
+  if (location.pathname === '/' && (location.search || location.hash)) { go(); return; }
+  try {
+    var t = localStorage.getItem('token');
+    if (t && t !== 'undefined' && t !== 'null') { go(); return; }
+  } catch (e) {}
+  if (!('indexedDB' in window) || typeof indexedDB.databases !== 'function') return;
+  indexedDB.databases().then(function (dbs) {
+    if (!dbs.some(function (d) { return d.name === 'pirichatAccounts'; })) return;
+    var req = indexedDB.open('pirichatAccounts');
+    req.onsuccess = function () {
+      var db = req.result;
+      if (!db.objectStoreNames.contains('accounts')) { db.close(); return; }
+      var count = db.transaction('accounts', 'readonly').objectStore('accounts').count();
+      count.onsuccess = function () { db.close(); if (count.result > 0) go(); };
+      count.onerror = function () { db.close(); };
+    };
+  }).catch(function () {});
+})();</script><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="Arkadaşlar, gruplar ve topluluklar için yazılı, sesli ve görüntülü görüşme ve ekran paylaşımıyla ücretsiz sohbet." name="description"/><meta content="pirichat" property="og:site_name"/><meta content="tr_TR" property="og:locale"/><meta content="pirichat - Sizi ön planda tutan bir sohbet uygulaması" property="og:title"/><meta content="Arkadaşlar, gruplar ve topluluklar için yazılı, sesli ve görüntülü görüşme ve ekran paylaşımıyla ücretsiz sohbet." property="og:description"/><meta content="https://pirichat.online/tanitim/og.png" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="https://pirichat.online/" property="og:url"/><meta content="website" property="og:type"/><meta content="summary_large_image" name="twitter:card"/><meta content="pirichat - Sizi ön planda tutan bir sohbet uygulaması" name="twitter:title"/><meta content="Arkadaşlar, gruplar ve topluluklar için yazılı, sesli ve görüntülü görüşme ve ekran paylaşımıyla ücretsiz sohbet." name="twitter:description"/><meta content="https://pirichat.online/tanitim/og.png" name="twitter:image"/><meta content="index,follow" name="robots"/><meta content="#4641D9" name="theme-color"/><meta name="darkreader-lock"/><meta content="pirichat" name="author"/><link href="https://pirichat.online/" rel="canonical"/><title>pirichat - Sizi ön planda tutan bir sohbet uygulaması</title><link as="font" crossorigin="anonymous" href="/tanitim/fx/fonts/RadioCanadaBig-latin.137b9961143a0881.woff2" rel="preload" type="font/woff2"/><link as="font" crossorigin="anonymous" href="/tanitim/fx/fonts/RadioCanadaBig-latin-ext.b5c53e4861d80c23.woff2" rel="preload" type="font/woff2"/><link href="/tanitim/fx/bundle/app.52290f5c34dda429.css" rel="stylesheet"/><script defer="" src="/tanitim/fx/bundle/marketing.dcc78e640c1c1d3a.js"></script><link href="/tanitim/favicon.png" rel="icon" sizes="256x256"/><link href="/web/apple-touch-icon.png" rel="apple-touch-icon"/></head><body class="marketing-space-background flex min-h-screen flex-col font-sans text-white"><a class="skip-link" href="#main-content">İçeriğe geç</a><nav aria-label="Ana menü" class="site-nav absolute inset-x-0 top-0 z-40 px-gutter" id="navbar"><div class="site-nav-bar mx-auto flex h-18 max-w-7xl items-center gap-group md:h-20"><a aria-label="pirichat" class="tap shrink-0 transition-opacity hover:opacity-80" href="/"><span class="relative inline-flex items-center gap-2.5"><img alt="" class="h-9 w-9 rounded-[10px]" height="36" src="/tanitim/logo.png" width="36"/><span class="text-[1.65rem] font-bold leading-none tracking-tight text-white">pirichat</span></span></a><div class="hidden min-w-0 items-center gap-6 lg:ms-4 lg:flex xl:ms-8 xl:gap-8"><a class="site-nav-link" href="/indir">İndir</a></div><a class="site-nav-cta ms-auto hidden shrink-0 whitespace-nowrap lg:inline-flex" href="/channels/@me">pirichat'ı aç</a><button class="tap-icon -me-2.5 ms-auto rounded-control transition-colors hover:bg-white/10 lg:hidden" popovertarget="nav-drawer" type="button"><span class="sr-only">Gezinme menüsünü aç</span><svg aria-hidden="true" class="h-6 w-6" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" viewbox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><line x1="40" x2="216" y1="128" y2="128"></line><line x1="40" x2="216" y1="64" y2="64"></line><line x1="40" x2="216" y1="192" y2="192"></line></svg></button></div><div class="sheet sheet-drawer lg:hidden" id="nav-drawer" popover="auto"><div aria-label="Gezinme menüsü" aria-modal="true" class="sheet-panel flux-drawer" role="dialog"><div class="flex h-18 items-center gap-group border-line border-b px-gutter md:h-20"><span class="relative inline-flex items-center gap-2.5"><img alt="" class="h-8 w-8 rounded-[10px]" height="36" src="/tanitim/logo.png" width="36"/><span class="text-[1.65rem] font-bold leading-none tracking-tight text-white">pirichat</span></span><button class="tap-icon -me-2.5 ms-auto rounded-control text-wordmark transition-colors hover:bg-surface-hover" popovertarget="nav-drawer" popovertargetaction="hide" type="button"><span class="sr-only">Gezinme menüsünü kapat</span><svg aria-hidden="true" class="h-6 w-6" focusable="false" viewbox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M208.49,191.51a12,12,0,0,1-17,17L128,145,64.49,208.49a12,12,0,0,1-17-17L111,128,47.51,64.49a12,12,0,0,1,17-17L128,111l63.51-63.52a12,12,0,0,1,17,17L145,128Z" fill="currentColor"></path></svg></button></div><div class="scroll-fade flex-1 overflow-y-auto overscroll-contain px-gutter py-3"><details class="disclosure border-line-subtle border-b" open=""><summary><h2 class="font-semibold text-ink text-subheading">pirichat</h2><svg aria-hidden="true" class="disclosure-caret h-4 w-4 text-ink-faint" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" viewbox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><polyline points="208 96 128 176 48 96"></polyline></svg></summary><div class="flex flex-col pb-flow"><a class="tap -mx-2 rounded-control px-2 text-ink text-body transition-colors hover:bg-surface-hover" href="/indir">İndir</a><a class="tap -mx-2 rounded-control px-2 text-ink text-body transition-colors hover:bg-surface-hover" href="/login">Giriş yap</a><a class="tap -mx-2 rounded-control px-2 text-ink text-body transition-colors hover:bg-surface-hover" href="/register">Hesap aç</a></div></details><details class="disclosure border-line-subtle border-b"><summary><h2 class="font-semibold text-ink text-subheading">Politikalar</h2><svg aria-hidden="true" class="disclosure-caret h-4 w-4 text-ink-faint" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" viewbox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><polyline points="208 96 128 176 48 96"></polyline></svg></summary><div class="flex flex-col pb-flow"><a class="tap -mx-2 rounded-control px-2 text-ink text-body transition-colors hover:bg-surface-hover" href="/kullanim-kosullari">Kullanım koşulları</a><a class="tap -mx-2 rounded-control px-2 text-ink text-body transition-colors hover:bg-surface-hover" href="/gizlilik">Gizlilik politikası</a></div></details></div><div class="flex flex-col gap-flow border-line border-t px-gutter py-flow"><a class="btn flux-cta" href="/channels/@me">pirichat'ı aç</a></div></div></div></nav><div class="flex grow flex-col"><main class="space-page on-brand" id="main-content"><section class="space-hero flux-ribbon px-gutter pt-pagetop pb-section"><div class="mx-auto grid max-w-7xl items-center gap-section xl:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] xl:gap-12"><div class="mx-auto flex max-w-measure flex-col text-center xl:mx-0 xl:text-start"><h1 class="text-display font-bold text-balance text-white">Sizi ön planda tutan bir sohbet uygulaması</h1><p class="mt-stack text-lead text-pretty text-white/90">Arkadaşlar, gruplar ve topluluklar için yazılı, sesli ve görüntülü görüşme ve ekran paylaşımıyla ücretsiz sohbet.</p><div class="actions mt-group xl:justify-start"><a class="btn btn-primary" data-download-android-href="/channels/@me" data-download-android-label="Tarayıcıda aç" data-download-auto-detect="true" data-download-cta="true" data-download-ios-href="/channels/@me" data-download-ios-label="Tarayıcıda aç" data-download-linux-href="/channels/@me" data-download-linux-label="Tarayıcıda aç" data-download-macos-href="#" data-download-macos-label="macOS için indir" data-download-windows-arm64-href="#" data-download-windows-label="Windows için indir" data-download-windows-x64-href="#" href="/indir"><svg aria-hidden="true" class="h-5 w-5 shrink-0 md:h-6 md:w-6" focusable="false" viewbox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34a8,8,0,0,0-11.32,11.32Z" fill="currentColor"></path></svg><span data-download-cta-label="">pirichat'ı indir</span></a><a class="btn btn-secondary" href="/channels/@me">Tarayıcıda aç</a></div></div><div class="flux-hero-shot mx-auto w-full max-w-3xl xl:max-w-none"><picture><source sizes="(min-width: 80rem) 45rem, (min-width: 48rem) 48rem, calc(100vw - 2.5rem)" srcset="/tanitim/fx/img/screenshots-desktop-480w.0c5e2092d735b656.avif 480w, /tanitim/fx/img/screenshots-desktop-768w.dc834ab1ffced994.avif 768w, /tanitim/fx/img/screenshots-desktop-1024w.92381c10425d21c2.avif 1024w, /tanitim/fx/img/screenshots-desktop-1920w.4976d2d1f2238c05.avif 1920w, /tanitim/fx/img/screenshots-desktop-2560w.948e9d88f4c9807a.avif 2560w" type="image/avif"/><source sizes="(min-width: 80rem) 45rem, (min-width: 48rem) 48rem, calc(100vw - 2.5rem)" srcset="/tanitim/fx/img/screenshots-desktop-480w.94355a4434a7e7d7.webp 480w, /tanitim/fx/img/screenshots-desktop-768w.b54596c3429580df.webp 768w, /tanitim/fx/img/screenshots-desktop-1024w.e9a0e64442905017.webp 1024w, /tanitim/fx/img/screenshots-desktop-1920w.f21ea70403e72110.webp 1920w, /tanitim/fx/img/screenshots-desktop-2560w.38cd3f86919e9662.webp 2560w" type="image/webp"/><img alt="pirichat masaüstü arayüzü" class="block h-auto w-full" decoding="async" draggable="false" fetchpriority="high" height="3919" loading="eager" sizes="(min-width: 80rem) 45rem, (min-width: 48rem) 48rem, calc(100vw - 2.5rem)" src="/tanitim/fx/img/screenshots-desktop-1920w.70cb6ce340007e0a.png" srcset="/tanitim/fx/img/screenshots-desktop-480w.605eb1589a2c5ab9.png 480w, /tanitim/fx/img/screenshots-desktop-768w.5e55df10e317381a.png 768w, /tanitim/fx/img/screenshots-desktop-1024w.840b39a000b40dd4.png 1024w, /tanitim/fx/img/screenshots-desktop-1920w.70cb6ce340007e0a.png 1920w, /tanitim/fx/img/screenshots-desktop-2560w.71a8fc43c7ff6516.png 2560w" width="4506"/></picture></div></div></section><div class="flex flex-col gap-10 px-gutter pb-section md:gap-14"><section class="glass-panel glass-panel-brand mx-auto flex w-full max-w-7xl flex-col gap-flow p-6 md:p-10 lg:flex-row lg:items-center lg:justify-between lg:gap-8"><div class="flex min-w-0 items-center gap-5 md:gap-8"><div class="relative hidden h-24 w-[13.25rem] shrink-0 self-end md:block"><div class="absolute -bottom-16 -start-[7.875rem] w-[25rem]"><picture><source sizes="25rem" srcset="/tanitim/fx/img/screenshots-selfhost-machine-640w.73b7d79160dbd324.avif 640w, /tanitim/fx/img/screenshots-selfhost-machine-1120w.fb7e414a877a5f69.avif 1120w, /tanitim/fx/img/screenshots-selfhost-machine-1600w.e4402fd5d778d908.avif 1600w" type="image/avif"/><source sizes="25rem" srcset="/tanitim/fx/img/screenshots-selfhost-machine-640w.16d775faeb77354d.webp 640w, /tanitim/fx/img/screenshots-selfhost-machine-1120w.27a9a92bd4c62c21.webp 1120w, /tanitim/fx/img/screenshots-selfhost-machine-1600w.6c5ce702013591f8.webp 1600w" type="image/webp"/><img alt="" class="h-auto w-full" decoding="async" draggable="false" height="840" loading="lazy" src="/tanitim/fx/img/screenshots-selfhost-machine-1120w.27a9a92bd4c62c21.webp" width="1120"/></picture></div></div><div class="max-w-measure"><h2 class="text-subheading font-bold text-balance text-white md:text-heading">Kendi sunucunu kur (ya da birine katıl!)</h2><p class="mt-flow text-body text-pretty text-white/80">pirichat'ta birkaç tıkla kendi sunucunuzu açın, arkadaşlarınızı davet edin ya da bir davet bağlantısıyla bir topluluğa katılın.</p></div></div><a class="btn btn-primary w-full shrink-0 md:w-fit" href="/register">Hesap aç <svg aria-hidden="true" class="icon-directional h-4 w-4 shrink-0" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" viewbox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><line x1="40" x2="216" y1="128" y2="128"></line><polyline points="144,56 216,128 144,200"></polyline></svg></a></section><section class="mx-auto w-full max-w-7xl"><div class="flex flex-col"><div class="flux-row grid items-center gap-group md:grid-cols-[7fr_5fr] md:gap-16"><div class="order-1 md:order-1"><picture><source sizes="(min-width: 48rem) 50vw, calc(100vw - 5rem)" srcset="/tanitim/fx/img/screenshots-feature-chat-640w.e25a9c0b36d49235.avif 640w, /tanitim/fx/img/screenshots-feature-chat-1120w.6447db4983d23068.avif 1120w, /tanitim/fx/img/screenshots-feature-chat-1600w.9c2195439520c2b1.avif 1600w" type="image/avif"/><source sizes="(min-width: 48rem) 50vw, calc(100vw - 5rem)" srcset="/tanitim/fx/img/screenshots-feature-chat-640w.c7ff4d5868579675.webp 640w, /tanitim/fx/img/screenshots-feature-chat-1120w.5fe2ec879d3cb535.webp 1120w, /tanitim/fx/img/screenshots-feature-chat-1600w.1073dfbccf75161c.webp 1600w" type="image/webp"/><img alt="" class="h-auto w-full" decoding="async" draggable="false" height="470" loading="lazy" src="/tanitim/fx/img/screenshots-feature-chat-1120w.5fe2ec879d3cb535.webp" width="549"/></picture></div><div class="order-2 md:order-2 max-w-measure"><h2 class="text-heading font-bold text-balance text-white">Size ayak uyduran sohbet</h2><p class="mt-stack text-lead text-pretty text-white/80">Birebir, grup sohbetlerinde veya düzenli topluluk kanallarında konuşun. Mesajlar Markdown ve kod bloklarını, dosyaları ve bağlantı önizlemelerini, topluluğunuzun kendi emojilerini ve çıkartmalarını destekler.</p></div></div><div class="flux-row grid items-center gap-group md:grid-cols-[5fr_7fr] md:gap-16"><div class="order-1 md:order-2"><picture><source sizes="(min-width: 48rem) 50vw, calc(100vw - 5rem)" srcset="/tanitim/fx/img/screenshots-feature-voice-640w.78995f5fe687e2a5.avif 640w, /tanitim/fx/img/screenshots-feature-voice-1120w.dbd17f6b4b514268.avif 1120w, /tanitim/fx/img/screenshots-feature-voice-1600w.c625031c0f305dbd.avif 1600w" type="image/avif"/><source sizes="(min-width: 48rem) 50vw, calc(100vw - 5rem)" srcset="/tanitim/fx/img/screenshots-feature-voice-640w.3c03b45cdbf88f8b.webp 640w, /tanitim/fx/img/screenshots-feature-voice-1120w.bd6309fca2d493aa.webp 1120w, /tanitim/fx/img/screenshots-feature-voice-1600w.8a91e57364798129.webp 1600w" type="image/webp"/><img alt="" class="h-auto w-full" decoding="async" draggable="false" height="473" loading="lazy" src="/tanitim/fx/img/screenshots-feature-voice-1120w.bd6309fca2d493aa.webp" width="784"/></picture></div><div class="order-2 md:order-1 max-w-measure"><h2 class="text-heading font-bold text-balance text-white">Sesli kanala atlayın</h2><p class="mt-stack text-lead text-pretty text-white/80">Konuşmak, ekranınızı paylaşmak veya kameranızı açmak için bir sesli kanala katılın. Aynı anda birden fazla cihazdan bağlanabilirsiniz, gürültü engelleme ve yankı engelleme de her aramayı net tutar.</p></div></div><div class="flux-row grid items-center gap-group md:grid-cols-[7fr_5fr] md:gap-16"><div class="order-1 md:order-1"><picture><source sizes="(min-width: 48rem) 50vw, calc(100vw - 5rem)" srcset="/tanitim/fx/img/screenshots-feature-community-640w.4caa4789487f0fb9.avif 640w, /tanitim/fx/img/screenshots-feature-community-1120w.fef45a13f0a87734.avif 1120w, /tanitim/fx/img/screenshots-feature-community-1600w.2d7a54f375759beb.avif 1600w" type="image/avif"/><source sizes="(min-width: 48rem) 50vw, calc(100vw - 5rem)" srcset="/tanitim/fx/img/screenshots-feature-community-640w.7c59101df5d487fe.webp 640w, /tanitim/fx/img/screenshots-feature-community-1120w.27a80ed601713950.webp 1120w, /tanitim/fx/img/screenshots-feature-community-1600w.94891ad42286f604.webp 1600w" type="image/webp"/><img alt="" class="h-auto w-full" decoding="async" draggable="false" height="560" loading="lazy" src="/tanitim/fx/img/screenshots-feature-community-1120w.27a80ed601713950.webp" width="748"/></picture></div><div class="order-2 md:order-2 max-w-measure"><h2 class="text-heading font-bold text-balance text-white">Topluluğunuz, sizin kurallarınız</h2><p class="mt-stack text-lead text-pretty text-white/80">İnsanlara tam olarak ihtiyaç duydukları izinlere sahip roller verin. Gerektiğinde üyelere zaman aşımı uygulayın, onları atın veya yasaklayın, hangi moderatörün neyi değiştirdiğini görmek için etkinlik günlüğünü inceleyin.</p></div></div></div></section><section class="flux-row mx-auto grid w-full max-w-7xl items-center gap-group md:grid-cols-[5fr_7fr] md:gap-16"><div class="order-2 min-w-0 max-w-measure md:order-1 md:min-w-auto"><h2 class="text-heading font-bold text-balance text-white">Verileriniz güvende</h2><p class="mt-stack text-lead text-pretty text-white/80">pirichat reklamsız çalışır; verileriniz satılmaz ve kimseyle paylaşılmaz.</p><ul class="mt-group flex flex-col gap-stack"><li><h3 class="text-subheading font-semibold text-balance text-white hyphens-manual">Reklam ve takip yok</h3><p class="mt-1 text-body text-pretty text-white/70">Analitik ya da reklam çerezi kullanılmaz; yalnız oturumunuzu açık tutan teknik veriler saklanır.</p></li><li><h3 class="text-subheading font-semibold text-balance text-white hyphens-manual">Zaten bildiğiniz uygulamaları kullanın</h3><p class="mt-1 text-body text-pretty text-white/70">pirichat'a herhangi bir web tarayıcısından ya da masaüstü uygulamasından bağlanın.</p></li><li><h3 class="text-subheading font-semibold text-balance text-white hyphens-manual">Açık kaynak temeller</h3><p class="mt-1 text-body text-pretty text-white/70">pirichat, açık kaynak Fluxer yazılımının üzerine kuruludur (AGPL-3.0).</p></li></ul><a class="btn btn-primary mt-group w-full sm:w-fit" href="/gizlilik">Gizlilik politikası <svg aria-hidden="true" class="icon-directional h-4 w-4 shrink-0" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" viewbox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><line x1="40" x2="216" y1="128" y2="128"></line><polyline points="144,56 216,128 144,200"></polyline></svg></a></div><div class="order-1 md:order-2"><picture><source sizes="(min-width: 48rem) 50vw, calc(100vw - 5rem)" srcset="/tanitim/fx/img/screenshots-feature-selfhost-640w.ce1f3b66b8f07435.avif 640w, /tanitim/fx/img/screenshots-feature-selfhost-1120w.1d8abd37534c8d41.avif 1120w, /tanitim/fx/img/screenshots-feature-selfhost-1600w.63adc5da6817cca9.avif 1600w" type="image/avif"/><source sizes="(min-width: 48rem) 50vw, calc(100vw - 5rem)" srcset="/tanitim/fx/img/screenshots-feature-selfhost-640w.9558d31dccb761bb.webp 640w, /tanitim/fx/img/screenshots-feature-selfhost-1120w.fc5a394911a820e0.webp 1120w, /tanitim/fx/img/screenshots-feature-selfhost-1600w.fcfc550fc934b322.webp 1600w" type="image/webp"/><img alt="" class="mx-auto h-auto w-full max-w-[34rem]" decoding="async" draggable="false" height="397" loading="lazy" src="/tanitim/fx/img/screenshots-feature-selfhost-1120w.fc5a394911a820e0.webp" width="540"/></picture></div></section><div class="glass-panel mx-auto w-full max-w-7xl p-6 md:p-14"><div><dl class="mx-auto grid gap-group text-center grid-cols-1 max-w-xs"><div class="flex flex-col-reverse"><dt class="text-lead font-semibold text-white/70">Diller</dt><dd class="text-display font-bold tabular-nums text-white">34</dd></div></dl><ul aria-label="Diller" class="mx-auto mt-group flex max-w-5xl flex-wrap justify-center gap-2 md:gap-3"><li class="global-flag"><img alt="العربية" class="h-full w-full object-cover" decoding="async" draggable="false" lang="ar" loading="lazy" src="/tanitim/fx/img/flags-1f1f8-1f1e6.04e499d316ad07ab.svg" title="العربية"/></li><li class="global-flag"><img alt="Български" class="h-full w-full object-cover" decoding="async" draggable="false" lang="bg" loading="lazy" src="/tanitim/fx/img/flags-1f1e7-1f1ec.2adde90f97242224.svg" title="Български"/></li><li class="global-flag"><img alt="Čeština" class="h-full w-full object-cover" decoding="async" draggable="false" lang="cs" loading="lazy" src="/tanitim/fx/img/flags-1f1e8-1f1ff.6e5815141a3e2e1f.svg" title="Čeština"/></li><li class="global-flag"><img alt="Dansk" class="h-full w-full object-cover" decoding="async" draggable="false" lang="da" loading="lazy" src="/tanitim/fx/img/flags-1f1e9-1f1f0.06b118400bcb2eb1.svg" title="Dansk"/></li><li class="global-flag"><img alt="Deutsch" class="h-full w-full object-cover" decoding="async" draggable="false" lang="de" loading="lazy" src="/tanitim/fx/img/flags-1f1e9-1f1ea.8e3c8f938c6fc4fc.svg" title="Deutsch"/></li><li class="global-flag"><img alt="Ελληνικά" class="h-full w-full object-cover" decoding="async" draggable="false" lang="el" loading="lazy" src="/tanitim/fx/img/flags-1f1ec-1f1f7.974c57b8fc316bec.svg" title="Ελληνικά"/></li><li class="global-flag"><img alt="English" class="h-full w-full object-cover" decoding="async" draggable="false" lang="en-GB" loading="lazy" src="/tanitim/fx/img/flags-1f1ec-1f1e7.5ff2f32ed6905d88.svg" title="English"/></li><li class="global-flag"><img alt="English (US)" class="h-full w-full object-cover" decoding="async" draggable="false" lang="en-US" loading="lazy" src="/tanitim/fx/img/flags-1f1fa-1f1f8.1feca2279a6e7813.svg" title="English (US)"/></li><li class="global-flag"><img alt="Español (Latinoamérica)" class="h-full w-full object-cover" decoding="async" draggable="false" lang="es-419" loading="lazy" src="/tanitim/fx/img/flags-1f1f2-1f1fd.1f969e7c85f68cca.svg" title="Español (Latinoamérica)"/></li><li class="global-flag"><img alt="Español (España)" class="h-full w-full object-cover" decoding="async" draggable="false" lang="es-ES" loading="lazy" src="/tanitim/fx/img/flags-1f1ea-1f1f8.f8cf69e4d0d285ff.svg" title="Español (España)"/></li><li class="global-flag"><img alt="Suomi" class="h-full w-full object-cover" decoding="async" draggable="false" lang="fi" loading="lazy" src="/tanitim/fx/img/flags-1f1eb-1f1ee.70e7c385670d1e27.svg" title="Suomi"/></li><li class="global-flag"><img alt="Français" class="h-full w-full object-cover" decoding="async" draggable="false" lang="fr" loading="lazy" src="/tanitim/fx/img/flags-1f1eb-1f1f7.861059eae96aea4c.svg" title="Français"/></li><li class="global-flag"><img alt="עברית" class="h-full w-full object-cover" decoding="async" draggable="false" lang="he" loading="lazy" src="/tanitim/fx/img/flags-1f1ee-1f1f1.5b44da97607108fd.svg" title="עברית"/></li><li class="global-flag"><img alt="हिन्दी" class="h-full w-full object-cover" decoding="async" draggable="false" lang="hi" loading="lazy" src="/tanitim/fx/img/flags-1f1ee-1f1f3.aa82222076d0dd86.svg" title="हिन्दी"/></li><li class="global-flag"><img alt="Hrvatski" class="h-full w-full object-cover" decoding="async" draggable="false" lang="hr" loading="lazy" src="/tanitim/fx/img/flags-1f1ed-1f1f7.fa133f821bf70680.svg" title="Hrvatski"/></li><li class="global-flag"><img alt="Magyar" class="h-full w-full object-cover" decoding="async" draggable="false" lang="hu" loading="lazy" src="/tanitim/fx/img/flags-1f1ed-1f1fa.7fcfe9fddc288541.svg" title="Magyar"/></li><li class="global-flag"><img alt="Bahasa Indonesia" class="h-full w-full object-cover" decoding="async" draggable="false" lang="id" loading="lazy" src="/tanitim/fx/img/flags-1f1ee-1f1e9.b2cdbc08b75ed362.svg" title="Bahasa Indonesia"/></li><li class="global-flag"><img alt="Italiano" class="h-full w-full object-cover" decoding="async" draggable="false" lang="it" loading="lazy" src="/tanitim/fx/img/flags-1f1ee-1f1f9.41b974254f3dd5b0.svg" title="Italiano"/></li><li class="global-flag"><img alt="日本語" class="h-full w-full object-cover" decoding="async" draggable="false" lang="ja" loading="lazy" src="/tanitim/fx/img/flags-1f1ef-1f1f5.b964f3dd88f25965.svg" title="日本語"/></li><li class="global-flag"><img alt="한국어" class="h-full w-full object-cover" decoding="async" draggable="false" lang="ko" loading="lazy" src="/tanitim/fx/img/flags-1f1f0-1f1f7.f69a22143e794860.svg" title="한국어"/></li><li class="global-flag"><img alt="Lietuvių" class="h-full w-full object-cover" decoding="async" draggable="false" lang="lt" loading="lazy" src="/tanitim/fx/img/flags-1f1f1-1f1f9.e34822d8ba1bf22f.svg" title="Lietuvių"/></li><li class="global-flag"><img alt="Nederlands" class="h-full w-full object-cover" decoding="async" draggable="false" lang="nl" loading="lazy" src="/tanitim/fx/img/flags-1f1f3-1f1f1.db0e83001003d382.svg" title="Nederlands"/></li><li class="global-flag"><img alt="Norsk" class="h-full w-full object-cover" decoding="async" draggable="false" lang="no" loading="lazy" src="/tanitim/fx/img/flags-1f1f3-1f1f4.b757b0ce5e1342e3.svg" title="Norsk"/></li><li class="global-flag"><img alt="Polski" class="h-full w-full object-cover" decoding="async" draggable="false" lang="pl" loading="lazy" src="/tanitim/fx/img/flags-1f1f5-1f1f1.9f82a0527b812605.svg" title="Polski"/></li><li class="global-flag"><img alt="Português (Brasil)" class="h-full w-full object-cover" decoding="async" draggable="false" lang="pt-BR" loading="lazy" src="/tanitim/fx/img/flags-1f1e7-1f1f7.a74ec5e2fe1a2f85.svg" title="Português (Brasil)"/></li><li class="global-flag"><img alt="Română" class="h-full w-full object-cover" decoding="async" draggable="false" lang="ro" loading="lazy" src="/tanitim/fx/img/flags-1f1f7-1f1f4.8defcfb0f63bbc42.svg" title="Română"/></li><li class="global-flag"><img alt="Русский" class="h-full w-full object-cover" decoding="async" draggable="false" lang="ru" loading="lazy" src="/tanitim/fx/img/flags-1f1f7-1f1fa.c120796701b12f5a.svg" title="Русский"/></li><li class="global-flag"><img alt="Svenska" class="h-full w-full object-cover" decoding="async" draggable="false" lang="sv-SE" loading="lazy" src="/tanitim/fx/img/flags-1f1f8-1f1ea.77fbedc853461f70.svg" title="Svenska"/></li><li class="global-flag"><img alt="ไทย" class="h-full w-full object-cover" decoding="async" draggable="false" lang="th" loading="lazy" src="/tanitim/fx/img/flags-1f1f9-1f1ed.6253a87f1dc0ff31.svg" title="ไทย"/></li><li class="global-flag"><img alt="Türkçe" class="h-full w-full object-cover" decoding="async" draggable="false" lang="tr" loading="lazy" src="/tanitim/fx/img/flags-1f1f9-1f1f7.f750c5329bd8315e.svg" title="Türkçe"/></li><li class="global-flag"><img alt="Українська" class="h-full w-full object-cover" decoding="async" draggable="false" lang="uk" loading="lazy" src="/tanitim/fx/img/flags-1f1fa-1f1e6.8ad31e4e2ca36d66.svg" title="Українська"/></li><li class="global-flag"><img alt="Tiếng Việt" class="h-full w-full object-cover" decoding="async" draggable="false" lang="vi" loading="lazy" src="/tanitim/fx/img/flags-1f1fb-1f1f3.3afb2ad7114433cc.svg" title="Tiếng Việt"/></li><li class="global-flag"><img alt="简体中文" class="h-full w-full object-cover" decoding="async" draggable="false" lang="zh-CN" loading="lazy" src="/tanitim/fx/img/flags-1f1e8-1f1f3.4db67ee7fc03992f.svg" title="简体中文"/></li><li class="global-flag"><img alt="繁體中文" class="h-full w-full object-cover" decoding="async" draggable="false" lang="zh-TW" loading="lazy" src="/tanitim/fx/img/flags-1f1f9-1f1fc.9117269610759cf2.svg" title="繁體中文"/></li></ul></div></div><section class="glass-panel glass-panel-brand mx-auto w-full max-w-7xl px-6 py-16 text-center md:py-28"><div class="mx-auto max-w-4xl"><h2 class="text-display font-bold text-balance text-white md:text-[4.5rem] md:leading-[1.04]">pirichat'a hoş geldiniz</h2><p class="mx-auto mt-stack mb-group max-w-2xl text-lead text-pretty text-white/85 md:text-[1.375rem] md:leading-relaxed">Uygulamayı yükleyin veya pirichat'ı tarayıcınızda açın ve konuşmaya başlayın.</p><div class="actions"><a class="btn btn-primary" data-download-android-href="/channels/@me" data-download-android-label="Tarayıcıda aç" data-download-auto-detect="true" data-download-cta="true" data-download-ios-href="/channels/@me" data-download-ios-label="Tarayıcıda aç" data-download-linux-href="/channels/@me" data-download-linux-label="Tarayıcıda aç" data-download-macos-href="#" data-download-macos-label="macOS için indir" data-download-windows-arm64-href="#" data-download-windows-label="Windows için indir" data-download-windows-x64-href="#" href="/indir"><svg aria-hidden="true" class="h-5 w-5 shrink-0 md:h-6 md:w-6" focusable="false" viewbox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34a8,8,0,0,0-11.32,11.32Z" fill="currentColor"></path></svg><span data-download-cta-label="">pirichat'ı indir</span></a><a class="btn btn-secondary" href="/channels/@me">Tarayıcıda aç</a></div></div></section></div></main></div><footer class="site-footer on-brand px-gutter text-white"><div class="mx-auto max-w-7xl py-group md:py-16"><div class="grid gap-group lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16"><div class="flex flex-col items-start gap-stack"><a aria-label="pirichat" class="tap transition-opacity hover:opacity-80" href="/"><span class="relative inline-flex items-center gap-2.5"><img alt="" class="h-10 w-10 rounded-[10px]" height="36" src="/tanitim/logo.png" width="36"/><span class="text-[1.65rem] font-bold leading-none tracking-tight text-white">pirichat</span></span></a><p class="max-w-md text-body text-pretty text-white/80">pirichat; arkadaşlar, gruplar ve topluluklar için yazılı, sesli ve görüntülü sohbet uygulaması. Reklam yok, verileriniz satılmaz.</p></div><div class="grid grid-cols-2 gap-x-stack gap-y-group sm:grid-cols-3"><div class="last:col-span-2 sm:last:col-span-1"><h2 class="text-meta font-semibold text-white/60">pirichat</h2><ul class="mt-flow flex flex-col gap-1"><li><a class="tap-inline py-1 text-body text-white/90 transition-colors hover:text-white hover:underline hover:underline-offset-4 max-sm:hyphens-auto max-sm:wrap-break-word" href="/indir">İndir</a></li><li><a class="tap-inline py-1 text-body text-white/90 transition-colors hover:text-white hover:underline hover:underline-offset-4 max-sm:hyphens-auto max-sm:wrap-break-word" href="/channels/@me">Tarayıcıda aç</a></li><li><a class="tap-inline py-1 text-body text-white/90 transition-colors hover:text-white hover:underline hover:underline-offset-4 max-sm:hyphens-auto max-sm:wrap-break-word" href="/login">Giriş yap</a></li><li><a class="tap-inline py-1 text-body text-white/90 transition-colors hover:text-white hover:underline hover:underline-offset-4 max-sm:hyphens-auto max-sm:wrap-break-word" href="/register">Hesap aç</a></li></ul></div><div class="last:col-span-2 sm:last:col-span-1"><h2 class="text-meta font-semibold text-white/60">Politikalar</h2><ul class="mt-flow flex flex-col gap-1"><li><a class="tap-inline py-1 text-body text-white/90 transition-colors hover:text-white hover:underline hover:underline-offset-4 max-sm:hyphens-auto max-sm:wrap-break-word" href="/kullanim-kosullari">Kullanım koşulları</a></li><li><a class="tap-inline py-1 text-body text-white/90 transition-colors hover:text-white hover:underline hover:underline-offset-4 max-sm:hyphens-auto max-sm:wrap-break-word" href="/gizlilik">Gizlilik politikası</a></li></ul></div><div class="last:col-span-2 sm:last:col-span-1"><h2 class="text-meta font-semibold text-white/60">İletişim</h2><ul class="mt-flow flex flex-col gap-1"><li><a class="tap-inline py-1 text-body text-white/90 transition-colors hover:text-white hover:underline hover:underline-offset-4 max-sm:wrap-anywhere" href="mailto:selim.doyranli@albayrakmedya.com" style="overflow-wrap: anywhere">selim.doyranli@albayrakmedya.com</a></li></ul></div></div></div><div class="footer-rule mt-group flex flex-col gap-stack pt-stack md:flex-row md:items-center md:justify-between"><div class="flex min-w-0 flex-col gap-2 text-micro text-white/70"><p>© 2026 pirichat</p></div></div></div></footer></body></html>
