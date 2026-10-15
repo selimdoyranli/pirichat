@@ -2,12 +2,18 @@
 
 export const DESKTOP_MODULE_CHANNELS = Object.freeze({
 	ensure: 'desktop-modules:ensure',
+	pendingUpdate: 'desktop-modules:pending-update',
+	applyPendingUpdate: 'desktop-modules:apply-pending-update',
 	confirmLaunch: 'desktop-modules:confirm-launch',
 } as const);
 
 export const DESKTOP_UPDATE_CHANNELS = Object.freeze({
 	state: 'desktop-update:state',
 	start: 'desktop-update:start',
+} as const);
+
+export const DESKTOP_MODULE_EVENTS = Object.freeze({
+	pendingUpdateChanged: 'desktop-modules:pending-update-changed',
 } as const);
 
 export const DESKTOP_UPDATE_EVENTS = Object.freeze({
