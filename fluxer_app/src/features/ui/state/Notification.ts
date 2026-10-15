@@ -134,7 +134,7 @@ const isDocumentFocused = (): boolean => {
 	return typeof document.hasFocus === 'function' && document.hasFocus();
 };
 
-// Micup: the store persists the old off default for everyone who opened the app, so turn it on once; the flag is
+// Pirichat: the store persists the old off default for everyone who opened the app, so turn it on once; the flag is
 // persisted with the value, so a later off stays off. A browser block stays off (refreshPermission also enforces it).
 function applyBrowserNotificationsDefaultOnMigrationV1(): void {
 	try {

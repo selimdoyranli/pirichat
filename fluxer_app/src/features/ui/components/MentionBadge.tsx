@@ -47,7 +47,7 @@ function resolveMentionBadgeMotion(useReducedMotion: boolean): MentionBadgeMotio
 
 const formatMentionCount = (mentionCount: number, max?: number) => {
 	const locale = getCurrentLocale();
-	// Micup 2a.9b: a capped count (the feed inbox's 9+) shows its cap with a plus.
+	// Pirichat 2a.9b: a capped count (the feed inbox's 9+) shows its cap with a plus.
 	if (max !== undefined && mentionCount > max) return `${formatNumber(max, locale)}+`;
 	if (mentionCount > 99 && mentionCount < 1000) {
 		return `${formatNumber(99, locale)}+`;

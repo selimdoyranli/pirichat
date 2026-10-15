@@ -15,7 +15,7 @@ import type React from 'react';
 import {useCallback, useId, useMemo, useRef, useState} from 'react';
 
 type Primitive = string | number | null;
-// Micup: multi-select (MicupBot role and channel pickers). IsMulti is the last type parameter so upstream's
+// Pirichat: multi-select (MicupBot role and channel pickers). IsMulti is the last type parameter so upstream's
 // two-parameter ComboboxProps<V, O> keeps working.
 type BaseComboboxValue<O, IsMulti extends boolean> = IsMulti extends true ? Array<O> : O;
 type ComboboxValue<V, IsMulti extends boolean> = IsMulti extends true ? Array<V> : V;

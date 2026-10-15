@@ -12,8 +12,8 @@ import {isSyncExcludedChannelId} from '@app/features/threads/utils/SyncedPrefere
 import {ChannelTypes, GUILD_TEXT_BASED_CHANNEL_TYPES, Permissions} from '@fluxer/constants/src/ChannelConstants';
 import {compareChannelOrdering} from '@fluxer/schema/src/domains/channel/GuildChannelOrdering';
 
-// Micup: Fluxer's invite hosts are another service's; fluxer.gg/<code> is not a Micup invite.
-const OFFICIAL_INVITE_URL_BASES = Object.freeze(['https://sanalyer.com/invite']);
+// Pirichat: Fluxer's invite hosts are another service's; fluxer.gg/<code> is not a Pirichat invite.
+const OFFICIAL_INVITE_URL_BASES = Object.freeze(['https://pirichat.online/invite']);
 const INVITE_CONFIG: CodeLinkUtils.CodeLinkConfig = {
 	path: 'invite',
 	get urlBases() {

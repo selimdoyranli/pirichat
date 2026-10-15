@@ -234,7 +234,7 @@ export function pushUnsupportedUpdateModal(
 						primaryText={i18n._(OPEN_SOFTWARE_CENTER_DESCRIPTOR)}
 						secondaryText={i18n._(CLOSE_DESCRIPTOR)}
 						onPrimary={() => {
-							// Micup: on Windows the system-managed install is the Microsoft Store copy (Partner Center 9P1SNJ2H2W9H).
+							// Pirichat: on Windows the system-managed install is the Microsoft Store copy (Partner Center 9P1SNJ2H2W9H).
 							if (isNativeWindows()) {
 								void openExternalUrl('ms-windows-store://pdp/?ProductId=9P1SNJ2H2W9H');
 								return;

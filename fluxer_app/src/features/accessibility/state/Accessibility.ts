@@ -43,7 +43,7 @@ export const ZOOM_LEVEL_MAX = 2.0;
 const ZOOM_KEYBOARD_STEP_PCT = 10;
 export const DEFAULT_ZOOM_LEVEL = shouldShowAppZoomLevel() ? 0.95 : 1.0;
 export const ZOOM_LEVEL_MARKERS = [0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0] as const;
-// Micup: earlier builds defaulted to 80%, then 95% (V1 flag), then 100% (V2 flag); the default is 95% again.
+// Pirichat: earlier builds defaulted to 80%, then 95% (V1 flag), then 100% (V2 flag); the default is 95% again.
 const MICUP_80_DEFAULT_ZOOM_LEVEL = 0.8;
 const MICUP_100_DEFAULT_ZOOM_LEVEL = 1.0;
 const ACCESSIBILITY_STORE_STORAGE_KEY = 'Accessibility';
@@ -63,7 +63,7 @@ const getKeepNekoStillStorageKey = (userId: string): string => `${ACCESSIBILITY_
 const getLegacyPinNekoToTextareaStorageKey = (userId: string): string =>
 	`${ACCESSIBILITY_PIN_NEKO_TO_TEXTAREA_STORAGE_KEY}:${userId}`;
 
-// Micup: UserSettings imports this store, so it hands itself over here (like LocalPresence) instead of being imported.
+// Pirichat: UserSettings imports this store, so it hands itself over here (like LocalPresence) instead of being imported.
 interface AccessibilityUserSettings {
 	isHydrated(): boolean;
 	getSubPreference(field: 'accessibility'): {fontSize?: number} | undefined;
@@ -109,7 +109,7 @@ interface LocalMotionSettings {
 	keepStickerAnimationUnderReducedMotion: boolean;
 }
 
-// Micup: animations play for everyone by default, even when the system asks for reduced motion; "Reduce motion" or
+// Pirichat: animations play for everyone by default, even when the system asks for reduced motion; "Reduce motion" or
 // "Sync reduced motion setting with system" in Settings > Motion turns them off.
 const DEFAULT_LOCAL_MOTION_SETTINGS: LocalMotionSettings = {
 	syncReducedMotionWithSystem: false,
@@ -122,7 +122,7 @@ const DEFAULT_LOCAL_MOTION_SETTINGS: LocalMotionSettings = {
 
 const FONT_SIZE_MIN = 8;
 const FONT_SIZE_MAX = 48;
-// Micup: chat text defaults to 15px, 1px under upstream like the rest of the UI text (the build shrinks every other
+// Pirichat: chat text defaults to 15px, 1px under upstream like the rest of the UI text (the build shrinks every other
 // font-size by 1px).
 const DEFAULT_FONT_SIZE_PX = 15;
 const PREVIOUS_DEFAULT_FONT_SIZE_PX = 16;
@@ -543,7 +543,7 @@ function readAccessibilityStartupSettings(
 	};
 }
 
-// Micup: a zoom written by this build is never a stale old default, so the migration flag travels with it;
+// Pirichat: a zoom written by this build is never a stale old default, so the migration flag travels with it;
 // otherwise a storage reset (auth failure) followed by an in-page re-login rewrites the zoom without the flag.
 function persistLocalZoomLevel(level: number): void {
 	try {
@@ -552,7 +552,7 @@ function persistLocalZoomLevel(level: number): void {
 	} catch {}
 }
 
-// Micup: the app persists the zoom level even when the user never touched it, so an old default sits in storage for
+// Pirichat: the app persists the zoom level even when the user never touched it, so an old default sits in storage for
 // everyone who opened the app. Once, move to the 95% default an exact 100% that the 100% build wrote (V2 flag: its
 // migration or its default), or an exact 80% that no later build ever wrote (no V1 or V2 flag); keep every other value,
 // including a 100% chosen under the 95% build and an 80% chosen after a move. A 100% chosen under the 100% build cannot
@@ -576,7 +576,7 @@ function applyZoomLevelDefaultMigrationV3(): void {
 	} catch {}
 }
 
-// Micup: motion settings written by this build are never the stale old default, so the move flag travels with them
+// Pirichat: motion settings written by this build are never the stale old default, so the move flag travels with them
 // (as with the zoom).
 function writeZoomPrebootMirror(level: number, isDesktop: boolean): void {
 	if (!isDesktop) {
@@ -594,7 +594,7 @@ function persistLocalMotionSettings(settings: LocalMotionSettings): void {
 	} catch {}
 }
 
-// Micup: the app persists the motion settings even when the user never touched them, so the old default (sync with the
+// Pirichat: the app persists the motion settings even when the user never touched them, so the old default (sync with the
 // system on, no override) sits in storage on every device that opened the app. Once per device, turn exactly that
 // value's sync off; an override or a sync already off is the user's and stays. A sync left on deliberately cannot be
 // told apart from the old default and moves too.
@@ -1106,7 +1106,7 @@ class Accessibility {
 		this.applyFontSizeDefaultMigrationV1();
 	}
 
-	// Micup: the synced accessibility preferences carry font_size 16 for everyone whose client ever synced, chosen or not.
+	// Pirichat: the synced accessibility preferences carry font_size 16 for everyone whose client ever synced, chosen or not.
 	// Once per device, after that synced value has reached this store, move exactly 16 to the 15px default through the
 	// normal settings path (which syncs it back); any other synced size, or none, only records that the check ran.
 	private applyFontSizeDefaultMigrationV1(): void {

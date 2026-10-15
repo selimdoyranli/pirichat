@@ -69,7 +69,7 @@ interface LoadedLoop {
 	blob: Blob | null;
 }
 
-// Micup: drawn in front of the avatar, still while closed; on interaction the opening frames step
+// Pirichat: drawn in front of the avatar, still while closed; on interaction the opening frames step
 // forward, the loop plays while open, and letting go steps back from the frame it is on. The step lives here, per
 // layer, never in a shared store.
 export const AvatarUltraFront = observer(function AvatarUltraFront({

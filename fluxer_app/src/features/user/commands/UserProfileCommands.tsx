@@ -29,7 +29,7 @@ AccountScopedWork.registerCancellation(() => {
 	pendingRequests.clear();
 });
 
-// Micup: a request without the mutual lists has a key of its own, so it never answers one that
+// Pirichat: a request without the mutual lists has a key of its own, so it never answers one that
 // needs them; one with them answers both.
 function buildKey(userId: string, guildId?: string, withMutuals = true): string {
 	return `${userId}:${guildId ?? ME}${withMutuals ? '' : ':without-mutuals'}`;
@@ -191,14 +191,14 @@ export function openUserProfile(userId: string, guildId?: string, autoFocusNote?
 	return true;
 }
 
-// Micup: a profile ID goes into request paths, so only a plain decimal snowflake passes —
+// Pirichat: a profile ID goes into request paths, so only a plain decimal snowflake passes —
 // isProbablyAValidSnowflake also takes '0x10', padded values and 21 digits, since it only asks BigInt().
 const PROFILE_ID = /^[0-9]{1,20}$/;
 export function isProfileId(value: string): boolean {
 	return PROFILE_ID.test(value) && BigInt(value) > 0n;
 }
 
-// Micup: the full profile page at /users/<id>. Whatever profile surface is open closes first.
+// Pirichat: the full profile page at /users/<id>. Whatever profile surface is open closes first.
 export function openProfilePage(userId: string): boolean {
 	if (!isProfileId(userId)) return false;
 	closeUserProfileSurfaces();

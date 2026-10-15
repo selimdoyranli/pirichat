@@ -3,7 +3,7 @@
 import {OFFICIAL_WEB_APP_HOSTS} from '@fluxer/instance_bootstrap/src/OfficialWebAppHosts';
 
 const ASSETS_PATH_SEGMENT = 'assets';
-const OFFICIAL_WORKER_ASSET_HOSTS = new Set<string>([...OFFICIAL_WEB_APP_HOSTS, 'sanalyer.com']);
+const OFFICIAL_WORKER_ASSET_HOSTS = new Set<string>([...OFFICIAL_WEB_APP_HOSTS, 'pirichat.online']);
 const WORKER_ASSET_VERSION_QUERY_PARAM = 'v';
 
 function getProxiedAssetPath(pathname: string): string | null {

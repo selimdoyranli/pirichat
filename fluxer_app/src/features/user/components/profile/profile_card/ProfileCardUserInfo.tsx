@@ -29,7 +29,7 @@ interface ProfileCardUserInfoProps {
 	onUsernameClick?: () => void;
 	actions?: React.ReactNode;
 	usernameActions?: React.ReactNode;
-	// Micup: a row right under the name, above the username and pronouns (the profile popout's badges).
+	// Pirichat: a row right under the name, above the username and pronouns (the profile popout's badges).
 	belowName?: React.ReactNode;
 }
 

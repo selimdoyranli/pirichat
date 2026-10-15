@@ -66,7 +66,7 @@ class FeedNotifications {
 	// nothing. The server's cursor (READY, acks) wins whenever it has one; until then, and against an older server, the device's.
 	lastReadAt = 0;
 	lastReadUserId: string | null = null;
-	// Micup 2a.9b: the server's unread count (READY, then the rise of the unread sequence each push carries), or null when
+	// Pirichat 2a.9b: the server's unread count (READY, then the rise of the unread sequence each push carries), or null when
 	// this session counts on the device: the account's first READY had no state, or the server had no cursor yet while
 	// this device kept one (FeedNotificationReady sends it).
 	serverUnread: number | null = null;

@@ -102,7 +102,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = observer(({value, onC
 				{
 					type: ThemeTypes.DARK,
 					label: i18n._(DARK_THEME_DESCRIPTOR),
-					// Micup: dark and coal render the Micup palette (GenerateColorSystem.ts); swatches show its body and frame.
+					// Pirichat: dark and coal render the Pirichat palette (GenerateColorSystem.ts); swatches show its body and frame.
 					backgroundColor: '#0c0c0f',
 					isLight: false,
 					icon: null,

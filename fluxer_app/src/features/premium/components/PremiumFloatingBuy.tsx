@@ -17,7 +17,7 @@ interface PremiumFloatingBuyProps {
 	onClick: () => void;
 }
 
-// Micup: the "Buy Premium" capsule floating at the bottom of the premium page between the hero and the plans, and
+// Pirichat: the "Buy Premium" capsule floating at the bottom of the premium page between the hero and the plans, and
 // again past the plans. The page mounts it only while premium is on sale.
 export function PremiumFloatingBuy({heroRef, plansRef, label, onClick}: PremiumFloatingBuyProps) {
 	const [visible, setVisible] = useState(false);

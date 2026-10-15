@@ -209,7 +209,7 @@ interface GuildNavigationVisibility {
 	readonly helpVisible: boolean;
 }
 
-// Micup: the feed rail button is shown; it still follows the feature_feed limit, and false hides it again.
+// Pirichat: the feed rail button is shown; it still follows the feature_feed limit, and false hides it again.
 const FEED_RAIL_BUTTON_ENABLED = true;
 
 function useGuildNavigationVisibility(): GuildNavigationVisibility {
@@ -259,7 +259,7 @@ function createGuildNavigationRows({
 	visibility,
 }: CreateGuildNavigationRowsRequest): Array<GuildNavigationRow> {
 	const rows: Array<GuildNavigationRow> = [];
-	// Micup: the feed button leads the rail (upstream: after the guilds, before discovery).
+	// Pirichat: the feed button leads the rail (upstream: after the guilds, before discovery).
 	if (visibility.feedVisible) {
 		rows.push({
 			kind: 'feed',

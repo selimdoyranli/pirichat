@@ -354,7 +354,7 @@ export class User {
 		return this._nsfwAllowed;
 	}
 
-	// Micup: whether the server lets this account choose the public profile (16 or older with a date of birth).
+	// Pirichat: whether the server lets this account choose the public profile (16 or older with a date of birth).
 	get publicProfileAllowed(): boolean | undefined {
 		return this._publicProfileAllowed;
 	}

@@ -491,7 +491,7 @@ export class AuthSessionManager {
 		}
 	}
 
-	// Micup: the previous-release credential adoption gated in AuthSessionStoredAccountResolver.adoptLegacyCredential.
+	// Pirichat: the previous-release credential adoption gated in AuthSessionStoredAccountResolver.adoptLegacyCredential.
 	// The credential is adopted only for the instance this page belongs to, and only once that instance answers the
 	// token with this user. Only a 401 or an answer for another user signs it out; any other failure (discovery,
 	// timeout, 403, 429, 5xx, a body without a user ID) leaves the credential for the next boot.

@@ -65,7 +65,7 @@ export interface PremiumCompareInput {
 	shopDiscountPercent: number;
 }
 
-// Micup rows beside Fluxer's LIMIT_TIER_PERKS ids.
+// Pirichat rows beside Fluxer's LIMIT_TIER_PERKS ids.
 const INCLUDED_DECORATIONS = 'included_decorations';
 const SHOP_DISCOUNT = 'shop_discount';
 const BOOST_SLOTS = 'boost_slots';

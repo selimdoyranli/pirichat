@@ -951,7 +951,7 @@ const AppStorage = createStorage();
 
 export default AppStorage;
 
-// Micup: the device flag of Accessibility's one-time 16px to 15px chat text move. The size is synced, the flag is not:
+// Pirichat: the device flag of Accessibility's one-time 16px to 15px chat text move. The size is synced, the flag is not:
 // once cleared, the move runs again and takes a 16px chosen since back to 15px on every device. Resets and logout keep it.
 export const ACCESSIBILITY_FONT_SIZE_DEFAULT_MIGRATED_V1_STORAGE_KEY = 'Accessibility:fontSizeDefault15MigratedV1';
 // Discovery belongs to this device and survives logout and authentication storage resets.

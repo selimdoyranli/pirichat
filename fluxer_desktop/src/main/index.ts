@@ -355,7 +355,7 @@ if (launchConfigurationError) {
 	});
 	if (process.platform === 'win32') {
 		app.setToastActivatorCLSID(WINDOWS_TOAST_ACTIVATOR_CLSID);
-		// Micup: the Store package already carries its AUMID (PackageFamilyName!Micup); a second one splits the taskbar
+		// Pirichat: the Store package already carries its AUMID (PackageFamilyName!Pirichat); a second one splits the taskbar
 		// icon from the pinned Start tile.
 		if (!process.windowsStore) {
 			app.setAppUserModelId(WINDOWS_APP_USER_MODEL_ID);

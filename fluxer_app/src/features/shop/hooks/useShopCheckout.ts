@@ -155,7 +155,7 @@ export class ShopCheckoutFlow {
 						return;
 					}
 				}
-				// sanalyer: one currency (TRY), so the kuruş total is the whole price; there is no separate charged amount.
+				// Pirichat: one currency (TRY), so the kuruş total is the whole price; there is no separate charged amount.
 				if (order.final_try_minor !== quote.final_try_minor) {
 					this.state = 'price_changed';
 					return;

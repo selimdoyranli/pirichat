@@ -71,7 +71,7 @@ export async function updateGameActivityVisibility(visibility: 'off' | 'friends'
 	const change = (gameSharingChanges.get(accountId) ?? 0) + 1;
 	gameSharingChanges.set(accountId, change);
 	GameActivitySettings.setSharingUnconfirmed(accountId, true);
-	// Micup: stopping detection precedes the server revocation barrier and survives uncertain saves.
+	// Pirichat: stopping detection precedes the server revocation barrier and survives uncertain saves.
 	await DesktopGameActivityBridge.stopSharing();
 	assertCurrentGameSharingChange(accountId, change, epoch);
 	try {
@@ -112,7 +112,7 @@ export async function updateGameActivityVisibility(visibility: 'off' | 'friends'
 					],
 				});
 			} catch {
-				// Micup: the original save error remains actionable; the producer stays stopped.
+				// Pirichat: the original save error remains actionable; the producer stays stopped.
 			}
 		}
 		throw error;

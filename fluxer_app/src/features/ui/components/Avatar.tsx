@@ -212,7 +212,7 @@ const AvatarComponent = React.forwardRef<HTMLDivElement, AvatarProps>(
 							animate={decorationAnimate}
 							data-flx="ui.avatar.avatar-component.avatar-decoration-layer"
 						/>
-						{/* sanalyer (angel-wings): an ultra decoration with in-front images draws here, over the frame. */}
+						{/* Pirichat (angel-wings): an ultra decoration with in-front images draws here, over the frame. */}
 						<AvatarUltraLayer
 							ultra={user.avatarUltra}
 							size={size}

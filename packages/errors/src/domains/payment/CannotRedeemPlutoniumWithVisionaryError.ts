@@ -4,7 +4,7 @@ import {APIErrorCodes} from '@fluxer/constants/src/ApiErrorCodes';
 import {BadRequestError} from '@fluxer/errors/src/domains/core/BadRequestError';
 
 export class CannotRedeemPlutoniumWithVisionaryError extends BadRequestError {
-	constructor(premiumTierName = 'sanalyer Plus') {
+	constructor(premiumTierName = 'Pirichat Plus') {
 		super({
 			code: APIErrorCodes.CANNOT_REDEEM_PLUTONIUM_WITH_VISIONARY,
 			messageVariables: {premium_tier_name: premiumTierName},

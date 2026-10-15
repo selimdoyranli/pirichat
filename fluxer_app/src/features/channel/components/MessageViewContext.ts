@@ -9,7 +9,7 @@ import React, {useContext} from 'react';
 export interface MessagePreviewOverrides {
 	usernameColor?: string;
 	displayName?: string;
-	// Micup: a preview draws this user as the author, not the stored one (the shop shows an item as if worn).
+	// Pirichat: a preview draws this user as the author, not the stored one (the shop shows an item as if worn).
 	author?: User;
 }
 

@@ -19,7 +19,7 @@ interface OpenOptions {
 
 export function open(optionsOrDefaultGiftMode: OpenOptions | boolean = {}): void {
 	if (RuntimeConfig.isSelfHosted()) {
-		// Micup: self-hosted premium (trial, keys, Payriff) is its own page beside the DM list, not the Stripe modal.
+		// Pirichat: self-hosted premium (trial, keys, Payriff) is its own page beside the DM list, not the Stripe modal.
 		// Callers inside the settings or another dialog land on the page, so every dialog closes first.
 		if (!shouldShowPremiumFeatures()) return;
 		// The settings close guard (UserSettingsModal handleClose): a tab with unsaved changes flashes its banner and

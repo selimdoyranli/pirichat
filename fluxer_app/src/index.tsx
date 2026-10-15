@@ -33,7 +33,9 @@ const logger = new Logger('index');
 installBrowserStorageAccessProtection();
 installUnhandledRejectionReporter();
 
-configure({disableErrorBoundaries: true, enforceActions: 'observed'});
+// pirichat: with error boundaries off, a computed that throws (RuntimeConfig.features before the desktop instance
+// snapshot is active) stays marked as computing and every later read dies with MobX error 32 "cycle detected".
+configure({disableErrorBoundaries: false, enforceActions: 'observed'});
 
 function loadAppBootstrap() {
 	return loadLazyModule(() => import(/* webpackChunkName: "app-bootstrap" */ '@app/app/AppBootstrap'));

@@ -61,7 +61,7 @@ const measureCatalogBadge = (event: React.SyntheticEvent<HTMLImageElement>) => {
 	}
 };
 
-// Micup: Micup served its own flag badge icons from its CDN, and they are not in the source. sanalyer uses the
+// Pirichat: Pirichat served its own flag badge icons from its CDN, and they are not in the source. Pirichat uses the
 // CC BY-SA 4.0 badges that fluxer_static already ships under /badges/.
 const badgeAssetUrl = (fileName: string) =>
 	`${RuntimeConfig.staticCdnEndpoint}/badges/${fileName}?v=${BADGE_ASSET_VERSION}`;
@@ -124,7 +124,7 @@ export const UserProfileBadges: React.FC<UserProfileBadgesProps> = observer(
 		const {i18n} = useLingui();
 		const badges = useMemo(() => {
 			const result: Array<Badge> = [];
-			// Micup: every flag badge shows on this self-hosted instance, without links to Fluxer's marketing pages.
+			// Pirichat: every flag badge shows on this self-hosted instance, without links to Fluxer's marketing pages.
 			if (user.flags & PublicUserFlags.STAFF) {
 				result.push({
 					type: 'icon',
@@ -173,7 +173,7 @@ export const UserProfileBadges: React.FC<UserProfileBadgesProps> = observer(
 					tooltip: i18n._(VISIONARY_ID_DESCRIPTOR, {visionaryIdLabel}),
 				});
 			}
-			// Micup: catalog badges from the profile, in the server's order; the description is plain text.
+			// Pirichat: catalog badges from the profile, in the server's order; the description is plain text.
 			for (const badge of profile?.badges ?? []) {
 				result.push({
 					type: 'icon',

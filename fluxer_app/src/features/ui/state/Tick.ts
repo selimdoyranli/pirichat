@@ -5,7 +5,7 @@ import {makeAutoObservable, onBecomeObserved, onBecomeUnobserved, reaction} from
 
 class TickRegistryImpl {
 	nowSecond: number = Math.floor(Date.now() / 1000);
-	// Micup: shop prices redraw once a minute while a campaign runs; it advances only while nowSecond is observed.
+	// Pirichat: shop prices redraw once a minute while a campaign runs; it advances only while nowSecond is observed.
 	nowMinute: number = Math.floor(Date.now() / 60000);
 	private intervalId: number | null = null;
 	private observed = false;

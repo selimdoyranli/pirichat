@@ -30,7 +30,7 @@ export function readNoiseSuppressionRuntimeCapabilities(sampleRate = 48000): Noi
 	};
 }
 
-// Micup: with no saved choice the browser suppressor stays the default, not RNNoise.
+// Pirichat: with no saved choice the browser suppressor stays the default, not RNNoise.
 export function resolveNoiseSuppressionBackend(preference: unknown): VoiceNoiseSuppressionBackend {
 	return selectUsableNoiseSuppressionBackend(
 		isVoiceNoiseSuppressionBackend(preference) ? preference : 'standard',

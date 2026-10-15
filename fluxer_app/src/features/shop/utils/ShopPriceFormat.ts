@@ -4,7 +4,7 @@ import {getCachedNumberFormat} from '@app/features/i18n/utils/IntlCache';
 import {formatShopTry} from '@fluxer/schema/src/domains/shop/ShopPriceFormatting';
 import type {ShopPriceResponse} from '@fluxer/schema/src/domains/shop/ShopResponseSchemas';
 
-// sanalyer: the shop sells in Turkish lira only; every price is kuruş formatted as "₺150" / "₺149,99".
+// Pirichat: the shop sells in Turkish lira only; every price is kuruş formatted as "₺150" / "₺149,99".
 export function formatTry(minor: number, locale: string): string {
 	return formatShopTry(minor, locale);
 }

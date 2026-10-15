@@ -53,7 +53,7 @@ export function retry(): Promise<void> {
 	return fetchPage(!FeedNotifications.fetched);
 }
 
-// Micup 2a.9b: closing the activity view marks what it showed read on the server, so other devices and READY agree.
+// Pirichat 2a.9b: closing the activity view marks what it showed read on the server, so other devices and READY agree.
 export async function markRead(): Promise<void> {
 	const read = FeedNotifications.closeView();
 	if (read) await sendReadCursor(read.readAt, read.seq, read.epoch);

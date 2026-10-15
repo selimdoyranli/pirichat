@@ -149,7 +149,7 @@ const CHOOSE_WHO_CAN_SEE_YOUR_PROFILE_DETAILS_DESCRIPTOR = msg({
 	message: 'Choose who can see your profile details',
 	comment: 'Settings section description. One-line summary of what the settings section controls.',
 });
-// Micup: the four profile visibility options, searchable by their names.
+// Pirichat: the four profile visibility options, searchable by their names.
 const PUBLIC_PROFILE_DESCRIPTOR = msg({
 	message: 'Public profile',
 	comment: 'Settings search synonym. Used to match this term when the user types it in the settings search bar.',

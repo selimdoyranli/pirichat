@@ -7,14 +7,14 @@ import {THE_OTHER_PLATFORM} from '@fluxer/constants/src/ExternalPlatformConstant
 export {PREMIUM_PRODUCT_FULL_NAME, PREMIUM_PRODUCT_NAME, PRODUCT_NAME};
 export const DESKTOP_ENTRY_NAME = PRODUCT_NAME;
 export const CANARY_DESKTOP_ENTRY_NAME = `${PRODUCT_NAME} Canary`;
-// sanalyer: the upstream Stripe subscription flows name Stripe; the TRY shop checkout names no provider.
+// Pirichat: the upstream Stripe subscription flows name Stripe; the TRY shop checkout names no provider.
 export const PAYMENT_PROVIDER_NAME = 'Stripe';
 export const BLUESKY_PROVIDER_NAME = 'Bluesky';
 export const APP_STORE_NAME = 'App Store';
 export const GOOGLE_PLAY_NAME = 'Google Play';
 export const PIX_PAYMENT_METHOD = 'Pix';
 export const UPI_PAYMENT_METHOD = 'UPI';
-// Micup support contact.
+// Pirichat support contact.
 export const SUPPORT_EMAIL = 'info@sanalyer.com';
 export const SUPPORT_EMAIL_MAILTO = `mailto:${SUPPORT_EMAIL}`;
 export const I18N_WEBLATE_DOMAIN = 'weblate.fluxer.tools';
@@ -38,7 +38,7 @@ export const EXAMPLE_USERNAME_MENTION = '@username';
 export const EXAMPLE_FLUXER_TAG_FULL = 'Username#0000';
 export const EXAMPLE_USERNAME = 'Username';
 export const VISIONARY_LIFETIME_BADGE_LABEL = 'Visionary #42';
-export const LINK_PREVIEW_EXAMPLE_URL = 'https://sanalyer.com';
+export const LINK_PREVIEW_EXAMPLE_URL = 'https://pirichat.online';
 export const EXAMPLE_GIF_URLS = `${EXAMPLE_URL}/gif1.gif\n${EXAMPLE_URL}/gif2.gif`;
 export const THE_OTHER_PLATFORM_TEMPLATE_EXAMPLE_URL = `https://${THE_OTHER_PLATFORM.toLowerCase()}.new/abcd1234`;
 export const DESKTOP_DOWNLOAD_URL = 'https://fluxer.app/download';

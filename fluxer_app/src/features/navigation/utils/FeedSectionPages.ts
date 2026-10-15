@@ -2,7 +2,7 @@
 
 import {Routes} from '@app/app/Routes';
 
-// Micup: premium, the shop and the bots are pages of both the DM list and the feed sidebar. Opened while the feed is
+// Pirichat: premium, the shop and the bots are pages of both the DM list and the feed sidebar. Opened while the feed is
 // shown they open beside the feed (Routes.FEED_PREMIUM…), from anywhere else beside the DM list, so a link inside
 // one of them (premium to the shop, a shop set) keeps the sidebar it was opened from.
 const FEED_SECTION_PAGES = new Map<string, string>([

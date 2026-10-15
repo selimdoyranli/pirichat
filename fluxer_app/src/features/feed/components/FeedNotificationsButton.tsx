@@ -31,7 +31,7 @@ const ACTIVITY_DESCRIPTOR = msg({
 	comment: 'Title of the bottom sheet listing likes and comments on your feed posts and your new followers.',
 });
 
-// Micup: the channel header's inbox button (InboxButton) at the end of the feed header, with the same badge (unread
+// Pirichat: the channel header's inbox button (InboxButton) at the end of the feed header, with the same badge (unread
 // mentions plus the server's unread feed count). The phone sheet lists only the activity, so there it counts only that.
 export const FeedNotificationsButton = observer(() => {
 	const {i18n} = useLingui();

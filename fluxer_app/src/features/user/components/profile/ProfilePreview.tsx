@@ -124,7 +124,7 @@ export const ProfilePreview: React.FC<ProfilePreviewProps> = observer(
 		const previewBadgeHidden = previewBadgeSettings?.premium_badge_hidden;
 		const previewUser = useMemo(() => {
 			const globalName = previewGlobalName !== undefined ? previewGlobalName : user.globalName;
-			// Micup: the profile badge row reads PREMIUM_BADGE, so the unsaved "hide the premium badge" switch flips it.
+			// Pirichat: the profile badge row reads PREMIUM_BADGE, so the unsaved "hide the premium badge" switch flips it.
 			let flags = user.flags;
 			if (previewBadgeHidden === true) {
 				flags &= ~PublicUserFlags.PREMIUM_BADGE;

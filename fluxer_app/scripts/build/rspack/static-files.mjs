@@ -32,9 +32,9 @@ function resolveStaticCdnEndpoint(staticCdnEndpoint) {
 function generateManifest(staticCdnEndpoint) {
 	const cdn = resolveStaticCdnEndpoint(staticCdnEndpoint);
 	const manifest = {
-		name: 'sanalyer',
-		short_name: 'sanalyer',
-		description: 'sanalyer; arkadaşlar, gruplar ve topluluklar için anlık mesajlaşma ve sesli sohbet uygulaması.',
+		name: 'Pirichat',
+		short_name: 'Pirichat',
+		description: 'Pirichat; arkadaşlar, gruplar ve topluluklar için anlık mesajlaşma ve sesli sohbet uygulaması.',
 		start_url: '/',
 		id: '/',
 		display: 'standalone',

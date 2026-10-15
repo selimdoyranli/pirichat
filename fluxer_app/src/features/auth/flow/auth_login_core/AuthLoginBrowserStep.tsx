@@ -55,7 +55,7 @@ const OPEN_BROWSER_AGAIN_DESCRIPTOR = msg({
 	comment: 'Button in the desktop app that reopens the browser sign-in page while the app waits for the browser.',
 });
 const BROWSER_WAIT_STOPPED_DESCRIPTOR = msg({
-	message: "sanalyer stopped checking whether the browser approved this sign-in. It didn't lose your code.",
+	message: "Pirichat stopped checking whether the browser approved this sign-in. It didn't lose your code.",
 	comment: 'Status shown when browser sign-in status polling gives up after repeated failures.',
 });
 const BROWSER_HANDOFF_UNSUPPORTED_INSTANCE_DESCRIPTOR = msg({

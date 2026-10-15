@@ -57,7 +57,7 @@ export interface FeedPost {
 	// Both null while view counts are off on the server (it sends neither); the token is what POST /feed/views takes.
 	readonly viewCount: number | null;
 	readonly viewToken: string | null;
-	// Micup akis-takip: whether the viewer follows the author — only on Discover posts; null elsewhere and from older servers.
+	// Pirichat akis-takip: whether the viewer follows the author — only on Discover posts; null elsewhere and from older servers.
 	readonly authorFollowing: boolean | null;
 }
 

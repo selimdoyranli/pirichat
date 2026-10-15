@@ -5,8 +5,8 @@ import RuntimeConfig from '@app/features/app/state/RuntimeConfig';
 import * as CodeLinkUtils from '@app/features/messaging/utils/CodeLinkUtils';
 import {wrapDesktopLocalResourceURLForInstance} from '@app/features/messaging/utils/DesktopResourceUrl';
 
-// Micup: Fluxer's theme hosts are another service's.
-const OFFICIAL_THEME_URL_BASES = Object.freeze(['https://sanalyer.com/theme']);
+// Pirichat: Fluxer's theme hosts are another service's.
+const OFFICIAL_THEME_URL_BASES = Object.freeze(['https://pirichat.online/theme']);
 const appendThemePath = (endpoint: string | null | undefined): string | null => {
 	if (!endpoint) return null;
 	const trimmed = endpoint.replace(/\/$/, '');

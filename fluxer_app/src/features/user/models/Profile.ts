@@ -54,7 +54,7 @@ export class Profile {
 	readonly followerCount: number | null;
 	readonly followingCount: number | null;
 	readonly isFollowing: boolean | null;
-	// Micup: false when the page asked without the mutual lists; a surface that shows them asks again.
+	// Pirichat: false when the page asked without the mutual lists; a surface that shows them asks again.
 	readonly mutualsLoaded: boolean;
 	private readonly embeddedGuildMember: GuildMember | null;
 

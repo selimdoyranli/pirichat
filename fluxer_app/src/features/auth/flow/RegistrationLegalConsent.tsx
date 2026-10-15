@@ -131,7 +131,7 @@ export function RegistrationLegalConsent({checked, config, onChange}: Registrati
 			</Checkbox>
 		</flx-auth-registration-legal-consent>
 	);
-	// Micup: a new account of 16 or older starts with a public profile. Said only where registration
+	// Pirichat: a new account of 16 or older starts with a public profile. Said only where registration
 	// asks the date of birth: without one the server starts the profile on shared communities.
 	// This notice follows the registration target rather than the active account.
 	if (!config.collectDateOfBirth) return consentRow;

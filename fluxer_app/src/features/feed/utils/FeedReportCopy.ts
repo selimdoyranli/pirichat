@@ -6,7 +6,7 @@ import type {ReportMessageRequest} from '@fluxer/schema/src/domains/report/Repor
 import type {I18n} from '@lingui/core';
 import {msg} from '@lingui/core/macro';
 
-// Micup: upstream replaced the client-side report modal with server-driven report flows, which have no feed target.
+// Pirichat: upstream replaced the client-side report modal with server-driven report flows, which have no feed target.
 // Feed posts and comments keep the message-report rule picker; this is its message-context subset.
 
 export type FeedReportStep = 'category' | 'reason' | 'success';

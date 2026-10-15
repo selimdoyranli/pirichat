@@ -9,21 +9,21 @@ import {observer} from 'mobx-react-lite';
 
 const MONTHLY_DESCRIPTOR = msg({
 	message: '{price} a month',
-	comment: 'Monthly price of a sanalyer Plus package, in Turkish lira. The package total is charged at once.',
+	comment: 'Monthly price of a Pirichat Plus package, in Turkish lira. The package total is charged at once.',
 });
 const DAILY_DESCRIPTOR = msg({
 	message: '≈ {price} a day',
-	comment: 'Approximate daily price of a sanalyer Plus package, in Turkish lira, using 30 days per month.',
+	comment: 'Approximate daily price of a Pirichat Plus package, in Turkish lira, using 30 days per month.',
 });
 
 const PACKAGE_TOTAL_DESCRIPTOR = msg({
 	message: '{price} in total',
 	comment:
-		'Full price of a multi-month sanalyer Plus package, charged at once, in Turkish lira. Under the monthly price.',
+		'Full price of a multi-month Pirichat Plus package, charged at once, in Turkish lira. Under the monthly price.',
 });
 
 interface ShopPriceProps {
-	// sanalyer: every shop price is Turkish lira in kuruş. Checkout passes the server quote's numbers as they are.
+	// Pirichat: every shop price is Turkish lira in kuruş. Checkout passes the server quote's numbers as they are.
 	tryMinor: number;
 	months?: number;
 	primaryOnly?: boolean;
@@ -45,7 +45,7 @@ export const ShopPrice = observer(({tryMinor, months, primaryOnly = false, label
 					{i18n._(DAILY_DESCRIPTOR, {price: formatTry(Math.round(monthly / 30), locale)})}
 				</span>
 			)}
-			{/* sanalyer: the package total used to show as the AZN amount charged; in TRY it is the plain total. */}
+			{/* Pirichat: the package total used to show as the AZN amount charged; in TRY it is the plain total. */}
 			{!primaryOnly && months && months > 1 && (
 				<span className={styles.note} data-flx="shop.shop-price.total">
 					{i18n._(PACKAGE_TOTAL_DESCRIPTOR, {price: formatTry(tryMinor, locale)})}

@@ -262,7 +262,7 @@ export const UserProfileModal: UserProfileModalComponent = observer(
 				),
 			);
 		};
-		// Micup: the full profile page; openProfilePage closes this modal.
+		// Pirichat: the full profile page; openProfilePage closes this modal.
 		const handleOpenProfilePage = () => {
 			UserProfileCommands.openProfilePage(userId);
 		};

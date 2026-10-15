@@ -34,7 +34,7 @@ export function getFollowControls(
 
 const POST_FOLLOW_MIN_ACCOUNT_AGE_MS = 24 * 60 * 60 * 1000;
 
-// Micup akis-takip: the standing the server asks of a stranger who follows through a Discover post (the public commenter
+// Pirichat akis-takip: the standing the server asks of a stranger who follows through a Discover post (the public commenter
 // rule, FeedDiscoverRules.isPublicCommenterEligible): a verified email, a claimed account, 24 hours old. The spam and
 // suspicious flags are not on the client; the server's 403 covers them.
 export function canFollowThroughPost(
@@ -80,11 +80,11 @@ export function applyFollowChange(targetUserId: string, following: boolean): boo
 			const followerCount = profile.followerCount == null ? undefined : Math.max(0, profile.followerCount + delta);
 			return {is_following: following, follower_count: followerCount};
 		});
-		// Micup akis-takip: the Discover cards of the author follow the same change (the pill reads them).
+		// Pirichat akis-takip: the Discover cards of the author follow the same change (the pill reads them).
 		const cardsChanged = FeedTimeline.handleAuthorFollowing(targetUserId, following);
-		// Micup akis-oneri: and the people suggested beside the feed (their profiles are not cached).
+		// Pirichat akis-oneri: and the people suggested beside the feed (their profiles are not cached).
 		const picksChanged = FeedSuggestionPicks.handleFollowing(targetUserId, following);
-		// Micup: and the rows of an open follow window (their profiles are not cached either).
+		// Pirichat: and the rows of an open follow window (their profiles are not cached either).
 		const rowsChanged = FollowLists.handleFollowing(targetUserId, following);
 		const currentUserId = Authentication.currentUserId;
 		if ((changed || cardsChanged || picksChanged || rowsChanged) && currentUserId) {

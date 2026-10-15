@@ -5,7 +5,7 @@ import type {SuggestionPicks as Picks} from '@app/features/feed/commands/FeedSug
 import {AccountScopedWork} from '@app/features/platform/state/AccountScopedWork';
 import {makeAutoObservable} from 'mobx';
 
-// Micup akis-oneri: the people and communities beside the feed, picked once per feed page opening. Held here, above the
+// Pirichat akis-oneri: the people and communities beside the feed, picked once per feed page opening. Held here, above the
 // parts of the page that mount again (Your posts, the phone layout), so the picks and the follows made from them stay;
 // FeedPage resets when it goes away and the next opening picks again. Plain state (FeedSuggestionCommands.loadSuggestions
 // asks the server), so FollowProfileUtils can report every follow change here.

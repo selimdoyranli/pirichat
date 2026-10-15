@@ -35,7 +35,7 @@ async function setFollowing(userId: string, following: boolean, postId?: string)
 	const changed = applyFollowChange(userId, following);
 	try {
 		if (following) {
-			// Micup akis-takip: from a Discover post, its id lets the server allow a stranger's follow.
+			// Pirichat akis-takip: from a Discover post, its id lets the server allow a stranger's follow.
 			await (postId
 				? http.put(Endpoints.USER_FOLLOW(userId), {body: {post_id: postId}})
 				: http.put(Endpoints.USER_FOLLOW(userId)));

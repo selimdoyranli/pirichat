@@ -34,7 +34,7 @@ interface DMPageFrameProps<T extends string> {
 	children: React.ReactNode;
 }
 
-// Micup: the frame of a page beside the DM list (premium, shop), in the Friends page's pattern: a thin bar with the
+// Pirichat: the frame of a page beside the DM list (premium, shop), in the Friends page's pattern: a thin bar with the
 // icon, the title, tab pills and one action; the page scrolls under it.
 function DMPageFrameInner<T extends string>({
 	icon: TitleIcon,

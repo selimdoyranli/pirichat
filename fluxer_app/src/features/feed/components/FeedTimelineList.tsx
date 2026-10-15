@@ -52,7 +52,7 @@ interface FeedTimelineListProps {
 	emptyAction?: {label: string; onClick: () => void};
 	// Passed to every card: a list inside a modal closes the modal before a post page opens.
 	onOpenPost?: () => void;
-	// Micup: how far below the scroller's top the list starts, when other content (the profile header)
+	// Pirichat: how far below the scroller's top the list starts, when other content (the profile header)
 	// scrolls above it in the same scroller. 0, the list at the top, everywhere else.
 	scrollMargin?: number;
 }

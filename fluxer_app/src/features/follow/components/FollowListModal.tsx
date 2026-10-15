@@ -272,7 +272,7 @@ const FollowListView = observer(({kind, userId}: {kind: FollowListKind; userId: 
 	);
 });
 
-// Micup: Follow on a row, from the page's is_following (no request per row). Not
+// Pirichat: Follow on a row, from the page's is_following (no request per row). Not
 // ProfileFollowButton, which reads a cached profile these rows do not have; the row flips through applyFollowChange.
 // An account that shares nothing with the viewer and is not public answers 403: the usual follow toast.
 const RowFollowButton = observer(({entry}: {entry: FollowListEntry}) => {

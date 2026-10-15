@@ -1520,8 +1520,8 @@ msgstr "{displayName} ekranı"
 
 #. Instance selector error shown when the instance speaks a protocol generation this client does not know. Domain is interpolated.
 #: src/features/auth/flow/instance_selector/InstanceDiscoveryFailure.ts
-msgid "{domain} runs a newer version of sanalyer than this app. Update sanalyer, then try again."
-msgstr "{domain} daha yeni bir sanalyer sürümü çalıştırıyor. sanalyer'i güncelleyin, sonra tekrar deneyin."
+msgid "{domain} runs a newer version of Pirichat than this app. Update Pirichat, then try again."
+msgstr "{domain} daha yeni bir Pirichat sürümü çalıştırıyor. Pirichat'i güncelleyin, sonra tekrar deneyin."
 
 #. Profile timezone difference text. duration is a localized hours/minutes phrase for how far ahead the target user's local time is.
 #: src/features/user/components/popouts/UserProfileShared.tsx
@@ -2016,20 +2016,20 @@ msgstr "{premiumProductName} aboneliği"
 msgid "{presenceCount} online"
 msgstr "{presenceCount} çevrimiçi"
 
-#. Monthly price of a sanalyer Plus package, in Turkish lira. The package total is charged at once.
+#. Monthly price of a Pirichat Plus package, in Turkish lira. The package total is charged at once.
 #: src/features/shop/components/ShopPrice.tsx
 msgid "{price} a month"
 msgstr "Aylık {price}"
 
-#. Full price of a multi-month sanalyer Plus package, charged at once, in Turkish lira. Under the monthly price.
+#. Full price of a multi-month Pirichat Plus package, charged at once, in Turkish lira. Under the monthly price.
 #: src/features/shop/components/ShopPrice.tsx
 msgid "{price} in total"
 msgstr "Toplam {price}"
 
-#. Secondary shop price for someone without the sanalyer Plus discount. {price} is a price in Turkish lira.
+#. Secondary shop price for someone without the Pirichat Plus discount. {price} is a price in Turkish lira.
 #: src/features/shop/components/ShopPriceLine.tsx
-msgid "{price} with sanalyer Plus"
-msgstr "sanalyer Plus ile {price}"
+msgid "{price} with Pirichat Plus"
+msgstr "Pirichat Plus ile {price}"
 
 #: src/features/auth/state/NewDeviceMonitoring.tsx
 msgid "{PRODUCT_NAME} has found a new audio device named <0>{deviceName}</0>. Do you want to switch to it?"
@@ -2767,7 +2767,7 @@ msgstr "<0>Şuradan iletildi:</0>{sourceInfo}"
 msgid "<0>Kenji</0>, <1>Amara</1> and <2>Mateo</2> are typing..."
 msgstr "<0>Kenji</0>, <1>Amara</1> ve <2>Mateo</2> yazıyor..."
 
-#. Approximate daily price of a sanalyer Plus package, in Turkish lira, using 30 days per month.
+#. Approximate daily price of a Pirichat Plus package, in Turkish lira, using 30 days per month.
 #: src/features/shop/components/ShopPrice.tsx
 msgid "≈ {price} a day"
 msgstr "Günde ≈ {price}"
@@ -11440,8 +11440,8 @@ msgstr "Bu mesaj yayınlanamadı"
 
 #. Instance selector error shown when no Fluxer instance answered at the address. Domain is interpolated.
 #: src/features/auth/flow/instance_selector/InstanceDiscoveryFailure.ts
-msgid "Couldn't reach a sanalyer instance at {domain}. Check the address and that the instance is online."
-msgstr "{domain} adresinde bir sanalyer örneğine ulaşılamadı. Adresi ve örneğin çevrimiçi olup olmadığını kontrol edin."
+msgid "Couldn't reach a Pirichat instance at {domain}. Check the address and that the instance is online."
+msgstr "{domain} adresinde bir Pirichat örneğine ulaşılamadı. Adresi ve örneğin çevrimiçi olup olmadığını kontrol edin."
 
 #. Title of the generic fallback error modal shown when reactivating a Plutonium subscription fails.
 #: src/features/app/components/dialogs/components/plutonium/hooks/useSubscriptionActions.ts
@@ -13483,7 +13483,7 @@ msgstr "Yazarken algıla"
 msgid "Developer"
 msgstr "Geliştirici"
 
-#. Button opening sanalyer developer documentation with the external link warning.
+#. Button opening Pirichat developer documentation with the external link warning.
 #: src/features/bots/utils/BotMessageDescriptors.ts
 msgid "Developer documentation"
 msgstr "Geliştirici belgeleri"
@@ -17101,7 +17101,7 @@ msgstr "Florida"
 #. Placeholder for the product name input in the setup wizard.
 #: src/features/app/components/setup/SetupWizardSteps.tsx
 msgid "Fluxer"
-msgstr "sanalyer"
+msgstr "Pirichat"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/AccessibilitySections.ts
@@ -21534,8 +21534,8 @@ msgstr "Ömür boyu {premiumProductName}, numaralı rozet, #0000 etiketi ve yaln
 
 #. Note in the Visionary buy dialog, under the price.
 #: src/features/shop/utils/ShopMessageDescriptors.ts
-msgid "Lifetime means for as long as sanalyer runs."
-msgstr "Ömür boyu: sanalyer hizmet verdiği sürece."
+msgid "Lifetime means for as long as Pirichat runs."
+msgstr "Ömür boyu: Pirichat hizmet verdiği sürece."
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/expressions/components/modals/sticker_form/StickerPreview.tsx
@@ -25815,8 +25815,8 @@ msgstr "Resmi örnek"
 
 #. Description of the official applications listed in the bot catalog.
 #: src/features/bots/components/pages/BotsPage.tsx
-msgid "Official sanalyer bots you can add to your community."
-msgstr "Topluluğunuza ekleyebileceğiniz resmi sanalyer botları."
+msgid "Official Pirichat bots you can add to your community."
+msgstr "Topluluğunuza ekleyebileceğiniz resmi Pirichat botları."
 
 #. Generic presence-status label indicating the user is offline.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
@@ -28676,12 +28676,12 @@ msgstr "Profil önizlemesi (tam önizlemeyi açmak için Enter'a basın)"
 msgid "Profile privacy"
 msgstr "Profil gizliliği"
 
-#. sanalyer nagbar for a user whose profile privacy was the removed "Friends and small communities only" option; it now reads as "Shared communities". The quoted names are option labels in Privacy settings. Legal-effect text: approved before release.
+#. Pirichat nagbar for a user whose profile privacy was the removed "Friends and small communities only" option; it now reads as "Shared communities". The quoted names are option labels in Privacy settings. Legal-effect text: approved before release.
 #: src/features/app/components/layout/app_layout/nagbars/ProfilePrivacyChangedNagbar.tsx
 msgid "Profile privacy options have changed: \"Friends and small communities only\" is gone. Your profile is now on \"Shared communities\": your friends, people you follow each other with and members of communities you share can see it."
 msgstr "Profil gizliliği seçenekleri değişti: \"Sadece arkadaşlar ve küçük topluluklar\" artık yok. Profiliniz \"Ortak topluluklar\" ayarında; arkadaşlarınız, karşılıklı takipleştiğiniz kişiler ve ortak topluluklarınızın üyeleri görebilir."
 
-#. sanalyer nagbar for a user whose profile privacy was "Friends only", which now also lets mutual follows (people who follow each other) see the profile. The quoted names are option labels in Privacy settings. Legal-effect text: approved before release.
+#. Pirichat nagbar for a user whose profile privacy was "Friends only", which now also lets mutual follows (people who follow each other) see the profile. The quoted names are option labels in Privacy settings. Legal-effect text: approved before release.
 #: src/features/app/components/layout/app_layout/nagbars/ProfilePrivacyChangedNagbar.tsx
 msgid "Profile privacy options have changed: \"Friends only\" is now \"Friends and mutual follows\". People you follow each other with can see your profile too."
 msgstr "Profil gizliliği seçenekleri değişti: \"Sadece arkadaşlar\" artık \"Arkadaşlar ve karşılıklı takipleştiklerim\". Karşılıklı takipleştiğiniz kişiler de profilinizi görebilir."
@@ -31433,18 +31433,18 @@ msgid "Same time as you"
 msgstr "Sizinle aynı saat diliminde"
 
 #: src/features/user/components/modals/UsernamePickerModal.tsx
-msgid "sanalyer no longer uses #1234 tags. Everyone has a unique username: @yourname."
-msgstr "sanalyer'de artık #1234 etiketleri yok. Herkesin kendine ait, tek bir kullanıcı adı var: @adınız."
+msgid "Pirichat no longer uses #1234 tags. Everyone has a unique username: @yourname."
+msgstr "Pirichat'de artık #1234 etiketleri yok. Herkesin kendine ait, tek bir kullanıcı adı var: @adınız."
 
 #. Status shown when browser sign-in status polling gives up after repeated failures.
 #: src/features/auth/flow/auth_login_core/AuthLoginBrowserStep.tsx
-msgid "sanalyer stopped checking whether the browser approved this sign-in. It didn't lose your code."
-msgstr "sanalyer, tarayıcının bu oturum açma işlemini onaylayıp onaylamadığını kontrol etmeyi bıraktı. Kodunuzu kaybetmedi."
+msgid "Pirichat stopped checking whether the browser approved this sign-in. It didn't lose your code."
+msgstr "Pirichat, tarayıcının bu oturum açma işlemini onaylayıp onaylamadığını kontrol etmeyi bıraktı. Kodunuzu kaybetmedi."
 
 #. Product name on the Visionary card and buy dialog. A product name: keep it as written.
 #: src/features/shop/utils/ShopMessageDescriptors.ts
-msgid "sanalyer Visionary"
-msgstr "sanalyer Visionary"
+msgid "Pirichat Visionary"
+msgstr "Pirichat Visionary"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/ChatSettingsIndex.ts
@@ -36303,8 +36303,8 @@ msgid "Tag name"
 msgstr "Etiket adı"
 
 #: src/features/user/components/modals/UsernamePickerModal.tsx
-msgid "Tagged names are no longer used. Choose a unique username to continue using sanalyer."
-msgstr "Etiketli adlar artık kullanılmıyor. sanalyer'i kullanmaya devam etmek için kendinize özel bir kullanıcı adı seçin."
+msgid "Tagged names are no longer used. Choose a unique username to continue using Pirichat."
+msgstr "Etiketli adlar artık kullanılmıyor. Pirichat'i kullanmaya devam etmek için kendinize özel bir kullanıcı adı seçin."
 
 #. Label of the tag filter in a forum channel and of the tags section in forum settings.
 #. Short label in the theme studio library section. Keep it concise.
@@ -40825,8 +40825,8 @@ msgstr "Saat biçimi için sistem yerel ayarını kullan"
 
 #. Accessible label for the official Fluxer instance option.
 #: src/features/auth/flow/instance_selector/InstancePickerRows.tsx
-msgid "Use the official sanalyer instance"
-msgstr "Resmi sanalyer örneğini kullan"
+msgid "Use the official Pirichat instance"
+msgstr "Resmi Pirichat örneğini kullan"
 
 #. Settings search entry description. One-line summary of what the settings search entry controls.
 #: src/features/user/components/settings_utils/search_index/DesktopSettingsIndex.ts
@@ -43039,7 +43039,7 @@ msgstr "Sözcükler"
 msgid "Works while {productName} is focused"
 msgstr "{productName} odaklanmışken çalışır"
 
-#. sanalyer one-time nagbar offering a public profile. It must say that earlier posts marked public open to everyone and that the last 72 hours of them can appear in Discover. "Shared communities" is an option label in Privacy settings. Legal-effect text: approved before release.
+#. Pirichat one-time nagbar offering a public profile. It must say that earlier posts marked public open to everyone and that the last 72 hours of them can appear in Discover. "Shared communities" is an option label in Privacy settings. Legal-effect text: approved before release.
 #: src/features/app/components/layout/app_layout/nagbars/ProfilePublicOfferNagbar.tsx
 msgid "Would you like to make your profile public? If you do, everyone signed in can see your profile. Your earlier posts marked public (most of what you shared while on \"Shared communities\") open to everyone too, and those from the last 72 hours can appear in Discover."
 msgstr "Profilinizi herkese açmak ister misiniz? Açarsanız giriş yapmış herkes profilinizi görebilir; daha önce herkese açık olarak işaretlenmiş gönderileriniz (\"Ortak topluluklar\" ayarındayken paylaştıklarınızın çoğu) de herkese açılır ve son 72 saattekiler Keşfet'te çıkabilir."

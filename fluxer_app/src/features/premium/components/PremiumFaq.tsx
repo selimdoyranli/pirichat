@@ -35,12 +35,12 @@ const GIFT_ANSWER_DESCRIPTOR = msg({
 
 const ITEMS = [
 	[RENEWS_QUESTION_DESCRIPTOR, RENEWS_ANSWER_DESCRIPTOR],
-	// sanalyer: no currency question; prices are Turkish lira and charged as shown.
+	// Pirichat: no currency question; prices are Turkish lira and charged as shown.
 	[DECORATIONS_QUESTION_DESCRIPTOR, DECORATIONS_ANSWER_DESCRIPTOR],
 	[GIFT_QUESTION_DESCRIPTOR, GIFT_ANSWER_DESCRIPTOR],
 ] as const;
 
-// Micup: the premium page's questions, as native <details>; the first one opens with the page.
+// Pirichat: the premium page's questions, as native <details>; the first one opens with the page.
 export function PremiumFaq() {
 	const {i18n} = useLingui();
 	const values = {premiumProductName: PREMIUM_PRODUCT_NAME};

@@ -31,7 +31,7 @@ export const EditConnectionModal = observer(({connection}: Props) => {
 	const [submitting, setSubmitting] = useState(false);
 	const hasFlag = useCallback((flag: number) => (visibilityFlags & flag) === flag, [visibilityFlags]);
 	const everyoneEnabled = (visibilityFlags & ConnectionVisibilityFlags.EVERYONE) === ConnectionVisibilityFlags.EVERYONE;
-	// Micup: the Everyone flag shows a connection to anyone who can see the full profile, so below a public
+	// Pirichat: the Everyone flag shows a connection to anyone who can see the full profile, so below a public
 	// profile it reaches fewer people.
 	const profilePrivacyLimited = getEffectiveProfilePrivacy() !== ProfilePrivacyLevels.EVERYONE;
 	const handleToggle = useCallback(

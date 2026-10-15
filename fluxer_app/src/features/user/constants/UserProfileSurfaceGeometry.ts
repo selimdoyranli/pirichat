@@ -103,7 +103,7 @@ export const PROFILE_MODAL_BANNER_AVATAR_CUTOUT = {
 	cy: PROFILE_MODAL_GEOMETRY.bannerViewBoxHeightPx,
 	r: PROFILE_MODAL_AVATAR_OUTER_RADIUS_PX,
 } as const;
-// Micup: the shop stage and the premium perk tiles lay out at the popout's full outer width.
+// Pirichat: the shop stage and the premium perk tiles lay out at the popout's full outer width.
 export const PROFILE_POPOUT_OUTER_WIDTH_PX =
 	PROFILE_POPOUT_GEOMETRY.contentWidthPx + PROFILE_POPOUT_GEOMETRY.borderWidthPx * 2;
 

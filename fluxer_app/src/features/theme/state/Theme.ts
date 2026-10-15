@@ -24,7 +24,7 @@ export interface ThemePreferenceSnapshot {
 const EXPLICIT_THEMES = new Set<string>([ThemeTypes.DARK, ThemeTypes.DARK_LEGACY, ThemeTypes.LIGHT, ThemeTypes.COAL]);
 const VALID_THEMES = new Set<string>(Object.values(ThemeTypes));
 const STORAGE_KEY = 'theme';
-// Micup: new visitors and accounts use Coal (upstream: Dark); the system preference keeps upstream Dark for dark mode.
+// Pirichat: new visitors and accounts use Coal (upstream: Dark); the system preference keeps upstream Dark for dark mode.
 const DEFAULT_THEME = ThemeTypes.COAL;
 
 function isExplicitTheme(theme: string | null | undefined): theme is ExplicitTheme {

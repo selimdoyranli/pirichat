@@ -20,9 +20,9 @@ export interface UserInfoProps {
 	profile: Profile;
 	guildId?: string;
 	showProfileDataWarning?: boolean;
-	// Micup: the settings profile preview's full profile; its premium crown is a picture (see PremiumUserBadge).
+	// Pirichat: the settings profile preview's full profile; its premium crown is a picture (see PremiumUserBadge).
 	isPreview: boolean;
-	// Micup: the full profile page, which shows the follow counts, the Posts tab and the limited note
+	// Pirichat: the full profile page, which shows the follow counts, the Posts tab and the limited note
 	// itself.
 	onPage?: boolean;
 }
@@ -40,7 +40,7 @@ export interface ProfileContentProps {
 	userNote: string | null;
 	autoFocusNote?: boolean;
 	noteRef?: React.RefObject<HTMLTextAreaElement | null>;
-	// Micup: what leaving for a voice channel does — the modal closes itself, the page does nothing.
+	// Pirichat: what leaving for a voice channel does — the modal closes itself, the page does nothing.
 	onNavigate: () => void;
 }
 
@@ -66,7 +66,7 @@ export interface ProfileBodyProps {
 	noteRef?: React.RefObject<HTMLTextAreaElement | null>;
 	showProfileDataWarning?: boolean;
 	isPreview: boolean;
-	// Micup: the page's About tab has no modal to close or replace. It shows the user info
+	// Pirichat: the page's About tab has no modal to close or replace. It shows the user info
 	// above the tabs itself, leaves for a community or group without closing anything, and opens a mutual friend's page.
 	hideUserInfo?: boolean;
 	onLeave?: () => void;

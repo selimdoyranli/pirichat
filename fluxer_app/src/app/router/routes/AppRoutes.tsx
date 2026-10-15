@@ -219,7 +219,7 @@ const mentionsRoute = createRoute({
 	path: Routes.MENTIONS,
 	component: () => <DMLayout data-flx="app.router.app-routes.dm-layout--2" />,
 });
-// Micup: premium and the shop open beside the DM list, like bookmarks and mentions; elsewhere they fall back to Friends.
+// Pirichat: premium and the shop open beside the DM list, like bookmarks and mentions; elsewhere they fall back to Friends.
 const premiumRoute = createRoute({
 	getParentRoute: () => guildsLayoutRoute,
 	id: 'premium',
@@ -299,7 +299,7 @@ const feedPostRoute = createRoute({
 		return <FeedPage postId={postId} data-flx="app.router.app-routes.feed-page--2" />;
 	},
 });
-// Micup: premium, the shop and the bots opened from the feed, beside the feed sidebar (FeedSectionPages).
+// Pirichat: premium, the shop and the bots opened from the feed, beside the feed sidebar (FeedSectionPages).
 const feedPremiumRoute = createRoute({
 	getParentRoute: () => guildsLayoutRoute,
 	id: 'feedPremium',
@@ -353,7 +353,7 @@ const legacyPlutoniumRoute = createRoute({
 	path: Routes.LEGACY_PLUTONIUM,
 	onEnter: () => new Redirect(Routes.PLUTONIUM),
 });
-// Micup: the full profile page beside the DM list, as premium and shop; the page checks the id
+// Pirichat: the full profile page beside the DM list, as premium and shop; the page checks the id
 // before any request.
 const userProfileRoute = createRoute({
 	getParentRoute: () => guildsLayoutRoute,

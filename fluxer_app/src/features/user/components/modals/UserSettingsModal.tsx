@@ -33,7 +33,7 @@ import {observer} from 'mobx-react-lite';
 import type React from 'react';
 import {useCallback, useEffect, useMemo, useState} from 'react';
 
-// Micup: premium and the shop left the settings for pages beside the DM list. Their old tab ids still arrive (settings
+// Pirichat: premium and the shop left the settings for pages beside the DM list. Their old tab ids still arrive (settings
 // links, `initialTab`, USER_SETTINGS_TAB_SELECT); they close the dialogs and open the page.
 function getTabPageRoute(tab: string | undefined): string | null {
 	if (tab === 'plutonium' && isPremiumPageAvailable()) return Routes.PREMIUM;
@@ -171,7 +171,7 @@ export const UserSettingsModal: React.FC<UserSettingsModalProps> = observer(
 				const {tab, section} = (args ?? {}) as {tab?: string; section?: string};
 				const pageRoute = getTabPageRoute(tab);
 				if (pageRoute) {
-					// Micup: the close guard (handleClose) first; the cosmetics tab's premium link comes this way. Only these
+					// Pirichat: the close guard (handleClose) first; the cosmetics tab's premium link comes this way. Only these
 					// settings' tabs: a dialog closed from outside can leave its entry behind (useWebhookUpdates).
 					const unsavedTab = visibleSettingsTabs.find((settingsTab) => UnsavedChanges.unsavedChanges[settingsTab.type]);
 					if (unsavedTab) {

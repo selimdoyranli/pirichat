@@ -684,7 +684,7 @@ export const LIMIT_KEY_METADATA: Record<LimitKey, LimitKeyMetadata> = {
 	},
 	feature_micupbot: {
 		key: 'feature_micupbot',
-		label: 'SanalyerBot',
+		label: 'PirichatBot',
 		description:
 			'Instance-wide: the official community bot (welcome, auto roles, reaction roles, levels, # commands, automod); 0 stops every hook, job and settings write, stored settings stay',
 		category: 'features',
@@ -695,7 +695,7 @@ export const LIMIT_KEY_METADATA: Record<LimitKey, LimitKeyMetadata> = {
 		key: 'feature_guild_roster',
 		label: 'Guild Roster Bot',
 		description:
-			'Instance-wide: the official sanalyer Roster bot announces hourly rosters and moves members at :35; 0 stops announcements, checks, reaction joins and settings writes, stored events stay',
+			'Instance-wide: the official Pirichat Roster bot announces hourly rosters and moves members at :35; 0 stops announcements, checks, reaction joins and settings writes, stored events stay',
 		category: 'features',
 		scope: 'user',
 		isToggle: true,

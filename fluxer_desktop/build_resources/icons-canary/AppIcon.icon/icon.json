@@ -1,6 +1,6 @@
 {
 	"fill": {
-		"solid": "display-p3:0.03922,0.03922,0.03922,1.00000"
+		"solid": "display-p3:0.03922,0.03922,0.06275,1.00000"
 	},
 	"groups": [
 		{
@@ -21,7 +21,9 @@
 		}
 	],
 	"supported-platforms": {
-		"circles": ["watchOS"],
+		"circles": [
+			"watchOS"
+		],
 		"squares": "shared"
 	}
 }

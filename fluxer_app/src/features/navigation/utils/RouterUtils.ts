@@ -19,7 +19,7 @@ export function getCurrentPath(): string {
 export function transitionTo(requestedPath: string) {
 	logger.debug('transitionTo', requestedPath);
 	if (history) {
-		// Micup: premium, the shop and the bots opened while the feed is shown go to their feed twins (FeedSectionPages).
+		// Pirichat: premium, the shop and the bots opened while the feed is shown go to their feed twins (FeedSectionPages).
 		const path = resolveSectionPagePath(requestedPath, history.getLocation().url.pathname);
 		const current = getCurrentPath();
 		if (current === path) return;
@@ -32,7 +32,7 @@ export function transitionTo(requestedPath: string) {
 export function replaceWith(requestedPath: string) {
 	logger.debug('replaceWith', requestedPath);
 	if (history) {
-		// Micup: premium, the shop and the bots opened while the feed is shown go to their feed twins (FeedSectionPages).
+		// Pirichat: premium, the shop and the bots opened while the feed is shown go to their feed twins (FeedSectionPages).
 		const path = resolveSectionPagePath(requestedPath, history.getLocation().url.pathname);
 		const current = getCurrentPath();
 		if (current === path) return;
