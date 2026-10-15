@@ -161,7 +161,7 @@ export function writeGlb(scene) {
 		byteLength += pad;
 	}
 	const json = {
-		asset: {version: '2.0', generator: 'sanalyer tools/room_themes'},
+		asset: {version: '2.0', generator: 'Pirichat tools/room_themes'},
 		extensionsUsed: ['KHR_materials_unlit'],
 		scene: 0,
 		scenes: [{nodes: roots}],

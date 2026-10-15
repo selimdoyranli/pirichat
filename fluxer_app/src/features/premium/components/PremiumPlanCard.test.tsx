@@ -108,7 +108,7 @@ describe('PremiumPlanCard', () => {
 
 		expect(
 			[...container.querySelectorAll('[data-flx="premium.premium-plan-card.perk"]')].map((li) => li.textContent),
-		).toEqual(['All sanalyer Plus perks', 'Does not renew']);
+		).toEqual(['All Pirichat Plus perks', 'Does not renew']);
 	});
 
 	it('shows the monthly and daily price on the one month plan, without a separate total', () => {

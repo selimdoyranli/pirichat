@@ -110,7 +110,7 @@ describe('ShopPriceLine', () => {
 	it('uses the viewer discount for the primary price in the dialog', () => {
 		render(itemEntry(PRICE));
 		expect(part('final')).toBe('₺5');
-		expect(part('premium')).toBe('₺3.50 with sanalyer Plus');
+		expect(part('premium')).toBe('₺3.50 with Pirichat Plus');
 		expect(part('was')).toBeNull();
 
 		state.premiumDiscount = true;
@@ -136,7 +136,7 @@ describe('ShopPriceLine', () => {
 		render(itemEntry(PRICE));
 		expect(part('final')).toBe('₺5');
 		expect(part('was')).toBeNull();
-		expect(part('premium')).toBe('₺3.50 with sanalyer Plus');
+		expect(part('premium')).toBe('₺3.50 with Pirichat Plus');
 
 		state.premiumDiscount = true;
 		render(itemEntry({...PRICE}));
@@ -149,7 +149,7 @@ describe('ShopPriceLine', () => {
 		state.premiumUser = true;
 		render(itemEntry(PRICE));
 		expect(part('final')).toBe('₺5');
-		expect(part('premium')).toBe('₺3.50 with sanalyer Plus');
+		expect(part('premium')).toBe('₺3.50 with Pirichat Plus');
 	});
 
 	it('campaign: the sale price, the struck price and the badge; a member pays the premium price', () => {
@@ -157,7 +157,7 @@ describe('ShopPriceLine', () => {
 		expect(part('final')).toBe('₺4');
 		expect(part('was')).toBe('₺5');
 		expect(part('badge')).toBe('-20%');
-		expect(part('premium')).toBe('₺2.80 with sanalyer Plus');
+		expect(part('premium')).toBe('₺2.80 with Pirichat Plus');
 		expect(countdown()).toBeNull();
 
 		state.premiumDiscount = true;
@@ -217,7 +217,7 @@ describe('ShopPriceLine', () => {
 		expect(countdown()).toBe(ENDS_AT);
 	});
 
-	// sanalyer: Turkish lira is the only currency; no second amount or other currency shows anywhere.
+	// pirichat: Turkish lira is the only currency; no second amount or other currency shows anywhere.
 	it('renders Turkish lira only', () => {
 		render(itemEntry(CAMPAIGN));
 		expect(container.textContent).not.toMatch(/AZN|USD|\$|TL/);
@@ -229,7 +229,7 @@ describe('ShopPriceLine', () => {
 		expect(part('final')).toBe('₺5');
 		expect(part('was')).toBeNull();
 		expect(part('badge')).toBeNull();
-		expect(part('premium')).toBe('₺3.50 with sanalyer Plus');
+		expect(part('premium')).toBe('₺3.50 with Pirichat Plus');
 		expect(countdown()).toBeNull();
 	});
 });

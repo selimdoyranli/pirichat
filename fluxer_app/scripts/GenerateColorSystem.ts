@@ -714,7 +714,7 @@ hsl(245, calc(100% * var(--saturation-factor)), 80%) 40%
 			{name: '--text-tertiary-muted', value: '#6a6a75'},
 			{name: '--interactive-muted', value: '#74747f'},
 			{name: '--interactive-active', value: '#f2f2f4'},
-			// sanalyer: the instance theme color (admin branding) wins over Micup's white accent.
+			// pirichat: the instance theme color (admin branding) wins over Micup's white accent.
 			{name: '--brand-primary', value: 'var(--instance-brand-primary, #f4f4f6)'},
 			{name: '--brand-secondary', value: 'var(--instance-brand-secondary, #ffffff)'},
 			{name: '--brand-primary-light', value: 'var(--instance-brand-primary-light, #ffffff)'},

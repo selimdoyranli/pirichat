@@ -41,7 +41,7 @@ const {UserProfileBadges} = await import('@app/features/user/components/popouts/
 const userWithFlags = (flags: number) => ({flags}) as User;
 const profileWith = (fields: Partial<Profile>) => ({badges: null, premiumType: null, ...fields}) as Profile;
 
-describe('UserProfileBadges on sanalyer', () => {
+describe('UserProfileBadges on Pirichat', () => {
 	let container: HTMLDivElement;
 	let root: ReturnType<typeof createRoot>;
 
@@ -62,10 +62,10 @@ describe('UserProfileBadges on sanalyer', () => {
 		act(() => root.render(createElement(UserProfileBadges, {user, profile})));
 	const images = () => [...container.querySelectorAll('img')];
 
-	it('labels the STAFF flag "sanalyer Ekibi" with the sanalyer icon', () => {
+	it('labels the STAFF flag "Pirichat Ekibi" with the Pirichat icon', () => {
 		render(userWithFlags(PublicUserFlags.STAFF), null);
 
-		expect(images().map((img) => img.alt)).toEqual(['sanalyer Ekibi']);
+		expect(images().map((img) => img.alt)).toEqual(['Pirichat Ekibi']);
 		expect(images()[0].src).toBe('https://static.micup.gg/badges/staff.svg?v=3');
 	});
 
@@ -80,7 +80,7 @@ describe('UserProfileBadges on sanalyer', () => {
 			'/badges/bug-hunter.svg',
 			'/badges/partner.svg',
 		]);
-		expect(images().map((img) => img.alt)).toEqual(['sanalyer Ekibi', 'sanalyer Hata Avcısı', 'sanalyer İş Ortağı']);
+		expect(images().map((img) => img.alt)).toEqual(['Pirichat Ekibi', 'Pirichat Hata Avcısı', 'Pirichat İş Ortağı']);
 		expect(container.querySelector('a')).toBeNull();
 	});
 
@@ -88,7 +88,7 @@ describe('UserProfileBadges on sanalyer', () => {
 		render(userWithFlags(PublicUserFlags.PREMIUM_BADGE), null);
 		expect(images()).toHaveLength(1);
 		expect(images()[0].src).toContain('micup-premium-badge.png');
-		expect(images()[0].alt).toBe('sanalyer Plus');
+		expect(images()[0].alt).toBe('Pirichat Plus');
 	});
 
 	it('keeps every catalog badge between Premium and Bug Hunter in the server order', () => {
@@ -111,12 +111,12 @@ describe('UserProfileBadges on sanalyer', () => {
 				badge instanceof HTMLImageElement ? badge.alt : badge.textContent,
 			),
 		).toEqual([
-			'sanalyer Ekibi',
-			'sanalyer Plus',
+			'Pirichat Ekibi',
+			'Pirichat Plus',
 			'Catalog first',
 			'Catalog second',
-			'sanalyer Hata Avcısı',
-			'sanalyer İş Ortağı',
+			'Pirichat Hata Avcısı',
+			'Pirichat İş Ortağı',
 			'#42',
 		]);
 	});
@@ -185,7 +185,7 @@ describe('UserProfileBadges on sanalyer', () => {
 				}),
 			),
 		);
-		expect(images().map((img) => img.alt)).toEqual(['sanalyer Ekibi', 'sanalyer Plus', 'Öncü', 'sanalyer Hata Avcısı']);
+		expect(images().map((img) => img.alt)).toEqual(['Pirichat Ekibi', 'Pirichat Plus', 'Öncü', 'Pirichat Hata Avcısı']);
 		for (const image of images()) expect(image.classList.contains(styles.badge)).toBe(true);
 	});
 
@@ -218,9 +218,9 @@ describe('UserProfileBadges on sanalyer', () => {
 			),
 		);
 		expect(images().map((img) => img.alt)).toEqual([
-			'sanalyer Ekibi',
-			'sanalyer İş Ortağı',
-			'sanalyer Hata Avcısı',
+			'Pirichat Ekibi',
+			'Pirichat İş Ortağı',
+			'Pirichat Hata Avcısı',
 			'Catalog badge',
 		]);
 		for (const image of images()) {
@@ -287,7 +287,7 @@ describe('UserProfileBadges on sanalyer', () => {
 		);
 
 		expect(images().map((img) => [img.alt, img.getAttribute('src')])).toEqual([
-			['sanalyer Ekibi', 'https://static.micup.gg/badges/staff.svg?v=3'],
+			['Pirichat Ekibi', 'https://static.micup.gg/badges/staff.svg?v=3'],
 			['<b>Erken</b> destekçi', 'https://media.micup.gg/branding/badge-1300000000000000002/aaaa1111.webp?size=128'],
 			['Moderatör', 'https://media.micup.gg/branding/badge-1300000000000000001/a_bbbb2222.webp?size=128'],
 		]);

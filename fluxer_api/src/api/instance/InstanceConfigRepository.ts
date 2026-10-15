@@ -234,7 +234,7 @@ export interface InstanceBillingAdminConfig {
 export type InstancePremiumMode = 'mirror' | 'everyone';
 
 // Micup shop settings; not an instance feature, so the public instance response never shows them.
-// sanalyer: prices are Turkish lira, so Micup's USD to AZN rate and CBAR TL display rate settings are gone.
+// pirichat: prices are Turkish lira, so Micup's USD to AZN rate and CBAR TL display rate settings are gone.
 export interface ShopConfig {
 	premium_sales_open: boolean;
 	item_sales_open: boolean;

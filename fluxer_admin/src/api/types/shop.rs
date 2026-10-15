@@ -23,7 +23,7 @@ pub struct ShopAdminBundle {
     pub item_ids: Vec<String>,
 }
 
-// sanalyer: sales are in Turkish lira only, so the USD → AZN rate and the CBAR TRY rate are gone.
+// pirichat: sales are in Turkish lira only, so the USD → AZN rate and the CBAR TRY rate are gone.
 #[derive(Debug, Deserialize)]
 pub struct ShopAdminSettings {
     pub premium_sales_open: bool,

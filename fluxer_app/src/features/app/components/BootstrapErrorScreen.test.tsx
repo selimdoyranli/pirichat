@@ -69,7 +69,7 @@ test('a local startup failure still offers the reset of app data', () => {
 	expect(markup).not.toContain(COPY_DETAILS_BUTTON);
 });
 
-test('opens only the sanalyer support address outside the app window', () => {
+test('opens only the Pirichat support address outside the app window', () => {
 	const markup = renderToStaticMarkup(<BootstrapErrorScreen />);
 	expect(markup).toContain('href="mailto:info@sanalyer.com"');
 	expect(markup).toContain('target="_blank"');

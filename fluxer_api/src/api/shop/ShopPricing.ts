@@ -7,7 +7,7 @@ import {checkIsPremium} from '@app/api/user/UserHelpers';
 import {UserPremiumTypes} from '@fluxer/constants/src/UserConstants';
 import {formatShopTry} from '@fluxer/schema/src/domains/shop/ShopPriceFormatting';
 
-// The one price function of the shop. sanalyer: every amount is Turkish lira in kuruş, the currency the shop
+// The one price function of the shop. pirichat: every amount is Turkish lira in kuruş, the currency the shop
 // shows and charges; Micup's USD list price, USD to AZN rate and TL display rate are gone. Every division rounds half
 // up; the largest list price the admin can set (10 000 000 kuruş) stays far below Number.MAX_SAFE_INTEGER.
 
@@ -115,9 +115,9 @@ export function describeShopOrder(
 	const suffix = ` — ${formatShopTry(quote.amount_minor, 'tr')}. Sipariş #${orderId}`;
 	const name =
 		prepared.kind === 'visionary'
-			? 'sanalyer Visionary'
+			? 'Pirichat Visionary'
 			: prepared.kind === 'premium'
-				? `sanalyer Plus · ${prepared.months} ay`
+				? `Pirichat Plus · ${prepared.months} ay`
 				: (prepared.itemName ?? '');
 	const room = MAX_ORDER_DESCRIPTION_LENGTH - suffix.length;
 	const fitted = name.length <= room ? name : `${name.slice(0, room - 1).replace(/[\uD800-\uDBFF]$/, '')}…`;

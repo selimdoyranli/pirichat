@@ -4,7 +4,7 @@ use crate::user_flags::{USER_FLAG_STAFF, public_user_flags};
 use serde::{Deserialize, Serialize};
 
 pub const FLUXER_SYSTEM_USER_ID: i64 = 0;
-pub const FLUXER_SYSTEM_USERNAME: &str = "sanalyer";
+pub const FLUXER_SYSTEM_USERNAME: &str = "Pirichat";
 pub const FLUXER_SYSTEM_DISCRIMINATOR: i32 = 0;
 
 /// Micup: a worn cosmetic, the catalog item and the image hash copied onto the user row when it was put on.

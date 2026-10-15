@@ -31,7 +31,7 @@ export const FeedLinkPreviewKind = withOpenApiType(
 			['youtube', 'youtube', 'A YouTube video'],
 			['twitch', 'twitch', 'A Twitch channel, video or clip'],
 			['kick', 'kick', 'A Kick channel, video or clip'],
-			['invite', 'invite', 'A sanalyer community invite'],
+			['invite', 'invite', 'A Pirichat community invite'],
 		],
 		'The kind of link a feed post previews',
 	),

@@ -718,9 +718,9 @@ mod managed_relay_tests {
         assert_eq!(
             managed_relay_hosts(&Env::from_iter([(
                 "FLUXER_PUSH_SERVICE_MANAGED_RELAY_HOSTS",
-                " Push.Sanalyer.Example, relay.sanalyer.example "
+                " Push.Pirichat.Example, relay.pirichat.example "
             ),])),
-            vec!["push.sanalyer.example", "relay.sanalyer.example"]
+            vec!["push.pirichat.example", "relay.pirichat.example"]
         );
     }
 }

@@ -166,7 +166,7 @@ export const ASSET_FORMAT_POLICY: Readonly<Record<AssetKind, AssetFormatPolicyEn
 
 // Micup: cosmetic catalog images (avatar decorations, ultra decorations, profile effects, nameplates) are branding
 // assets held to a narrower rule than branding's guild_icon fallback: raster only (no SVG).
-// sanalyer: the instance serves a small circle, so the catalog takes the files as they come: 8 MiB for every type,
+// pirichat: the instance serves a small circle, so the catalog takes the files as they come: 8 MiB for every type,
 // 32-2048 px on each side (profile effects are tall, nameplates are short strips). Micup held these to 512 KB
 // (1,228,800 bytes for ultra decorations) and 96-480 px.
 export const COSMETIC_ASSET_POLICY = Object.freeze({

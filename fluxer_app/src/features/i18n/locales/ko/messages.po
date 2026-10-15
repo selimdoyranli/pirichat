@@ -1521,7 +1521,7 @@ msgstr "{displayName}'s screen"
 #. Instance selector error shown when the instance speaks a protocol generation this client does not know. Domain is interpolated.
 #: src/features/auth/flow/instance_selector/InstanceDiscoveryFailure.ts
 msgid "{domain} runs a newer version of Pirichat than this app. Update Pirichat, then try again."
-msgstr "{domain}에서 더 최신 버전의 sanalyer를 사용 중입니다. sanalyer를 업데이트한 후 다시 시도하세요."
+msgstr "{domain}에서 더 최신 버전의 Pirichat을 사용 중입니다. Pirichat을 업데이트한 후 다시 시도하세요."
 
 #. Profile timezone difference text. duration is a localized hours/minutes phrase for how far ahead the target user's local time is.
 #: src/features/user/components/popouts/UserProfileShared.tsx
@@ -21535,7 +21535,7 @@ msgstr "평생 {premiumProductName}, 번호가 새겨진 배지, #0000 태그, �
 #. Note in the Visionary buy dialog, under the price.
 #: src/features/shop/utils/ShopMessageDescriptors.ts
 msgid "Lifetime means for as long as Pirichat runs."
-msgstr "평생은 sanalyer이 운영되는 동안을 뜻해요."
+msgstr "평생은 Pirichat이 운영되는 동안을 뜻해요."
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/expressions/components/modals/sticker_form/StickerPreview.tsx
@@ -31434,12 +31434,12 @@ msgstr "회원님과 동일한 시간대"
 
 #: src/features/user/components/modals/UsernamePickerModal.tsx
 msgid "Pirichat no longer uses #1234 tags. Everyone has a unique username: @yourname."
-msgstr "sanalyer은 더 이상 #1234 태그를 사용하지 않습니다. 모든 사람은 @yourname라는 고유한 사용자 이름을 가지고 있습니다."
+msgstr "Pirichat은 더 이상 #1234 태그를 사용하지 않습니다. 모든 사람은 @yourname라는 고유한 사용자 이름을 가지고 있습니다."
 
 #. Status shown when browser sign-in status polling gives up after repeated failures.
 #: src/features/auth/flow/auth_login_core/AuthLoginBrowserStep.tsx
 msgid "Pirichat stopped checking whether the browser approved this sign-in. It didn't lose your code."
-msgstr "sanalyer가 브라우저에서 이 로그인을 승인했는지 확인을 중단했습니다. 코드는 잃지 않았습니다."
+msgstr "Pirichat이 브라우저에서 이 로그인을 승인했는지 확인을 중단했습니다. 코드는 잃지 않았습니다."
 
 #. Product name on the Visionary card and buy dialog. A product name: keep it as written.
 #: src/features/shop/utils/ShopMessageDescriptors.ts
@@ -36304,7 +36304,7 @@ msgstr "태그 이름"
 
 #: src/features/user/components/modals/UsernamePickerModal.tsx
 msgid "Tagged names are no longer used. Choose a unique username to continue using Pirichat."
-msgstr "태그된 이름은 더 이상 사용되지 않습니다. sanalyer을 계속 사용하려면 고유한 사용자 이름을 선택하세요."
+msgstr "태그된 이름은 더 이상 사용되지 않습니다. Pirichat을 계속 사용하려면 고유한 사용자 이름을 선택하세요."
 
 #. Label of the tag filter in a forum channel and of the tags section in forum settings.
 #. Short label in the theme studio library section. Keep it concise.

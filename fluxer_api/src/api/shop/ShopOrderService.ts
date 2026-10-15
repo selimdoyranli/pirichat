@@ -182,7 +182,7 @@ export class ShopOrderService {
 				base_try_minor: price.baseTryMinor,
 				campaign_percent: price.campaignPercent,
 				premium_percent: price.premiumPercent,
-				// sanalyer: the shop sells in Turkish lira; this is the amount the provider charges.
+				// pirichat: the shop sells in Turkish lira; this is the amount the provider charges.
 				amount_minor: price.finalTryMinor,
 				currency: SHOP_CURRENCY,
 				status: 'pending',

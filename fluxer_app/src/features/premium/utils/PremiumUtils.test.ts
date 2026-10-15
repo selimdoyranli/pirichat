@@ -58,7 +58,7 @@ describe('premium product name', () => {
 		desktopRuntime.required = true;
 		await RuntimeConfig.deactivate();
 		expect(getPremiumProductName()).toBe('Plus');
-		expect(getPremiumProductFullName()).toBe('sanalyer Plus');
+		expect(getPremiumProductFullName()).toBe('Pirichat Plus');
 	});
 
 	test('falls back to the default premium name when the instance sends a blank one', () => {

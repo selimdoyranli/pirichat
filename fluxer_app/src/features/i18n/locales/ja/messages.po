@@ -21535,7 +21535,7 @@ msgstr "永久{premiumProductName}、番号入りバッジ、#0000タグ、そ�
 #. Note in the Visionary buy dialog, under the price.
 #: src/features/shop/utils/ShopMessageDescriptors.ts
 msgid "Lifetime means for as long as Pirichat runs."
-msgstr "「永久」とは、sanalyerがサービスを提供している限りという意味です。"
+msgstr "「永久」とは、Pirichatがサービスを提供している限りという意味です。"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/expressions/components/modals/sticker_form/StickerPreview.tsx
@@ -25816,7 +25816,7 @@ msgstr "公式インスタンス"
 #. Description of the official applications listed in the bot catalog.
 #: src/features/bots/components/pages/BotsPage.tsx
 msgid "Official Pirichat bots you can add to your community."
-msgstr "コミュニティに追加できるsanalyer公式ボット。"
+msgstr "コミュニティに追加できるPirichat公式ボット。"
 
 #. Generic presence-status label indicating the user is offline.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
@@ -40826,7 +40826,7 @@ msgstr "時刻形式にシステムのロケールを使用"
 #. Accessible label for the official Fluxer instance option.
 #: src/features/auth/flow/instance_selector/InstancePickerRows.tsx
 msgid "Use the official Pirichat instance"
-msgstr "公式のsanalyerインスタンスを使用"
+msgstr "公式のPirichatインスタンスを使用"
 
 #. Settings search entry description. One-line summary of what the settings search entry controls.
 #: src/features/user/components/settings_utils/search_index/DesktopSettingsIndex.ts

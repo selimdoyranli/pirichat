@@ -3,7 +3,7 @@
 pub const MAX_MEDIA_PROXY_BYTES: usize = 500 * 1024 * 1024;
 pub const DESKTOP_APP_ORIGIN: &str = "fluxer-app://app";
 
-pub const OUTBOUND_USER_AGENT: &str = "Mozilla/5.0 (compatible; sanalyerbot/1.0; +https://sanalyer.com)";
+pub const OUTBOUND_USER_AGENT: &str = "Mozilla/5.0 (compatible; pirichatbot/1.0; +https://pirichat.online)";
 pub const MAX_MEDIA_IMAGE_DIMENSION_DEFAULT: u32 = 16_384;
 pub const MAX_MEDIA_IMAGE_PIXELS_DEFAULT: usize =
     MAX_MEDIA_IMAGE_DIMENSION_DEFAULT as usize * MAX_MEDIA_IMAGE_DIMENSION_DEFAULT as usize;

@@ -83,7 +83,7 @@ function purples(value: string): Array<string> {
 	return hits;
 }
 
-describe('sanalyer v1 palette in the coal and dark themes', () => {
+describe('Pirichat v1 palette in the coal and dark themes', () => {
 	let css = '';
 	beforeAll(async () => {
 		await import('@app_scripts/GenerateColorSystem');
@@ -136,7 +136,7 @@ describe('sanalyer v1 palette in the coal and dark themes', () => {
 		}
 	});
 
-	// sanalyer: the accent follows the instance theme color (admin branding); Micup's white is only the fallback.
+	// pirichat: the accent follows the instance theme color (admin branding); Micup's white is only the fallback.
 	it('takes the accent from the instance theme color, white with near-black text when none is set', () => {
 		const coal = theme(css, '.theme-coal, .theme-dark');
 		const expected: Record<string, string> = {

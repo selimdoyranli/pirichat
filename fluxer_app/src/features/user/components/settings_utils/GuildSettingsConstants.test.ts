@@ -39,7 +39,7 @@ describe('GuildSettingsConstants', () => {
 		expect(appImports).toEqual(['@app/features/user/components/settings_utils/section_registry/SharedDescriptors']);
 	});
 
-	it('leaves the tab component registry as the only importer of the sanalyer tab modules', () => {
+	it('leaves the tab component registry as the only importer of the Pirichat tab modules', () => {
 		const tabModules = [
 			'features/boost/components/GuildBoostTab',
 			'features/roster/components/GuildRosterTab',

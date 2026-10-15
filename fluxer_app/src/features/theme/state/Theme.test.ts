@@ -15,7 +15,7 @@ async function loadHydratedTheme() {
 	return theme;
 }
 
-describe('sanalyer default theme', () => {
+describe('Pirichat default theme', () => {
 	beforeEach(() => {
 		window.localStorage.clear();
 	});

@@ -818,7 +818,7 @@ mod tests {
         let partial = system_user_partial();
 
         assert_eq!(partial.user_id, 0);
-        assert_eq!(partial.username, "sanalyer");
+        assert_eq!(partial.username, "Pirichat");
         assert_eq!(partial.discriminator, 0);
         assert_eq!(partial.global_name, None);
         assert_eq!(partial.bot, Some(true));

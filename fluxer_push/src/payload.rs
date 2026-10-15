@@ -10,7 +10,7 @@ const CLEAR_TYPE: &str = "notification_clear";
 const CLEAR_ACTION: &str = "clear_channel";
 const RING_TYPE: &str = "call_ring";
 const FALLBACK_TAG: &str = "fluxer-message";
-const FALLBACK_TITLE: &str = "sanalyer";
+const FALLBACK_TITLE: &str = "Pirichat";
 const APNS_CATEGORY: &str = "fluxer_message";
 const FCM_CLICK_ACTION: &str = "FLUXER_MESSAGE";
 const APNS_SOUND: &str = "default";
@@ -715,11 +715,11 @@ mod tests {
         let envelope = json!({"notification": {"body": "hi"}, "data": {}});
         assert_eq!(
             apns_payload(&envelope)["aps"]["alert"]["title"],
-            json!("sanalyer")
+            json!("Pirichat")
         );
         assert_eq!(
             fcm_message("device-token", &envelope)["message"]["notification"]["title"],
-            json!("sanalyer")
+            json!("Pirichat")
         );
     }
 

@@ -513,7 +513,7 @@ async fn shop_page_is_forbidden_without_shop_manage() {
     assert!(!page.contains(r#"href="/shop""#), "{page}");
 }
 
-// sanalyer: prices are lira, so the settings form has no exchange rate to send.
+// pirichat: prices are lira, so the settings form has no exchange rate to send.
 #[tokio::test]
 async fn shop_settings_form_sends_the_switches_and_the_discount() {
     let app = setup(&["*"], true, "mirror").await;
@@ -537,7 +537,7 @@ async fn shop_settings_form_sends_the_switches_and_the_discount() {
     );
 }
 
-// sanalyer: the shop sells in lira only; no AZN, USD, CBAR or Payriff text is left for admins.
+// pirichat: the shop sells in lira only; no AZN, USD, CBAR or Payriff text is left for admins.
 #[tokio::test]
 async fn shop_page_shows_lira_only_and_no_exchange_rate() {
     let app = setup(&["*"], true, "mirror").await;
@@ -1208,7 +1208,7 @@ fn shop_admin(health: Option<Value>) -> Value {
             "description": null,
             "item_ids": ["7", "1700000000000000010", "1700000000000000099"]
         }],
-        // sanalyer: kuruş; premium:1 is ₺149,99 and the bundle ₺1.250,50 to show both formats.
+        // pirichat: kuruş; premium:1 is ₺149,99 and the bundle ₺1.250,50 to show both formats.
         "prices": [{
             "sku": "premium:1",
             "base_try_minor": 14_999,

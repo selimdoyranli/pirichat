@@ -10,7 +10,7 @@ export type ShopOrderFailureReason = 'amount_mismatch' | 'account_deleted' | 'it
 export interface ShopPriceRow {
 	catalog: string; // always SHOP_PRICE_CATALOG
 	sku: string;
-	// sanalyer: list price in kuruş; the shop sells in Turkish lira only.
+	// pirichat: list price in kuruş; the shop sells in Turkish lira only.
 	base_try_minor: number;
 	campaign_percent: Nullish<number>;
 	campaign_ends_at: Nullish<Date>;
@@ -35,7 +35,7 @@ export interface ShopOrderRow {
 	sku: string;
 	item_id: Nullish<bigint>;
 	premium_months: Nullish<number>;
-	// sanalyer: Turkish lira in kuruş. amount_minor is the price after both discounts, the amount charged.
+	// pirichat: Turkish lira in kuruş. amount_minor is the price after both discounts, the amount charged.
 	base_try_minor: number;
 	campaign_percent: number;
 	premium_percent: number;

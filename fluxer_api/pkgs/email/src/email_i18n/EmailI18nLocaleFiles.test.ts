@@ -158,7 +158,7 @@ describe('EmailI18n locale files', () => {
 				key as EmailTemplateKey,
 				locale,
 				{...SAMPLE_VARIABLES, [ACTION_URL_VARIABLES[key]]: url} as EmailTemplateVariables[EmailTemplateKey],
-				'sanalyer',
+				'Pirichat',
 			);
 			expect(template.ok).toBe(true);
 			if (!template.ok) return;
@@ -178,9 +178,9 @@ describe('EmailI18n locale files', () => {
 			'registration_approved',
 			'tr',
 			{username: 'ayse', channelsUrl: 'https://example.com/channels/@me'},
-			'sanalyer',
+			'Pirichat',
 		);
-		expect(template.ok && template.value.button).toBe("sanalyer'i aç");
+		expect(template.ok && template.value.button).toBe("Pirichat'ı aç");
 	});
 	it.each(LOCALES)('%s keeps the source placeholders in every template', (locale) => {
 		const messages: Partial<Record<EmailTemplateKey, {subject: string; body: string}>> =

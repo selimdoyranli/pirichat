@@ -17,7 +17,7 @@ export class UserIndexRepository {
 	async syncIndices(data: UserRow, oldData?: UserRow | null): Promise<void> {
 		const batch = new BatchBuilder();
 		// Micup: human identity changes only through the legacy identity writer; ownership projections own their keys.
-		// sanalyer: a new account (no oldData) writes its username key here, in the batch, without a Cassandra write
+		// pirichat: a new account (no oldData) writes its username key here, in the batch, without a Cassandra write
 		// timestamp, since Postgres KV refuses USING TIMESTAMP.
 		const writeUsername =
 			data.bot || data.system || oldData?.username !== data.username || oldData?.discriminator !== data.discriminator;

@@ -138,12 +138,12 @@ function missingOperations(specPath: string, operations: ReadonlyArray<string>):
 	});
 }
 
-describe('sanalyer routes in the OpenAPI specs', () => {
-	it('lists every public sanalyer operation in openapi.json', () => {
+describe('Pirichat routes in the OpenAPI specs', () => {
+	it('lists every public Pirichat operation in openapi.json', () => {
 		expect(missingOperations('fluxer_api/src/api/openapi/openapi.json', PUBLIC_OPERATIONS)).toEqual([]);
 	});
 
-	it('lists every admin sanalyer operation in openapi-admin.json', () => {
+	it('lists every admin Pirichat operation in openapi-admin.json', () => {
 		expect(missingOperations('fluxer_admin/openapi-admin.json', ADMIN_OPERATIONS)).toEqual([]);
 	});
 });

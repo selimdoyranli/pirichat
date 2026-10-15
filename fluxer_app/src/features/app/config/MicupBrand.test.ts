@@ -171,8 +171,8 @@ describe('Pirichat brand text', () => {
 		expect(wizard).toContain('href={PUSH_RELAY_NOTICE_URL}');
 	});
 
-	// "Pirichat" ends in a front vowel and a voiced r, like upstream's "Fluxer": Pirichat'i, Pirichat'e, Pirichat'de,
-	// Pirichat'den, Pirichat'in. Micup's back-vowel suffixes (Micup'u, Micup'a, Micup'ta, Micup'tan, Micup'un) must not
+	// "Pirichat" ends in a front vowel and a voiced r, like upstream's "Fluxer": Pirichat'ı, Pirichat'a, Pirichat'ta,
+	// Pirichat'tan, Pirichat'ın. Micup's back-vowel suffixes (Micup'u, Micup'a, Micup'ta, Micup'tan, Micup'un) must not
 	// come back.
 	it('attaches Turkish suffixes that fit "Pirichat" to the product name', () => {
 		const suffixes = tr.flatMap(([, msgstr]) =>

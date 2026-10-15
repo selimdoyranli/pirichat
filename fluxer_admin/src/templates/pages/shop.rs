@@ -100,7 +100,7 @@ pub fn shop_page(
         div class="space-y-6" {
             (page_header_with_actions(
                 "Shop",
-                // sanalyer: everything is priced and charged in Turkish lira.
+                // pirichat: everything is priced and charged in Turkish lira.
                 Some("Prices in Turkish lira, campaigns and whether the shop sells"),
                 html! {
                     a href={(base) "/gift-codes"} class="font-medium text-blue-600 text-sm hover:underline" {
@@ -183,7 +183,7 @@ fn order_details(base: &str, order: &ShopAdminOrder, items: Option<&[CosmeticIte
                     span class="ml-2 text-neutral-500" { (reason) }
                 }
             }))
-            // sanalyer: the order charges its final price in lira; there is no other currency or rate.
+            // pirichat: the order charges its final price in lira; there is no other currency or rate.
             (detail_row("Price", html! {
                 (format_try(order.final_try_minor)) " (list " (format_try(order.base_try_minor))
                 ", campaign " (order.campaign_percent) "%, Plus member " (order.premium_percent) "%)"
@@ -200,7 +200,7 @@ fn order_details(base: &str, order: &ShopAdminOrder, items: Option<&[CosmeticIte
     }
 }
 
-// sanalyer: prices are set in lira, so the USD → AZN rate, the CBAR TRY rate and its override are gone.
+// pirichat: prices are set in lira, so the USD → AZN rate, the CBAR TRY rate and its override are gone.
 fn sales_card(base: &str, csrf_token: &str, shop: &ShopAdmin) -> Markup {
     let settings = &shop.settings;
     html! {
@@ -304,7 +304,7 @@ fn visionary_card(
                 form method="post" action={(base) "/shop?action=visionary_price"}
                     data-admin-result-form="true" class="flex flex-col gap-4" {
                     (csrf_input(csrf_token))
-                    // sanalyer: lira, comma or dot decimals; a text field because a number field refuses "149,99".
+                    // pirichat: lira, comma or dot decimals; a text field because a number field refuses "149,99".
                     (form_field_group("Price (₺)", "visionary-price", false, None,
                         Some("₺1–₺100000, e.g. 149,99. Blank takes Visionary out of the shop. A campaign \
                               from the table below applies; the Plus member discount never does."),

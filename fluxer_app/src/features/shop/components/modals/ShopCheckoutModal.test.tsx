@@ -226,7 +226,7 @@ describe('ShopCheckoutModal', () => {
 		cosmetics.load.mockReset();
 	});
 
-	// sanalyer: the order is charged in Turkish lira, the amount the shop shows; no second currency is explained.
+	// pirichat: the order is charged in Turkish lira, the amount the shop shows; no second currency is explained.
 	it.each(['payment_ready', 'awaiting'])('shows the persisted order total in Turkish in %s', (state) => {
 		locale = 'tr';
 		Object.assign(flow, {state, order: {...ORDER, final_try_minor: 14999}});
@@ -274,7 +274,7 @@ describe('ShopCheckoutModal', () => {
 		});
 		render({kind: 'item', sku: 'cosmetic:5'});
 
-		expect(texts('dt')).toEqual(['Price', 'Sale (-20%)', 'sanalyer Plus discount (-30%)', 'Total']);
+		expect(texts('dt')).toEqual(['Price', 'Sale (-20%)', 'Pirichat Plus discount (-30%)', 'Total']);
 		expect(texts('dd')).toEqual(['₺5', '−₺1', '−₺1.20', '₺2.80']);
 		expect(container.querySelector('[data-stage="5"]')).not.toBeNull();
 	});
@@ -529,13 +529,13 @@ describe('ShopCheckoutModal', () => {
 		users.currentUser = userWith({premium: true});
 		render({kind: 'visionary'});
 
-		expect(texts('h2')).toEqual(['sanalyer Visionary']);
+		expect(texts('h2')).toEqual(['Pirichat Visionary']);
 		expect(texts('dt')).toEqual(['Price', 'Total']);
 		expect(texts('p')).toEqual(
 			expect.arrayContaining([
-				'Lifetime sanalyer Plus, a numbered badge, the #0000 tag and a decoration only Visionaries have.',
-				'Lifetime means for as long as sanalyer runs.',
-				'Your remaining sanalyer Plus time becomes part of the lifetime plan. It is not refunded.',
+				'Lifetime Pirichat Plus, a numbered badge, the #0000 tag and a decoration only Visionaries have.',
+				'Lifetime means for as long as Pirichat runs.',
+				'Your remaining Pirichat Plus time becomes part of the lifetime plan. It is not refunded.',
 			]),
 		);
 

@@ -109,7 +109,7 @@ pub(crate) fn api_failure(action: &str, error: &ApiError) -> FlashData {
     FlashData::error(format!("Failed to {action} ({detail})"))
 }
 
-// sanalyer: the API answers a refused form with a message and, for INVALID_FORM_BODY, one entry per field; the toast
+// pirichat: the API answers a refused form with a message and, for INVALID_FORM_BODY, one entry per field; the toast
 // used to show only the status code, so an oversized cosmetic image read as a bare "HTTP 400".
 fn api_error_detail(message: &str) -> Option<String> {
     let value: serde_json::Value = serde_json::from_str(message).ok()?;
@@ -196,7 +196,7 @@ pub fn build_router(config: AdminConfig) -> Router {
             security_headers_middleware,
         ))
         .layer(from_fn(cache_headers_middleware))
-        // sanalyer: cosmetic images arrive base64-encoded in the form body; axum's 2 MiB default refused them.
+        // pirichat: cosmetic images arrive base64-encoded in the form body; axum's 2 MiB default refused them.
         .layer(axum::extract::DefaultBodyLimit::max(ADMIN_MAX_BODY_BYTES))
         .layer(
             CompressionLayer::new()

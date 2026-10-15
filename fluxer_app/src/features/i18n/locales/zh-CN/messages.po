@@ -25816,7 +25816,7 @@ msgstr "官方实例"
 #. Description of the official applications listed in the bot catalog.
 #: src/features/bots/components/pages/BotsPage.tsx
 msgid "Official Pirichat bots you can add to your community."
-msgstr "可添加到社区的sanalyer官方机器人。"
+msgstr "可添加到社区的Pirichat官方机器人。"
 
 #. Generic presence-status label indicating the user is offline.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts

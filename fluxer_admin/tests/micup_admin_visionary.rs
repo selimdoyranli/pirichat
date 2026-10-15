@@ -157,7 +157,7 @@ async fn shop_page_shows_the_visionary_card_to_shop_manage() {
         "{page}"
     );
     assert!(page.contains(r#"name="visionary_price""#), "{page}");
-    // sanalyer: lira, comma decimals, no symbol in the field so it reads back unchanged.
+    // pirichat: lira, comma decimals, no symbol in the field so it reads back unchanged.
     assert!(page.contains(r#"value="1250,50""#), "{page}");
     assert!(page.contains("Hidden"), "{page}");
     assert!(page.contains("Put on sale"), "{page}");

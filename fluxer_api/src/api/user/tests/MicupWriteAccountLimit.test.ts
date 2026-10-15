@@ -77,7 +77,7 @@ function writeRoutes(): Array<WriteRoute> {
 	return routes;
 }
 
-describe('sanalyer write route account limits', () => {
+describe('Pirichat write route account limits', () => {
 	it.each(
 		writeRoutes().flatMap((route) =>
 			[

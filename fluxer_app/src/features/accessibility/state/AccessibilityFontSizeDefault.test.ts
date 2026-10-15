@@ -36,7 +36,7 @@ function applySyncedFontSize(accessibility: {fontSize: number}, fontSize: number
 	});
 }
 
-describe('sanalyer chat text default (15px)', () => {
+describe('Pirichat chat text default (15px)', () => {
 	beforeEach(() => {
 		window.localStorage.clear();
 	});

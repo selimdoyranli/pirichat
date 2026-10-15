@@ -83,7 +83,7 @@ async function logoutAndReload(values: Map<string, string>): Promise<void> {
 	}
 }
 
-describe('AuthSessionManager.logout on sanalyer', () => {
+describe('AuthSessionManager.logout on Pirichat', () => {
 	it('keeps device voice room discovery flags when logging out', async () => {
 		const discovery = '{"dismissed":true,"shimmerShown":true,"__mps__":{"version":1}}';
 		const values = new Map([

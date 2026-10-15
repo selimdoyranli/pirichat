@@ -55,7 +55,7 @@ vi.mock('@app/features/channel/components/PreloadableUserPopout', () => ({
 
 // The member row imports stores that read the page bootstrap at import time.
 (window as unknown as {__FLUXER_BOOTSTRAP__: unknown}).__FLUXER_BOOTSTRAP__ = {
-	instance: {app_public: {branding: {product_name: 'sanalyer'}}},
+	instance: {app_public: {branding: {product_name: 'Pirichat'}}},
 	config: {releaseChannel: 'stable', bootstrapApiEndpoint: 'https://micup.test/api'},
 	geoip: {
 		countryCode: 'TR',

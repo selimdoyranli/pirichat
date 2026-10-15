@@ -111,7 +111,7 @@ describe('shop order creation', () => {
 		await getVisionaryService().setTotal(total);
 	}
 
-	// sanalyer: one currency end to end; the quote, the order, the stored row and the provider request agree in TRY.
+	// pirichat: one currency end to end; the quote, the order, the stored row and the provider request agree in TRY.
 	it('keeps the quote, the order, the stored row and the provider amount identical in Turkish lira', async () => {
 		await openShop(harness, admin);
 		await setPrices(harness, admin, {'premium:1': 14_999});
@@ -125,7 +125,7 @@ describe('shop order creation', () => {
 		expect(payriffCreates()[0]!.body).toMatchObject({
 			amount: 149.99,
 			currency: 'TRY',
-			description: `sanalyer Plus · 1 ay — ₺149,99. Sipariş #${created.id}`,
+			description: `Pirichat Plus · 1 ay — ₺149,99. Sipariş #${created.id}`,
 		});
 	});
 

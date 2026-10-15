@@ -20,7 +20,7 @@ describe('ErrorI18n', () => {
 		});
 	});
 	describe('global IP block messages', () => {
-		it('names the blocked address and the sanalyer support mailbox in every locale', () => {
+		it('names the blocked address and the Pirichat support mailbox in every locale', () => {
 			for (const locale of Object.keys(ERROR_I18N_LOCALE_MESSAGES)) {
 				for (const code of ['GLOBAL_IP_BANNED', 'GLOBAL_IP_TEMPORARILY_BANNED']) {
 					const message = getErrorMessageUnsafe(code, locale, {ipAddress: '203.0.113.20'});

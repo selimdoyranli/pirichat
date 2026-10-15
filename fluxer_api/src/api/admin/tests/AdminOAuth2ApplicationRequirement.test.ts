@@ -122,14 +122,14 @@ describe('Admin OAuth2 Application Requirement', () => {
 	});
 
 	// Micup: admins read this name on the OAuth2 consent screen and in their authorized apps.
-	// The name follows branding.product_name, which the live instance sets to sanalyer.
-	test('names the admin OAuth2 application sanalyer Admin', async () => {
-		setCachedProductName('sanalyer');
+	// The name follows branding.product_name, which the live instance sets to pirichat.
+	test('names the admin OAuth2 application Pirichat Admin', async () => {
+		setCachedProductName('Pirichat');
 		try {
 			const application = await new ApplicationRepository().getApplication(
 				createApplicationID(ADMIN_OAUTH2_APPLICATION_ID),
 			);
-			expect(application?.name).toBe('sanalyer Admin');
+			expect(application?.name).toBe('Pirichat Admin');
 		} finally {
 			setCachedProductName(null);
 		}

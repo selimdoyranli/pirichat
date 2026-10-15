@@ -68,7 +68,7 @@ export class PayriffClient {
 		this.baseUrl = config.baseUrl.replace(/\/+$/u, '');
 	}
 
-	// sanalyer: the currency comes from the order (TRY) instead of a fixed AZN, so a dormant Payriff never charges a
+	// pirichat: the currency comes from the order (TRY) instead of a fixed AZN, so a dormant Payriff never charges a
 	// kuruş amount as manat; Payriff refuses currencies it does not support and the order fails as provider_error.
 	async createOrder(input: {
 		amountMinor: number;

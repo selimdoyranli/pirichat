@@ -316,7 +316,7 @@ describe('InstanceController discovery captcha', () => {
 		});
 	});
 
-	describe('sanalyer premium features', () => {
+	describe('Pirichat premium features', () => {
 		let previous: {selfHosted: boolean; key: string};
 
 		beforeEach(() => {

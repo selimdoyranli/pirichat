@@ -6,7 +6,7 @@ import {ShopSku} from '@fluxer/schema/src/domains/shop/ShopRequestSchemas';
 import {Int32Type, SnowflakeStringType} from '@fluxer/schema/src/primitives/SchemaPrimitives';
 import {z} from 'zod';
 
-// sanalyer: every shop amount is Turkish lira in kuruş (1 TL = 100 kuruş); there is no other currency.
+// pirichat: every shop amount is Turkish lira in kuruş (1 TL = 100 kuruş); there is no other currency.
 export const ShopPriceResponse = z.object({
 	base_try_minor: Int32Type.describe('List price in kuruş'),
 	campaign_percent: Int32Type.nullable().describe('Active campaign discount; null when none or ended'),

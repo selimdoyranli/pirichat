@@ -592,7 +592,7 @@ Registration verifies a [CAPTCHA](/topics/captcha/). It permits 3 attempts per h
 
 <sup>8</sup> Required while a self-hosted instance is unconfigured and has no admin account, where an absent or blank value returns the field code `SETUP_TOKEN_REQUIRED`. Accepted until the first admin account exists, and a wrong value returns the field code `SETUP_TOKEN_INVALID`. Ignored afterwards, on a hosted instance, and on a self-hosted instance that does not [enforce the token](/operator/configuration/#setup-token). Surrounding whitespace is trimmed
 
-sanalyer requires accounts to be at least 15 years old in every region, including an unknown region. An age below that minimum returns the field code `MUST_BE_MINIMUM_AGE`, and the applied minimum appears only in the localised message.
+Pirichat requires accounts to be at least 15 years old in every region, including an unknown region. An age below that minimum returns the field code `MUST_BE_MINIMUM_AGE`, and the applied minimum appears only in the localised message.
 
 Registration returns 403 `REGISTRATION_CLOSED` when the instance is closed and no valid registration URL was supplied. A registration that would wait for approval, through the approval mode or a registration URL that requires approval, returns 400 `REGISTRATION_CREDENTIALS_REQUIRED` unless it has a `password`, and on an `email` instance also an `email`, because an account without them could never sign in once approved. That refusal counts against no registration allowance and uses no registration URL seat. A username whose discriminator space is exhausted returns the field code `TOO_MANY_USERS_WITH_THIS_USERNAME`. A username or display name containing a blocked substring returns 403 `CONTENT_BLOCKED`.
 

@@ -73,7 +73,7 @@ describe('UsernameType', () => {
 		const result = UsernameType.safeParse('EVERYONE');
 		expect(result.success).toBe(false);
 	});
-	it.each(['micupdestek', 'MiCuP', 'resmi_Micup'])('rejects the sanalyer brand in %s', (username) => {
+	it.each(['micupdestek', 'MiCuP', 'resmi_Micup'])('rejects the Pirichat brand in %s', (username) => {
 		const result = UsernameType.safeParse(username);
 		expect(result.success).toBe(false);
 		if (!result.success) {
@@ -141,38 +141,38 @@ describe('GlobalNameType', () => {
 		}
 	});
 	it.each([
-		'sanalyer Destek',
-		'sanalyer Resmi',
+		'Pirichat Destek',
+		'Pirichat Resmi',
 		'micup_official',
 		'MİCUP DESTEK',
 		'M1cup Support',
 		'Rnicup Yönetim',
 		'Мicup Ekibi',
 		'ＭＩＣＵＰ Resmi',
-		'sanalyer Mod',
-		'sanalyer',
-		'sanalyer Yetkili',
-		'sanalyer Yardım',
-		'sanalyer Güvenlik',
-		'sanalyer Sistem',
-		'sanalyer Duyuru',
-		'sanalyer Moderasyon',
+		'Pirichat Mod',
+		'Pirichat',
+		'Pirichat Yetkili',
+		'Pirichat Yardım',
+		'Pirichat Güvenlik',
+		'Pirichat Sistem',
+		'Pirichat Duyuru',
+		'Pirichat Moderasyon',
 		'MICUP YETKİLİSİ',
 		'MicupDuyurular',
-		'sanalyer Güvenliği',
-		'sanalyer Desteği',
-		'sanalyer System',
-		'sanalyer Security',
-		'sanalyer Help',
-		'sanalyer Announcements',
-		'sanalyer Moderation',
-		'sanalyer Team',
-		'SANALYER Destek',
+		'Pirichat Güvenliği',
+		'Pirichat Desteği',
+		'Pirichat System',
+		'Pirichat Security',
+		'Pirichat Help',
+		'Pirichat Announcements',
+		'Pirichat Moderation',
+		'Pirichat Team',
+		'PIRICHAT Destek',
 		'Sana1yer Destek',
 		'ᴍɪᴄᴜᴘ Destek',
 		'ᴍɪᴄᴜᴘ',
 		'ｍｉｃｕｐ Destek',
-	])('rejects %s, which passes for an official sanalyer account', (name) => {
+	])('rejects %s, which passes for an official Pirichat account', (name) => {
 		const result = GlobalNameType.safeParse(name);
 		expect(result.success).toBe(false);
 		if (!result.success) {
@@ -183,9 +183,9 @@ describe('GlobalNameType', () => {
 		'Ekip Lideri',
 		'Destek',
 		'Resmi Ali',
-		'sanalyer sever Ali',
-		'sanalyer Badminton',
-		'sanalyer Modern',
+		'Pirichat sever Ali',
+		'Pirichat Badminton',
+		'Pirichat Modern',
 		'Sunucu Yetkilisi',
 		'Duyurular',
 		'Sistem Botu',
@@ -227,8 +227,8 @@ describe('PasswordType', () => {
 });
 
 describe('WebhookNameType', () => {
-	it.each(['sanalyer', 'sanalyer Duyuru', 'ᴍɪᴄᴜᴘ Destek'])(
-		'rejects %s, which passes for an official sanalyer account',
+	it.each(['Pirichat', 'Pirichat Duyuru', 'ᴍɪᴄᴜᴘ Destek'])(
+		'rejects %s, which passes for an official Pirichat account',
 		(name) => {
 			const result = WebhookNameType.safeParse(name);
 			expect(result.success).toBe(false);
@@ -238,11 +238,11 @@ describe('WebhookNameType', () => {
 		},
 	);
 	it('refuses the same name as a per-message override and on a Slack-compatible hook', () => {
-		expect(WebhookMessageRequest.safeParse({content: 'x', username: 'sanalyer Sistem'}).success).toBe(false);
-		expect(SlackWebhookRequest.safeParse({text: 'x', username: 'sanalyer Yetkili'}).success).toBe(false);
+		expect(WebhookMessageRequest.safeParse({content: 'x', username: 'Pirichat Sistem'}).success).toBe(false);
+		expect(SlackWebhookRequest.safeParse({text: 'x', username: 'Pirichat Yetkili'}).success).toBe(false);
 		expect(WebhookMessageRequest.safeParse({content: 'x', username: 'Sistem Botu'}).success).toBe(true);
 	});
-	it.each(['Duyurular', 'Sistem Botu', 'sanalyer Haberci'])('accepts %s', (name) => {
+	it.each(['Duyurular', 'Sistem Botu', 'Pirichat Haberci'])('accepts %s', (name) => {
 		expect(WebhookNameType.safeParse(name).success).toBe(true);
 	});
 });

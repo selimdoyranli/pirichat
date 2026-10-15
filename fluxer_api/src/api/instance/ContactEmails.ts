@@ -6,7 +6,7 @@ export interface ContactEmails {
 	supportEmail: string | null;
 }
 
-// Micup: sanalyer runs with self_hosted=true yet answers its own support, appeals and safety mail, so these
+// Micup: Pirichat runs with self_hosted=true yet answers its own support, appeals and safety mail, so these
 // addresses do not depend on Config.instance.selfHosted the way upstream's fluxer.com addresses do.
 const MICUP_CONTACT_EMAIL = 'info@sanalyer.com';
 

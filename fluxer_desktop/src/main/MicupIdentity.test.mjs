@@ -205,7 +205,7 @@ describe('Pirichat desktop identity', () => {
 			assert.match(source, /DESKTOP_APP_NAME|`Pirichat /, file);
 		}
 		const menu = readFileSync(new URL('./Menu.ts', import.meta.url), 'utf8');
-		assert.match(menu, /openExternalDeduped\('mailto:info@sanalyer\.com'\)/);
+		assert.match(menu, /openExternalDeduped\('mailto:info@pirichat\.com'\)/);
 		// AGPL source offer: Help > Source code opens the Pirichat source page, not upstream GitHub.
 		assert.match(
 			menu,

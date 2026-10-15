@@ -32,7 +32,7 @@ function wireProfile(extra: Partial<ProfileWire> = {}): ProfileWire {
 	};
 }
 
-describe('Profile sanalyer fields', () => {
+describe('Profile Pirichat fields', () => {
 	it('reads null when the server sends none of them', () => {
 		const profile = new Profile(wireProfile());
 		expect(profile.profileEffect).toBeNull();

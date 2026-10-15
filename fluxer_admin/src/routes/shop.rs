@@ -26,7 +26,7 @@ use serde::Deserialize;
 use serde_json::{Value, json};
 use time::{OffsetDateTime, UtcOffset, format_description::well_known::Rfc3339};
 
-// sanalyer: SetShopPricesRequest takes kuruş from 100 (₺1) to 10,000,000 (₺100.000).
+// pirichat: SetShopPricesRequest takes kuruş from 100 (₺1) to 10,000,000 (₺100.000).
 const MIN_PRICE_KURUS: i64 = 100;
 const MAX_PRICE_KURUS: i64 = 10_000_000;
 // ApplyShopCampaignRequest and RemoveShopCampaignRequest take at most 200 SKUs.
@@ -100,7 +100,7 @@ async fn shop_page(
     Html(markup.into_string()).into_response()
 }
 
-// sanalyer: support starts from the order number the user or the payment provider shows.
+// pirichat: support starts from the order number the user or the payment provider shows.
 async fn find_order(client: &AdminApiClient, raw: &str) -> Result<ShopAdminOrder, FlashData> {
     let Some(order_id) = raw.trim().parse::<i64>().ok().filter(|id| *id > 0) else {
         return Err(FlashData::error("Enter an order number."));
@@ -151,7 +151,7 @@ async fn shop_post(
     )
 }
 
-// sanalyer: prices are set in lira directly, so there is no exchange rate to save.
+// pirichat: prices are set in lira directly, so there is no exchange rate to save.
 async fn save_settings(client: &AdminApiClient, form: &MultiValueForm) -> FlashData {
     let Some(discount) = form
         .parse_u32("premium_discount_percent")
@@ -400,7 +400,7 @@ pub(crate) fn count_of(count: usize, noun: &str) -> String {
     format!("{count} {noun}{plural}")
 }
 
-// sanalyer: "149,99" or "149.99" (Turkish keyboards type a comma) with at most two decimals, in kuruş.
+// pirichat: "149,99" or "149.99" (Turkish keyboards type a comma) with at most two decimals, in kuruş.
 // One separator at most, so "1.250" is refused rather than guessed as ₺1.25 or ₺1250.
 fn parse_lira_decimal(input: &str) -> Option<i64> {
     let input = input.trim();
@@ -417,7 +417,7 @@ fn parse_lira_decimal(input: &str) -> Option<i64> {
         .checked_add(fraction)
 }
 
-/// sanalyer: prices are Turkish lira. A blank price takes the product out of the shop (`Ok(None)`);
+/// pirichat: prices are Turkish lira. A blank price takes the product out of the shop (`Ok(None)`);
 /// "150", "149,99", "149.99" and "149,5" read as 15000, 14999, 14999 and 14950 kuruş.
 /// ₺1–₺100000 with at most two decimals, as SetShopPricesRequest takes.
 pub(crate) fn parse_try_minor(input: &str) -> Result<Option<i32>, String> {
@@ -449,7 +449,7 @@ pub(crate) fn turkey_local_to_utc(input: &str) -> Result<Option<String>, String>
         .ok_or_else(|| "Enter the campaign end as a date and time, or leave it blank.".to_owned())
 }
 
-/// sanalyer: kuruş as the app shows them (Intl tr-TR, TRY, narrow symbol): a whole-lira price drops the
+/// pirichat: kuruş as the app shows them (Intl tr-TR, TRY, narrow symbol): a whole-lira price drops the
 /// decimals, any other shows two, "." groups thousands. 15000 reads "₺150", 14999 "₺149,99",
 /// 125000 "₺1.250". Display only, the API prices everything.
 pub(crate) fn format_try(kurus: i32) -> String {

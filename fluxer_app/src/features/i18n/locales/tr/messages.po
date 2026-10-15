@@ -1521,7 +1521,7 @@ msgstr "{displayName} ekranı"
 #. Instance selector error shown when the instance speaks a protocol generation this client does not know. Domain is interpolated.
 #: src/features/auth/flow/instance_selector/InstanceDiscoveryFailure.ts
 msgid "{domain} runs a newer version of Pirichat than this app. Update Pirichat, then try again."
-msgstr "{domain} daha yeni bir Pirichat sürümü çalıştırıyor. Pirichat'i güncelleyin, sonra tekrar deneyin."
+msgstr "{domain} daha yeni bir Pirichat sürümü çalıştırıyor. Pirichat'ı güncelleyin, sonra tekrar deneyin."
 
 #. Profile timezone difference text. duration is a localized hours/minutes phrase for how far ahead the target user's local time is.
 #: src/features/user/components/popouts/UserProfileShared.tsx
@@ -31434,7 +31434,7 @@ msgstr "Sizinle aynı saat diliminde"
 
 #: src/features/user/components/modals/UsernamePickerModal.tsx
 msgid "Pirichat no longer uses #1234 tags. Everyone has a unique username: @yourname."
-msgstr "Pirichat'de artık #1234 etiketleri yok. Herkesin kendine ait, tek bir kullanıcı adı var: @adınız."
+msgstr "Pirichat'ta artık #1234 etiketleri yok. Herkesin kendine ait, tek bir kullanıcı adı var: @adınız."
 
 #. Status shown when browser sign-in status polling gives up after repeated failures.
 #: src/features/auth/flow/auth_login_core/AuthLoginBrowserStep.tsx
@@ -36304,7 +36304,7 @@ msgstr "Etiket adı"
 
 #: src/features/user/components/modals/UsernamePickerModal.tsx
 msgid "Tagged names are no longer used. Choose a unique username to continue using Pirichat."
-msgstr "Etiketli adlar artık kullanılmıyor. Pirichat'i kullanmaya devam etmek için kendinize özel bir kullanıcı adı seçin."
+msgstr "Etiketli adlar artık kullanılmıyor. Pirichat'ı kullanmaya devam etmek için kendinize özel bir kullanıcı adı seçin."
 
 #. Label of the tag filter in a forum channel and of the tags section in forum settings.
 #. Short label in the theme studio library section. Keep it concise.

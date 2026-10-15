@@ -5,7 +5,7 @@ import {formatDiscount, formatTry, percentOff, shownTryMinor} from '@app/feature
 import {describe, expect, it} from 'vitest';
 
 describe('ShopPriceFormat', () => {
-	// sanalyer: Turkish lira is the only shop currency.
+	// pirichat: Turkish lira is the only shop currency.
 	it('formats kuruş as Turkish lira with local separators, dropping decimals on whole lira', () => {
 		expect(formatTry(15000, 'tr')).toBe('₺150');
 		expect(formatTry(14999, 'tr')).toBe('₺149,99');

@@ -16,7 +16,7 @@ vi.mock('@app/features/premium/utils/PremiumUtils', () => ({shouldShowPremiumFea
 
 // The instance branding names the product; Micup's instance says "Micup".
 (window as unknown as {__FLUXER_BOOTSTRAP__: unknown}).__FLUXER_BOOTSTRAP__ = {
-	instance: {app_public: {branding: {product_name: 'sanalyer'}}},
+	instance: {app_public: {branding: {product_name: 'Pirichat'}}},
 };
 
 const {PremiumUserBadge} = await import('@app/features/user/components/PremiumUserBadge');
@@ -54,9 +54,9 @@ describe('PremiumUserBadge', () => {
 	const render = (flags: number, dataFlx?: string) =>
 		act(() => root.render(createElement(PremiumUserBadge, {user: userWithFlags(flags), 'data-flx': dataFlx})));
 
-	const crown = () => container.querySelector('[aria-label="sanalyer Plus"]') as HTMLElement | null;
+	const crown = () => container.querySelector('[aria-label="Pirichat Plus"]') as HTMLElement | null;
 
-	it('draws the crown as a button labelled "sanalyer Premium" for a user with PREMIUM_BADGE', () => {
+	it('draws the crown as a button labelled "Pirichat Premium" for a user with PREMIUM_BADGE', () => {
 		render(PublicUserFlags.PREMIUM_BADGE);
 
 		const badge = crown();

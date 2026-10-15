@@ -28,7 +28,7 @@ vi.mock('@lingui/react/macro', () => ({
 	useLingui: () => ({i18n: {locale: 'en-US', _: interpolate}}),
 	Trans: ({children}: {children: React.ReactNode}) => children,
 }));
-vi.mock('@app/features/app/config/I18nDisplayConstants', () => ({PREMIUM_PRODUCT_NAME: 'sanalyer Plus'}));
+vi.mock('@app/features/app/config/I18nDisplayConstants', () => ({PREMIUM_PRODUCT_NAME: 'Pirichat Plus'}));
 vi.mock('@app/features/user/utils/LocaleUtils', () => ({getCurrentLocale: () => 'en-US'}));
 vi.mock('@app/features/user/utils/DateFormatting', () => ({getFormattedDateTime: (value: string) => value}));
 vi.mock('@app/features/platform/utils/AppLogger', () => ({
@@ -216,7 +216,7 @@ describe('ShopItemCard', () => {
 	it("Premium'a dahil chip and Get Premium for a non-premium account", () => {
 		render(entry('premium'));
 		expect(chip()).toBe('Included in Plus');
-		expect(action()?.textContent).toBe('Get sanalyer Plus');
+		expect(action()?.textContent).toBe('Get Pirichat Plus');
 		act(() => action()?.click());
 		const opened = pushed();
 		expect(opened.type).toBe(ShopCheckoutModal);
@@ -285,13 +285,13 @@ describe('ShopItemCard', () => {
 		expect(action()?.getAttribute('aria-label')).toBe('Equip Yitik Melek');
 	});
 
-	it('glows around Purchase and Get sanalyer Plus while leaving equip actions plain', () => {
+	it('glows around Purchase and Get Pirichat Plus while leaving equip actions plain', () => {
 		const halo = () => action()?.closest('[data-halo]')?.getAttribute('data-halo') ?? null;
 		render(entry());
 		expect(halo()).toBe('small');
 
 		render(entry('premium'));
-		expect(action()?.textContent).toBe('Get sanalyer Plus');
+		expect(action()?.textContent).toBe('Get Pirichat Plus');
 		expect(halo()).toBe('small');
 
 		state.premium = true;
