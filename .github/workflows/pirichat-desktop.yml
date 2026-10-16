@@ -19,7 +19,7 @@ on:
       skip_targets:
         description: Atlanacak hedefler, virgülle (windows, windows-arm64, macos, linux-x64, linux-arm64).
         required: false
-        default: "windows-arm64,linux-arm64"
+        default: "windows-arm64,linux-x64,linux-arm64"
         type: string
       publish_release:
         description: Paketleri dl.pirichat.online'a (R2) yükle ve selimdoyranli/pirichat'ta GitHub release aç. Kapalıysa yalnız artifact üretir.
