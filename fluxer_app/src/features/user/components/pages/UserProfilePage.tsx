@@ -41,6 +41,7 @@ import {ProfileMediaHeader} from '@app/features/user/components/modals/user_prof
 import {UserInfo} from '@app/features/user/components/modals/user_profile_modal/UserProfileModalUserInfo';
 import {ProfileMediaGrid} from '@app/features/user/components/pages/ProfileMediaGrid';
 import styles from '@app/features/user/components/pages/UserProfilePage.module.css';
+import {profileGradientSurface} from '@app/features/user/components/profile/ProfileGradientSurface';
 import {UserProfileLoadingSkeleton} from '@app/features/user/components/profile/UserProfileLoadingSkeleton';
 import {useUserProfileSurfaceState} from '@app/features/user/hooks/useUserProfileSurfaceState';
 import type {Profile} from '@app/features/user/models/Profile';
@@ -50,6 +51,7 @@ import UserProfile from '@app/features/user/state/UserProfile';
 import Users from '@app/features/user/state/Users';
 import * as NicknameUtils from '@app/features/user/utils/NicknameUtils';
 import * as ProfileDisplayUtils from '@app/features/user/utils/ProfileDisplayUtils';
+import {profileThemeColors} from '@app/features/user/utils/ProfileGradient';
 import {resolveProfileGuildMembership, toProfileDisplayContext} from '@app/features/user/utils/ProfileGuildMembership';
 import {createMockProfile} from '@app/features/user/utils/ProfileUtils';
 import {
@@ -70,9 +72,10 @@ import {
 	UserPlusIcon,
 } from '@phosphor-icons/react';
 import {reaction} from 'mobx';
+import {clsx} from 'clsx';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
-import {type RefObject, useEffect, useMemo, useRef, useState} from 'react';
+import {type RefObject, useCallback, useEffect, useMemo, useRef, useState} from 'react';
 
 const PROFILE_DESCRIPTOR = msg({
 	message: 'Profile',
@@ -231,9 +234,6 @@ const ProfilePageContent = observer(
 					showFollowStats={showContent}
 					data-flx="user.user-profile-page.content.header"
 				/>
-				<div className={styles.actionsRow} data-flx="user.user-profile-page.content.actions-row">
-					<ProfilePageActions user={user} data-flx="user.user-profile-page.content.actions" />
-				</div>
 				{profile.profileLimited && (
 					<ProfilePageMessage kind="limited" data-flx="user.user-profile-page.content.limited" />
 				)}
@@ -264,6 +264,10 @@ const ProfilePageHeader = observer(
 		showFollowStats: boolean;
 	}) => {
 		const membership = resolveProfileGuildMembership(profile);
+		const renderActions = useCallback(
+			() => <ProfilePageActions user={user} data-flx="user.user-profile-page.content.actions" />,
+			[user],
+		);
 		const profileContext = useMemo(
 			() => toProfileDisplayContext({user, profile, membership, guildMemberProfile: profile.guildMemberProfile}),
 			[user, profile, membership],
@@ -278,8 +282,13 @@ const ProfilePageHeader = observer(
 			undefined,
 			MEDIA_PROXY_PROFILE_BANNER_SIZE_MODAL,
 		);
+		const gradient = profileGradientSurface(profileThemeColors(user, profile));
 		return (
-			<div className={styles.card} data-flx="user.user-profile-page.header.card">
+			<div
+				className={clsx(styles.card, gradient?.className)}
+				style={gradient?.style}
+				data-flx="user.user-profile-page.header.card"
+			>
 				<ProfileMediaHeader
 					user={user}
 					profile={profile}
@@ -289,7 +298,7 @@ const ProfilePageHeader = observer(
 					hoverBannerUrl={hoverBannerUrl}
 					avatarUrl={avatarUrl}
 					hoverAvatarUrl={hoverAvatarUrl}
-					renderActionButtons={renderNoActions}
+					renderActionButtons={renderActions}
 					identity={
 						<div className={styles.identity} data-flx="user.user-profile-page.header.identity">
 							<UserInfo
@@ -312,9 +321,6 @@ const ProfilePageHeader = observer(
 		);
 	},
 );
-
-// The page's actions sit in a row under the name, where they can wrap on a phone; the banner keeps the avatar alone.
-const renderNoActions = () => null;
 
 // Fluxer's own commands; the modal's handlers are not copied.
 const ProfilePageActions = observer(({user}: {user: User}) => {

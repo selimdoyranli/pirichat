@@ -25,6 +25,12 @@ import {
 	GameActivityPolicyRevisionSchema,
 	GameActivityVisibilitySchema,
 } from '@fluxer/schema/src/domains/user/GameActivitySchemas';
+import {
+	type NameStyle,
+	NameStyleSchema,
+	type ThemeColors,
+	ThemeColorsSchema,
+} from '@fluxer/schema/src/domains/user/PlusAppearanceSchemas';
 import {LocaleSchema} from '@fluxer/schema/src/primitives/LocaleSchema';
 import {
 	createBitflagInt32Type,
@@ -83,6 +89,9 @@ export const UserPartialResponse = z.object({
 	nameplate_data: CosmeticAssetDataResponse.nullish().describe(
 		'The nameplate the user wears; omitted or null when none',
 	),
+	name_style: NameStyleSchema.nullish().describe(
+		'The name font and colour; omitted or null when none is set or the account has no active premium',
+	),
 });
 
 export type UserPartialResponse = z.infer<typeof UserPartialResponse>;
@@ -104,6 +113,9 @@ export const UserPrivateResponse = UserPartialResponse.extend({
 	bio: z.string().nullable().describe('The user biography text'),
 	pronouns: z.string().nullable().describe('The preferred pronouns of the user'),
 	accent_color: Int32Type.nullable().describe('The user-selected accent color as an integer'),
+	theme_colors: ThemeColorsSchema.nullable().describe(
+		'The profile card gradient; null when none is set or the account has no active premium',
+	),
 	timezone: z.string().nullable().optional().describe('The IANA timezone identifier saved by the user'),
 	timezone_privacy_flags: createBitflagInt32Type(
 		ProfileFieldPrivacyFlags,
@@ -292,6 +304,7 @@ export interface UserProfileResponse {
 	banner: string | null;
 	banner_color?: number | null;
 	accent_color: number | null;
+	theme_colors?: ThemeColors | null;
 }
 
 export const CustomStatusResponse = z.object({
@@ -315,6 +328,14 @@ export const UserSettingsResponse = z.object({
 		.pipe(GameActivityPolicyRevisionSchema)
 		.default('0')
 		.describe('Server-owned game sharing policy revision as a decimal string'),
+	game_activity_eligible: z
+		.boolean()
+		.optional()
+		.describe('Whether the account may share its current game: 15 or older with a valid date of birth'),
+	game_activity_default_pending: z
+		.boolean()
+		.optional()
+		.describe('Whether the one-time notice about the default game sharing audience is still unconfirmed'),
 	status: z.string().describe('The current online status of the user'),
 	status_resets_at: z.iso.datetime().nullish().describe('ISO8601 timestamp of when the status will reset'),
 	status_resets_to: z.string().nullish().describe('The status to reset to after the scheduled reset'),
@@ -513,6 +534,7 @@ export interface UserPartial {
 	readonly avatar_decoration_data?: CosmeticAssetDataResponse | null;
 	readonly avatar_ultra_data?: CosmeticAssetDataResponse | null;
 	readonly nameplate_data?: CosmeticAssetDataResponse | null;
+	readonly name_style?: NameStyle | null;
 }
 
 export interface UserPrivate extends UserPartial, UserProfile {
@@ -623,6 +645,11 @@ const UserProfileDataResponse = z.object({
 	banner: z.string().nullable().describe('Hash of the profile banner image'),
 	banner_color: Int32Type.nullable().optional().describe('Default banner color if no custom banner'),
 	accent_color: Int32Type.nullable().describe('User-selected accent color'),
+	theme_colors: ThemeColorsSchema.nullable()
+		.optional()
+		.describe(
+			'The profile card gradient; null when none is set, the profile is hidden or the account has no active premium',
+		),
 });
 
 const GuildMemberProfileDataResponse = z

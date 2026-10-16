@@ -43,6 +43,7 @@ async function fixture(privacy: number = ProfilePrivacyLevels.FRIENDS_ONLY) {
 		...UserSettings.getDefaultUserSettings({userId, locale: 'en-US', isAdult: true}),
 		profile_privacy: privacy,
 		game_activity_visibility: 'friends',
+		game_activity_visibility_source: 'user',
 		game_activity_policy_revision: 0n,
 	});
 	for (const [source, target] of [
@@ -110,6 +111,7 @@ async function fixture(privacy: number = ProfilePrivacyLevels.FRIENDS_ONLY) {
 		auditService: auditService as never,
 		userUpdateDeps: {} as never,
 		discriminatorService: {} as never,
+		enforcement: {} as never,
 		entityAssetService: {} as never,
 		guildRepository: {} as never,
 	});

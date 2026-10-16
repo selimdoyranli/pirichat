@@ -6,11 +6,15 @@ import {CompactMemberCustomStatus} from '@app/features/channel/components/Compac
 import styles from '@app/features/channel/components/MemberListItem.module.css';
 import {PreloadableUserPopout} from '@app/features/channel/components/PreloadableUserPopout';
 import {NameplateBackground} from '@app/features/cosmetics/components/NameplateBackground';
+import {GameActivityRowStatus} from '@app/features/game_activity/components/GameActivityRowStatus';
+import {useGameActivity} from '@app/features/game_activity/hooks/useGameActivity';
+import {RoleAppearance} from '@app/features/guild/components/RoleAppearance';
 import Guilds from '@app/features/guild/state/Guilds';
 import {useMemberListCustomStatus} from '@app/features/member/hooks/useMemberListCustomStatus';
 import {useMemberListMobile} from '@app/features/member/hooks/useMemberListMobile';
 import {useMemberListPresence} from '@app/features/member/hooks/useMemberListPresence';
 import type {GuildMember} from '@app/features/member/models/GuildMember';
+import {NameStyleText} from '@app/features/name_style/components/NameStyleText';
 import RollingTypingStore from '@app/features/typing/rolling/RollingTypingStore';
 import {GroupDMMemberContextMenu} from '@app/features/ui/action_menu/GroupDMContextMenu';
 import {GuildMemberContextMenu} from '@app/features/ui/action_menu/GuildMemberContextMenu';
@@ -97,6 +101,7 @@ export const MemberListItem: React.FC<MemberListItemProps> = observer((props) =>
 		enabled: guildId !== undefined && providedCustomStatus === undefined,
 	});
 	const memberListCustomStatus = providedCustomStatus !== undefined ? providedCustomStatus : hookCustomStatus;
+	const gameActivity = useGameActivity({userId: user.id});
 	const [contextMenuOpen, setContextMenuOpen] = useState(false);
 	const contextMenuTicketRef = useRef(0);
 	const isCurrentUser = user.id === Authentication.currentUserId;
@@ -186,14 +191,18 @@ export const MemberListItem: React.FC<MemberListItemProps> = observer((props) =>
 		});
 	}, [avatarMediaSize, guildId, guildMember, user]);
 	const nameContent = (
-		<span
+		<NameStyleText
 			ref={nameRef}
+			nameStyle={user.nameStyle}
+			guildRoles={user.nameStyle && guildId ? Guilds.getGuild(guildId)?.roles : undefined}
 			className={clsx(styles.name, roleColor && styles.nameRoleColored)}
 			style={nameStyle}
 			data-flx="channel.member-list-item.name"
 		>
-			{nickname}
-		</span>
+			<RoleAppearance member={guildMember} colorOverride={guildMember ? undefined : roleColor}>
+				{nickname}
+			</RoleAppearance>
+		</NameStyleText>
 	);
 	const content = (
 		<FocusRingWrapper
@@ -272,12 +281,20 @@ export const MemberListItem: React.FC<MemberListItemProps> = observer((props) =>
 										/>
 									)}
 								</div>
-								<CompactMemberCustomStatus
-									customStatus={memberListCustomStatus}
-									userId={user.id}
-									className={styles.memberCustomStatus}
-									data-flx="channel.member-list-item.member-custom-status"
-								/>
+								{gameActivity ? (
+									<GameActivityRowStatus
+										activity={gameActivity}
+										className={styles.memberCustomStatus}
+										data-flx="channel.member-list-item.game-activity"
+									/>
+								) : (
+									<CompactMemberCustomStatus
+										customStatus={memberListCustomStatus}
+										userId={user.id}
+										className={styles.memberCustomStatus}
+										data-flx="channel.member-list-item.member-custom-status"
+									/>
+								)}
 							</div>
 						</span>
 					</div>

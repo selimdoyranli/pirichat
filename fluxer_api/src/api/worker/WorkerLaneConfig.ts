@@ -76,6 +76,8 @@ const LANE_CONFIG = {
 			// queue delay passes 30 s or pioneer CAS timeouts show up.
 			'assignPioneerBadge',
 			'backfillPioneerBadges',
+			// Micup Early Plus: one run when the period opens.
+			'backfillEarlyPlusBadges',
 			// TEMPORARY: shares the lifecycle lane; give it a shop lane when its queue delay passes 30 s.
 			'verifyShopOrder',
 			'drainActivitySpool',
@@ -106,6 +108,7 @@ const LANE_CONFIG = {
 			'processPremiumStateReconciliationQueue',
 			'processPremiumExpirations',
 			'processGuildEntitlementExpirations',
+			'backfillGuildBoosts',
 			'processStorePurchaseRefreshQueue',
 			'pollGooglePlayVoidedPurchases',
 			'pollAppStoreNotificationHistory',

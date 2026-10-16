@@ -69,6 +69,7 @@ export class User {
 	readonly deletionAuditLogReason: string | null;
 	readonly deletionScheduledBy: UserID | null;
 	readonly deletionScheduledAt: Date | null;
+	readonly enforcementDecisionId: bigint | null;
 	readonly contentHiddenSince: Date | null;
 	readonly acls: Set<string>;
 	private readonly _traits: Set<string>;
@@ -86,6 +87,11 @@ export class User {
 	readonly avatarUltraAsset: string | null;
 	readonly profileEffectAsset: string | null;
 	readonly nameplateAsset: string | null;
+	readonly nameFont: number | null;
+	readonly nameColor: number | null;
+	readonly nameColor2: number | null;
+	readonly themePrimaryColor: number | null;
+	readonly themeAccentColor: number | null;
 	readonly version: number;
 
 	constructor(row: UserRow) {
@@ -146,6 +152,7 @@ export class User {
 		this.deletionAuditLogReason = row.deletion_audit_log_reason ?? null;
 		this.deletionScheduledBy = row.deletion_scheduled_by ?? null;
 		this.deletionScheduledAt = row.deletion_scheduled_at ?? null;
+		this.enforcementDecisionId = row.enforcement_decision_id ?? null;
 		this.contentHiddenSince = row.content_hidden_since ?? null;
 		this.acls = row.acls ?? new Set();
 		this._traits = row.traits ?? new Set();
@@ -163,6 +170,11 @@ export class User {
 		this.avatarUltraAsset = row.avatar_ultra_asset ?? null;
 		this.profileEffectAsset = row.profile_effect_asset ?? null;
 		this.nameplateAsset = row.nameplate_asset ?? null;
+		this.nameFont = row.name_font ?? null;
+		this.nameColor = row.name_color ?? null;
+		this.nameColor2 = row.name_color_2 ?? null;
+		this.themePrimaryColor = row.theme_primary_color ?? null;
+		this.themeAccentColor = row.theme_accent_color ?? null;
 		this.version = row.version;
 	}
 
@@ -240,6 +252,7 @@ export class User {
 			deletion_audit_log_reason: this.deletionAuditLogReason,
 			deletion_scheduled_by: this.deletionScheduledBy,
 			deletion_scheduled_at: this.deletionScheduledAt,
+			enforcement_decision_id: this.enforcementDecisionId,
 			content_hidden_since: this.contentHiddenSince,
 			acls: this.acls.size > 0 ? this.acls : null,
 			traits: this._traits.size > 0 ? this._traits : null,
@@ -257,6 +270,11 @@ export class User {
 			avatar_ultra_asset: this.avatarUltraAsset,
 			profile_effect_asset: this.profileEffectAsset,
 			nameplate_asset: this.nameplateAsset,
+			name_font: this.nameFont,
+			name_color: this.nameColor,
+			name_color_2: this.nameColor2,
+			theme_primary_color: this.themePrimaryColor,
+			theme_accent_color: this.themeAccentColor,
 			version: this.version,
 		};
 	}

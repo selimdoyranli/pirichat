@@ -30,7 +30,7 @@ pub struct BuildAppWasmArgs {
 
 pub fn run_build_app_wasm(args: BuildAppWasmArgs) -> Result<()> {
     let app_dir = resolve_app_dir(args.app_dir)?;
-    // sanalyer: the image build compiles the wasm packages in their own Docker stage and copies the outputs in;
+    // pirichat: the image build compiles the wasm packages in their own Docker stage and copies the outputs in;
     // with this flag set the codegen only checks that they are there.
     if env::var("FLUXER_APP_WASM_PREBUILT").is_ok_and(|value| value == "1") {
         for relative in [

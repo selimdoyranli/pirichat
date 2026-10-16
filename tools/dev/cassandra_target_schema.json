@@ -2015,6 +2015,10 @@
 				{
 					"name": "created_at",
 					"type": "timestamp"
+				},
+				{
+					"name": "decision_id",
+					"type": "bigint"
 				}
 			],
 			"primary_key": "(ip)",
@@ -6410,6 +6414,10 @@
 				{
 					"name": "vanity_release_at",
 					"type": "timestamp"
+				},
+				{
+					"name": "pending_feature_changes",
+					"type": "text"
 				}
 			],
 			"primary_key": "((guild_id))",
@@ -6818,6 +6826,14 @@
 				{
 					"name": "color",
 					"type": "int"
+				},
+				{
+					"name": "color_secondary",
+					"type": "int"
+				},
+				{
+					"name": "icon_emoji_id",
+					"type": "bigint"
 				},
 				{
 					"name": "icon_hash",
@@ -7313,6 +7329,10 @@
 				},
 				{
 					"name": "legal_hold_reason",
+					"type": "text"
+				},
+				{
+					"name": "reporter_outcome",
 					"type": "text"
 				}
 			],
@@ -10667,6 +10687,10 @@
 					"type": "bigint"
 				},
 				{
+					"name": "game_activity_visibility_source",
+					"type": "text"
+				},
+				{
 					"name": "default_share_voice_activity",
 					"type": "boolean"
 				},
@@ -10980,6 +11004,30 @@
 				{
 					"name": "content_hidden_since",
 					"type": "timestamp"
+				},
+				{
+					"name": "enforcement_decision_id",
+					"type": "bigint"
+				},
+				{
+					"name": "name_font",
+					"type": "int"
+				},
+				{
+					"name": "name_color",
+					"type": "int"
+				},
+				{
+					"name": "name_color_2",
+					"type": "int"
+				},
+				{
+					"name": "theme_primary_color",
+					"type": "int"
+				},
+				{
+					"name": "theme_accent_color",
+					"type": "int"
 				}
 			],
 			"primary_key": "((user_id))",
@@ -12416,6 +12464,272 @@
 			],
 			"primary_key": "((bucket), username)",
 			"options": ""
+		},
+		{
+			"name": "enforcement_decision_evidence",
+			"columns": [
+				{
+					"name": "decision_id",
+					"type": "bigint"
+				},
+				{
+					"name": "messages",
+					"type": "frozen<list<iar_message_context>>"
+				},
+				{
+					"name": "message_locations",
+					"type": "map<bigint, text>"
+				},
+				{
+					"name": "profile_values",
+					"type": "map<text, text>"
+				}
+			],
+			"primary_key": "(decision_id)",
+			"options": "default_time_to_live = 31536000"
+		},
+		{
+			"name": "enforcement_decision_notes",
+			"columns": [
+				{
+					"name": "decision_id",
+					"type": "bigint"
+				},
+				{
+					"name": "note_id",
+					"type": "bigint"
+				},
+				{
+					"name": "author_id",
+					"type": "bigint"
+				},
+				{
+					"name": "body",
+					"type": "text"
+				},
+				{
+					"name": "created_at",
+					"type": "timestamp"
+				}
+			],
+			"primary_key": "((decision_id), note_id)",
+			"options": "CLUSTERING ORDER BY (note_id ASC) AND default_time_to_live = 31536000"
+		},
+		{
+			"name": "enforcement_decisions",
+			"columns": [
+				{
+					"name": "decision_id",
+					"type": "bigint"
+				},
+				{
+					"name": "subject_type",
+					"type": "text"
+				},
+				{
+					"name": "subject_id",
+					"type": "bigint"
+				},
+				{
+					"name": "subject_name",
+					"type": "text"
+				},
+				{
+					"name": "recipient_user_id",
+					"type": "bigint"
+				},
+				{
+					"name": "kind",
+					"type": "text"
+				},
+				{
+					"name": "reason_code",
+					"type": "int"
+				},
+				{
+					"name": "source",
+					"type": "text"
+				},
+				{
+					"name": "automation",
+					"type": "text"
+				},
+				{
+					"name": "statement",
+					"type": "text"
+				},
+				{
+					"name": "rights_holder",
+					"type": "text"
+				},
+				{
+					"name": "ends_at",
+					"type": "timestamp"
+				},
+				{
+					"name": "deletion_at",
+					"type": "timestamp"
+				},
+				{
+					"name": "feature_limit",
+					"type": "text"
+				},
+				{
+					"name": "profile_fields",
+					"type": "set<text>"
+				},
+				{
+					"name": "removed_message_count",
+					"type": "int"
+				},
+				{
+					"name": "removed_all_messages",
+					"type": "boolean"
+				},
+				{
+					"name": "payment_at",
+					"type": "timestamp"
+				},
+				{
+					"name": "report_ids",
+					"type": "set<bigint>"
+				},
+				{
+					"name": "decided_by",
+					"type": "bigint"
+				},
+				{
+					"name": "created_at",
+					"type": "timestamp"
+				},
+				{
+					"name": "status",
+					"type": "text"
+				},
+				{
+					"name": "end_outcome",
+					"type": "text"
+				},
+				{
+					"name": "ended_at",
+					"type": "timestamp"
+				},
+				{
+					"name": "ended_by",
+					"type": "bigint"
+				},
+				{
+					"name": "end_statement",
+					"type": "text"
+				},
+				{
+					"name": "notice_status",
+					"type": "text"
+				},
+				{
+					"name": "notice_channels",
+					"type": "set<text>"
+				},
+				{
+					"name": "notice_locale",
+					"type": "text"
+				},
+				{
+					"name": "notice_text",
+					"type": "text"
+				},
+				{
+					"name": "notice_sent_at",
+					"type": "timestamp"
+				}
+			],
+			"primary_key": "(decision_id)",
+			"options": ""
+		},
+		{
+			"name": "enforcement_decisions_by_subject",
+			"columns": [
+				{
+					"name": "subject_type",
+					"type": "text"
+				},
+				{
+					"name": "subject_id",
+					"type": "bigint"
+				},
+				{
+					"name": "decision_id",
+					"type": "bigint"
+				}
+			],
+			"primary_key": "((subject_type, subject_id), decision_id)",
+			"options": "CLUSTERING ORDER BY (decision_id DESC)"
+		},
+		{
+			"name": "enforcement_review_queue",
+			"columns": [
+				{
+					"name": "bucket",
+					"type": "int"
+				},
+				{
+					"name": "decision_id",
+					"type": "bigint"
+				}
+			],
+			"primary_key": "((bucket), decision_id)",
+			"options": "CLUSTERING ORDER BY (decision_id DESC)"
+		},
+		{
+			"name": "guild_sounds",
+			"columns": [
+				{
+					"name": "guild_id",
+					"type": "bigint"
+				},
+				{
+					"name": "sound_id",
+					"type": "bigint"
+				},
+				{
+					"name": "creator_id",
+					"type": "bigint"
+				},
+				{
+					"name": "name",
+					"type": "text"
+				},
+				{
+					"name": "asset_hash",
+					"type": "text"
+				},
+				{
+					"name": "extension",
+					"type": "text"
+				},
+				{
+					"name": "size_bytes",
+					"type": "int"
+				},
+				{
+					"name": "duration_ms",
+					"type": "int"
+				},
+				{
+					"name": "volume",
+					"type": "double"
+				},
+				{
+					"name": "created_at",
+					"type": "timestamp"
+				},
+				{
+					"name": "version",
+					"type": "int"
+				}
+			],
+			"primary_key": "((guild_id), sound_id)",
+			"options": "CLUSTERING ORDER BY (sound_id DESC)"
 		}
 	],
 	"indexes": [

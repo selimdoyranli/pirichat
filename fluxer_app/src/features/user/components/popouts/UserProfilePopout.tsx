@@ -45,6 +45,7 @@ import {useUserProfileSurfaceState} from '@app/features/user/hooks/useUserProfil
 import type {User} from '@app/features/user/models/User';
 import {blockedDmConfirmModal, openDMChannelOrShowError} from '@app/features/user/utils/DMActionUtils';
 import * as NicknameUtils from '@app/features/user/utils/NicknameUtils';
+import {profileThemeColors} from '@app/features/user/utils/ProfileGradient';
 import {resolveProfileGuildMembership} from '@app/features/user/utils/ProfileGuildMembership';
 import {createMockProfile} from '@app/features/user/utils/ProfileUtils';
 import {Permissions} from '@fluxer/constants/src/ChannelConstants';
@@ -248,11 +249,13 @@ export const UserProfilePopout: React.FC<UserProfilePopoutProps> = observer(
 		}
 		const borderColor = accentColor;
 		const bannerColor = accentColor;
+		const themeColors = isWebhook ? null : profileThemeColors(user, profile);
 		return (
 			<FocusRingScope containerRef={popoutContainerRef} data-flx="user.user-profile-popout.focus-ring-scope">
 				<div ref={popoutContainerRef} data-flx="user.user-profile-popout.div">
 					<ProfileCardLayout
 						borderColor={borderColor}
+						themeColors={themeColors}
 						className={styles.profilePopoutCard}
 						style={PROFILE_POPOUT_GEOMETRY_STYLE}
 						profileEffect={profile?.profileEffect}
@@ -292,6 +295,7 @@ export const UserProfilePopout: React.FC<UserProfilePopoutProps> = observer(
 								isClickable={!isWebhook}
 								isWebhook={isWebhook}
 								onDisplayNameClick={!isWebhook ? handleOpenFullProfile : undefined}
+								themeColors={themeColors}
 								belowName={
 									// pirichat: Discord's short card. Badges right under the name, in the modal's row
 									// layout; the #tag, follow, posts, note, copy ID, timezone, member since and connections live in
@@ -320,12 +324,7 @@ export const UserProfilePopout: React.FC<UserProfilePopoutProps> = observer(
 									/>
 								</div>
 							)}
-							{!isWebhook && (
-								<GameActivityDisplay
-									userId={user.id}
-									fullProfile={!!profile && !profile.profileLimited && !showProfileDataWarning}
-								/>
-							)}
+							{!isWebhook && <GameActivityDisplay userId={user.id} />}
 							{!isWebhook && (
 								<VoiceActivitySection
 									userId={user.id}

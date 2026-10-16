@@ -25,9 +25,16 @@ describe('pirichat error brand', () => {
 	});
 
 	it('sends IP ban appeals to pirichat support', () => {
-		const message = getErrorMessageUnsafe('GLOBAL_IP_BANNED', 'en-US', {ipAddress: '203.0.113.1'});
-		expect(message).toContain('pirichat API');
+		const message = getErrorMessageUnsafe('GLOBAL_IP_BANNED', 'en-US', {
+			ipAddress: '203.0.113.1',
+			appealEmail: 'selim.doyranli@albayrakmedya.com',
+			expiresAt: '',
+			reason: 'none',
+			product_name: 'pirichat',
+		});
+		expect(message).toContain('pirichat');
 		expect(message).toContain('selim.doyranli@albayrakmedya.com');
+		expect(message).not.toContain('Fluxer');
 		const error = new IpBannedError({
 			ipAddress: '203.0.113.1',
 			kind: 'permanent',

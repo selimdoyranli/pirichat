@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-use crate::common::{CommandSpec, output_text, parse_version_instant, run_command};
+use crate::common::{output_text_quiet, CommandSpec, output_text, parse_version_instant, run_command};
 use crate::desktop::{
     DESKTOP_CHANNEL_MANIFEST_NAME, DESKTOP_MODULE_PACKAGE_NAME, DESKTOP_MODULES_KEY_SEGMENT,
     DESKTOP_RENDERER_MODULE, DesktopChannelManifest, desktop_module_package_url,
@@ -61,7 +61,7 @@ fn desktop_release_platform(platform: &str) -> Result<&'static DesktopReleasePla
         .ok_or_else(|| anyhow!("Unsupported desktop release platform {platform:?}"))
 }
 
-// sanalyer: FLUXER_DESKTOP_SKIP_TARGETS carries the workflow's skip_targets list (matrix tokens such as
+// pirichat: FLUXER_DESKTOP_SKIP_TARGETS carries the workflow's skip_targets list (matrix tokens such as
 // "windows-arm64,linux-arm64" or a whole platform "macos") into the release steps, so a release ships the
 // coordinates that were built instead of demanding every platform and arch.
 fn skipped_release_coordinate(platform: &str, arch: &str, skipped: &[String]) -> bool {
@@ -117,7 +117,7 @@ fn desktop_release_coordinate_routes(entry: &DesktopReleasePlatform) -> usize {
         + usize::from(entry.update_payload_suffix.is_some())
 }
 
-// Both counts follow desktop_release_coordinates(), so a release built without some targets (sanalyer skips the
+// Both counts follow desktop_release_coordinates(), so a release built without some targets (pirichat skips the
 // arm64 Windows and Linux builds) is measured against the coordinates it actually ships.
 fn desktop_release_route_inventory() -> BTreeMap<String, usize> {
     desktop_release_coordinates()
@@ -983,14 +983,16 @@ pub(crate) fn validate_full_sha(label: &str, value: &str) -> Result<String> {
 }
 
 fn release_summaries() -> Result<Vec<ReleaseSummary>> {
-    let output = output_text(
+    let output = output_text_quiet(
         CommandSpec::new("gh")
             .args(["api", "--paginate", "--slurp"])
             .arg(format!("repos/{RELEASE_REPOSITORY}/releases?per_page=100")),
     )?;
     let pages: Vec<Vec<ReleaseSummary>> =
         serde_json::from_str(&output).context("Failed to parse GitHub Release history")?;
-    Ok(pages.into_iter().flatten().collect())
+    let releases: Vec<ReleaseSummary> = pages.into_iter().flatten().collect();
+    println!("Release history: {} release(s) in {RELEASE_REPOSITORY}", releases.len());
+    Ok(releases)
 }
 
 pub(crate) fn desktop_releases(channel: &str) -> Result<Vec<DesktopPublishedRelease>> {

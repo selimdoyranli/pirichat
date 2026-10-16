@@ -42,6 +42,10 @@ import {
 } from '@fluxer/constants/src/LimitConstants';
 
 export const DEFAULT_RESTRICTED_LIMITS: Record<LimitKey, number> = {
+	max_guild_video_fps: 30,
+	max_guild_video_height: 720,
+	feature_role_gradient: 0,
+	feature_role_icons: 0,
 	avatar_max_size: AVATAR_MAX_SIZE,
 	emoji_max_size: EMOJI_MAX_SIZE,
 	feature_animated_avatar: 0,
@@ -61,6 +65,8 @@ export const DEFAULT_RESTRICTED_LIMITS: Record<LimitKey, number> = {
 	feature_guild_roster: 0,
 	feature_mature_content_settings: 0,
 	feature_micupbot: 0,
+	feature_name_style: 0,
+	feature_profile_theme: 0,
 	feature_global_expressions: 0,
 	feature_guild_create: 0,
 	feature_higher_video_quality: 0,
@@ -100,6 +106,7 @@ export const DEFAULT_RESTRICTED_LIMITS: Record<LimitKey, number> = {
 	max_guild_roles: MAX_GUILD_ROLES,
 	max_guild_stickers_more: MAX_GUILD_STICKERS_MORE_STICKERS,
 	max_guild_stickers: MAX_GUILD_STICKERS,
+	max_guild_soundboard_sounds: 8,
 	max_guilds: 100,
 	max_message_length: MAX_MESSAGE_LENGTH_NON_PREMIUM,
 	max_private_channels_per_user: MAX_PRIVATE_CHANNELS_PER_USER,
@@ -122,7 +129,9 @@ export const DEFAULT_STOCK_LIMITS: Record<LimitKey, number> = {
 	feature_early_access: 1,
 	feature_global_expressions: 1,
 	feature_higher_video_quality: 1,
+	feature_name_style: 1,
 	feature_per_guild_profiles: 1,
+	feature_profile_theme: 1,
 	feature_voice_entrance_sounds: 1,
 	max_attachment_file_size: ATTACHMENT_MAX_SIZE_PREMIUM,
 	max_bio_length: MAX_BIO_LENGTH,

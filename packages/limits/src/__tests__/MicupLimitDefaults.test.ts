@@ -21,6 +21,8 @@ const MICUP_KEYS = [
 	'feature_guild_roster',
 	'feature_mature_content_settings',
 	'feature_micupbot',
+	'feature_name_style',
+	'feature_profile_theme',
 	'feed_fanout_max_followers',
 	'feed_fanout_max_posts_per_day',
 	'feed_fanout_min_followers',
@@ -61,6 +63,8 @@ describe('pirichat limit keys', () => {
 			feature_guild_roster: 0,
 			feature_mature_content_settings: 0,
 			feature_micupbot: 0,
+			feature_name_style: 0,
+			feature_profile_theme: 0,
 			feed_fanout_max_followers: 10_000,
 			feed_fanout_max_posts_per_day: 10,
 			feed_fanout_min_followers: 8000,
@@ -85,6 +89,8 @@ describe('pirichat limit keys', () => {
 			feature_guild_roster: 0,
 			feature_mature_content_settings: 0,
 			feature_micupbot: 0,
+			feature_name_style: 1,
+			feature_profile_theme: 1,
 			feed_fanout_max_followers: 10_000,
 			feed_fanout_max_posts_per_day: 10,
 			feed_fanout_min_followers: 8000,
@@ -94,5 +100,24 @@ describe('pirichat limit keys', () => {
 			max_feed_posts_per_day: 50,
 			max_following: 2000,
 		});
+	});
+});
+
+describe('Guild boost limit metadata', () => {
+	const defaults = {
+		max_guild_soundboard_sounds: 8,
+		max_guild_video_height: 720,
+		max_guild_video_fps: 30,
+		feature_role_icons: 0,
+		feature_role_gradient: 0,
+	} as const;
+
+	test.each(Object.entries(defaults))('registers %s with guild scope and its S0 default', (key, value) => {
+		expect(LIMIT_KEYS).toContain(key);
+		const limitKey = key as LimitKey;
+		expect(LIMIT_KEY_SCOPES[limitKey]).toBe('guild');
+		expect(LIMIT_KEY_METADATA[limitKey]).toMatchObject({key, scope: 'guild', isToggle: key.startsWith('feature_')});
+		expect(DEFAULT_FREE_LIMITS[limitKey]).toBe(value);
+		expect(DEFAULT_PREMIUM_LIMITS[limitKey]).toBe(value);
 	});
 });

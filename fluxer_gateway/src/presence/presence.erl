@@ -41,6 +41,7 @@
     last_published_presence := map() | undefined,
     game_activity_state => map(),
     game_activity_barriers => #{pid() => gen_server:from()},
+    game_activity_guild_barriers => #{reference() => {pid(), term(), map()}},
     game_activity_delivery_busy => boolean()
 }.
 -type presence_data() :: #{
@@ -106,8 +107,8 @@ handle_call({session_connect, Request}, {Pid, _}, State) when is_map(Request), i
     {reply, Reply, NewState} = presence_session:handle_session_connect(
         Request, SessionPid, State
     ),
-    FinalState = presence_broadcast:publish_global_presence(
-        maps:get(sessions, NewState), NewState
+    FinalState = presence_game_activity:guilds(
+        presence_broadcast:publish_global_presence(maps:get(sessions, NewState), NewState)
     ),
     presence_broadcast_subscriptions:send_cached_presences_to_session(SessionPid, FinalState),
     {reply, Reply, FinalState};
@@ -125,10 +126,7 @@ handle_call({game_activity_subscribe, ViewerId, SessionPid, Context, Grant}, _Fr
 handle_call({game_activity_control, Kind, Request}, From, State) ->
     case presence_game_activity:control(Kind, Request, State) of
         {{barrier, Targets, Ack}, Next} ->
-            Parent = self(),
-            Worker = spawn(presence_game_activity, barrier, [Targets, Ack, Next, Parent]),
-            Barriers = maps:get(game_activity_barriers, Next, #{}),
-            {noreply, Next#{game_activity_barriers => Barriers#{Worker => From}}};
+            {noreply, presence_game_activity:start_barrier(Targets, Ack, From, Next)};
         {Reply, Next} ->
             {reply, Reply, Next}
     end;
@@ -174,6 +172,8 @@ handle_cast({game_activity_clear, SessionId}, State) ->
     {noreply, presence_game_activity:clear(SessionId, State)};
 handle_cast({game_activity_rollout, _Epoch}, State) ->
     {noreply, presence_game_activity:rollout_changed(State)};
+handle_cast({game_activity_blocked, BlockedIds}, State) when is_list(BlockedIds) ->
+    {noreply, presence_game_activity:blocked(BlockedIds, State)};
 handle_cast({terminate_session, SessionIdHashes}, State) when is_list(SessionIdHashes) ->
     presence_connect:terminate_all_session_pids(binary_list(SessionIdHashes), State),
     {noreply, State};
@@ -222,18 +222,40 @@ handle_cast_guild(_, State) ->
     {noreply, State}.
 
 -spec handle_info(term(), state()) -> {noreply, state()} | {stop, normal, state()}.
-handle_info({presence, TargetId, Payload}, State) when is_integer(TargetId), is_map(Payload) ->
+handle_info(Info, #{game_activity_guild_barriers := Barriers} = State) when
+    map_size(Barriers) > 0
+->
+    case presence_game_activity:guild_response(Info, State) of
+        {handled, Next} -> {noreply, Next};
+        unhandled -> handle_info_message(Info, State)
+    end;
+handle_info(Info, #{game_activity_state := #{guild_leaves := Leaves}} = State) when
+    map_size(Leaves) > 0
+->
+    case presence_game_activity:guild_response(Info, State) of
+        {handled, Next} -> {noreply, Next};
+        unhandled -> handle_info_message(Info, State)
+    end;
+handle_info(Info, State) ->
+    handle_info_message(Info, State).
+
+-spec handle_info_message(term(), state()) -> {noreply, state()} | {stop, normal, state()}.
+handle_info_message({presence, TargetId, Payload}, State) when
+    is_integer(TargetId), is_map(Payload)
+->
     presence_broadcast:dispatch_global_presence(TargetId, Payload, State);
-handle_info({'DOWN', Ref, process, _Pid, Reason}, State) when is_reference(Ref) ->
-    presence_connect:handle_process_down(
-        Ref, Reason, presence_game_activity:receiver_down(Ref, State)
-    );
-handle_info({thread_user_flip, Version} = Flip, State) when is_integer(Version) ->
+handle_info_message({'DOWN', Ref, process, _Pid, Reason}, State) when is_reference(Ref) ->
+    Released = presence_game_activity:guild_down(
+        Ref, presence_game_activity:receiver_down(Ref, State)
+    ),
+    presence_connect:handle_process_down(Ref, Reason, Released);
+handle_info_message({thread_user_flip, Version} = Flip, State) when is_integer(Version) ->
     lists:foreach(fun(Pid) -> Pid ! Flip end, presence_connect:collect_session_pids(State)),
     {noreply, State};
-handle_info({game_activity_expire, SessionId, Generation, Epoch}, State) ->
+handle_info_message({game_activity_expire, SessionId, Generation, Epoch}, State) ->
     {noreply, presence_game_activity:expire(SessionId, Generation, Epoch, State)};
-handle_info({game_activity_barrier_done, Worker, Reply}, State) ->
+handle_info_message({game_activity_barrier_done, Worker, Reply}, State0) ->
+    State = presence_game_activity:forget_barrier(Worker, State0),
     Barriers = maps:get(game_activity_barriers, State, #{}),
     case maps:take(Worker, Barriers) of
         error ->
@@ -243,15 +265,21 @@ handle_info({game_activity_barrier_done, Worker, Reply}, State) ->
             Next = State#{game_activity_barriers => Rest},
             game_activity_barrier_result(Reply, Next)
     end;
-handle_info(game_activity_pending, State) ->
+handle_info_message({game_activity_guild_resolved, GuildId, Result}, State) when
+    is_integer(GuildId)
+->
+    {noreply, presence_game_activity:guild_resolved(GuildId, Result, State)};
+handle_info_message({game_activity_guild_retry, Token}, State) when is_reference(Token) ->
+    {noreply, presence_game_activity:guild_retry(Token, State)};
+handle_info_message(game_activity_pending, State) ->
     {noreply, presence_game_activity:pending(State)};
-handle_info({game_activity_delivery, Revision, Iterator}, State) ->
+handle_info_message({game_activity_delivery, Revision, Iterator}, State) ->
     {noreply, presence_game_activity:delivery_batch(Revision, Iterator, State)};
-handle_info(game_activity_idle_expired, #{sessions := Sessions} = State) when
+handle_info_message(game_activity_idle_expired, #{sessions := Sessions} = State) when
     map_size(Sessions) =:= 0
 ->
     {stop, normal, State};
-handle_info(_, State) ->
+handle_info_message(_, State) ->
     {noreply, State}.
 
 -spec game_activity_barrier_result(term(), state()) -> {noreply, state()}.
@@ -406,6 +434,85 @@ thread_user_flip_is_forwarded_to_every_session_test() ->
     receive
         {thread_user_flip, 4} -> ok
     after 1000 -> ?assert(false)
+    end.
+
+private_only_user_update_reaches_own_sessions_without_bus_publish_test() ->
+    Update = #{<<"id">> => <<"1">>, <<"theme_colors">> => [2, 3]},
+    {CallState, CallSent, CallPublishes} = run_user_update(call, Update),
+    {CastState, CastSent, CastPublishes} = run_user_update(cast, Update),
+    ?assertEqual([2, 3], maps:get(<<"theme_colors">>, maps:get(user_data, CallState))),
+    ?assertEqual([2, 3], maps:get(<<"theme_colors">>, CallSent)),
+    ?assertEqual([2, 3], maps:get(<<"theme_colors">>, maps:get(user_data, CastState))),
+    ?assertEqual([2, 3], maps:get(<<"theme_colors">>, CastSent)),
+    ?assertEqual([], CallPublishes),
+    ?assertEqual([], CastPublishes).
+
+public_user_update_publishes_to_bus_test() ->
+    Decoration = #{<<"asset">> => <<"b">>},
+    Update = #{
+        <<"id">> => <<"1">>,
+        <<"avatar_decoration_data">> => Decoration,
+        <<"email">> => <<"a@b.c">>,
+        <<"theme_colors">> => [2, 3]
+    },
+    {State, Sent, [Payload]} = run_user_update(call, Update),
+    UserData = maps:get(user_data, State),
+    ?assertEqual(Decoration, maps:get(<<"avatar_decoration_data">>, UserData)),
+    ?assertEqual(Decoration, maps:get(<<"avatar_decoration_data">>, Sent)),
+    ?assertEqual(<<"a@b.c">>, maps:get(<<"email">>, Sent)),
+    ?assertEqual([2, 3], maps:get(<<"theme_colors">>, Sent)),
+    BusUser = maps:get(<<"user">>, Payload),
+    ?assertEqual(Decoration, maps:get(<<"avatar_decoration_data">>, BusUser)),
+    ?assertNot(maps:is_key(<<"email">>, BusUser)),
+    ?assertNot(maps:is_key(<<"theme_colors">>, BusUser)).
+
+stale_identity_user_update_keeps_identity_and_applies_profile_test() ->
+    Update = #{
+        <<"id">> => <<"1">>,
+        <<"username">> => <<"old">>,
+        <<"identity_version">> => <<"7">>,
+        <<"theme_colors">> => [2, 3]
+    },
+    {State, Sent, _Publishes} = run_user_update(call, Update),
+    UserData = maps:get(user_data, State),
+    ?assertEqual(<<"new">>, maps:get(<<"username">>, UserData)),
+    ?assertEqual(<<"8">>, maps:get(<<"identity_version">>, UserData)),
+    ?assertEqual([2, 3], maps:get(<<"theme_colors">>, UserData)),
+    ?assertEqual(UserData, Sent).
+
+-spec run_user_update(call | cast, map()) -> {state(), map(), [map()]}.
+run_user_update(Kind, Update) ->
+    UserData = #{
+        <<"id">> => <<"1">>,
+        <<"username">> => <<"new">>,
+        <<"identity_version">> => <<"8">>,
+        <<"theme_colors">> => [0, 1],
+        <<"avatar_decoration_data">> => #{<<"asset">> => <<"a">>}
+    },
+    State0 = test_state(#{<<"s1">> => test_session_entry(self())}),
+    Visible = #{status => <<"online">>},
+    State = State0#{user_data := UserData, last_published_presence := Visible},
+    meck:new(presence_bus, [passthrough]),
+    meck:expect(presence_bus, publish, fun(_UserId, _Payload) -> ok end),
+    try
+        NewState =
+            case Kind of
+                call ->
+                    {reply, ok, CallState} = handle_dispatch_call(user_update, Update, State),
+                    CallState;
+                cast ->
+                    {noreply, CastState} = handle_dispatch_cast(user_update, Update, State),
+                    CastState
+            end,
+        Sent =
+            receive
+                {'$gen_cast', {dispatch, user_update, Data}} -> Data
+            after 1000 -> error(no_dispatch)
+            end,
+        Bus = [P || {_, {presence_bus, publish, [_, P]}, _} <- meck:history(presence_bus)],
+        {NewState, Sent, Bus}
+    after
+        meck:unload(presence_bus)
     end.
 
 -spec test_state(sessions()) -> state().

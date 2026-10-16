@@ -16,7 +16,7 @@ A request that resolves no account is keyed by the client IP address, exactly fo
 
 A request also counts against the global bucket, unless its route bucket is declared exempt. The global bucket is keyed by the same identity, so a request that resolves no account consumes the global allowance of its client IP address.
 
-These buckets are exempt, and each is the only bucket its route declares: `webhook:execute::webhook_id`, `webhook:message_get::webhook_id`, `webhook:message_edit::webhook_id`, `webhook:message_delete::webhook_id`, `webhook:github::webhook_id`, `webhook:instatus::webhook_id`, and `stripe:webhook`. Those routes draw on no global allowance. The `user:group_dm:create` and `user:group_dm:recipient:add` buckets are exempt as well. Each is a second bucket on a route whose first bucket is not exempt, so both routes still draw on the global allowance.
+These buckets are exempt, and each is the only bucket its route declares: `webhook:execute::webhook_id`, `webhook:message_get::webhook_id`, `webhook:message_edit::webhook_id`, `webhook:message_delete::webhook_id`, `webhook:github::webhook_id`, `webhook:instatus::webhook_id`, `webhook:libredesk::webhook_id`, and `stripe:webhook`. Those routes draw on no global allowance. The `user:group_dm:create` and `user:group_dm:recipient:add` buckets are exempt as well. Each is a second bucket on a route whose first bucket is not exempt, so both routes still draw on the global allowance.
 
 Every HTTP API and Admin API operation declares a bucket. A caller that sends no credential on a [Bluesky client document](/http-api/connections/#get-bluesky-client-metadata) is keyed by the client IP address.
 
@@ -182,6 +182,8 @@ Each is a leaky bucket like the route buckets. It admits a burst of its full siz
 | [Modify current user](/http-api/users/current-user/#modify-current-user) | 25 per 30 minutes on the biography, when the submitted value differs | `BIO_CHANGED_TOO_MANY_TIMES` |
 | [Modify current user](/http-api/users/current-user/#modify-current-user) | 25 per 30 minutes on the pronouns, when the submitted value differs | `PRONOUNS_CHANGED_TOO_MANY_TIMES` |
 | [Modify current user](/http-api/users/current-user/#modify-current-user) | 25 per 30 minutes on the accent colour, when the submitted value differs | `ACCENT_COLOR_CHANGED_TOO_MANY_TIMES` |
+| [Modify current user](/http-api/users/current-user/#modify-current-user) | 5 per 10 minutes on the name style, when the submitted value differs | `NAME_STYLE_CHANGED_TOO_MANY_TIMES` |
+| [Modify current user](/http-api/users/current-user/#modify-current-user) | 25 per 30 minutes on the profile theme, when the submitted value differs | `THEME_COLORS_CHANGED_TOO_MANY_TIMES` |
 | [Modify current user](/http-api/users/current-user/#modify-current-user) | 25 per 30 minutes on any non-null avatar | `AVATAR_CHANGED_TOO_MANY_TIMES` |
 | [Modify current user](/http-api/users/current-user/#modify-current-user) | 25 per 30 minutes on any banner value past the entitlement check | `BANNER_CHANGED_TOO_MANY_TIMES` |
 | [Update bot profile](/http-api/applications/#update-bot-profile) | 5 per 3 hours on the bot's resulting username or discriminator | `USERNAME_CHANGED_TOO_MANY_TIMES` |

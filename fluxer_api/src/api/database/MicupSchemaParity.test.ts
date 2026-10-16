@@ -17,7 +17,7 @@ import {
 	FEED_VIDEO_COLUMNS,
 	FEED_VIDEO_PENDING_COLUMNS,
 } from '@app/api/database/types/FeedTypes';
-import {GUILD_COLUMNS} from '@app/api/database/types/GuildTypes';
+import {GUILD_COLUMNS, GUILD_ROLE_COLUMNS} from '@app/api/database/types/GuildTypes';
 import {MESSAGE_COLUMNS} from '@app/api/database/types/MessageTypes';
 import {GIFT_CODE_COLUMNS, VISIONARY_SLOT_COLUMNS} from '@app/api/database/types/PaymentTypes';
 import {SHOP_BUNDLE_COLUMNS, SHOP_ORDER_COLUMNS} from '@app/api/database/types/ShopTypes';
@@ -31,6 +31,7 @@ import * as PremiumLedgerTables from '@app/api/premium/ledger/PremiumLedgerTable
 import * as PremiumTrialTables from '@app/api/premium/trial/PremiumTrialTables';
 import * as ReferralTables from '@app/api/referral/ReferralTables';
 import * as ShopTables from '@app/api/shop/ShopTables';
+import {GuildSounds} from '@app/api/Tables';
 import {describe, expect, it} from 'vitest';
 
 const THIS_DIR = path.dirname(fileURLToPath(import.meta.url));
@@ -110,6 +111,7 @@ const MICUP_TABLES: Record<string, {primaryKey: string; options: string}> = {
 	},
 	guild_boost_state: {primaryKey: '((guild_id))', options: ''},
 	guild_boosts: {primaryKey: '((guild_id), boost_id)', options: ''},
+	guild_sounds: {primaryKey: '((guild_id), sound_id)', options: 'CLUSTERING ORDER BY (sound_id DESC)'},
 	guild_entitlement_expirations: {primaryKey: '((day, shard), guild_id, entitlement_id)', options: ''},
 	guild_packages: {primaryKey: '((guild_id), package_id)', options: ''},
 	guild_roster_events: {primaryKey: '((guild_id), event_id)', options: ''},
@@ -177,6 +179,11 @@ const MICUP_CORE_COLUMNS: Record<string, {columns: ReadonlyArray<string>; types:
 			avatar_ultra_asset: 'text',
 			profile_effect_asset: 'text',
 			nameplate_asset: 'text',
+			name_font: 'int',
+			name_color: 'int',
+			name_color_2: 'int',
+			theme_primary_color: 'int',
+			theme_accent_color: 'int',
 		},
 	},
 	guilds: {
@@ -185,6 +192,7 @@ const MICUP_CORE_COLUMNS: Record<string, {columns: ReadonlyArray<string>; types:
 	},
 	// 3D room view theme of a voice channel ; additive column, null when the channel has none.
 	channels: {columns: CHANNEL_COLUMNS, types: {room_theme: 'text'}},
+	guild_roles: {columns: GUILD_ROLE_COLUMNS, types: {icon_emoji_id: 'bigint', color_secondary: 'int'}},
 	// The KV counters flush their base values into the post row, so a page of posts needs no second read.
 	feed_posts: {
 		columns: FEED_POST_COLUMNS,
@@ -373,6 +381,7 @@ const CQL_RESERVED_WORDS = new Set([
 ]);
 
 const DSL_TABLES = [
+	GuildSounds,
 	...Object.values(BadgeTables),
 	...Object.values(CosmeticTables),
 	...Object.values(FeedTables),

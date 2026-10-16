@@ -107,6 +107,7 @@ export const GameActivityPairPolicyRequest = z.discriminatedUnion('phase', [
 			request_id: GameActivityRequestId,
 			owner_epoch: GameActivityOwnerEpoch,
 			pair_generation: GameActivityPolicyRevisionSchema,
+			blocked: z.boolean().optional(),
 		})
 		.strict(),
 ]);
@@ -182,6 +183,11 @@ const ThreadGateRpcResponse = z.object({
 });
 
 export const RpcRequest = z.discriminatedUnion('type', [
+	z.object({
+		type: z.literal('soundboard_play_rate_limit'),
+		user_id: SnowflakeType,
+		channel_id: SnowflakeType,
+	}),
 	GameActivityGrantsRequest,
 	z.object({
 		type: z.literal('session').describe('Request type for session initialization'),
@@ -507,6 +513,10 @@ const RpcResponseValidateCustomStatus = z.object({
 });
 
 export const RpcResponse = z.discriminatedUnion('type', [
+	z.object({
+		type: z.literal('soundboard_play_rate_limit'),
+		data: z.object({allowed: z.boolean()}),
+	}),
 	z.object({type: z.literal('get_game_activity_grants'), data: GameActivityGrantsResponse}),
 	z.object({
 		type: z.literal('session').describe('Response type for session initialization'),

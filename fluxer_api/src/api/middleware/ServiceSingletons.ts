@@ -8,6 +8,7 @@ import {AdminArchiveService} from '@app/api/admin/services/AdminArchiveService';
 import {createGuildID, type GuildID, type UserID} from '@app/api/BrandedTypes';
 import {BadgeRepository} from '@app/api/badge/BadgeRepository';
 import {BadgeService} from '@app/api/badge/BadgeService';
+import {EarlyPlusBadgeService} from '@app/api/badge/EarlyPlusBadgeService';
 import {PioneerRepository} from '@app/api/badge/PioneerRepository';
 import {PioneerService} from '@app/api/badge/PioneerService';
 import {createKvIpInfoLookupBudget} from '@app/api/ban/IpInfoBudget';
@@ -27,6 +28,7 @@ import {CosmeticRepository} from '@app/api/cosmetics/CosmeticRepository';
 import {CosmeticService} from '@app/api/cosmetics/CosmeticService';
 import {DonationRepository} from '@app/api/donation/DonationRepository';
 import {createEmailProvider} from '@app/api/email/EmailProviderFactory';
+import {EnforcementDecisionRepository} from '@app/api/enforcement/EnforcementDecisionRepository';
 import {FavoriteMemeRepository} from '@app/api/favorite_meme/FavoriteMemeRepository';
 import {FeedDiscoverRepository} from '@app/api/feed/discover/FeedDiscoverRepository';
 import {createFeedTrendCounterFlusher, FeedTrendService} from '@app/api/feed/discover/FeedTrendService';
@@ -69,6 +71,9 @@ import {GuildRepository} from '@app/api/guild/repositories/GuildRepository';
 import {GuildRosterRepository} from '@app/api/guild/roster/GuildRosterRepository';
 import {GuildRosterSettingsService} from '@app/api/guild/roster/GuildRosterSettingsService';
 import {GuildDiscoveryService} from '@app/api/guild/services/GuildDiscoveryService';
+import {GuildSoundboardPlayService} from '@app/api/guild/soundboard/GuildSoundboardPlayService';
+import {GuildSoundboardRepository} from '@app/api/guild/soundboard/GuildSoundboardRepository';
+import {GuildSoundboardService} from '@app/api/guild/soundboard/GuildSoundboardService';
 import {AssetDeletionQueue} from '@app/api/infrastructure/AssetDeletionQueue';
 import {AvatarService} from '@app/api/infrastructure/AvatarService';
 import {CachePurgeQueue, type IPurgeQueue, NoopPurgeQueue} from '@app/api/infrastructure/CachePurgeQueue';
@@ -95,7 +100,6 @@ import {createUsersServiceClient} from '@app/api/infrastructure/UsersServiceClie
 import {VirusScanService} from '@app/api/infrastructure/VirusScanService';
 import {type ContactEmails, resolveContactEmails} from '@app/api/instance/ContactEmails';
 import {InstanceConfigRepository} from '@app/api/instance/InstanceConfigRepository';
-import {type LegalUrls, resolveLegalUrls} from '@app/api/instance/LegalUrls';
 import {NatsConfigPublisher} from '@app/api/instance/NatsConfigPublisher';
 import {getInstanceProductName} from '@app/api/instance/ProductName';
 import {ensureSetupToken} from '@app/api/instance/SetupToken';
@@ -192,6 +196,7 @@ export const getReadStateRepository = singleton(() => new ReadStateRepository())
 export const getFavoriteMemeRepository = singleton(() => new FavoriteMemeRepository());
 export const getConnectionRepository = singleton(() => new ConnectionRepository());
 export const getReportRepository = singleton(() => new ReportRepository());
+export const getEnforcementDecisionRepository = singleton(() => new EnforcementDecisionRepository());
 export const getVoiceP2pConnectionReportRepository = singleton(() => new VoiceP2pConnectionReportRepository());
 export const getAdminRepository = singleton(() => new AdminRepository());
 export const getAdminArchiveRepository = singleton(() => new AdminArchiveRepository());
@@ -293,7 +298,6 @@ export const getEmailDnsValidationService = singleton(() => new EmailDnsValidati
 
 function createEmailServiceForConfig(
 	emailConfigSource: APIConfig['email'],
-	legalUrls: LegalUrls,
 	contactEmails: ContactEmails,
 	productName: string,
 	bouncedEmailChecker: UserBouncedEmailChecker,
@@ -305,8 +309,6 @@ function createEmailServiceForConfig(
 		fromName: emailConfigSource.fromName.trim() || productName,
 		replyTo: emailConfigSource.replyToEmail || null,
 		appBaseUrl: emailConfigSource.appBaseUrl,
-		termsUrl: legalUrls.termsUrl,
-		guidelinesUrl: legalUrls.guidelinesUrl,
 		appealsEmail: contactEmails.appealsEmail,
 		safetyEmail: contactEmails.safetyEmail,
 		supportEmail: contactEmails.supportEmail,
@@ -335,7 +337,6 @@ export function createRuntimeEmailService(
 				]);
 				const delegate = createEmailServiceForConfig(
 					emailConfig,
-					resolveLegalUrls(appPublic.legal),
 					resolveContactEmails(),
 					getInstanceProductName(),
 					bouncedEmailChecker,
@@ -645,6 +646,26 @@ export const getAdminArchiveService = singleton(
 		),
 );
 const getEntranceSoundRepository = singleton(() => new EntranceSoundRepository());
+const getGuildSoundboardRepository = singleton(() => new GuildSoundboardRepository());
+export const getGuildSoundboardService = singleton(
+	() =>
+		new GuildSoundboardService(
+			getGuildSoundboardRepository(),
+			getStorageService(),
+			getMediaService(),
+			getLimitConfigService(),
+			getGatewayService(),
+		),
+);
+export const getGuildSoundboardPlayService = singleton(
+	() =>
+		new GuildSoundboardPlayService(
+			getGuildSoundboardRepository(),
+			getGatewayService(),
+			getChannelRepository().channelData,
+			getRateLimitService(),
+		),
+);
 export const getEntranceSoundService = singleton(
 	() =>
 		new EntranceSoundService(
@@ -699,6 +720,7 @@ export const getShopCatalogService = singleton(
 	() =>
 		new ShopCatalogService({
 			priceRepository: getShopPriceRepository(),
+			badgeRepository: getBadgeRepository(),
 			cosmeticService: getCosmeticService(),
 			cosmeticRepository: getCosmeticRepository(),
 			instanceConfigRepository: getInstanceConfigRepository(),
@@ -733,6 +755,7 @@ export const getShopOrderService = singleton(
 			cosmeticService: getCosmeticService(),
 			premiumLedgerService: getPremiumLedgerService(),
 			visionaryService: getVisionaryService(),
+			earlyPlusBadgeService: getEarlyPlusBadgeService(),
 			userRepository: getUserRepository(),
 			kvClient: getKVClient(),
 			workerService: getWorkerService(),
@@ -819,6 +842,16 @@ export const getPioneerService = singleton(
 			userRepository: getUserRepository(),
 			kvClient: getKVClient(),
 			workerService: getWorkerService(),
+		}),
+);
+export const getEarlyPlusBadgeService = singleton(
+	() =>
+		new EarlyPlusBadgeService({
+			badgeRepository: getBadgeRepository(),
+			instanceConfigRepository: getInstanceConfigRepository(),
+			orderRepository: getShopOrderRepository(),
+			userRepository: getUserRepository(),
+			visionaryService: getVisionaryService(),
 		}),
 );
 export const getMicupBotRepository = singleton(() => new MicupBotRepository());

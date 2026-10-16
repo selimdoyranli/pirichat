@@ -9,11 +9,13 @@ import * as RouterUtils from '@app/features/navigation/utils/RouterUtils';
 import Permission from '@app/features/permissions/state/Permission';
 import NativePermission from '@app/features/permissions/system/state/NativePermission';
 import {VOICE_ROOM_CONTROL_DISCOVERY_STORAGE_KEY} from '@app/features/platform/state/PersistentStorage';
+import {ComponentBus} from '@app/features/platform/utils/ComponentBus';
 import {awaitHydration} from '@app/features/platform/utils/MobXPersistence';
 import * as ContextMenuCommands from '@app/features/ui/commands/ContextMenuCommands';
 import * as ModalCommands from '@app/features/ui/commands/ModalCommands';
 import {modal} from '@app/features/ui/commands/ModalCommands';
 import FocusRing from '@app/features/ui/focus_ring/FocusRing';
+import {usePopout} from '@app/features/ui/hooks/usePopout';
 import MobileLayout from '@app/features/ui/state/MobileLayout';
 import {Tooltip} from '@app/features/ui/tooltip/Tooltip';
 import {isDesktop} from '@app/features/ui/utils/NativeUtils';
@@ -38,6 +40,7 @@ import {useCameraUserCapBlocked} from '@app/features/voice/hooks/useCameraUserCa
 import {useMediaDevices} from '@app/features/voice/hooks/useMediaDevices';
 import ActiveScreenShareSource from '@app/features/voice/state/ActiveScreenShareSource';
 import PopoutWindowManager from '@app/features/voice/state/PopoutWindowManager';
+import {registerSoundboardAnchor, SOUNDBOARD_POPOUT_KEY} from '@app/features/voice/state/SoundboardAnchor';
 import VoiceCallFullscreen from '@app/features/voice/state/VoiceCallFullscreen';
 import {resolveDisplayShareEnvironment} from '@app/features/voice/utils/ScreenShareEnvironment';
 import {
@@ -56,10 +59,10 @@ import {Permissions} from '@fluxer/constants/src/ChannelConstants';
 import {VOICE_CHANNEL_CAMERA_USER_LIMIT} from '@fluxer/constants/src/LimitConstants';
 import {msg} from '@lingui/core/macro';
 import {useLingui} from '@lingui/react/macro';
-import {CameraIcon, CameraSlashIcon, CubeIcon, MonitorPlayIcon} from '@phosphor-icons/react';
+import {CameraIcon, CameraSlashIcon, CubeIcon, MonitorPlayIcon, SpeakerHighIcon} from '@phosphor-icons/react';
 import {clsx} from 'clsx';
 import {observer} from 'mobx-react-lite';
-import {type MouseEvent as ReactMouseEvent, useCallback, useEffect, useState} from 'react';
+import {type MouseEvent as ReactMouseEvent, useCallback, useEffect, useRef, useState} from 'react';
 
 const WAITING_FOR_CONNECTION_DESCRIPTOR = msg({
 	message: 'Waiting for connection...',
@@ -83,6 +86,10 @@ const NEW_ROOM_CONTROL_DESCRIPTOR = msg({
 	message: 'New',
 	context: 'navigation-badge',
 	comment: 'Accessible hint that the voice panel 3D room control is newly available.',
+});
+const SOUNDBOARD_DESCRIPTOR = msg({
+	message: 'Soundboard',
+	comment: 'Accessible name of the voice control that opens the community soundboard.',
 });
 export const LocalParticipantControls = observer(() => {
 	const {i18n} = useLingui();
@@ -116,8 +123,16 @@ export const LocalParticipantControls = observer(() => {
 	const displayShareEnvironment = resolveDisplayShareEnvironment(isDesktop(), NativePermission.isLinuxWaylandDesktop);
 	const channelId = MediaEngine.channelId;
 	const guildId = MediaEngine.guildId;
+	const soundboardButtonRef = useRef<HTMLButtonElement | null>(null);
+	const {isOpen: soundboardOpen} = usePopout(SOUNDBOARD_POPOUT_KEY);
 	const channel = channelId ? Channels.getChannel(channelId) : null;
 	const roomView = channel ? roomViewFor(channel) : null;
+	const hasSoundboardButton = Boolean(guildId && channel);
+	useEffect(() => {
+		const element = soundboardButtonRef.current;
+		if (!hasSoundboardButton || !element) return;
+		return registerSoundboardAnchor(element);
+	}, [hasSoundboardButton]);
 	const showRoomControl =
 		isConnected &&
 		!MobileLayout.isMobileLayout() &&
@@ -276,6 +291,25 @@ export const LocalParticipantControls = observer(() => {
 	})();
 	return (
 		<>
+			{guildId && channel && (
+				<Tooltip text={i18n._(SOUNDBOARD_DESCRIPTOR)}>
+					<FocusRing offset={-2} enabled={isConnected}>
+						<button
+							type="button"
+							className={styles.mediaButton}
+							disabled={!isConnected}
+							ref={soundboardButtonRef}
+							onClick={() => ComponentBus.dispatch('SOUNDBOARD_TOGGLE')}
+							aria-label={i18n._(SOUNDBOARD_DESCRIPTOR)}
+							aria-haspopup="dialog"
+							aria-expanded={soundboardOpen}
+							data-flx="voice.voice-connection-status.local-participant-controls.soundboard-button"
+						>
+							<SpeakerHighIcon weight="fill" className={styles.mediaIcon} />
+						</button>
+					</FocusRing>
+				</Tooltip>
+			)}
 			<Tooltip text={cameraLabel} data-flx="voice.voice-connection-status.local-participant-controls.tooltip">
 				<FocusRing
 					offset={-2}

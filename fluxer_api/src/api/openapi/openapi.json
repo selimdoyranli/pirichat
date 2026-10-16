@@ -5563,6 +5563,69 @@
 				]
 			}
 		},
+		"/channels/{channel_id}/soundboard-sounds/{sound_id}/play": {
+			"post": {
+				"operationId": "play_guild_soundboard_sound",
+				"summary": "Play a guild soundboard sound",
+				"tags": ["Channels"],
+				"responses": {
+					"204": {"description": "No Content"},
+					"400": {
+						"description": "Bad Request - The request was malformed or contained invalid data",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"401": {
+						"description": "Unauthorized - Authentication is required or the token is invalid",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"403": {
+						"description": "Forbidden - You do not have permission to perform this action",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"429": {
+						"description": "Too Many Requests - You are being rate limited",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/ThrottledError"}}},
+						"headers": {
+							"Retry-After": {
+								"description": "Number of seconds to wait before retrying (only on 429)",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Limit": {
+								"description": "The number of requests that can be made in the current window",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Remaining": {
+								"description": "The number of remaining requests that can be made",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Reset": {
+								"description": "Unix timestamp when the rate limit resets",
+								"schema": {"type": "integer"}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal Server Error - An unexpected error occurred",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					}
+				},
+				"description": "Plays a sound to eligible voice sessions in the current channel.",
+				"security": [{"botToken": []}, {"sessionToken": []}],
+				"parameters": [
+					{
+						"name": "channel_id",
+						"in": "path",
+						"required": true,
+						"schema": {"$ref": "#/components/schemas/SnowflakeType"}
+					},
+					{"name": "sound_id", "in": "path", "required": true, "schema": {"$ref": "#/components/schemas/SnowflakeType"}}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {"application/json": {"schema": {"$ref": "#/components/schemas/GuildSoundboardPlayRequest"}}}
+				}
+			}
+		},
 		"/channels/{channel_id}/table-games": {
 			"get": {
 				"operationId": "list_table_games",
@@ -14359,6 +14422,243 @@
 						"schema": {"description": "The ID of the roster event", "$ref": "#/components/schemas/SnowflakeType"},
 						"description": "The ID of the roster event"
 					}
+				]
+			}
+		},
+		"/guilds/{guild_id}/soundboard-sounds": {
+			"get": {
+				"operationId": "list_guild_soundboard_sounds",
+				"summary": "List guild soundboard sounds",
+				"tags": ["Guilds"],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/GuildSoundboardListResponse"}}}
+					},
+					"400": {
+						"description": "Bad Request - The request was malformed or contained invalid data",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"401": {
+						"description": "Unauthorized - Authentication is required or the token is invalid",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"403": {
+						"description": "Forbidden - You do not have permission to perform this action",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"429": {
+						"description": "Too Many Requests - You are being rate limited",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/ThrottledError"}}},
+						"headers": {
+							"Retry-After": {
+								"description": "Number of seconds to wait before retrying (only on 429)",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Limit": {
+								"description": "The number of requests that can be made in the current window",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Remaining": {
+								"description": "The number of remaining requests that can be made",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Reset": {
+								"description": "Unix timestamp when the rate limit resets",
+								"schema": {"type": "integer"}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal Server Error - An unexpected error occurred",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					}
+				},
+				"description": "Returns sound metadata for guild members.",
+				"security": [{"botToken": []}, {"sessionToken": []}],
+				"parameters": [
+					{"name": "guild_id", "in": "path", "required": true, "schema": {"$ref": "#/components/schemas/SnowflakeType"}}
+				]
+			},
+			"post": {
+				"operationId": "create_guild_soundboard_sound",
+				"summary": "Upload a guild soundboard sound",
+				"tags": ["Guilds"],
+				"responses": {
+					"201": {
+						"description": "Success",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/GuildSoundboardSoundResponse"}}}
+					},
+					"400": {
+						"description": "Bad Request - The request was malformed or contained invalid data",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"401": {
+						"description": "Unauthorized - Authentication is required or the token is invalid",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"403": {
+						"description": "Forbidden - You do not have permission to perform this action",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"429": {
+						"description": "Too Many Requests - You are being rate limited",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/ThrottledError"}}},
+						"headers": {
+							"Retry-After": {
+								"description": "Number of seconds to wait before retrying (only on 429)",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Limit": {
+								"description": "The number of requests that can be made in the current window",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Remaining": {
+								"description": "The number of remaining requests that can be made",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Reset": {
+								"description": "Unix timestamp when the rate limit resets",
+								"schema": {"type": "integer"}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal Server Error - An unexpected error occurred",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					}
+				},
+				"description": "Creates a validated short audio clip with expression permissions.",
+				"security": [{"botToken": []}, {"sessionToken": []}],
+				"parameters": [
+					{"name": "guild_id", "in": "path", "required": true, "schema": {"$ref": "#/components/schemas/SnowflakeType"}}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {"application/json": {"schema": {"$ref": "#/components/schemas/GuildSoundboardUploadRequest"}}}
+				}
+			}
+		},
+		"/guilds/{guild_id}/soundboard-sounds/{sound_id}": {
+			"patch": {
+				"operationId": "update_guild_soundboard_sound",
+				"summary": "Update a guild soundboard sound",
+				"tags": ["Guilds"],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/GuildSoundboardSoundResponse"}}}
+					},
+					"400": {
+						"description": "Bad Request - The request was malformed or contained invalid data",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"401": {
+						"description": "Unauthorized - Authentication is required or the token is invalid",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"403": {
+						"description": "Forbidden - You do not have permission to perform this action",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"429": {
+						"description": "Too Many Requests - You are being rate limited",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/ThrottledError"}}},
+						"headers": {
+							"Retry-After": {
+								"description": "Number of seconds to wait before retrying (only on 429)",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Limit": {
+								"description": "The number of requests that can be made in the current window",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Remaining": {
+								"description": "The number of remaining requests that can be made",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Reset": {
+								"description": "Unix timestamp when the rate limit resets",
+								"schema": {"type": "integer"}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal Server Error - An unexpected error occurred",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					}
+				},
+				"description": "Changes the name or playback volume with expression permissions.",
+				"security": [{"botToken": []}, {"sessionToken": []}],
+				"parameters": [
+					{
+						"name": "guild_id",
+						"in": "path",
+						"required": true,
+						"schema": {"$ref": "#/components/schemas/SnowflakeType"}
+					},
+					{"name": "sound_id", "in": "path", "required": true, "schema": {"$ref": "#/components/schemas/SnowflakeType"}}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {"application/json": {"schema": {"$ref": "#/components/schemas/GuildSoundboardUpdateRequest"}}}
+				}
+			},
+			"delete": {
+				"operationId": "delete_guild_soundboard_sound",
+				"summary": "Delete a guild soundboard sound",
+				"tags": ["Guilds"],
+				"responses": {
+					"204": {"description": "No Content"},
+					"400": {
+						"description": "Bad Request - The request was malformed or contained invalid data",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"401": {
+						"description": "Unauthorized - Authentication is required or the token is invalid",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"403": {
+						"description": "Forbidden - You do not have permission to perform this action",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"429": {
+						"description": "Too Many Requests - You are being rate limited",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/ThrottledError"}}},
+						"headers": {
+							"Retry-After": {
+								"description": "Number of seconds to wait before retrying (only on 429)",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Limit": {
+								"description": "The number of requests that can be made in the current window",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Remaining": {
+								"description": "The number of remaining requests that can be made",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Reset": {
+								"description": "Unix timestamp when the rate limit resets",
+								"schema": {"type": "integer"}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal Server Error - An unexpected error occurred",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					}
+				},
+				"description": "Removes a sound with expression permissions.",
+				"security": [{"botToken": []}, {"sessionToken": []}],
+				"parameters": [
+					{
+						"name": "guild_id",
+						"in": "path",
+						"required": true,
+						"schema": {"$ref": "#/components/schemas/SnowflakeType"}
+					},
+					{"name": "sound_id", "in": "path", "required": true, "schema": {"$ref": "#/components/schemas/SnowflakeType"}}
 				]
 			}
 		},
@@ -28029,6 +28329,82 @@
 				}
 			}
 		},
+		"/webhooks/{webhook_id}/{token}/libredesk": {
+			"post": {
+				"operationId": "execute_libredesk_webhook",
+				"summary": "Execute Libredesk webhook",
+				"tags": ["Webhooks"],
+				"responses": {
+					"204": {"description": "No Content"},
+					"400": {
+						"description": "Bad Request - The request was malformed or contained invalid data",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"429": {
+						"description": "Too Many Requests - You are being rate limited",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/ThrottledError"}}},
+						"headers": {
+							"Retry-After": {
+								"description": "Number of seconds to wait before retrying (only on 429)",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Limit": {
+								"description": "The number of requests that can be made in the current window",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Remaining": {
+								"description": "The number of remaining requests that can be made",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Reset": {
+								"description": "Unix timestamp when the rate limit resets",
+								"schema": {"type": "integer"}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal Server Error - An unexpected error occurred",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					}
+				},
+				"description": "Receives and processes Libredesk help desk webhook events, formatting them as messages in the configured channel.",
+				"parameters": [
+					{
+						"name": "webhook_id",
+						"in": "path",
+						"required": true,
+						"schema": {"description": "The ID of the webhook", "$ref": "#/components/schemas/SnowflakeType"},
+						"description": "The ID of the webhook"
+					},
+					{
+						"name": "token",
+						"in": "path",
+						"required": true,
+						"schema": {"description": "The webhook token", "type": "string"},
+						"description": "The webhook token"
+					},
+					{
+						"name": "thread_id",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"anyOf": [
+								{
+									"type": "string",
+									"description": "ID of a thread in the webhook channel to target instead of the channel itself",
+									"x-fluxer-experiment": "channel_threads"
+								},
+								{"type": "null"}
+							]
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {"application/json": {"schema": {"$ref": "#/components/schemas/LibredeskWebhook"}}}
+				}
+			}
+		},
 		"/webhooks/{webhook_id}/{token}/messages/{message_id}": {
 			"get": {
 				"operationId": "get_webhook_message",
@@ -28860,6 +29236,93 @@
 					"mention_roles"
 				],
 				"additionalProperties": false
+			},
+			"LibredeskWebhook": {
+				"type": "object",
+				"properties": {
+					"event": {"type": "string"},
+					"payload": {
+						"type": "object",
+						"properties": {
+							"uuid": {"type": ["string", "null"]},
+							"reference_number": {"type": ["string", "null"]},
+							"subject": {"type": ["string", "null"]},
+							"inbox_name": {"type": ["string", "null"]},
+							"contact": {
+								"anyOf": [
+									{
+										"type": "object",
+										"properties": {
+											"first_name": {"type": ["string", "null"]},
+											"last_name": {"type": ["string", "null"]}
+										}
+									},
+									{"type": "null"}
+								]
+							},
+							"conversation_uuid": {"type": ["string", "null"]},
+							"conversation": {
+								"anyOf": [
+									{
+										"type": "object",
+										"properties": {
+											"uuid": {"type": ["string", "null"]},
+											"reference_number": {"type": ["string", "null"]},
+											"subject": {"type": ["string", "null"]},
+											"inbox_name": {"type": ["string", "null"]},
+											"status_category": {"type": ["string", "null"]}
+										}
+									},
+									{"type": "null"}
+								]
+							},
+							"previous_status": {"type": ["string", "null"]},
+							"new_status": {"type": ["string", "null"]},
+							"snooze_until": {"type": ["string", "null"]},
+							"previous_tags": {"anyOf": [{"type": "array", "items": {"type": "string"}}, {"type": "null"}]},
+							"new_tags": {"anyOf": [{"type": "array", "items": {"type": "string"}}, {"type": "null"}]},
+							"assigned_to": {"anyOf": [{"$ref": "#/components/schemas/NonNegativeSafeIntegerType"}, {"type": "null"}]},
+							"type": {"type": ["string", "null"]},
+							"status": {"type": ["string", "null"]},
+							"text_content": {"type": ["string", "null"]},
+							"private": {"type": ["boolean", "null"]},
+							"sender_type": {"type": ["string", "null"]},
+							"meta": {
+								"anyOf": [
+									{
+										"type": "object",
+										"properties": {
+											"is_automated": {"type": ["boolean", "null"]},
+											"is_csat": {"type": ["boolean", "null"]},
+											"continuity_email": {"type": ["boolean", "null"]}
+										}
+									},
+									{"type": "null"}
+								]
+							},
+							"attachments": {
+								"anyOf": [
+									{"type": "array", "items": {"type": "object", "properties": {"name": {"type": ["string", "null"]}}}},
+									{"type": "null"}
+								]
+							},
+							"author": {
+								"anyOf": [
+									{
+										"type": "object",
+										"properties": {
+											"first_name": {"type": ["string", "null"]},
+											"last_name": {"type": ["string", "null"]}
+										}
+									},
+									{"type": "null"}
+								]
+							},
+							"name": {"type": ["string", "null"]}
+						}
+					}
+				},
+				"required": ["event", "payload"]
 			},
 			"InstatusWebhook": {
 				"type": "object",
@@ -29833,6 +30296,10 @@
 					"nameplate_data": {
 						"description": "The nameplate the user wears; omitted or null when none",
 						"anyOf": [{"$ref": "#/components/schemas/CosmeticAssetDataResponse"}, {"type": "null"}]
+					},
+					"name_style": {
+						"description": "The name font and colour; omitted or null when none is set or the account has no active premium",
+						"anyOf": [{"$ref": "#/components/schemas/NameStyleSchema"}, {"type": "null"}]
 					}
 				},
 				"required": ["id", "username", "discriminator", "global_name", "avatar", "avatar_color", "flags"],
@@ -29855,6 +30322,10 @@
 							"accent_color": {
 								"anyOf": [{"$ref": "#/components/schemas/Int32Type"}, {"type": "null"}],
 								"description": "User-selected accent color"
+							},
+							"theme_colors": {
+								"description": "The profile card gradient; null when none is set, the profile is hidden or the account has no active premium",
+								"anyOf": [{"$ref": "#/components/schemas/ThemeColorsSchema"}, {"type": "null"}]
 							}
 						},
 						"required": ["bio", "pronouns", "banner", "accent_color"],
@@ -30047,6 +30518,10 @@
 						"description": "The nameplate the user wears; omitted or null when none",
 						"anyOf": [{"$ref": "#/components/schemas/CosmeticAssetDataResponse"}, {"type": "null"}]
 					},
+					"name_style": {
+						"description": "The name font and colour; omitted or null when none is set or the account has no active premium",
+						"anyOf": [{"$ref": "#/components/schemas/NameStyleSchema"}, {"type": "null"}]
+					},
 					"username_state": {
 						"description": "Private username selection state",
 						"type": "string",
@@ -30074,6 +30549,10 @@
 					"accent_color": {
 						"anyOf": [{"$ref": "#/components/schemas/Int32Type"}, {"type": "null"}],
 						"description": "The user-selected accent color as an integer"
+					},
+					"theme_colors": {
+						"anyOf": [{"$ref": "#/components/schemas/ThemeColorsSchema"}, {"type": "null"}],
+						"description": "The profile card gradient; null when none is set or the account has no active premium"
 					},
 					"timezone": {"description": "The IANA timezone identifier saved by the user", "type": ["string", "null"]},
 					"timezone_privacy_flags": {"$ref": "#/components/schemas/ProfileFieldPrivacyFlags"},
@@ -30237,6 +30716,7 @@
 					"bio",
 					"pronouns",
 					"accent_color",
+					"theme_colors",
 					"banner",
 					"banner_color",
 					"mfa_enabled",
@@ -30310,6 +30790,11 @@
 					"game_activity_visibility": {
 						"anyOf": [{"$ref": "#/components/schemas/GameActivityVisibilitySchema"}, {"type": "null"}],
 						"description": "Who can see the current game; null disables sharing"
+					},
+					"game_activity_default_acknowledged": {
+						"type": "boolean",
+						"const": true,
+						"description": "Confirms the one-time notice about the default game sharing audience"
 					},
 					"flags": {
 						"type": "integer",
@@ -30486,6 +30971,14 @@
 						"default": "0",
 						"description": "Server-owned game sharing policy revision as a decimal string",
 						"$ref": "#/components/schemas/GameActivityPolicyRevisionSchema"
+					},
+					"game_activity_eligible": {
+						"description": "Whether the account may share its current game: 15 or older with a valid date of birth",
+						"type": "boolean"
+					},
+					"game_activity_default_pending": {
+						"description": "Whether the one-time notice about the default game sharing audience is still unconfirmed",
+						"type": "boolean"
 					},
 					"status": {"type": "string", "description": "The current online status of the user"},
 					"status_resets_at": {
@@ -32948,6 +33441,14 @@
 						"description": "Profile accent color as integer",
 						"anyOf": [{"$ref": "#/components/schemas/ColorType"}, {"type": "null"}]
 					},
+					"name_style": {
+						"description": "Premium name font and colour; null removes it",
+						"anyOf": [{"$ref": "#/components/schemas/NameStyleSchemaInput"}, {"type": "null"}]
+					},
+					"theme_colors": {
+						"description": "Premium profile card gradient; null removes it",
+						"anyOf": [{"$ref": "#/components/schemas/ThemeColorsSchema"}, {"type": "null"}]
+					},
 					"timezone": {
 						"description": "IANA timezone identifier saved for profile local time",
 						"type": ["string", "null"]
@@ -33028,6 +33529,10 @@
 						"description": "The nameplate the user wears; omitted or null when none",
 						"anyOf": [{"$ref": "#/components/schemas/CosmeticAssetDataResponse"}, {"type": "null"}]
 					},
+					"name_style": {
+						"description": "The name font and colour; omitted or null when none is set or the account has no active premium",
+						"anyOf": [{"$ref": "#/components/schemas/NameStyleSchema"}, {"type": "null"}]
+					},
 					"username_state": {
 						"description": "Private username selection state",
 						"type": "string",
@@ -33055,6 +33560,10 @@
 					"accent_color": {
 						"anyOf": [{"$ref": "#/components/schemas/Int32Type"}, {"type": "null"}],
 						"description": "The user-selected accent color as an integer"
+					},
+					"theme_colors": {
+						"anyOf": [{"$ref": "#/components/schemas/ThemeColorsSchema"}, {"type": "null"}],
+						"description": "The profile card gradient; null when none is set or the account has no active premium"
 					},
 					"timezone": {"description": "The IANA timezone identifier saved by the user", "type": ["string", "null"]},
 					"timezone_privacy_flags": {"$ref": "#/components/schemas/ProfileFieldPrivacyFlags"},
@@ -33226,6 +33735,7 @@
 					"bio",
 					"pronouns",
 					"accent_color",
+					"theme_colors",
 					"banner",
 					"banner_color",
 					"mfa_enabled",
@@ -35540,6 +36050,63 @@
 				},
 				"required": ["name", "image"]
 			},
+			"GuildSoundboardUpdateRequest": {
+				"type": "object",
+				"properties": {"name": {"type": "string"}, "volume": {"type": "number", "minimum": 0, "maximum": 1}}
+			},
+			"GuildSoundboardSoundResponse": {
+				"type": "object",
+				"properties": {
+					"id": {"$ref": "#/components/schemas/SnowflakeStringType"},
+					"guild_id": {"$ref": "#/components/schemas/SnowflakeStringType"},
+					"creator_id": {"$ref": "#/components/schemas/SnowflakeStringType"},
+					"name": {"type": "string"},
+					"asset_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+					"extension": {"type": "string", "enum": ["mp3", "ogg"]},
+					"size_bytes": {"type": "integer", "exclusiveMinimum": 0, "maximum": 512000},
+					"duration_ms": {"type": "integer", "exclusiveMinimum": 0, "maximum": 5200},
+					"volume": {"type": "number", "minimum": 0, "maximum": 1},
+					"created_at": {
+						"type": "string",
+						"format": "date-time",
+						"pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+					},
+					"version": {"type": "integer", "exclusiveMinimum": 0, "maximum": 9007199254740991},
+					"url": {"type": "string", "format": "uri"}
+				},
+				"required": [
+					"id",
+					"guild_id",
+					"creator_id",
+					"name",
+					"asset_hash",
+					"extension",
+					"size_bytes",
+					"duration_ms",
+					"volume",
+					"created_at",
+					"version",
+					"url"
+				],
+				"additionalProperties": false
+			},
+			"GuildSoundboardUploadRequest": {
+				"type": "object",
+				"properties": {
+					"name": {"type": "string"},
+					"audio": {"type": "string", "minLength": 1, "maxLength": 682668},
+					"volume": {"type": "number", "minimum": 0, "maximum": 1}
+				},
+				"required": ["name", "audio"]
+			},
+			"GuildSoundboardListResponse": {
+				"type": "object",
+				"properties": {
+					"sounds": {"type": "array", "items": {"$ref": "#/components/schemas/GuildSoundboardSoundResponse"}}
+				},
+				"required": ["sounds"],
+				"additionalProperties": false
+			},
 			"GuildRosterEventUpdateRequest": {
 				"type": "object",
 				"properties": {
@@ -35691,6 +36258,15 @@
 				"properties": {
 					"name": {"description": "The name of the role (1-100 characters)", "type": "string"},
 					"color": {"description": "The color of the role as an integer", "$ref": "#/components/schemas/ColorType"},
+					"color_secondary": {
+						"description": "The secondary role gradient color as an integer",
+						"anyOf": [{"$ref": "#/components/schemas/ColorType"}, {"type": "null"}]
+					},
+					"icon_emoji_id": {
+						"description": "The ID of a role icon emoji from this guild",
+						"anyOf": [{"$ref": "#/components/schemas/SnowflakeType"}, {"type": "null"}]
+					},
+					"unicode_emoji": {"description": "The Unicode role icon", "type": ["string", "null"]},
 					"permissions": {
 						"description": "The permissions bitfield for the role",
 						"$ref": "#/components/schemas/UnsignedInt64Type"
@@ -35715,6 +36291,14 @@
 					},
 					"name": {"type": "string", "description": "The name of the role"},
 					"color": {"description": "The colour of the role as an integer", "$ref": "#/components/schemas/Int32Type"},
+					"color_secondary": {
+						"description": "The secondary role gradient color as an integer",
+						"anyOf": [{"$ref": "#/components/schemas/ColorType"}, {"type": "null"}]
+					},
+					"icon_emoji_id": {
+						"description": "The ID of a role icon emoji from this guild",
+						"anyOf": [{"$ref": "#/components/schemas/SnowflakeStringType"}, {"type": "null"}]
+					},
 					"position": {
 						"description": "The position of the role in the role hierarchy",
 						"$ref": "#/components/schemas/Int32Type"
@@ -35775,6 +36359,15 @@
 						"description": "The color of the role as an integer (default: 0)",
 						"$ref": "#/components/schemas/ColorType"
 					},
+					"color_secondary": {
+						"description": "The secondary role gradient color as an integer",
+						"anyOf": [{"$ref": "#/components/schemas/ColorType"}, {"type": "null"}]
+					},
+					"icon_emoji_id": {
+						"description": "The ID of a role icon emoji from this guild",
+						"anyOf": [{"$ref": "#/components/schemas/SnowflakeType"}, {"type": "null"}]
+					},
+					"unicode_emoji": {"description": "The Unicode role icon", "type": ["string", "null"]},
 					"permissions": {
 						"description": "The permissions bitfield for the role",
 						"$ref": "#/components/schemas/UnsignedInt64Type"
@@ -37988,6 +38581,14 @@
 				"required": ["tables"],
 				"additionalProperties": false
 			},
+			"GuildSoundboardPlayRequest": {
+				"type": "object",
+				"properties": {
+					"session_id": {"type": "string", "minLength": 1, "maxLength": 128},
+					"connection_id": {"type": "string", "minLength": 1, "maxLength": 128}
+				},
+				"required": ["session_id", "connection_id"]
+			},
 			"ChannelSlowmodeStateResponse": {
 				"type": "object",
 				"properties": {
@@ -38748,7 +39349,19 @@
 							"room_theme": {
 								"description": "Room theme for a voice channel; null inherits the default, none disables it. Ignored on other channel types",
 								"anyOf": [
-									{"type": "string", "enum": ["none", "gece-lounge", "kahvehane", "oyun-odasi"]},
+									{
+										"type": "string",
+										"enum": [
+											"none",
+											"gece-lounge",
+											"kahvehane",
+											"mahalle-kahvesi",
+											"mor-sehir",
+											"neon-salon",
+											"oyun-odasi",
+											"yonetim-ofisi"
+										]
+									},
 									{"type": "null"}
 								]
 							},
@@ -38851,7 +39464,19 @@
 							"room_theme": {
 								"description": "Room theme for a voice channel; null inherits the default, none disables it. Ignored on other channel types",
 								"anyOf": [
-									{"type": "string", "enum": ["none", "gece-lounge", "kahvehane", "oyun-odasi"]},
+									{
+										"type": "string",
+										"enum": [
+											"none",
+											"gece-lounge",
+											"kahvehane",
+											"mahalle-kahvesi",
+											"mor-sehir",
+											"neon-salon",
+											"oyun-odasi",
+											"yonetim-ofisi"
+										]
+									},
 									{"type": "null"}
 								]
 							},
@@ -38954,7 +39579,19 @@
 							"room_theme": {
 								"description": "Room theme for a voice channel; null inherits the default, none disables it. Ignored on other channel types",
 								"anyOf": [
-									{"type": "string", "enum": ["none", "gece-lounge", "kahvehane", "oyun-odasi"]},
+									{
+										"type": "string",
+										"enum": [
+											"none",
+											"gece-lounge",
+											"kahvehane",
+											"mahalle-kahvesi",
+											"mor-sehir",
+											"neon-salon",
+											"oyun-odasi",
+											"yonetim-ofisi"
+										]
+									},
 									{"type": "null"}
 								]
 							},
@@ -39053,7 +39690,19 @@
 							"room_theme": {
 								"description": "Room theme for a voice channel; null inherits the default, none disables it. Ignored on other channel types",
 								"anyOf": [
-									{"type": "string", "enum": ["none", "gece-lounge", "kahvehane", "oyun-odasi"]},
+									{
+										"type": "string",
+										"enum": [
+											"none",
+											"gece-lounge",
+											"kahvehane",
+											"mahalle-kahvesi",
+											"mor-sehir",
+											"neon-salon",
+											"oyun-odasi",
+											"yonetim-ofisi"
+										]
+									},
 									{"type": "null"}
 								]
 							},
@@ -39152,7 +39801,19 @@
 							"room_theme": {
 								"description": "Room theme for a voice channel; null inherits the default, none disables it. Ignored on other channel types",
 								"anyOf": [
-									{"type": "string", "enum": ["none", "gece-lounge", "kahvehane", "oyun-odasi"]},
+									{
+										"type": "string",
+										"enum": [
+											"none",
+											"gece-lounge",
+											"kahvehane",
+											"mahalle-kahvesi",
+											"mor-sehir",
+											"neon-salon",
+											"oyun-odasi",
+											"yonetim-ofisi"
+										]
+									},
 									{"type": "null"}
 								]
 							},
@@ -40741,6 +41402,22 @@
 				"x-enumDescriptions": ["Time-based one-time password authenticator", "WebAuthn authenticator"]
 			},
 			"SnowflakeStringType": {"type": "string", "pattern": "^(0|[1-9][0-9]*)$", "format": "snowflake"},
+			"NameStyleSchema": {
+				"type": "object",
+				"properties": {
+					"font_id": {"$ref": "#/components/schemas/NameStyleFontIdType"},
+					"colors": {
+						"minItems": 1,
+						"maxItems": 2,
+						"type": "array",
+						"items": {"$ref": "#/components/schemas/ColorType"},
+						"description": "One colour for a solid name, two for a gradient"
+					}
+				},
+				"required": ["font_id", "colors"],
+				"additionalProperties": false,
+				"description": "The name font and colour"
+			},
 			"CosmeticAssetDataResponse": {
 				"type": "object",
 				"properties": {
@@ -40788,6 +41465,41 @@
 						"value": "1073741824",
 						"description": "User has premium and shows the premium badge next to their name (computed on every read, never stored)"
 					}
+				]
+			},
+			"ColorType": {"type": "integer", "minimum": 0, "maximum": 16777215},
+			"NameStyleFontIdType": {
+				"description": "The name font; ids are stable and never reused",
+				"type": "integer",
+				"enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+				"format": "int32",
+				"x-enumNames": [
+					"BALOO",
+					"PLAYPEN",
+					"PACIFICO",
+					"CAVEAT",
+					"PIXELIFY",
+					"PRESSSTART",
+					"VT323",
+					"AUDIOWIDE",
+					"GRENZE",
+					"NEWROCKER",
+					"BUNGEE",
+					"RIGHTEOUS"
+				],
+				"x-enumDescriptions": [
+					"Baloo 2",
+					"Playpen Sans",
+					"Pacifico",
+					"Caveat",
+					"Pixelify Sans",
+					"Press Start 2P",
+					"VT323",
+					"Audiowide",
+					"Grenze Gotisch",
+					"New Rocker",
+					"Bungee",
+					"Righteous"
 				]
 			},
 			"RefreshedAttachmentUrl": {
@@ -41025,7 +41737,22 @@
 					},
 					"room_theme": {
 						"description": "Room theme for a voice channel; null inherits the default, none disables it. Ignored on other channel types",
-						"anyOf": [{"type": "string", "enum": ["none", "gece-lounge", "kahvehane", "oyun-odasi"]}, {"type": "null"}]
+						"anyOf": [
+							{
+								"type": "string",
+								"enum": [
+									"none",
+									"gece-lounge",
+									"kahvehane",
+									"mahalle-kahvesi",
+									"mor-sehir",
+									"neon-salon",
+									"oyun-odasi",
+									"yonetim-ofisi"
+								]
+							},
+							{"type": "null"}
+						]
 					},
 					"rtc_p2p": {
 						"description": "Whether calls in the voice channel connect participants directly instead of through a voice server",
@@ -41142,7 +41869,22 @@
 					},
 					"room_theme": {
 						"description": "Room theme for a voice channel; null inherits the default, none disables it. Ignored on other channel types",
-						"anyOf": [{"type": "string", "enum": ["none", "gece-lounge", "kahvehane", "oyun-odasi"]}, {"type": "null"}]
+						"anyOf": [
+							{
+								"type": "string",
+								"enum": [
+									"none",
+									"gece-lounge",
+									"kahvehane",
+									"mahalle-kahvesi",
+									"mor-sehir",
+									"neon-salon",
+									"oyun-odasi",
+									"yonetim-ofisi"
+								]
+							},
+							{"type": "null"}
+						]
 					},
 					"rtc_p2p": {
 						"description": "Whether calls in the voice channel connect participants directly instead of through a voice server",
@@ -41998,7 +42740,6 @@
 					{"type": "null"}
 				]
 			},
-			"ColorType": {"type": "integer", "minimum": 0, "maximum": 16777215},
 			"MessageAttachmentFlags": {
 				"type": "integer",
 				"minimum": 0,
@@ -43737,6 +44478,10 @@
 					"type": {"$ref": "#/components/schemas/CosmeticItemType"},
 					"name": {"type": "string", "description": "The display name of the item"},
 					"description": {"description": "A short description of the item", "type": ["string", "null"]},
+					"series": {
+						"description": "Series the item belongs to, such as \"Arcade\"; null or absent when it has none",
+						"type": ["string", "null"]
+					},
 					"asset": {
 						"type": "string",
 						"description": "Hash of the item image; the media proxy serves it under branding/cosmetic-<type>-<id>/<asset>"
@@ -47362,6 +48107,65 @@
 					}
 				]
 			},
+			"ThemeColorsSchema": {
+				"type": "array",
+				"prefixItems": [{"$ref": "#/components/schemas/ColorType"}, {"$ref": "#/components/schemas/ColorType"}],
+				"items": false,
+				"minItems": 2,
+				"maxItems": 2,
+				"description": "The profile card gradient, top colour then bottom colour"
+			},
+			"NameStyleSchemaInput": {
+				"type": "object",
+				"properties": {
+					"font_id": {"$ref": "#/components/schemas/NameStyleFontIdTypeInput"},
+					"colors": {
+						"minItems": 1,
+						"maxItems": 2,
+						"type": "array",
+						"items": {"$ref": "#/components/schemas/ColorType"},
+						"description": "One colour for a solid name, two for a gradient"
+					}
+				},
+				"required": ["font_id", "colors"],
+				"description": "The name font and colour"
+			},
+			"NameStyleFontIdTypeInput": {
+				"description": "The name font; ids are stable and never reused",
+				"type": "integer",
+				"minimum": 0,
+				"maximum": 2147483647,
+				"format": "int32",
+				"x-enumNames": [
+					"BALOO",
+					"PLAYPEN",
+					"PACIFICO",
+					"CAVEAT",
+					"PIXELIFY",
+					"PRESSSTART",
+					"VT323",
+					"AUDIOWIDE",
+					"GRENZE",
+					"NEWROCKER",
+					"BUNGEE",
+					"RIGHTEOUS"
+				],
+				"x-enumDescriptions": [
+					"Baloo 2",
+					"Playpen Sans",
+					"Pacifico",
+					"Caveat",
+					"Pixelify Sans",
+					"Press Start 2P",
+					"VT323",
+					"Audiowide",
+					"Grenze Gotisch",
+					"New Rocker",
+					"Bungee",
+					"Righteous"
+				],
+				"enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+			},
 			"UserBoostSlotResponse": {
 				"type": "object",
 				"properties": {
@@ -47914,7 +48718,7 @@
 				]
 			},
 			"GameActivityPolicyRevisionSchema": {"type": "string", "pattern": "^(0|[1-9][0-9]{0,18})$"},
-			"GameActivityVisibilitySchema": {"type": "string", "enum": ["off", "friends"]},
+			"GameActivityVisibilitySchema": {"type": "string", "enum": ["off", "friends", "everyone"]},
 			"ProfilePrivacyLevelInput": {
 				"description": "Profile privacy visibility level",
 				"type": "integer",
@@ -48166,6 +48970,11 @@
 					"EMAIL_UNAVAILABLE_ON_INSTANCE",
 					"EMAIL_VERIFICATION_REQUIRED",
 					"DIRECT_MESSAGE_EMAIL_VERIFICATION_REQUIRED",
+					"ENFORCEMENT_ACCOUNT_CLOSED",
+					"ENFORCEMENT_DECISION_ENDED",
+					"ENFORCEMENT_DECISION_OWNS_STATE",
+					"ENFORCEMENT_DECISION_REPLACED",
+					"ENFORCEMENT_DELETION_STARTED",
 					"FOLLOW_TARGET_CONTENT_WARNING_REQUIRED",
 					"FOLLOW_TARGET_NOT_AGE_RESTRICTED",
 					"FRIEND_REQUEST_EMAIL_VERIFICATION_REQUIRED",
@@ -48243,6 +49052,7 @@
 					"GLOBAL_IP_BANNED",
 					"GLOBAL_IP_TEMPORARILY_BANNED",
 					"IP_BAN_DECLINED",
+					"IP_BAN_LINKED_TO_DECISION",
 					"MAX_APPLICATIONS",
 					"MAX_BOOKMARKS",
 					"MAX_ACTIVE_THREADS",
@@ -48372,6 +49182,7 @@
 					"UNCLAIMED_ACCOUNT_CANNOT_SUBMIT_REPORTS",
 					"UNKNOWN_CHANNEL",
 					"UNKNOWN_EMOJI",
+					"UNKNOWN_ENFORCEMENT_DECISION",
 					"UNKNOWN_FAVORITE_MEME",
 					"UNKNOWN_FEED_COMMENT",
 					"UNKNOWN_FEED_POST",
@@ -48509,6 +49320,11 @@
 					"This instance doesn't use email.",
 					"Email verification is required for this action.",
 					"Email verification is required for this action.",
+					"This account is closed, so it can't be suspended.",
+					"This decision has already ended.",
+					"An enforcement decision owns this restriction. End the decision instead.",
+					"A later decision replaced this one, so it can no longer be ended.",
+					"The deletion of this account has already started, so the decision can no longer be ended.",
 					"Updates from a channel with a content warning can only go to a channel with a content warning or an age restriction.",
 					"Updates from an age-restricted channel can only go to an age-restricted channel.",
 					"Email verification is required for this action.",
@@ -48583,9 +49399,10 @@
 					"IP authorization is required.",
 					"IP authorization resend is on cooldown.",
 					"IP authorization resend limit exceeded.",
-					"Your IP address {ipAddress} has been permanently blocked from the pirichat API by platform administrators. If you believe this is a mistake, contact selim.doyranli@albayrakmedya.com to appeal. Include this IP address in your appeal.",
-					"Your IP address {ipAddress} has been temporarily blocked from the pirichat API. The block lifts on its own when it expires. If you think this is a mistake, contact selim.doyranli@albayrakmedya.com and include this IP address.",
+					"{reason, select, shown {{product_name} blocked access from this network because of activity that broke its rules.} other {{product_name} blocked access from this network.}} If you share this network, for example at school, at work, on public Wi-Fi, through your mobile carrier or a VPN, this block may have nothing to do with you. The quickest fix is to switch networks, for example to mobile data instead of Wi-Fi, or to turn your VPN on or off.{appealEmail, select, null {} other { If you think this block is a mistake, email {appealEmail} and include your IP address, {ipAddress}.}}",
+					"{reason, select, shown {{product_name} blocked access from this network because of activity that broke its rules.} other {{product_name} blocked access from this network.}} The block ends on {expiresAt}. If you share this network, for example at school, at work, on public Wi-Fi, through your mobile carrier or a VPN, this block may have nothing to do with you. The quickest fix is to switch networks, for example to mobile data instead of Wi-Fi, or to turn your VPN on or off.{appealEmail, select, null {} other { If you think this block is a mistake, email {appealEmail} and include your IP address, {ipAddress}.}}",
 					"This IP address cannot be added to the blocklist.",
+					"This network block belongs to an enforcement decision. End the decision to remove it.",
 					"You've reached the maximum of {limit, plural, one {# application} other {# applications}}.",
 					"You've reached the maximum of {count, plural, one {# bookmark} other {# bookmarks}}.",
 					"This community has reached its active thread limit of {count}.",
@@ -48715,6 +49532,7 @@
 					"You need to complete your account setup before you can submit reports.",
 					"Channel wasn't found.",
 					"Unknown emoji.",
+					"Unknown enforcement decision.",
 					"Unknown saved media.",
 					"Comment wasn't found.",
 					"Post wasn't found.",

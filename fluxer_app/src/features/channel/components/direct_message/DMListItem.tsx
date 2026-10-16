@@ -16,6 +16,8 @@ import {useDMListItemHandlers} from '@app/features/channel/components/direct_mes
 import type {Channel} from '@app/features/channel/models/Channel';
 import * as ChannelUtils from '@app/features/channel/utils/ChannelUtils';
 import {NameplateBackground} from '@app/features/cosmetics/components/NameplateBackground';
+import {GameActivityRowStatus} from '@app/features/game_activity/components/GameActivityRowStatus';
+import {useGameActivity} from '@app/features/game_activity/hooks/useGameActivity';
 import {useLeaveGroup} from '@app/features/guild/hooks/useLeaveGroup';
 import Guilds from '@app/features/guild/state/Guilds';
 import {MENTION_COUNT_ARIA_DESCRIPTOR} from '@app/features/i18n/utils/CommonMessageDescriptors';
@@ -25,6 +27,7 @@ import {SafeMarkdown} from '@app/features/messaging/components/markdown';
 import {MarkdownContext} from '@app/features/messaging/components/markdown/renderers/RendererTypes';
 import Messages from '@app/features/messaging/state/MessagingMessages';
 import {SystemMessageUtils} from '@app/features/messaging/utils/SystemMessageUtils';
+import {NameStyleText} from '@app/features/name_style/components/NameStyleText';
 import ReadStates from '@app/features/read_state/state/ReadStates';
 import Relationships from '@app/features/relationship/state/Relationships';
 import RollingTypingStore from '@app/features/typing/rolling/RollingTypingStore';
@@ -46,6 +49,7 @@ import UserGuildSettings from '@app/features/user/state/UserGuildSettings';
 import Users from '@app/features/user/state/Users';
 import * as NicknameUtils from '@app/features/user/utils/NicknameUtils';
 import {ChannelTypes, MessageTypes} from '@fluxer/constants/src/ChannelConstants';
+import type {NameStyle} from '@fluxer/schema/src/domains/user/PlusAppearanceSchemas';
 import {extractTimestamp} from '@fluxer/snowflake/src/SnowflakeUtils';
 import {msg, plural} from '@lingui/core/macro';
 import {useLingui} from '@lingui/react/macro';
@@ -97,16 +101,17 @@ interface ResolvedDMListItemProps extends DMListItemProps {
 
 interface DMListItemNameTextProps {
 	displayName: string;
+	nameStyle: NameStyle | null | undefined;
 	dataFlx: string;
 }
 
-function DMListItemNameText({displayName, dataFlx}: DMListItemNameTextProps) {
+function DMListItemNameText({displayName, nameStyle, dataFlx}: DMListItemNameTextProps) {
 	const nameRef = useRef<HTMLSpanElement>(null);
 	const isNameOverflowing = useTextOverflow(nameRef, {content: displayName, measureTextRange: true});
 	const content = (
-		<span ref={nameRef} className={styles.dmItemNameText} data-flx={dataFlx}>
+		<NameStyleText ref={nameRef} nameStyle={nameStyle} className={styles.dmItemNameText} data-flx={dataFlx}>
 			{displayName}
-		</span>
+		</NameStyleText>
 	);
 	if (!isNameOverflowing) {
 		return content;
@@ -127,6 +132,7 @@ const ResolvedDMListItem = observer(function ResolvedDMListItem({
 	const {i18n} = useLingui();
 	const recipientId = recipient?.id || '';
 	const isBotDM = Boolean(recipient?.bot || recipient?.system);
+	const gameActivity = useGameActivity({userId: recipientId, enabled: !isGroupDM && !isBotDM});
 	const isTyping = isGroupDM
 		? channel.recipientIds.some((groupRecipientId) => RollingTypingStore.isTyping(channel.id, groupRecipientId))
 		: RollingTypingStore.isTyping(channel.id, recipientId);
@@ -418,6 +424,7 @@ const ResolvedDMListItem = observer(function ResolvedDMListItem({
 										)}
 										<DMListItemNameText
 											displayName={displayName}
+											nameStyle={isGroupDM ? null : recipient?.nameStyle}
 											dataFlx="channel.direct-message.dm-list-item.dm-item-name-text"
 											data-flx="channel.direct-message.dm-list-item.resolved-dm-list-item.dm-list-item-name-text"
 										/>
@@ -436,7 +443,14 @@ const ResolvedDMListItem = observer(function ResolvedDMListItem({
 											/>
 										)}
 									</span>
-									{!isGroupDM && recipient && !messagePreview && (
+									{gameActivity && (
+										<GameActivityRowStatus
+											activity={gameActivity}
+											className={styles.dmItemGameActivity}
+											data-flx="channel.direct-message.dm-list-item.dm-item-game-activity"
+										/>
+									)}
+									{!isGroupDM && recipient && !gameActivity && !messagePreview && (
 										<CustomStatusDisplay
 											userId={recipient.id}
 											className={styles.dmItemCustomStatus}
@@ -460,7 +474,7 @@ const ResolvedDMListItem = observer(function ResolvedDMListItem({
 											)}
 										</span>
 									)}
-									{!isGroupDM && messagePreview && (
+									{!isGroupDM && !gameActivity && messagePreview && (
 										<span
 											className={styles.dmItemSubtext}
 											data-flx="channel.direct-message.dm-list-item.dm-item-subtext"
@@ -579,6 +593,7 @@ const ResolvedDMListItem = observer(function ResolvedDMListItem({
 								)}
 								<DMListItemNameText
 									displayName={displayName}
+									nameStyle={isGroupDM ? null : recipient?.nameStyle}
 									dataFlx="channel.direct-message.dm-list-item.dm-item-name-text--2"
 									data-flx="channel.direct-message.dm-list-item.resolved-dm-list-item.dm-list-item-name-text--2"
 								/>
@@ -597,7 +612,14 @@ const ResolvedDMListItem = observer(function ResolvedDMListItem({
 									/>
 								)}
 							</span>
-							{!isGroupDM && recipient && !messagePreview && (
+							{gameActivity && (
+								<GameActivityRowStatus
+									activity={gameActivity}
+									className={styles.dmItemGameActivity}
+									data-flx="channel.direct-message.dm-list-item.dm-item-game-activity--2"
+								/>
+							)}
+							{!isGroupDM && recipient && !gameActivity && !messagePreview && (
 								<CustomStatusDisplay
 									userId={recipient.id}
 									className={styles.dmItemCustomStatus}
@@ -621,7 +643,7 @@ const ResolvedDMListItem = observer(function ResolvedDMListItem({
 									)}
 								</span>
 							)}
-							{!isGroupDM && messagePreview && (
+							{!isGroupDM && !gameActivity && messagePreview && (
 								<span
 									className={styles.dmItemSubtext}
 									data-flx="channel.direct-message.dm-list-item.dm-item-subtext--2"

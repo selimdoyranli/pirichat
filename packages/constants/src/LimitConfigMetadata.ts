@@ -8,6 +8,10 @@ import {
 } from '@fluxer/constants/src/LimitConstants';
 
 export const LIMIT_KEYS = [
+	'max_guild_video_fps',
+	'max_guild_video_height',
+	'feature_role_gradient',
+	'feature_role_icons',
 	'avatar_max_size',
 	'emoji_max_size',
 	'feature_animated_avatar',
@@ -27,6 +31,8 @@ export const LIMIT_KEYS = [
 	'feature_guild_roster',
 	'feature_mature_content_settings',
 	'feature_micupbot',
+	'feature_name_style',
+	'feature_profile_theme',
 	'feature_global_expressions',
 	'feature_guild_create',
 	'feature_higher_video_quality',
@@ -61,6 +67,7 @@ export const LIMIT_KEYS = [
 	'max_guild_roles',
 	'max_guild_stickers_more',
 	'max_guild_stickers',
+	'max_guild_soundboard_sounds',
 	'max_guilds',
 	'max_attachment_file_size',
 	'max_message_length',
@@ -79,6 +86,10 @@ export type LimitKey = (typeof LIMIT_KEYS)[number];
 export type LimitScope = 'user' | 'guild' | 'both';
 
 export const LIMIT_KEY_SCOPES: Record<LimitKey, LimitScope> = {
+	max_guild_video_fps: 'guild',
+	max_guild_video_height: 'guild',
+	feature_role_gradient: 'guild',
+	feature_role_icons: 'guild',
 	avatar_max_size: 'user',
 	emoji_max_size: 'guild',
 	feature_animated_avatar: 'user',
@@ -98,6 +109,8 @@ export const LIMIT_KEY_SCOPES: Record<LimitKey, LimitScope> = {
 	feature_guild_roster: 'user',
 	feature_mature_content_settings: 'user',
 	feature_micupbot: 'user',
+	feature_name_style: 'user',
+	feature_profile_theme: 'user',
 	feature_global_expressions: 'user',
 	feature_guild_create: 'user',
 	feature_higher_video_quality: 'user',
@@ -132,6 +145,7 @@ export const LIMIT_KEY_SCOPES: Record<LimitKey, LimitScope> = {
 	max_guild_roles: 'guild',
 	max_guild_stickers_more: 'guild',
 	max_guild_stickers: 'guild',
+	max_guild_soundboard_sounds: 'guild',
 	max_guilds: 'user',
 	max_attachment_file_size: 'both',
 	max_message_length: 'both',
@@ -171,6 +185,44 @@ export const LIMIT_CATEGORY_LABELS: Record<LimitCategory, string> = {
 	features: 'Feature Toggles',
 };
 export const LIMIT_KEY_METADATA: Record<LimitKey, LimitKeyMetadata> = {
+	max_guild_video_fps: {
+		key: 'max_guild_video_fps',
+		label: 'Max Guild Video FPS',
+		description: 'Maximum video frames per second granted by the guild',
+		category: 'guilds',
+		scope: 'guild',
+		isToggle: false,
+		unit: 'count',
+	},
+	max_guild_video_height: {
+		key: 'max_guild_video_height',
+		label: 'Max Guild Video Height',
+		description: 'Maximum video height in pixels granted by the guild',
+		category: 'guilds',
+		scope: 'guild',
+		isToggle: false,
+		unit: 'count',
+	},
+	feature_role_gradient: {
+		key: 'feature_role_gradient',
+		label: 'Role Gradient',
+		description: 'Assign a second static color to roles',
+		category: 'features',
+		scope: 'guild',
+		isToggle: true,
+		min: 0,
+		max: 1,
+	},
+	feature_role_icons: {
+		key: 'feature_role_icons',
+		label: 'Role Icons',
+		description: 'Assign Unicode or guild emoji icons to roles',
+		category: 'features',
+		scope: 'guild',
+		isToggle: true,
+		min: 0,
+		max: 1,
+	},
 	feature_app_commands: {
 		key: 'feature_app_commands',
 		label: 'Application Commands',
@@ -354,6 +406,15 @@ export const LIMIT_KEY_METADATA: Record<LimitKey, LimitKeyMetadata> = {
 		key: 'max_guild_stickers',
 		label: 'Max Stickers',
 		description: 'Maximum stickers per guild',
+		category: 'expressions',
+		scope: 'guild',
+		isToggle: false,
+		unit: 'count',
+	},
+	max_guild_soundboard_sounds: {
+		key: 'max_guild_soundboard_sounds',
+		label: 'Max Soundboard Sounds',
+		description: 'Maximum soundboard sounds per guild',
 		category: 'expressions',
 		scope: 'guild',
 		isToggle: false,
@@ -687,6 +748,24 @@ export const LIMIT_KEY_METADATA: Record<LimitKey, LimitKeyMetadata> = {
 		label: 'PirichatBot',
 		description:
 			'Instance-wide: the official community bot (welcome, auto roles, reaction roles, levels, # commands, automod); 0 stops every hook, job and settings write, stored settings stay',
+		category: 'features',
+		scope: 'user',
+		isToggle: true,
+	},
+	feature_name_style: {
+		key: 'feature_name_style',
+		label: 'Name Style',
+		description:
+			'Set a name font with a solid or two-colour gradient name colour; 0 refuses setting one (removing stays allowed). A stored style shows only while the account has active premium',
+		category: 'features',
+		scope: 'user',
+		isToggle: true,
+	},
+	feature_profile_theme: {
+		key: 'feature_profile_theme',
+		label: 'Profile Theme',
+		description:
+			'Paint the profile card with a two-colour gradient; 0 refuses setting one (removing stays allowed). A stored theme shows only while the account has active premium',
 		category: 'features',
 		scope: 'user',
 		isToggle: true,

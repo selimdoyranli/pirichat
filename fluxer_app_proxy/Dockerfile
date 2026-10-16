@@ -9,8 +9,8 @@ ARG APP_ASSETS_PLATFORM=$BUILDPLATFORM
 # ---------- Stage 1: Build the SPA (fluxer_app) ----------
 FROM node:26-trixie-slim AS app-deps
 
-ARG BUILD_VERSION
-ARG PUBLIC_ASSET_BASE_URL
+# pirichat: BUILD_VERSION / PUBLIC_ASSET_BASE_URL are declared right before pnpm build (app-build stage). Declared
+# here they joined the cache key of every layer below, so a new version number rebuilt apt, rustup and pnpm install.
 
 WORKDIR /usr/src/app
 
@@ -37,6 +37,9 @@ COPY fluxer_app/package.json ./fluxer_app/
 COPY packages/constants/package.json ./packages/constants/
 COPY packages/date_utils/package.json ./packages/date_utils/
 COPY packages/desktop_ipc/package.json ./packages/desktop_ipc/
+COPY packages/errors/package.json ./packages/errors/
+COPY packages/i18n/package.json ./packages/i18n/
+COPY packages/logger/package.json ./packages/logger/
 COPY packages/geo_utils/package.json ./packages/geo_utils/
 COPY packages/instance_bootstrap/package.json ./packages/instance_bootstrap/
 COPY packages/limits/package.json ./packages/limits/
@@ -49,7 +52,7 @@ COPY fluxer_app/pkgs/livekit-client/package.json ./fluxer_app/pkgs/livekit-clien
 
 RUN pnpm install --frozen-lockfile --filter fluxer_app...
 
-# ---------- sanalyer: Rust parçaları ayrı aşamada ----------
+# ---------- pirichat: Rust parçaları ayrı aşamada ----------
 # CI yardımcısı (tools/ci) ve üç wasm paketi yalnız kendi kaynakları değişince yeniden derlenir; bu aşamanın
 # katmanları registry buildcache'te kalır. Aksi halde her imajda sıfırdan 4 dakika sürüyordu.
 FROM app-deps AS app-wasm
@@ -74,6 +77,9 @@ COPY tsconfigs ./tsconfigs
 COPY packages/constants/ ./packages/constants/
 COPY packages/date_utils/ ./packages/date_utils/
 COPY packages/desktop_ipc/ ./packages/desktop_ipc/
+COPY packages/errors/ ./packages/errors/
+COPY packages/i18n/ ./packages/i18n/
+COPY packages/logger/ ./packages/logger/
 COPY packages/geo_utils/ ./packages/geo_utils/
 COPY packages/game_catalog/ ./packages/game_catalog/
 COPY packages/instance_bootstrap/ ./packages/instance_bootstrap/
@@ -102,11 +108,16 @@ COPY --from=app-wasm /usr/src/app/fluxer_app/pkgs/libfluxcore/ ./fluxer_app/pkgs
 COPY --from=app-wasm /usr/src/app/fluxer_app/pkgs/libfluxwebp/ ./fluxer_app/pkgs/libfluxwebp/
 COPY --from=app-wasm /usr/src/app/fluxer_app/src/features/messaging/utils/markdown/parser/MarkdownParserWasmBytes.ts ./fluxer_app/src/features/messaging/utils/markdown/parser/MarkdownParserWasmBytes.ts
 
+ARG BUILD_VERSION
+ARG PUBLIC_ASSET_BASE_URL
 ENV BUILD_VERSION=${BUILD_VERSION} \
 	PUBLIC_ASSET_BASE_URL=${PUBLIC_ASSET_BASE_URL} \
 	FLUXER_CI_BIN=/usr/local/bin/fluxer-ci \
 	FLUXER_APP_WASM_PREBUILT=1
 
+# pnpm 12 'verify deps before run' kontrolü önbellekli katmanda tam install'a kalkışıp masaüstü patch'lerinde düşüyor; bağımlılıklar app-deps aşamasında zaten kuruldu.
+ENV npm_config_verify_deps_before_run=false
+RUN printf 'verify-deps-before-run=false\n' >> .npmrc
 RUN cd fluxer_app && pnpm build
 
 # ---------- Stage 2: The one canonical asset tree every architecture serves ----------
@@ -119,7 +130,7 @@ ARG BUNDLE_LOCAL_ASSETS=true
 ARG PUBLIC_ASSET_BASE_URL=""
 COPY fluxer_app_proxy/scripts/precompress_assets.sh /usr/local/bin/precompress_assets.sh
 RUN apk add --no-cache brotli
-# sanalyer: q11 dört çekirdekte beş dakika sürüyordu; q9 birkaç yüzde büyük, kat kat hızlı.
+# pirichat: q11 dört çekirdekte beş dakika sürüyordu; q9 birkaç yüzde büyük, kat kat hızlı.
 ENV PRECOMPRESS_BROTLI_QUALITY=9 PRECOMPRESS_GZIP_LEVEL=6
 RUN --mount=type=bind,from=app-dist,source=/dist,target=/dist \
 	cp -a /dist /assets \

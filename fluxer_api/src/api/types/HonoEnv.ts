@@ -21,6 +21,7 @@ import type {ConnectionRequestService} from '@app/api/connection/ConnectionReque
 import type {ConnectionService} from '@app/api/connection/ConnectionService';
 import type {CosmeticService} from '@app/api/cosmetics/CosmeticService';
 import type {DonationService} from '@app/api/donation/DonationService';
+import type {NetworkBlock} from '@app/api/enforcement/NetworkBlockError';
 import type {FavoriteMemeRequestService} from '@app/api/favorite_meme/FavoriteMemeRequestService';
 import type {FavoriteMemeService} from '@app/api/favorite_meme/FavoriteMemeService';
 import type {FeedPostService} from '@app/api/feed/FeedPostService';
@@ -38,6 +39,8 @@ import type {MicupBotSettingsService} from '@app/api/guild/micupbot/MicupBotSett
 import type {GuildRosterSettingsService} from '@app/api/guild/roster/GuildRosterSettingsService';
 import type {GuildDiscoveryService} from '@app/api/guild/services/GuildDiscoveryService';
 import type {GuildService} from '@app/api/guild/services/GuildService';
+import type {GuildSoundboardPlayService} from '@app/api/guild/soundboard/GuildSoundboardPlayService';
+import type {GuildSoundboardService} from '@app/api/guild/soundboard/GuildSoundboardService';
 import type {EntityAssetService} from '@app/api/infrastructure/EntityAssetService';
 import type {ErrorI18nService} from '@app/api/infrastructure/ErrorI18nService';
 import type {IGatewayService} from '@app/api/infrastructure/IGatewayService';
@@ -112,6 +115,7 @@ export interface HonoEnv {
 		user: User;
 		requestId?: string;
 		clientIpResolution?: ClientIpResolution;
+		blockedNetworkSignIn?: NetworkBlock;
 		adminService: AdminService;
 		adminArchiveService: AdminArchiveService;
 		adminApiKeyService: AdminApiKeyService;
@@ -147,6 +151,8 @@ export interface HonoEnv {
 		passwordChangeService: PasswordChangeService;
 		entityAssetService: EntityAssetService;
 		entranceSoundService: EntranceSoundService;
+		guildSoundboardService: GuildSoundboardService;
+		guildSoundboardPlayService: GuildSoundboardPlayService;
 		badgeService: BadgeService;
 		cosmeticService: CosmeticService;
 		feedInteractionService: FeedInteractionService;
