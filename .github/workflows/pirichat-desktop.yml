@@ -3,6 +3,11 @@ name: pirichat desktop
 # Unsigned self-built shell with the renderer bundled in (FLUXER_OFFLINE), no module feed or updater backend.
 on:
   workflow_dispatch:
+    inputs:
+      yayinla:
+        description: Kurulum dosyalarını R2'ye (dl.pirichat.online) yükle; landing'in indirme linkleri bunları gösterir.
+        type: boolean
+        default: true
 
 permissions:
   contents: read
@@ -206,3 +211,34 @@ jobs:
             ${{ env.WORKDIR }}/fluxer_desktop/dist-electron/*.dmg
             ${{ env.WORKDIR }}/fluxer_desktop/dist-electron/*.exe
           if-no-files-found: error
+
+  publish:
+    name: Publish to R2
+    needs: build
+    if: ${{ inputs.yayinla }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Download installers
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          pattern: pirichat-*
+          path: dl
+
+      - name: Upload to R2
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+          AWS_REQUEST_CHECKSUM_CALCULATION: when_required
+          AWS_RESPONSE_CHECKSUM_VALIDATION: when_required
+          R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+          R2_BUCKET: ${{ vars.R2_DESKTOP_BUCKET || 'pirichat-desktop' }}
+        run: |
+          set -euo pipefail
+          [[ -n "$AWS_ACCESS_KEY_ID" && -n "$AWS_SECRET_ACCESS_KEY" && -n "$R2_ENDPOINT" ]] || { echo "::error::R2 secret'ları eksik (R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_ENDPOINT)"; exit 1; }
+          dmg=$(ls dl/pirichat-macos/*.dmg); exe=$(ls dl/pirichat-windows/*.exe)
+          # Landing links point at these fixed names; each run replaces them.
+          up() { aws s3 cp "$1" "s3://$R2_BUCKET/desktop/$2" --endpoint-url "$R2_ENDPOINT" --no-progress --content-type application/octet-stream --cache-control no-cache --content-disposition "attachment; filename=\"$2\""; }
+          up "$dmg" pirichat-macos.dmg
+          up "$exe" pirichat-windows-x64.exe
