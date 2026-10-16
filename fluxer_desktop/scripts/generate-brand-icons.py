@@ -64,19 +64,28 @@ def cut_tile(source):
     return resized(tile, 1024)
 
 
-def tray_template(tile, size):
-    # White strokes only (bubble and R): Apple's black/alpha template format.
+def tray_mark(tile):
+    # The logo without its dark tile: white bubble and R plus the red square, as an alpha mask and its bbox.
     r, g, b, a = tile.split()
     white = ImageChops.darker(ImageChops.darker(r, g), b).point(lambda v: max(0, min(255, (v - 96) * 255 // 159)))
-    mark = ImageChops.multiply(white, a)
-    mark = mark.crop(mark.getbbox())
+    red = ImageChops.subtract(r, g).point(lambda v: max(0, min(255, (v - 60) * 255 // 120)))
+    mark = ImageChops.multiply(ImageChops.lighter(white, red), a)
+    return mark, mark.getbbox()
+
+
+def tray_icon(tile, size, colored):
+    # colored: the logo's own white and red (Windows tray); otherwise Apple's black/alpha template format.
+    mark, box = tray_mark(tile)
+    mark = mark.crop(box)
     width = size - 2
     height = round(mark.height * width / mark.width)
     alpha = Image.new("L", (size, size))
     alpha.paste(mark.resize((width, height), Image.Resampling.LANCZOS), (1, (size - height) // 2))
-    template = Image.new("RGBA", (size, size), (0, 0, 0, 0))
-    template.putalpha(alpha)
-    return template
+    icon = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    if colored:
+        icon.paste(tile.crop(box).convert("RGB").resize((width, height), Image.Resampling.LANCZOS), (1, (size - height) // 2))
+    icon.putalpha(alpha)
+    return icon
 
 
 def main():
@@ -112,8 +121,9 @@ def main():
         resized(tile, 50).save(icon_root / "StoreLogo.png", compress_level=9)
         for size in SQUARE_LOGOS:
             resized(tile, size).save(icon_root / f"Square{size}x{size}Logo.png", compress_level=9)
-        for size, name in ((16, "FluxerTrayTemplate.png"), (32, "FluxerTrayTemplate@2x.png")):
-            tray_template(tile, size).save(icon_root / name, compress_level=9)
+        for size, suffix in ((16, ""), (32, "@2x")):
+            tray_icon(tile, size, False).save(icon_root / f"FluxerTrayTemplate{suffix}.png", compress_level=9)
+            tray_icon(tile, size, True).save(icon_root / f"PirichatTray{suffix}.png", compress_level=9)
         tile.save(WEB / f"icons/desktop/{channel}/icon.ico", sizes=ICO_SIZES)
     appx = ROOT / "appx"
     for size in (44, 150):

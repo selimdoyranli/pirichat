@@ -219,6 +219,8 @@ function createTrayImage(
 function createTrayIcon(): Electron.NativeImage | null {
 	if (process.platform === 'win32') {
 		return (
+			// pirichat: the logo without its dark tile; the full app icon reads as a solid square once made monochrome.
+			createTrayImage(['PirichatTray.png']) ??
 			createTrayImage(['16x16.png'], {resize: {width: 16, height: 16}}) ??
 			createTrayImage(['32x32.png'], {resize: {width: 16, height: 16}}) ??
 			createTrayImage(['icon.ico', 'icon.png'])

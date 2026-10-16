@@ -1454,6 +1454,8 @@ module.exports = {
 				'512x512.png',
 				'FluxerTrayTemplate.png',
 				'FluxerTrayTemplate@2x.png',
+				'PirichatTray.png',
+				'PirichatTray@2x.png',
 				'icon.ico',
 				'icon.png',
 			],
