@@ -5,10 +5,10 @@
 
 export const MOR_GECE_CSS = `/* SPDX-License-Identifier: AGPL-3.0-or-later
  * @name Mor Gece
- * @description pirichat markasının moru ve altını, gece lacivertine yakın koyu bir zeminde.
+ * @description Mor ve altın tonları, gece lacivertine yakın koyu bir zeminde.
  * @author pirichat
  * @version 1.0.0
- * @tags koyu, mor, pirichat
+ * @tags koyu, mor, altın
  */
 
 /* The palette applies over every built-in theme: :root[class] outranks the theme classes of color-system.css. */

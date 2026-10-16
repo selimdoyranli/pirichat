@@ -1198,7 +1198,7 @@ describe('splash preload rendering', () => {
 		assert.deepEqual(harness.sent, [{channel: 'desktop-splash:ready', payload: undefined}]);
 		assert.equal(harness.statusText(), 'Checking for updates…');
 		assert.equal(harness.query('.progress-placeholder').textContent, ' ');
-		assert.equal(harness.query('.splash-mark').getAttribute('src'), './symbol.svg');
+		assert.equal(harness.query('.splash-mark').getAttribute('src'), './symbol.png');
 		assert.equal(harness.query('.splash-mark').getAttribute('width'), '88');
 	});
 
@@ -1487,7 +1487,7 @@ describe('splash preload manual update layout', () => {
 
 		assert.equal(harness.mount.replaceChildrenCalls, 2);
 		assert.equal(harness.query('.splash-inner-dl').children.length, 4);
-		assert.equal(harness.query('.splash-mark-dl').querySelector('img').getAttribute('src'), './symbol.svg');
+		assert.equal(harness.query('.splash-mark-dl').querySelector('img').getAttribute('src'), './symbol.png');
 		assert.equal(harness.query('.dl-update-message').textContent, 'A new version of pirichat is ready to install.');
 		assert.equal(harness.query('.dl-version-message').textContent, 'Version 2026.823.1 available');
 		assert.deepEqual(
