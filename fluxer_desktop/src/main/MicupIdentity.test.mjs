@@ -55,17 +55,17 @@ function channelStub(channel) {
 }
 
 describe('pirichat desktop identity', () => {
-	test('updates from pirichat.online and sends manual downloads to the pirichat download page', () => {
+	test('updates from dl.pirichat.online and sends manual downloads to the pirichat download page', () => {
 		const downloads = load('./UpdaterDownloads.ts', {
 			stubs: channelStub('stable'),
 			globals: {process: {platform: 'win32', arch: 'x64'}},
 		});
 
-		assert.equal(downloads.UPDATE_BASE_URL, 'https://pirichat.online/desktop/stable/win32/x64');
+		assert.equal(downloads.UPDATE_BASE_URL, 'https://dl.pirichat.online/desktop/stable/win32/x64');
 		assert.equal(downloads.DOWNLOAD_PAGE_URL, 'https://pirichat.online/indir');
 		assert.equal(
 			downloads.buildManualVersionDownloadUrl('1.0.1', 'setup'),
-			'https://pirichat.online/desktop/stable/win32/x64/1.0.1/setup',
+			'https://dl.pirichat.online/desktop/stable/win32/x64/1.0.1/setup',
 		);
 	});
 
@@ -76,7 +76,7 @@ describe('pirichat desktop identity', () => {
 		});
 		const [appimage] = downloads.getManualDownloadOptions({version: '1.0.1', pubDate: null, files: {}});
 
-		assert.equal(appimage.url, 'https://pirichat.online/desktop/stable/linux/x64/1.0.1/appimage');
+		assert.equal(appimage.url, 'https://dl.pirichat.online/desktop/stable/linux/x64/1.0.1/appimage');
 		assert.equal(appimage.suggestedName, 'pirichat-1.0.1-linux-x86_64.AppImage');
 	});
 
@@ -180,13 +180,13 @@ describe('pirichat desktop identity', () => {
 	});
 
 	// pirichat: upstream removed the app's Linux manual-update options file; the API redirects are what is left to check.
-	test('points the API download redirects at pirichat.online', () => {
+	test('points the API download redirects at dl.pirichat.online', () => {
 		const redirects = load('../../../fluxer_api/src/api/download/DownloadRedirects.ts');
 
-		assert.equal(redirects.PKGS_BASE_URL, 'https://pirichat.online');
+		assert.equal(redirects.PKGS_BASE_URL, 'https://dl.pirichat.online');
 		assert.equal(
 			redirects.resolveDownloadRedirect('/dl/desktop/stable/win32/x64/latest').location,
-			'https://pirichat.online/desktop/stable/win32/x64/latest.json',
+			'https://dl.pirichat.online/desktop/stable/win32/x64/latest.json',
 		);
 	});
 

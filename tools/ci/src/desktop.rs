@@ -38,7 +38,7 @@ use tempfile::TempDir;
 use walkdir::WalkDir;
 use zip::write::SimpleFileOptions;
 
-const PACKAGE_ORIGIN_BASE: &str = "https://pirichat.online";
+const PACKAGE_ORIGIN_BASE: &str = "https://dl.pirichat.online";
 const PACKAGE_ORIGIN_BASE_ENV: &str = "FLUXER_DESKTOP_PACKAGE_ORIGIN_BASE";
 const PACKAGE_DOWNLOAD_BASE_ENV: &str = "PKGS_DOWNLOAD_BASE_URL";
 const PNPM_VERSION: &str = "12.4.2";
@@ -2583,14 +2583,21 @@ fn build_app_step(platform: DesktopBuildPlatform) -> Result<()> {
 }
 
 fn validate_macos_signing_env() -> Result<PathBuf> {
-    let missing = ["APPLE_ID", "APPLE_APP_SPECIFIC_PASSWORD", "APPLE_TEAM_ID"]
-        .into_iter()
-        .filter(|name| env_string(name).is_none())
-        .collect::<Vec<_>>();
+    // pirichat: notarization also accepts an App Store Connect API key (electron-builder reads APPLE_API_*).
+    let missing_for = |names: &[&'static str]| {
+        names
+            .iter()
+            .copied()
+            .filter(|name| env_string(name).is_none())
+            .collect::<Vec<_>>()
+    };
+    let apple_id = missing_for(&["APPLE_ID", "APPLE_APP_SPECIFIC_PASSWORD", "APPLE_TEAM_ID"]);
+    let api_key = missing_for(&["APPLE_API_KEY", "APPLE_API_KEY_ID", "APPLE_API_ISSUER"]);
     ensure!(
-        missing.is_empty(),
-        "Missing macOS notarization environment variables: {}. APPLE_ID maps to repo secret APPLE_ID; APPLE_APP_SPECIFIC_PASSWORD maps to APPLE_PASSWORD; APPLE_TEAM_ID maps to APPLE_TEAM_ID.",
-        missing.join(" ")
+        apple_id.is_empty() || api_key.is_empty(),
+        "Missing macOS notarization environment variables: either {} (Apple ID) or {} (App Store Connect API key).",
+        apple_id.join(" "),
+        api_key.join(" ")
     );
 
     let keychain = require_home()?.join("Library/Keychains/fluxer-build.keychain-db");

@@ -185,7 +185,7 @@ function loadUpdater({
 		clearTimeout,
 		setImmediate,
 		fetch: (input, init) => {
-			const url = String(input).replace(/https:\/\/pirichat\.online\/desktop\/canary\/[^/]+\/[^/]+/, baseUrl);
+			const url = String(input).replace(/https:\/\/dl\.pirichat\.online\/desktop\/canary\/[^/]+\/[^/]+/, baseUrl);
 			return fetch(url, init);
 		},
 		require: (specifier) => {

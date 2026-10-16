@@ -11,8 +11,8 @@ export function getDesktopDownloadArch(arch: NodeJS.Architecture): DesktopDownlo
 export const DESKTOP_DOWNLOAD_ARCH = getDesktopDownloadArch(process.arch);
 const PACKAGE_ORIGIN_ENV = 'FLUXER_DESKTOP_PACKAGE_ORIGIN';
 const CHANNEL_PACKAGE_ORIGINS: Record<BuildChannel, string> = {
-	stable: 'https://pirichat.online',
-	canary: 'https://pirichat.online',
+	stable: 'https://dl.pirichat.online',
+	canary: 'https://dl.pirichat.online',
 	development: 'http://localhost:48780',
 };
 

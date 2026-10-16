@@ -17,7 +17,7 @@
 # indirmesi dahil). Önbellek dolunca tam koşu ~3.7 dk (build.mjs ~70 sn, dmg+zip ~2.5 dk);
 # SADECE_APP=1 RENDERER=atla ile ~1 dk (build.mjs ~30 sn, .app ~20 sn).
 #
-# Not: FLUXER_MODULES bilerek açılmıyor. CI'da açık; açıkken uygulama renderer modülünü pirichat.online'dan
+# Not: FLUXER_MODULES bilerek açılmıyor. CI'da açık; açıkken uygulama renderer modülünü dl.pirichat.online'dan
 # güncelleyebilir ve yerel renderer değişikliği görünmez olur.
 
 set -euo pipefail

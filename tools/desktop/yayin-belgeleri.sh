@@ -6,10 +6,10 @@
 #                         (Updater.ts fetchManualLatest; DownloadRedirects 'latest' -> latest.json)
 #   <surum>/appimage    : AppImage dosyasinin kendisi (ShellSelfUpdate.ts: base/<surum>/appimage)
 #
-# Kullanim: tools/desktop/yayin-belgeleri.sh payload_tree/desktop https://pirichat.online
+# Kullanim: tools/desktop/yayin-belgeleri.sh payload_tree/desktop https://dl.pirichat.online
 set -euo pipefail
 root="${1:?payload koku}"
-origin="${2:?paket origin, ornek https://pirichat.online}"
+origin="${2:?paket origin, ornek https://dl.pirichat.online}"
 origin="${origin%/}"
 here="$(cd "$(dirname "$0")" && pwd)"
 command -v jq >/dev/null || { echo "jq gerekli" >&2; exit 1; }

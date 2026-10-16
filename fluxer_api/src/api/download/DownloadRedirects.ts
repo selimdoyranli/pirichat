@@ -2,8 +2,8 @@
 
 import {posix} from 'node:path';
 
-// pirichat: desktop packages and update feeds live in the pirichat.online bucket (R2).
-export const PKGS_BASE_URL = 'https://pirichat.online';
+// pirichat: desktop packages and update feeds live in the dl.pirichat.online bucket (R2).
+export const PKGS_BASE_URL = 'https://dl.pirichat.online';
 export const DOWNLOAD_PREFIX = '/dl';
 export const DESKTOP_REDIRECT_PREFIX = `${DOWNLOAD_PREFIX}/desktop`;
 

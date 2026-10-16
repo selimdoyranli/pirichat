@@ -144,7 +144,7 @@ function loadUpdater(windowsStore) {
 			},
 			'@electron/main/UpdaterDownloads': {
 				DOWNLOAD_PAGE_URL: 'https://pirichat.online/indir',
-				UPDATE_BASE_URL: 'https://pirichat.online/desktop/stable/win32/x64',
+				UPDATE_BASE_URL: 'https://dl.pirichat.online/desktop/stable/win32/x64',
 				MANUAL_DESKTOP_FORMATS: [],
 			},
 			'@electron/main/Window': {setQuitting() {}},
