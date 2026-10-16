@@ -7,8 +7,15 @@ use axum::{
 };
 use serde_json::json;
 
+// pirichat: the Android app. Fingerprints: Play app signing key, then the upload key (sideloaded builds).
+const PACKAGES: [&str; 2] = ["online.pirichat.mobile", "online.pirichat.mobile.canary"];
+const CERT_FINGERPRINTS: [&str; 2] = [
+    "09:54:7D:A0:27:82:B8:F9:98:A0:B2:14:0F:56:6F:12:63:2A:4D:83:52:5F:B5:FD:9E:1A:E0:BE:18:7F:03:1A",
+    "E8:D7:21:47:5F:08:27:2E:7E:9E:E2:F2:F1:B5:12:BF:2B:2A:07:EE:98:E0:CB:8F:2C:35:60:C4:40:09:70:B9",
+];
+
 pub async fn assetlinks() -> Response {
-    let body = ["com.fluxer", "com.fluxer.canary"].map(|package_name| {
+    let body = PACKAGES.map(|package_name| {
         json!({
             "relation": [
                 "delegate_permission/common.handle_all_urls",
@@ -17,10 +24,7 @@ pub async fn assetlinks() -> Response {
             "target": {
                 "namespace": "android_app",
                 "package_name": package_name,
-                "sha256_cert_fingerprints": [
-                    "91:E4:98:E1:B8:A6:C8:BA:99:41:5E:DB:29:78:29:6B:6C:58:BA:A5:E2:D2:A6:49:CE:C6:2D:A7:A8:29:C7:BC",
-                    "2D:DE:2A:9D:3D:13:7C:17:87:31:3D:D8:BB:61:F4:59:3C:2A:97:18:05:B3:ED:F6:B8:39:B0:AA:D2:E7:76:C9"
-                ]
+                "sha256_cert_fingerprints": CERT_FINGERPRINTS
             }
         })
     });
@@ -49,38 +53,17 @@ mod tests {
 
         let body = to_bytes(response.into_body(), usize::MAX).await.unwrap();
         let actual: serde_json::Value = serde_json::from_slice(&body).unwrap();
+        let entries = actual.as_array().unwrap();
+        assert_eq!(entries.len(), 2);
+        assert_eq!(entries[0]["target"]["package_name"], "online.pirichat.mobile");
+        assert_eq!(entries[1]["target"]["package_name"], "online.pirichat.mobile.canary");
         assert_eq!(
-            actual,
+            entries[0]["relation"],
             serde_json::json!([
-                {
-                    "relation": [
-                        "delegate_permission/common.handle_all_urls",
-                        "delegate_permission/common.get_login_creds"
-                    ],
-                    "target": {
-                        "namespace": "android_app",
-                        "package_name": "com.fluxer",
-                        "sha256_cert_fingerprints": [
-                            "91:E4:98:E1:B8:A6:C8:BA:99:41:5E:DB:29:78:29:6B:6C:58:BA:A5:E2:D2:A6:49:CE:C6:2D:A7:A8:29:C7:BC",
-                            "2D:DE:2A:9D:3D:13:7C:17:87:31:3D:D8:BB:61:F4:59:3C:2A:97:18:05:B3:ED:F6:B8:39:B0:AA:D2:E7:76:C9"
-                        ]
-                    }
-                },
-                {
-                    "relation": [
-                        "delegate_permission/common.handle_all_urls",
-                        "delegate_permission/common.get_login_creds"
-                    ],
-                    "target": {
-                        "namespace": "android_app",
-                        "package_name": "com.fluxer.canary",
-                        "sha256_cert_fingerprints": [
-                            "91:E4:98:E1:B8:A6:C8:BA:99:41:5E:DB:29:78:29:6B:6C:58:BA:A5:E2:D2:A6:49:CE:C6:2D:A7:A8:29:C7:BC",
-                            "2D:DE:2A:9D:3D:13:7C:17:87:31:3D:D8:BB:61:F4:59:3C:2A:97:18:05:B3:ED:F6:B8:39:B0:AA:D2:E7:76:C9"
-                        ]
-                    }
-                }
+                "delegate_permission/common.handle_all_urls",
+                "delegate_permission/common.get_login_creds"
             ])
         );
+        assert_eq!(entries[0]["target"]["sha256_cert_fingerprints"], serde_json::json!(CERT_FINGERPRINTS));
     }
 }
