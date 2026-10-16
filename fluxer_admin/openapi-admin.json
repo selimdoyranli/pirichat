@@ -2,13 +2,13 @@
 	"openapi": "3.0.3",
 	"security": [],
 	"info": {
-		"title": "Fluxer API",
+		"title": "pirichat API",
 		"version": "1.0.0",
-		"description": "API for Fluxer, a free and open source instant messaging and VoIP chat app built for friends, groups, and communities.",
-		"contact": {"name": "Fluxer Platform AB", "email": "support@fluxer.com"},
+		"description": "API of pirichat, a free and open source instant messaging and VoIP chat app for friends, groups and communities.",
+		"contact": {"name": "pirichat", "email": "selim.doyranli@albayrakmedya.com"},
 		"license": {"name": "AGPL-3.0", "url": "https://www.gnu.org/licenses/agpl-3.0.html"}
 	},
-	"servers": [{"url": "https://api.fluxer.app/v1", "description": "Production API"}],
+	"servers": [{"url": "https://pirichat.online/api/v1", "description": "Production API"}],
 	"paths": {
 		"/admin/acls": {
 			"get": {
@@ -15028,14 +15028,15 @@
 					},
 					"outcome": {
 						"description": "What happened to the reported content or account. Required for actioned, where no_violation is refused. Optional for no_violation, where it can only be no_violation. Refused for duplicate. The reporter is told it",
-						"x-enumNames": ["removed", "restricted", "action_taken", "no_violation"],
+						"x-enumNames": ["removed", "warned", "restricted", "action_taken", "no_violation"],
 						"x-enumDescriptions": [
 							"The reported content, profile field or community was removed",
+							"The account responsible for the reported item was warned",
 							"The reported account was restricted and the content was left up",
 							"Action was taken under the rules, and the reporter is not told which",
 							"The reported content or account does not break the rules and was left as it is"
 						],
-						"enum": ["removed", "restricted", "action_taken", "no_violation"],
+						"enum": ["removed", "warned", "restricted", "action_taken", "no_violation"],
 						"type": "string"
 					},
 					"duplicate_of": {

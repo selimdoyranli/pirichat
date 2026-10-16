@@ -3,7 +3,13 @@
 
 Run with Python + Pillow 12: python fluxer_desktop/scripts/generate-brand-icons.py
 The source is an opaque square: a dark rounded tile on pure black. The tile is cut out with a rounded
-alpha mask so icons get transparent corners. Stable and canary share artwork; development keeps its own.
+alpha mask so icons get transparent corners. Stable, canary and development share artwork.
+Besides the app icon this writes every icon the main process loads at runtime:
+- macOS menu bar: FluxerTrayTemplate.png / @2x (black + alpha template of the mark)
+- Windows colour tray: PirichatTray.png / @2x (the logo without its tile: white bubble and R, red square)
+- Windows and Linux monochrome tray: tray-glyph.png (+ @1.25x, @1.5x, @2x) and tray-glyph-256x256.png, the white
+  mark on transparent; DesktopTray repaints it white or black and adds the unread dot at runtime
+- Windows taskbar overlay: badges/badge-N.ico and badges/badge-dark-N.ico (N = 1..9, 10 = "9+", 11 = dot)
 """
 
 import base64
@@ -12,7 +18,7 @@ import json
 import struct
 from pathlib import Path
 
-from PIL import Image, ImageChops, ImageDraw
+from PIL import Image, ImageChops, ImageDraw, ImageFont
 
 DESKTOP = Path(__file__).resolve().parents[1]
 ROOT = DESKTOP / "build_resources"
@@ -25,11 +31,72 @@ MAC_TILE = 824
 TILE_BACKGROUND = (10, 10, 16, 255)
 SIZES = (16, 24, 32, 48, 64, 128, 256, 512, 1024)
 ICO_SIZES = [(s, s) for s in (16, 24, 32, 48, 64, 128, 256)]
+CHANNELS = ("stable", "canary", "development")
+TRAY_GLYPHS = {
+    "tray-glyph.png": 16, "tray-glyph@1.25x.png": 20, "tray-glyph@1.5x.png": 24, "tray-glyph@2x.png": 32,
+    "tray-glyph-256x256.png": 256,
+}
+BADGE_FONT = Path(__file__).resolve().parents[2] / "packages/fonts/files/FluxerSans/FluxerSans-SemiBold.woff2"
+BADGE_FRAME_SIZES = (16, 20, 24, 32, 40, 48)
+BADGE_SUPERSAMPLE = 8
+BADGE_COUNT = 11
+# pirichat: logo red for the default badge, the logo's dark tile for the dark variant.
+BADGE_VARIANTS = (("badge", (0xFD, 0x01, 0x2D)), ("badge-dark", (0x26, 0x25, 0x2D)))
 ICNS_SIZES = {
     "icp4": 16, "icp5": 32, "icp6": 64, "ic07": 128, "ic08": 256,
     "ic09": 512, "ic10": 1024, "ic11": 32, "ic12": 64, "ic13": 256, "ic14": 512,
 }
 SQUARE_LOGOS = (30, 44, 71, 89, 107, 142, 150, 284, 310)
+
+
+def fit_mark(mark, size, margin):
+    """The mark centred vertically, `margin` px from the left and right edges, as an L alpha mask."""
+    width = size - 2 * margin
+    height = round(mark.height * width / mark.width)
+    alpha = Image.new("L", (size, size))
+    alpha.paste(mark.resize((width, height), Image.Resampling.LANCZOS), (margin, (size - height) // 2))
+    return alpha
+
+
+def solid(color, alpha):
+    image = Image.new("RGBA", alpha.size, (*color, 0))
+    image.putalpha(alpha)
+    return image
+
+
+def badge_label(index):
+    if index == BADGE_COUNT:
+        return None
+    return "9+" if index == BADGE_COUNT - 1 else str(index)
+
+
+def ink_mask(font, label):
+    left, top, right, bottom = font.getbbox(label)
+    mask = Image.new("L", (right - left + 4, bottom - top + 4))
+    ImageDraw.Draw(mask).text((2 - left, 2 - top), label, font=font, fill=255)
+    return mask.crop(mask.getbbox())
+
+
+def render_badge(size, fill, label):
+    """Same geometry as upstream's generate-windows-badges.mjs: 87.5% disc, '8' at 49% height, 70% max width."""
+    big = size * BADGE_SUPERSAMPLE
+    disc = Image.new("L", (big, big))
+    inset = big * (1 - 0.875) / 2
+    ImageDraw.Draw(disc).ellipse((inset, inset, big - inset, big - inset), fill=255)
+    glyph = Image.new("L", (big, big))
+    if label is None:
+        inset = big * (1 - 0.375) / 2
+        ImageDraw.Draw(glyph).ellipse((inset, inset, big - inset, big - inset), fill=255)
+    else:
+        reference = ink_mask(ImageFont.truetype(str(BADGE_FONT), 1000), "8").height
+        font_size = 1000 * big * 0.49 / reference
+        ink = ink_mask(ImageFont.truetype(str(BADGE_FONT), round(font_size)), label)
+        if ink.width > big * 0.7:
+            ink = ink_mask(ImageFont.truetype(str(BADGE_FONT), round(font_size * big * 0.7 / ink.width)), label)
+        glyph.paste(ink, ((big - ink.width) // 2, (big - ink.height) // 2))
+    image = solid(fill, disc)
+    image.paste((255, 255, 255, 255), mask=glyph)
+    return image.convert("RGBa").reduce(BADGE_SUPERSAMPLE).convert("RGBA")
 
 
 def png_bytes(image):
@@ -88,6 +155,17 @@ def tray_icon(tile, size, colored):
     return icon
 
 
+def encode_ico(frames):
+    """PNG-compressed ICO frames, smallest first, like upstream's badge encoder."""
+    header = struct.pack("<HHH", 0, 1, len(frames))
+    offset = len(header) + 16 * len(frames)
+    entries = b""
+    for size, data in frames:
+        entries += struct.pack("<BBBBHHII", size % 256, size % 256, 0, 0, 1, 32, len(data), offset)
+        offset += len(data)
+    return header + entries + b"".join(data for _, data in frames)
+
+
 def main():
     source = Image.open(SOURCE).convert("RGB")
     tile = cut_tile(source)
@@ -104,7 +182,16 @@ def main():
         f'  <image width="1024" height="1024" href="data:image/png;base64,{base64.b64encode(pngs[1024]).decode()}"/>\n'
         '</svg>\n'
     )
-    for channel in ("stable", "canary"):
+    mark_alpha, mark_box = tray_mark(tile)
+    mark = mark_alpha.crop(mark_box)
+    badges = {
+        f"{prefix}-{index}.ico": encode_ico(
+            [(size, png_bytes(render_badge(size, fill, badge_label(index)))) for size in BADGE_FRAME_SIZES]
+        )
+        for prefix, fill in BADGE_VARIANTS
+        for index in range(1, BADGE_COUNT + 1)
+    }
+    for channel in CHANNELS:
         icon_root = ROOT / f"icons-{channel}"
         for size, png in pngs.items():
             (icon_root / f"{size}x{size}.png").write_bytes(png)
@@ -124,7 +211,13 @@ def main():
         for size, suffix in ((16, ""), (32, "@2x")):
             tray_icon(tile, size, False).save(icon_root / f"FluxerTrayTemplate{suffix}.png", compress_level=9)
             tray_icon(tile, size, True).save(icon_root / f"PirichatTray{suffix}.png", compress_level=9)
-        tile.save(WEB / f"icons/desktop/{channel}/icon.ico", sizes=ICO_SIZES)
+        for name, size in TRAY_GLYPHS.items():
+            solid((255, 255, 255), fit_mark(mark, size, round(size / 16))).save(icon_root / name, compress_level=9)
+        (icon_root / "badges").mkdir(exist_ok=True)
+        for name, data in badges.items():
+            (icon_root / "badges" / name).write_bytes(data)
+        if (WEB / f"icons/desktop/{channel}").is_dir():
+            tile.save(WEB / f"icons/desktop/{channel}/icon.ico", sizes=ICO_SIZES)
     appx = ROOT / "appx"
     for size in (44, 150):
         resized(tile, size).save(appx / f"Square{size}x{size}Logo.png", compress_level=9)
@@ -142,7 +235,7 @@ def main():
             WEB / f"android-chrome-{size}x{size}.png", compress_level=9
         )
     centered(tile, 1200, 630, 0.7, TILE_BACKGROUND).convert("RGB").save(WEB / "og-image-default.png", compress_level=9)
-    print(f"pirichat icons written; ICNS={len(icns)} bytes")
+    print(f"pirichat icons written; ICNS={len(icns)} bytes; badges={len(badges)}")
 
 
 if __name__ == "__main__":

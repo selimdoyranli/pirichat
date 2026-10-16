@@ -2,13 +2,13 @@
 	"openapi": "3.1.0",
 	"security": [],
 	"info": {
-		"title": "Fluxer API",
+		"title": "pirichat API",
 		"version": "1.0.0",
-		"description": "API for Fluxer, a free and open source instant messaging and VoIP chat app built for friends, groups, and communities.",
-		"contact": {"name": "Fluxer Platform AB", "email": "support@fluxer.com"},
+		"description": "API of pirichat, a free and open source instant messaging and VoIP chat app for friends, groups and communities.",
+		"contact": {"name": "pirichat", "email": "selim.doyranli@albayrakmedya.com"},
 		"license": {"name": "AGPL-3.0", "url": "https://www.gnu.org/licenses/agpl-3.0.html"}
 	},
-	"servers": [{"url": "https://api.fluxer.app/v1", "description": "Production API"}],
+	"servers": [{"url": "https://pirichat.online/api/v1", "description": "Production API"}],
 	"paths": {
 		"/.well-known/fluxer": {
 			"get": {
@@ -36063,8 +36063,8 @@
 					"name": {"type": "string"},
 					"asset_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
 					"extension": {"type": "string", "enum": ["mp3", "ogg"]},
-					"size_bytes": {"type": "integer", "exclusiveMinimum": 0, "maximum": 512000},
-					"duration_ms": {"type": "integer", "exclusiveMinimum": 0, "maximum": 5200},
+					"size_bytes": {"type": "integer", "exclusiveMinimum": 0, "maximum": 1000000},
+					"duration_ms": {"type": "integer", "exclusiveMinimum": 0, "maximum": 10000},
 					"volume": {"type": "number", "minimum": 0, "maximum": 1},
 					"created_at": {
 						"type": "string",
@@ -36094,7 +36094,7 @@
 				"type": "object",
 				"properties": {
 					"name": {"type": "string"},
-					"audio": {"type": "string", "minLength": 1, "maxLength": 682668},
+					"audio": {"type": "string", "minLength": 1, "maxLength": 1333336},
 					"volume": {"type": "number", "minimum": 0, "maximum": 1}
 				},
 				"required": ["name", "audio"]

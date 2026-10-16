@@ -1456,6 +1456,11 @@ module.exports = {
 				'FluxerTrayTemplate@2x.png',
 				'PirichatTray.png',
 				'PirichatTray@2x.png',
+				'tray-glyph.png',
+				'tray-glyph@1.25x.png',
+				'tray-glyph@1.5x.png',
+				'tray-glyph@2x.png',
+				'tray-glyph-256x256.png',
 				'icon.ico',
 				'icon.png',
 			],
@@ -1575,7 +1580,8 @@ module.exports = {
 		extendInfo: {
 			NSMicrophoneUsageDescription: 'pirichat needs access to your microphone to enable voice chat features.',
 			NSCameraUsageDescription: 'pirichat needs access to your camera to enable video chat features.',
-			NSAppleEventsUsageDescription: 'pirichat needs access to Apple Events for automation features.',
+			NSAppleEventsUsageDescription:
+				'pirichat reads the song playing in Spotify to show it on your profile. You can turn this off in pirichat settings.',
 			NSAudioCaptureUsageDescription: 'pirichat captures audio from the screen or window you choose to share.',
 			NSScreenCaptureUsageDescription: 'pirichat captures the screen or window you choose to share.',
 			NSLocalNetworkUsageDescription:

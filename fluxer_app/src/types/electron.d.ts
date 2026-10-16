@@ -35,6 +35,7 @@ import type {
 	NativeAudioStartOptions,
 	NativeAudioStartResult,
 	NativeScreenCaptureLifecycleMessage,
+	ScreenRecordingPermissionStatus,
 	SetDesktopTroubleshootingDisableHardwareAccelerationOptions,
 	SetDesktopTroubleshootingDisableModuleUpdatesOptions,
 	SpellcheckBundledDictionary,
@@ -254,11 +255,13 @@ interface DesktopLegacyHarvestAPI {
 }
 
 export interface ElectronAPI {
-	gameActivityGetCapabilities?(): Promise<{version: 1; supported: boolean}>;
+	// `spotify` is absent on shells older than Spotify support; only then may `spotify` be sent to configure.
+	gameActivityGetCapabilities?(): Promise<{version: 1; supported: boolean; spotify?: boolean}>;
 	gameActivityConfigure?(request: {
 		account_id: string | null;
 		generation: number;
 		enabled: boolean;
+		spotify?: boolean;
 	}): Promise<{state: 'ok' | 'unsupported'}>;
 	gameActivityGetState?(request: {generation: number}): Promise<DesktopGameActivityState>;
 	gameActivityListCandidates?(request: {generation: number; cursor?: string}): Promise<DesktopGameActivityCandidates>;
@@ -357,8 +360,8 @@ export interface ElectronAPI {
 	checkInputMonitoringAccess(): Promise<boolean>;
 	getInputMonitoringPermissionStatus?(): Promise<InputMonitoringPermissionStatus>;
 	requestInputMonitoringPermission?(): Promise<InputMonitoringPermissionStatus>;
-	getScreenRecordingPermissionStatus?(): Promise<InputMonitoringPermissionStatus>;
-	requestScreenRecordingPermission?(): Promise<InputMonitoringPermissionStatus>;
+	getScreenRecordingPermissionStatus?(): Promise<ScreenRecordingPermissionStatus>;
+	requestScreenRecordingPermission?(): Promise<ScreenRecordingPermissionStatus>;
 	checkMediaAccess(type: MediaAccessType): Promise<Exclude<MediaAccessStatus, 'unknown'>>;
 	requestMediaAccess(type: MediaAccessType): Promise<boolean>;
 	openInputMonitoringSettings(): Promise<void>;

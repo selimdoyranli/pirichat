@@ -12,7 +12,7 @@ import vm from 'node:vm';
 const require = createRequire(import.meta.url);
 const desktopRoot = fileURLToPath(new URL('../../', import.meta.url));
 const resourceRoot = path.join(desktopRoot, 'build_resources');
-const sourceHash = 'f80d9174a68dcdf418bb9f782c9f153da3eee3a2bd89597a13f3d282c19a51aa';
+const sourceHash = '607f76bb322ed2b0aba8818976ef9b8f748d126dbadd1e8fa9a3bb3fafe4211f';
 const sizes = [16, 24, 32, 48, 64, 128, 256, 512, 1024];
 const icnsSizes = {
 	icp4: 16,
@@ -102,12 +102,9 @@ for (const channel of ['stable', 'canary']) {
 			const length = icns.readUInt32BE(offset + 4);
 			assert.ok(length > 8 && offset + length <= icns.length);
 			assert.ok(type in icnsSizes, type);
-			assert.ok(
-				icns
-					.subarray(offset + 8, offset + length)
-					.equals(readFileSync(path.join(iconRoot, `${icnsSizes[type]}x${icnsSizes[type]}.png`))),
-				`${type} differs from the pirichat PNG`,
-			);
+			// pirichat: macOS chunks are the tile on Apple's 824/1024 icon grid, so they are padded PNGs, not the flat ones.
+			const chunk = icns.subarray(offset + 8, offset + length);
+			assert.deepEqual(pngSize(chunk), [icnsSizes[type], icnsSizes[type]], type);
 			chunks.add(type);
 			offset += length;
 		}
@@ -192,5 +189,57 @@ for (const channel of ['stable', 'canary']) {
 			);
 		}
 		assert.deepEqual(protocols, ['pirichat']);
+	});
+}
+
+function pngSize(png) {
+	assert.equal(png.toString('latin1', 1, 4), 'PNG');
+	return [png.readUInt32BE(16), png.readUInt32BE(20)];
+}
+
+for (const channel of ['stable', 'canary', 'development']) {
+	const iconRoot = path.join(resourceRoot, `icons-${channel}`);
+	test(`${channel} tray, menu bar and taskbar badge icons are generated from the pirichat mark`, () => {
+		assert.equal(
+			createHash('sha256')
+				.update(readFileSync(path.join(iconRoot, '1024x1024.png')))
+				.digest('hex'),
+			sourceHash,
+		);
+		const packaged = configFor(channel).extraResources.find((resource) => resource.to === 'icons').filter;
+		const trayFiles = {
+			'FluxerTrayTemplate.png': 16,
+			'FluxerTrayTemplate@2x.png': 32,
+			'tray-glyph.png': 16,
+			'tray-glyph@1.25x.png': 20,
+			'tray-glyph@1.5x.png': 24,
+			'tray-glyph@2x.png': 32,
+			'tray-glyph-256x256.png': 256,
+		};
+		for (const [name, size] of Object.entries(trayFiles)) {
+			const png = readFileSync(path.join(iconRoot, name));
+			assert.deepEqual(pngSize(png), [size, size], name);
+			assert.ok(png.equals(readFileSync(path.join(resourceRoot, 'icons-stable', name))), `${name} differs from stable`);
+			assert.ok(packaged.includes(name), `${name} is not packaged`);
+		}
+		for (const prefix of ['badge', 'badge-dark']) {
+			for (let index = 1; index <= 11; index++) {
+				const name = `${prefix}-${index}.ico`;
+				const ico = readFileSync(path.join(iconRoot, 'badges', name));
+				assert.ok(ico.equals(readFileSync(path.join(resourceRoot, 'icons-stable', 'badges', name))), name);
+				assert.deepEqual([ico.readUInt16LE(0), ico.readUInt16LE(2)], [0, 1]);
+				const frames = [];
+				for (let entry = 0; entry < ico.readUInt16LE(4); entry++) {
+					const offset = 6 + entry * 16;
+					const data = ico.subarray(
+						ico.readUInt32LE(offset + 12),
+						ico.readUInt32LE(offset + 12) + ico.readUInt32LE(offset + 8),
+					);
+					assert.deepEqual(pngSize(data), [ico[offset], ico[offset + 1]]);
+					frames.push(ico[offset]);
+				}
+				assert.deepEqual(frames, [16, 20, 24, 32, 40, 48], name);
+			}
+		}
 	});
 }
